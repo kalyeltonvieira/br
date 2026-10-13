@@ -1,9 +1,0 @@
-contrato build
-    função nome
-    função descricao
-    função versao
-    função construir recebendo projeto
-    função limpar recebendo projeto
-    função empacotar recebendo projeto
-    função artefato recebendo nome_item
-fim

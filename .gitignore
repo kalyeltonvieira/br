@@ -1,0 +1,31 @@
+# Dependencias
+node_modules/
+
+# Artefatos de build e distribuicao
+build/
+dist/
+bin/
+*.o
+*.exe
+*.vsix
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# VS Code extension compilado
+vscode-extension/out/
+
+# Temporarios e rascunhos
+temp/
+scratch/
+output.txt
+tmp_test.*
+temp_lexer_test.py
+
+# Sistema e editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -1,5 +1,0 @@
-importar "build"
-
-teste "nome do modulo build"
-    espere build.nome() igual a "build"
-fim
