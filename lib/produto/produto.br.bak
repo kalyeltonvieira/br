@@ -1,0 +1,38 @@
+# Produto module for product registration, SKU, price, categories and variations
+
+explicacao
+    produto: cadastro, SKU, preço, categorias e variações.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "produto"
+fim
+
+função descricao
+    devolva "Cadastro, SKU, preço, categorias e variações."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função criar_produto recebendo nome, sku, preco, categorias
+    devolva "ID_PRODUTO"
+fim
+
+função atualizar_produto recebendo produto_id, dados
+    devolva verdadeiro
+fim
+
+função buscar_produto recebendo filtro
+    devolva []
+fim
+
+função excluir_produto recebendo produto_id
+    devolva verdadeiro
+fim
+
+função fechar
+    devolva verdadeiro
+fim

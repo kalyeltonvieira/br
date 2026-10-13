@@ -1,0 +1,5 @@
+importar "nlp"
+
+teste "nome do modulo nlp"
+    espere nlp.nome() igual a "nlp"
+fim

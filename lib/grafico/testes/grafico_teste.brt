@@ -1,0 +1,5 @@
+importar "grafico"
+
+teste "nome do modulo grafico"
+    espere grafico.nome() igual a "grafico"
+fim

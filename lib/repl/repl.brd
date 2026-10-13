@@ -1,0 +1,19 @@
+# Documentação BRD: repl
+
+## Nome
+
+REPL
+
+## Descrição
+
+console interativo da linguagem.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* iniciar: Inicia console interativo.
+* avaliar: Avalia código BR.
+* historico: Retorna histórico do console.
+* sair: Finaliza sessão REPL.

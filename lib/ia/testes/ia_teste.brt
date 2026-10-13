@@ -1,0 +1,5 @@
+importar "ia"
+
+teste "nome do modulo ia"
+    espere ia.nome() igual a "ia"
+fim

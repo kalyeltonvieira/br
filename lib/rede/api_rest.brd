@@ -1,0 +1,39 @@
+# Documentação BRD: api_rest
+
+## Nome
+
+API REST
+
+## Descrição
+
+Criação de APIs RESTful. Permite criar APIs REST com suporte a CRUD, autenticação e documentação automática.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* criar: Cria uma nova API REST.
+* adicionar_recurso: Adiciona um recurso à API.
+* adicionar_operacao: Adiciona uma operação a um recurso.
+* definir_autenticacao: Define o tipo de autenticação da API.
+* adicionar_rate_limit: Adiciona rate limiting à API.
+* gerar_documentacao: Gera documentação automática da API (OpenAPI/Swagger).
+* validar_requisicao: Valida uma requisição contra o esquema da API.
+* formatar_resposta: Formata uma resposta da API.
+* adicionar_paginacao: Adiciona paginação às respostas da API.
+* adicionar_filtro: Adiciona um filtro suportado pela API.
+* adicionar_ordenacao: Adiciona ordenação suportada pela API.
+
+## Exemplo
+
+```br
+usar rede.api_rest
+
+api é criar "Minha API", "1.0.0"
+adicionar_recurso api, "usuarios", registro
+    operacoes: lista "criar", "ler", "atualizar", "deletar"
+fim
+
+gerar_documentacao api
+```

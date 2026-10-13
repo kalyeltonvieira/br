@@ -1,0 +1,15 @@
+explicacao
+    API publica complementar do modulo yaml.
+fim
+
+função status
+    devolva "yaml: pronto"
+fim
+
+função titulo
+    devolva "YAML"
+fim
+
+função primeira_funcao
+    devolva "ler"
+fim

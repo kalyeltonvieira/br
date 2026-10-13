@@ -1,0 +1,132 @@
+explicacao
+    UUID: geração e validação de UUIDs v1, v4 e v7.
+    Ideal para identificadores únicos em sistemas distribuídos.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome devolva "uuid" fim
+função descricao devolva "UUID: geração e validação de UUIDs v1, v4 e v7" fim
+função versao devolva "1.0.0" fim
+
+função uuid_v4
+    hex_chars é "0123456789abcdef"
+    resultado é ""
+    repita 36 vezes
+        i_actual é tamanho(resultado)
+        se i_actual igual 8 ou i_actual igual 13 ou i_actual igual 18 ou i_actual igual 23 então
+            resultado é resultado + "-"
+        senao se i_actual igual 14 então
+            resultado é resultado + "4"
+        senao se i_actual igual 19 então
+            hex_opcoes é "89ab"
+            indice_hex é inteiro_aleatorio(0, 3)
+            resultado é resultado + hex_opcoes[indice_hex]
+        senao
+            indice_hex é inteiro_aleatorio(0, 15)
+            resultado é resultado + hex_chars[indice_hex]
+        fim
+    fim
+    devolva resultado
+fim
+
+função uuid_v7
+    importar "data_hora" as dh
+    ts_agora é dh.agora()
+    timestamp_hex é ""
+    temp_ts é ts_agora
+    repita 12 vezes
+        digito_hex é "0123456789abcdef"
+        indice_digito é temp_ts % 16
+        timestamp_hex é digito_hex[indice_digito] + timestamp_hex
+        temp_ts é temp_ts / 16
+    fim
+    resultado é timestamp_hex
+    repita 24 vezes
+        i_actual é tamanho(resultado)
+        se i_actual igual 8 ou i_actual igual 13 ou i_actual igual 18 ou i_actual igual 23 então
+            resultado é resultado + "-"
+        senao
+            hex_chars é "0123456789abcdef"
+            indice_hex é inteiro_aleatorio(0, 15)
+            resultado é resultado + hex_chars[indice_hex]
+        fim
+    fim
+    devolva resultado
+fim
+
+função valido recebendo uuid
+    se uuid nulo então devolva falso fim
+    se tamanho(uuid) diferente 36 então devolva falso fim
+    se uuid[8] diferente "-" então devolva falso fim
+    se uuid[13] diferente "-" então devolva falso fim
+    se uuid[18] diferente "-" então devolva falso fim
+    se uuid[23] diferente "-" então devolva falso fim
+    hex_chars_validos é "0123456789abcdefABCDEF"
+    i é 0
+    enquanto i < tamanho(uuid)
+        c é uuid[i]
+        se c diferente "-" então
+            se não contem(hex_chars_validos, c) então
+                devolva falso
+            fim
+        fim
+        i é i + 1
+    fim
+    devolva verdadeiro
+fim
+
+função versao recebendo uuid
+    se não valido(uuid) então devolva -1 fim
+    versao_char é uuid[14]
+    devolva versao_char como inteiro
+fim
+
+função sem_tracos recebendo uuid
+    importar "texto" as txt
+    devolva txt.substituir(uuid, "-", "")
+fim
+
+função com_tracos recebendo uuid_limpo
+    se tamanho(uuid_limpo) diferente 32 então
+        devolva uuid_limpo
+    fim
+    resultado é ""
+    i é 0
+    enquanto i < 32
+        se i igual 8 ou i igual 12 ou i igual 16 ou i igual 20 então
+            resultado é resultado + "-"
+        fim
+        resultado é resultado + uuid_limpo[i]
+        i é i + 1
+    fim
+    devolva resultado
+fim
+
+teste "uuid v4 formato"
+    id é uuid_v4()
+    esporte valido(id) igual a verdadeiro
+    esporte tamanho(id) igual a 36
+fim
+
+teste "uuid v4 versao"
+    id é uuid_v4()
+    esporte versao(id) igual a 4
+fim
+
+teste "uuid valido"
+    esporte valido("550e8400-e29b-41d4-a716-446655440000") igual a verdadeiro
+    esporte valido("invalido") igual a falso
+fim
+
+teste "sem tracos"
+    id é "550e8400-e29b-41d4-a716-446655440000"
+    resultado é sem_tracos(id)
+    esporte tamanho(resultado) igual a 32
+    esporte não contem(resultado, "-")
+fim
+
+teste "com tracos"
+    limpo é "550e8400e29b41d4a716446655440000"
+    resultado é com_tracos(limpo)
+    esporte tamanho(resultado) igual a 36
+fim

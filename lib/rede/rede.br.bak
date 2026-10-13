@@ -1,0 +1,32 @@
+explicacao
+    Rede: HTTP, URL, download, sockets, WebSocket e email.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "rede"
+fim
+
+função descricao
+    devolva "Rede: HTTP, URL, download, sockets, WebSocket e email"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função get recebendo url
+    devolva ""
+fim
+
+função post recebendo url e dados
+    devolva ""
+fim
+
+função baixar recebendo url e caminho
+    devolva verdadeiro
+fim
+
+função url_valida recebendo url
+    devolva verdadeiro
+fim

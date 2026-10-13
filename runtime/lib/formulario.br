@@ -1,0 +1,80 @@
+explicacao
+    Modulo formulario compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "formulario"
+fim
+
+funcao descricao
+    devolva "Modulo formulario compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao criar recebendo campos
+    devolva verdadeiro
+fim
+
+funcao adicionar_campo recebendo formulario e nome e tipo
+    devolva formulario
+fim
+
+funcao definir_obrigatorio recebendo formulario e campo e obrigatorio
+    devolva formulario
+fim
+
+funcao adicionar_validador recebendo formulario e campo e validador
+    devolva formulario
+fim
+
+funcao validar recebendo formulario e dados
+    devolva verdadeiro
+fim
+
+funcao obter_erros recebendo formulario
+    devolva formulario
+fim
+
+funcao obter_dados recebendo formulario
+    devolva formulario
+fim
+
+funcao limpar_dados recebendo formulario
+    devolva formulario
+fim
+
+funcao definir_valor_padrao recebendo formulario e campo e valor
+    devolva formulario
+fim
+
+funcao validar_email recebendo email
+    devolva email
+fim
+
+funcao validar_url recebendo url
+    devolva url
+fim
+
+funcao validar_numero recebendo valor
+    devolva valor
+fim
+
+funcao validar_tamanho recebendo valor e minimo e maximo
+    devolva valor
+fim
+
+funcao sanitizar recebendo dados
+    devolva dados
+fim
+
+funcao exemplo recebendo valor
+    devolva valor
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim

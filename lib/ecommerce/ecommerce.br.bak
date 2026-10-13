@@ -1,0 +1,34 @@
+# Ecommerce module for products, orders, customers and checkout
+
+explicacao
+    ecommerce: produtos, pedidos, clientes e checkout.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "ecommerce"
+fim
+
+função descricao
+    devolva "Produtos, pedidos, clientes e checkout."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função listar_produtos
+    devolva []
+fim
+
+função criar_pedido recebendo cliente_id, itens
+    devolva "ID_PEDIDO"
+fim
+
+função checkout recebendo pedido_id, metodo_pagamento
+    devolva verdadeiro
+fim
+
+função fechar
+    devolva verdadeiro
+fim

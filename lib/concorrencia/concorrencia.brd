@@ -1,0 +1,19 @@
+# Documentação BRD: concorrencia
+
+## Nome
+
+Concorrência
+
+## Descrição
+
+threads, tarefas assíncronas e promessas.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* tarefa: Cria tarefa.
+* aguardar: Aguarda resultado.
+* promessa: Cria promessa.
+* em_paralelo: Executa em paralelo.

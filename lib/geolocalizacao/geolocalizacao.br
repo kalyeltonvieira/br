@@ -1,0 +1,30 @@
+# Geolocalizacao module for latitude, longitude, distance and location
+
+explicacao
+    geolocalizacao: latitude, longitude, distância e localização.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "geolocalizacao"
+fim
+
+função descricao
+    devolva "Latitude, longitude, distância e localização."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função obter_coordenadas recebendo endereco
+    devolva {"latitude": 0.0, "longitude": 0.0}
+fim
+
+função calcular_distancia recebendo lat1, lon1, lat2, lon2
+    devolva 0.0
+fim
+
+função fechar
+    devolva verdadeiro
+fim

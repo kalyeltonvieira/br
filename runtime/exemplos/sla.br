@@ -1,0 +1,77 @@
+# jogo_adivinhacao.br
+importar "matematica" como mat
+importar "texto" como txt
+explicacao
+    Jogo de adivinhação em BR.
+    O jogador tenta descobrir um número secreto entre 1 e 100.
+fim
+
+função ler_numero recebendo mensagem
+    enquanto verdadeiro
+        mostre mensagem + ": "
+        entrada é sistema.ler_entrada()
+        
+        tente
+            numero é entrada como inteiro
+            devolva numero
+        capture erro
+            mostre "Digite um número válido."
+        fim
+    fim
+fim
+
+função jogar_adivinhacao
+    alvo é mat.aleatorio(1, 100)
+    tentativas é 0
+    mostre "Pensei em um número entre 1 e 100. Tente acertar!"
+    
+    enquanto verdadeiro
+        chute é ler_numero("Seu palpite")
+        tentativas é tentativas + 1
+        
+        se chute igual alvo então
+            mostre "Parabéns! Você acertou em " + tentativas + " tentativas."
+            pare
+        fim
+        
+        se chute menor que alvo então
+            mostre "Muito baixo!"
+        senão
+            mostre "Muito alto!"
+        fim
+    fim
+fim
+
+função exibir_menu
+    mostre ""
+    mostre "=== JOGO DE ADIVINHAÇÃO BR ==="
+    mostre "1. Jogar"
+    mostre "2. Instruções"
+    mostre "3. Sair"
+    mostre ""
+fim
+
+função executar_jogo
+    opcao é 0
+    
+    enquanto opcao diferente 3
+        exibir_menu()
+        opcao é ler_numero("Escolha uma opção")
+        
+        escolha opcao
+            caso 1
+                jogar_adivinhacao()
+            caso 2
+                mostre "Tente adivinhar o número secreto entre 1 e 100."
+                mostre "O jogo informa se o seu palpite está muito alto ou muito baixo."
+            caso 3
+                mostre "Obrigado por jogar!"
+            senão
+                mostre "Opção inválida. Tente novamente."
+        fim
+    fim
+fim
+
+mostre "Bem-vindo ao Jogo de Adivinhação BR!"
+executar_jogo()
+mostre "Fim de jogo."

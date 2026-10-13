@@ -1,0 +1,9 @@
+contrato performance
+    função nome
+    função descricao
+    função versao
+    função tempo recebendo nome_item
+    função benchmark recebendo nome_item
+    função perfil recebendo nome_item
+    função memoria
+fim

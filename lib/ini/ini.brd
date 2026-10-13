@@ -1,0 +1,19 @@
+# Documentação BRD: ini
+
+## Nome
+
+INI
+
+## Descrição
+
+leitura, escrita e edição de arquivos INI.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* ler: Lê conteúdo INI.
+* escrever: Gera texto INI.
+* editar: Edita uma chave INI.
+* secao: Consulta seção INI.

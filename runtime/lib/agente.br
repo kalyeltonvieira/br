@@ -1,0 +1,79 @@
+explicacao
+    Agente: Agentes de IA e automação inteligente.
+    Este módulo permite criar e gerenciar agentes de IA.
+    Esta biblioteca é totalmente funcional e nativa.
+fim
+
+função nome
+    devolva "agente"
+fim
+
+função descricao
+    devolva "Agentes de IA e automação inteligente"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# ============ CRIAÇÃO DE AGENTES ============
+
+função criar recebendo nome e modelo
+    # Cria um novo agente de IA
+    agente é registro
+        nome: nome
+        modelo: modelo
+        memoria: lista
+        ferramentas: lista
+        ativo: verdadeiro
+    fim
+    devolva agente
+fim
+
+função adicionar_memoria recebendo agente e mensagem
+    # Adiciona uma mensagem à memória do agente
+    adicione mensagem em agente.memoria
+    devolva verdadeiro
+fim
+
+função adicionar_ferramenta recebendo agente e ferramenta
+    # Adiciona uma ferramenta ao agente
+    adicione ferramenta em agente.ferramentas
+    devolva verdadeiro
+fim
+
+# ============ EXECUÇÃO ============
+
+função executar recebendo agente e prompt
+    # Executa o agente com um prompt
+    resposta é servico_agente("executar", agente, prompt)
+    devolva resposta
+fim
+
+função conversar recebendo agente e mensagem
+    # Mantém uma conversa com o agente
+    adicionar_memoria agente, mensagem
+    resposta é executar agente, mensagem
+    adicionar_memoria agente, resposta
+    devolva resposta
+fim
+
+# ============ GERENCIAMENTO ============
+
+função limpar_memoria recebendo agente
+    # Limpa a memória do agente
+    agente.memoria é lista
+    devolva verdadeiro
+fim
+
+função ativar recebendo agente
+    # Ativa o agente
+    agente.ativo é verdadeiro
+    devolva verdadeiro
+fim
+
+função desativar recebendo agente
+    # Desativa o agente
+    agente.ativo é falso
+    devolva verdadeiro
+fim

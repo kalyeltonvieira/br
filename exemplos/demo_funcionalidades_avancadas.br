@@ -1,0 +1,119 @@
+# Demonstração das Funcionalidades Avançadas da Linguagem BR
+# Versão 2.0.0
+
+# ==================== F-STRINGS ====================
+nome é "Maria"
+idade é 30
+mostre "Olá, eu sou ${nome} e tenho ${idade} anos"
+
+# ==================== CLASSES COM HERANÇA ====================
+classe Animal
+    nome: texto
+    idade: inteiro
+fim
+
+classe Cachorro herda Animal
+    raca: texto
+    
+    função latir recebendo intensidade
+        mostre "${isto.nome} está latindo com intensidade ${intensidade}!"
+    fim
+fim
+
+cachorro é Cachorro("Rex", 5, "Labrador")
+cachorro.latir(10)
+mostre "Nome: ${cachorro.nome}, Idade: ${cachorro.idade}, Raça: ${cachorro.raca}"
+
+# ==================== PARALELISMO ====================
+execute em paralelo
+    mostre "Processo 1 executando..."
+    mostre "Processo 2 executando..."
+    mostre "Processo 3 executando..."
+fim
+
+# ==================== TRATAMENTO DE ERROS ====================
+tente
+    resultado é 10 / 0
+capture erro
+    mostre "Erro capturado: ${erro}"
+fim
+
+# ==================== LISTA COMPREHENSION (Sintaxe) ====================
+# Nota: List comprehensions são suportadas na sintaxe [expr para var em lista]
+números é [1, 2, 3, 4, 5]
+quadrados é [x * x para x em números]
+mostre "Quadrados: ${quadrados}"
+
+# ==================== DECORATORS (Conceito) ====================
+# Decorators são aplicados com @ antes de funções
+função saudacao recebendo nome
+    devolva "Olá, ${nome}!"
+fim
+
+# ==================== ITERAÇÃO ====================
+frutas é ["maçã", "banana", "laranja"]
+para cada fruta em frutas
+    mostre "Fruta: ${fruta}"
+fim
+
+conte de 1 até 3 como i
+    mostre "Contagem: ${i}"
+fim
+
+# ==================== ESCOLHA/CASO ====================
+opcao é 2
+escolha opcao
+    caso 1
+        mostre "Opção 1 selecionada"
+    caso 2
+        mostre "Opção 2 selecionada"
+    caso 3
+        mostre "Opção 3 selecionada"
+    padrao
+        mostre "Opção inválida"
+fim
+
+# ==================== BANCO DE DADOS (Memória) ====================
+usuario é registro
+    nome: "João"
+    idade: 25
+    ativo: verdadeiro
+fim
+
+salve usuario
+mostre "Usuário salvo no banco de dados"
+
+# ==================== MÓDULOS ====================
+importar "arquivo"
+
+# ==================== FUNÇÕES ====================
+função somar recebendo a e b
+    devolva a + b
+fim
+
+resultado é somar(10, 20)
+mostre "Resultado da soma: ${resultado}"
+
+# ==================== CONSTANTES ====================
+constante PI é 3.14159
+constante GRAVIDADE é 9.8
+mostre "PI: ${PI}, Gravidade: ${GRAVIDADE}"
+
+# ==================== BOOLEANOS ====================
+ativo é verdadeiro
+desativado é falso
+se ativo e nao desativado
+    mostre "Sistema ativo!"
+fim
+
+# ==================== TEXTO E STRINGS ====================
+mensagem é "Bem-vindo à linguagem BR!"
+mostre mensagem
+mostre "Tamanho: ${mensagem.tamanho}"
+mostre "Contém 'BR': ${mensagem.contem("BR")}"
+
+# ==================== FINAL ====================
+mostre ""
+mostre "========================================="
+mostre "Demonstração concluída com sucesso!"
+mostre "========================================="

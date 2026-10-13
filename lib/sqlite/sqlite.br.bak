@@ -1,0 +1,38 @@
+# SQLite module for local SQLite database integration
+
+explicacao
+    SQLite: banco de dados local SQLite.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "sqlite"
+fim
+
+função descricao
+    devolva "Banco de dados local SQLite."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função conectar recebendo caminho
+    devolva verdadeiro
+fim
+
+função consulta recebendo sql
+    devolva sql
+fim
+
+função transacao
+    devolva verdadeiro
+fim
+
+função migrar
+    devolva verdadeiro
+fim
+
+função fechar
+    devolva verdadeiro
+fim

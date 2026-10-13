@@ -1,0 +1,5 @@
+funcao dobro recebendo valor
+    devolva valor * 2
+fim
+
+mostre dobro(7)

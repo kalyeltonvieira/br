@@ -1,0 +1,5 @@
+importar "banco"
+
+teste "nome do modulo banco"
+    espere banco.nome() igual a "banco"
+fim

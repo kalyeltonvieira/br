@@ -1,0 +1,5 @@
+importar "assinatura"
+
+teste "nome do modulo assinatura"
+    espere assinatura.nome() igual a "assinatura"
+fim

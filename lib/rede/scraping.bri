@@ -1,0 +1,21 @@
+contrato scraping
+    função nome
+    função descricao
+    função versao
+    função obter_html recebendo url
+    função selecionar_todos recebendo html e seletor
+    função selecionar_um recebendo html e seletor
+    função obter_texto recebendo elemento
+    função obter_atributo recebendo elemento e atributo
+    função obter_links recebendo html
+    função obter_imagens recebendo html
+    função obter_tabelas recebendo html
+    função parsear_tabela recebendo tabela
+    função limpar_texto recebendo texto
+    função extrair_json recebendo html e seletor
+    função seguir_links recebendo url e profundidade
+    função definir_cabecalho recebendo scraper, chave e valor
+    função definir_proxy recebendo scraper e proxy
+    função definir_timeout recebendo scraper e segundos
+    função definir_delay recebendo scraper e segundos
+fim

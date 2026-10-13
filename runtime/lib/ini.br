@@ -1,0 +1,183 @@
+explicacao
+    INI: parser e gerador para arquivos de configuração INI.
+    Suporta seções, chave=valor, comentários, tipos básicos.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome devolva "ini" fim
+função descricao devolva "INI: parser e gerador para arquivos de configuração" fim
+função versao devolva "1.0.0" fim
+
+função parsear recebendo texto
+    resultado_ini é registro
+    secao_atual é ""
+    linhas_ini é dividir_linhas(texto)
+    
+    para cada linha_ini in linhas_ini
+        linha_ini_limpa é aparar(linha_ini)
+        se linha_ini_limpa "" então continue fim
+        se comeca_com(linha_ini_limpa, ";") ou comeca_com(linha_ini_limpa, "#") então continue fim
+        
+        se comeca_com(linha_ini_limpa, "[") então
+            pos_fim_secao é encontrar(linha_ini_limpa, "]")
+            se pos_fim_secao > 0 então
+                secao_atual é aparar(linha_ini_limpa[1:pos_fim_secao])
+                se não (secao_atual em resultado_ini) então
+                    resultado_ini[secao_atual] é registro
+                fim
+            fim
+            continue
+        fim
+        
+        pos_igual_ini é encontrar(linha_ini_limpa, "=")
+        se pos_igual_ini < 0 então continue fim
+        
+        chave_ini é aparar(linha_ini_limpa[0:pos_igual_ini])
+        valor_ini é aparar(linha_ini_limpa[pos_igual_ini+1:])
+        
+        alvo_ini é resultado_ini
+        se secao_atual não "" então
+            alvo_ini é resultado_ini[secao_atual]
+        fim
+        
+        # Detectar tipo
+        se valor_ini igual "true" ou valor_ini igual "yes" ou valor_ini igual "on" então
+            alvo_ini[chave_ini] é verdadeiro
+        senao se valor_ini igual "false" ou valor_ini igual "no" ou valor_ini igual "off" então
+            alvo_ini[chave_ini] é falso
+        senao se comeca_com(valor_ini, "\"") e termina_com(valor_ini, "\"") então
+            alvo_ini[chave_ini] é valor_ini[1:tamanho(valor_ini)-1]
+        senao se contem(valor_ini, ".") então
+            tente
+                alvo_ini[chave_ini] é valor_ini como decimal
+            capture erro
+                alvo_ini[chave_ini] é valor_ini
+            fim
+        senao
+            tente
+                alvo_ini[chave_ini] é valor_ini como inteiro
+            capture erro
+                alvo_ini[chave_ini] é valor_ini
+            fim
+        fim
+    fim
+    
+    devolva resultado_ini
+fim
+
+função gerar recebendo dados_ini
+    resultado_ini_str é ""
+    
+    # Seção global primeiro
+    se dados_ini.global não nulo então
+        para cada chave_g, valor_g em dados_ini.global
+            resultado_ini_str é resultado_ini_str + chave_g + " = " + _valor_ini(valor_g) + "\n"
+        fim
+        resultado_ini_str é resultado_ini_str + "\n"
+    fim
+    
+    # Depois as outras seções
+    para cada secao_nome, secao_dados in dados_ini
+        se secao_nome diferente "global" então
+            resultado_ini_str é resultado_ini_str + "[" + secao_nome + "]\n"
+            para cada chave_s, valor_s in secao_dados
+                resultado_ini_str é resultado_ini_str + chave_s + " = " + _valor_ini(valor_s) + "\n"
+            fim
+            resultado_ini_str é resultado_ini_str + "\n"
+        fim
+    fim
+    
+    devolva resultado_ini_str
+fim
+
+função _valor_ini recebendo v
+    se v igual nulo então devolva "" fim
+    se tipo(v) igual "booleano" então devolva "true" se v senao "false" fim
+    se tipo(v) igual "texto" então
+        se contem(v, " ") ou contem(v, "#") ou contem(v, ";") então
+            devolva "\"" + v + "\""
+        fim
+        devolva v
+    fim
+    devolva "" + v
+fim
+
+função carregar recebendo caminho_ini
+    importar "arquivo" as arq_ini
+    tente
+        conteudo_ini é arq_ini.ler_texto(caminho_ini)
+        devolva parsear(conteudo_ini)
+    capture erro_ini
+        devolva registro
+    fim
+fim
+
+função salvar recebendo caminho_ini e dados_ini
+    importar "arquivo" as arq_ini
+    tente
+        texto_ini é gerar(dados_ini)
+        arq_ini.escrever(caminho_ini, texto_ini)
+        devolva verdadeiro
+    capture erro_ini
+        devolva falso
+    fim
+fim
+
+função obter recebendo dados_ini, secao, chave e padrao_ini
+    se secao em dados_ini e chave em dados_ini[secao] então
+        devolva dados_ini[secao][chave]
+    fim
+    devolva padrao_ini
+fim
+
+função definir recebendo dados_ini, secao, chave e valor_ini
+    se não (secao em dados_ini) então
+        dados_ini[secao] é registro
+    fim
+    dados_ini[secao][chave] é valor_ini
+    devolva dados_ini
+fim
+
+teste "ini parse simples"
+    ini_texto é "nome = Linguagem BR\nversao = 1.0"
+    resultado_ini é parsear(ini_texto)
+    esporte resultado_ini.nome igual a "Linguagem BR"
+    esporte resultado_ini.versao igual a 1.0
+fim
+
+teste "ini com secoes"
+    ini_texto é "[banco]\nhost = localhost\nporta = 5432\n[app]\nnome = MeuApp"
+    resultado_ini é parsear(ini_texto)
+    esporte resultado_ini.banco.host igual a "localhost"
+    esporte resultado_ini.banco.porta igual a 5432
+    esporte resultado_ini.app.nome igual a "MeuApp"
+fim
+
+teste "ini booleanos"
+    ini_texto é "[config]\nativo = true\nmodo_debug = false"
+    resultado_ini é parsear(ini_texto)
+    esporte resultado_ini.config.ativo igual a verdadeiro
+    esporte resultado_ini.config.modo_debug igual a falso
+fim
+
+teste "ini obter com padrao"
+    dados_ini_t é parsear("[db]\nhost = localhost")
+    resultado_ini_t é obter(dados_ini_t, "db", "porta", 3306)
+    esporte resultado_ini_t igual a 3306
+fim
+
+teste "ini definir"
+    dados_ini_t2 é registro
+    ini_texto_t2 é "[db]\nhost = localhost"
+    dados_ini_t2 é parsear(ini_texto_t2)
+    dados_ini_t2 é definir(dados_ini_t2, "db", "porta", 5432)
+    esporte dados_ini_t2.db.porta igual a 5432
+fim
+
+teste "ini gerar e parsear"
+    dados_originais é parsear("[secao]\nchave = valor\nnumero = 42")
+    texto_gerado_ini é gerar(dados_originais)
+    dados_reparseados é parsear(texto_gerado_ini)
+    esporte dados_reparseados.secao.chave igual a "valor"
+    esporte dados_reparseados.secao.numero igual a 42
+fim

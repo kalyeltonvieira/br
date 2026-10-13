@@ -1,0 +1,9 @@
+contrato eventos
+    função nome
+    função descricao
+    função versao
+    função emissor recebendo nome_item
+    função ouvir recebendo nome_item
+    função emitir recebendo nome_item
+    função fila
+fim

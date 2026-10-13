@@ -1,0 +1,24 @@
+explicacao
+    Modulo mysql compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "mysql"
+fim
+
+funcao descricao
+    devolva "Modulo mysql compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao exemplo recebendo x
+    devolva x
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim

@@ -1,0 +1,17 @@
+contrato cookie
+    função nome
+    função descricao
+    função versao
+    função criar recebendo nome, valor e opcoes
+    função ler recebendo nome
+    função escrever recebendo cookie
+    função deletar recebendo nome
+    função definir_expiracao recebendo cookie e segundos
+    função definir_seguro recebendo cookie e seguro
+    função definir_http_only recebendo cookie e http_only
+    função definir_same_site recebendo cookie e same_site
+    função definir_dominio recebendo cookie e dominio
+    função definir_caminho recebendo cookie e caminho
+    função assinar recebendo cookie e segredo
+    função verificar_assinatura recebendo cookie e segredo
+fim

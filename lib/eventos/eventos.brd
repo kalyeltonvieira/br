@@ -1,0 +1,19 @@
+# Documentação BRD: eventos
+
+## Nome
+
+Eventos
+
+## Descrição
+
+criar emissores, ouvintes e filas de eventos.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* emissor: Cria emissor.
+* ouvir: Registra ouvinte.
+* emitir: Emite evento.
+* fila: Cria fila de eventos.

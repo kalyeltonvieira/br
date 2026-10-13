@@ -1,0 +1,5 @@
+importar "smtp"
+
+teste "nome do modulo smtp"
+    espere smtp.nome() igual a "smtp"
+fim

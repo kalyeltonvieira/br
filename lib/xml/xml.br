@@ -1,0 +1,32 @@
+explicacao
+    XML: ler, gerar, validar e consultar arquivos XML.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "xml"
+fim
+
+função descricao
+    devolva "XML: ler, gerar, validar e consultar arquivos XML"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função validar recebendo dados
+    devolva verdadeiro
+fim
+
+função ler recebendo dados
+    devolva dados
+fim
+
+função gerar recebendo dados
+    devolva "<xml></xml>"
+fim
+
+função consultar recebendo dados e caminho
+    devolva ""
+fim

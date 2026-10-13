@@ -1,0 +1,42 @@
+# ORM module for object-relational mapping
+
+explicacao
+    ORM: mapeamento objeto-relacional.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "orm"
+fim
+
+função descricao
+    devolva "Mapeamento objeto-relacional."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função conectar recebendo conexao_string
+    devolva verdadeiro
+fim
+
+função modelo recebendo nome_modelo, campos
+    devolva verdadeiro
+fim
+
+função salvar recebendo objeto
+    devolva verdadeiro
+fim
+
+função buscar recebendo modelo, filtros
+    devolva []
+fim
+
+função remover recebendo objeto
+    devolva verdadeiro
+fim
+
+função fechar
+    devolva verdadeiro
+fim

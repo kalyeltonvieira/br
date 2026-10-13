@@ -1,0 +1,298 @@
+explicacao
+    ML Simples: algoritmos básicos de Machine Learning.
+    KNN (K-Nearest Neighbors), regressão linear simples,
+    normalização, métricas de erro e split treino/teste.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome devolva "ml_simples" fim
+função descricao devolva "ML Simples: KNN, regressão linear, normalização e métricas" fim
+função versao devolva "1.0.0" fim
+
+função normalizar_minmax recebendo dados
+    se tamanho(dados) igual 0 então devolva [] fim
+    min_dado é dados[0]; max_dado é dados[0]
+    para cada v_ml in dados
+        se v_ml < min_dado então min_dado é v_ml fim
+        se v_ml > max_dado então max_dado é v_ml fim
+    fim
+    range_dado é max_dado - min_dado
+    se range_dado igual 0 então
+        resultado_ml é []
+        repita tamanho(dados) vezes adicione 0 a resultado_ml fim
+        devolva resultado_ml
+    fim
+    resultado_ml é []
+    para cada v_ml in dados
+        adicione (v_ml - min_dado) / range_dado a resultado_ml
+    fim
+    devolva resultado_ml
+fim
+
+função padronizar recebendo dados_ml
+    importar "colecoes" as col_ml
+    media_ml é col_ml.media(dados_ml)
+    desvio_ml é raiz_quadrada(col_ml.variancia(dados_ml))
+    se desvio_ml igual 0 então
+        resultado_ml_pad é []
+        repita tamanho(dados_ml) vezes adicione 0 a resultado_ml_pad fim
+        devolva resultado_ml_pad
+    fim
+    resultado_ml_pad é []
+    para cada v_ml in dados_ml
+        adicione (v_ml - media_ml) / desvio_ml a resultado_ml_pad
+    fim
+    devolva resultado_ml_pad
+fim
+
+função distancia_euclidiana recebendo ponto1, ponto2
+    se tamanho(ponto1) diferente tamanho(ponto2) então devolva -1 fim
+    soma_dist é 0
+    i_dist é 0
+    enquanto i_dist < tamanho(ponto1)
+        diff_dist é ponto1[i_dist] - ponto2[i_dist]
+        soma_dist é soma_dist + diff_dist * diff_dist
+        i_dist é i_dist + 1
+    fim
+    devolva raiz_quadrada(soma_dist)
+fim
+
+função knn recebendo dados_treino, rotulos_treino, ponto_teste, k_valor
+    se k_valor nulo então k_valor é 3 fim
+    se tamanho(dados_treino) diferente tamanho(rotulos_treino) então devolva nulo fim
+    distancias_knn é []
+    i_knn é 0
+    enquanto i_knn < tamanho(dados_treino)
+        dist_knn é distancia_euclidiana(dados_treino[i_knn], ponto_teste)
+        adicione registro distancia: dist_knn rotulo: rotulos_treino[i_knn] indice: i_knn a distancias_knn
+        i_knn é i_knn + 1
+    fim
+    n_knn é tamanho(distancias_knn)
+    i_ord_knn é 0
+    enquanto i_ord_knn < n_knn - 1
+        j_ord_knn é 0
+        enquanto j_ord_knn < n_knn - i_ord_knn - 1
+            se distancias_knn[j_ord_knn].distancia > distancias_knn[j_ord_knn + 1].distancia então
+                temp_knn é distancias_knn[j_ord_knn]
+                distancias_knn[j_ord_knn] é distancias_knn[j_ord_knn + 1]
+                distancias_knn[j_ord_knn + 1] é temp_knn
+            fim
+            j_ord_knn é j_ord_knn + 1
+        fim
+        i_ord_knn é i_ord_knn + 1
+    fim
+    k_vizinhos é []
+    i_k_sel é 0
+    enquanto i_k_sel < k_valor e i_k_sel < tamanho(distancias_knn)
+        adicione distancias_knn[i_k_sel].rotulo a k_vizinhos
+        i_k_sel é i_k_sel + 1
+    fim
+    freq_knn é registro
+    para cada rot_knn in k_vizinhos
+        chave_rot é "" + rot_knn
+        se chave_rot em freq_knn então
+            freq_knn[chave_rot] é freq_knn[chave_rot] + 1
+        senao
+            freq_knn[chave_rot] é 1
+        fim
+    fim
+    max_freq_knn é 0; rot_pred_knn é k_vizinhos[0]
+    para cada rot_knn_item, freq_knn_item in freq_knn
+        se freq_knn_item > max_freq_knn então
+            max_freq_knn é freq_knn_item
+            rot_pred_knn é rot_knn_item
+        fim
+    fim
+    devolva rot_pred_knn
+fim
+
+função regressao_linear recebendo x_vals, y_vals
+    se tamanho(x_vals) diferente tamanho(y_vals) ou tamanho(x_vals) < 2 então
+        devolva registro inclinacao: 0 intercepto: 0 fim
+    fim
+    n_rl é tamanho(x_vals)
+    soma_x_rl é 0; soma_y_rl é 0; soma_xy_rl é 0; soma_x2_rl é 0
+    i_rl é 0
+    enquanto i_rl < n_rl
+        soma_x_rl é soma_x_rl + x_vals[i_rl]
+        soma_y_rl é soma_y_rl + y_vals[i_rl]
+        soma_xy_rl é soma_xy_rl + x_vals[i_rl] * y_vals[i_rl]
+        soma_x2_rl é soma_x2_rl + x_vals[i_rl] * x_vals[i_rl]
+        i_rl é i_rl + 1
+    fim
+    media_x_rl é soma_x_rl / n_rl
+    media_y_rl é soma_y_rl / n_rl
+    inclinacao_rl é (soma_xy_rl - n_rl * media_x_rl * media_y_rl) / (soma_x2_rl - n_rl * media_x_rl * media_x_rl)
+    intercepto_rl é media_y_rl - inclinacao_rl * media_x_rl
+    devolva registro inclinacao: inclinacao_rl intercepto: intercepto_rl fim
+fim
+
+função prever_linear recebendo modelo_linear, x_novo
+    devolva modelo_linear.inclinacao * x_novo + modelo_linear.intercepto
+fim
+
+função erro_quadratico_medio recebendo y_real, y_pred
+    se tamanho(y_real) diferente tamanho(y_pred) então devolva -1 fim
+    n_eqm é tamanho(y_real)
+    soma_eqm é 0
+    i_eqm é 0
+    enquanto i_eqm < n_eqm
+        diff_eqm é y_real[i_eqm] - y_pred[i_eqm]
+        soma_eqm é soma_eqm + diff_eqm * diff_eqm
+        i_eqm é i_eqm + 1
+    fim
+    devolva soma_eqm / n_eqm
+fim
+
+função acuracia recebendo y_real_rot, y_pred_rot
+    se tamanho(y_real_rot) diferente tamanho(y_pred_rot) então devolva 0 fim
+    n_acuracia é tamanho(y_real_rot)
+    corretos_acuracia é 0
+    i_acuracia é 0
+    enquanto i_acuracia < n_acuracia
+        se y_real_rot[i_acuracia] igual y_pred_rot[i_acuracia] então
+            corretos_acuracia é corretos_acuracia + 1
+        fim
+        i_acuracia é i_acuracia + 1
+    fim
+    devolva corretos_acuracia / n_acuracia
+fim
+
+função split_treino_teste recebendo dados_s, rotulos_s e proporcao_treino
+    se proporcao_treino nulo então proporcao_treino é 0.8 fim
+    n_split é tamanho(dados_s)
+    n_treino_split é n_split * proporcao_treino
+    dados_treino_split é []; dados_teste_split é []
+    rotulos_treino_split é []; rotulos_teste_split é []
+    indices_split é []
+    i_split é 0
+    enquanto i_split < n_split
+        adicione i_split a indices_split
+        i_split é i_split + 1
+    fim
+    i_emb_split é 0
+    enquanto i_emb_split < n_split
+        j_emb_split é 0
+        enquanto j_emb_split < n_split - i_emb_split - 1
+            se indices_split[j_emb_split] > indices_split[j_emb_split + 1] então
+                temp_idx é indices_split[j_emb_split]
+                indices_split[j_emb_split] é indices_split[j_emb_split + 1]
+                indices_split[j_emb_split + 1] é temp_idx
+            fim
+            j_emb_split é j_emb_split + 1
+        fim
+        i_emb_split é i_emb_split + 1
+    fim
+    i_dados_split é 0
+    enquanto i_dados_split < n_split
+        idx_sel é indices_split[i_dados_split]
+        se i_dados_split < n_treino_split então
+            adicione dados_s[idx_sel] a dados_treino_split
+            adicione rotulos_s[idx_sel] a rotulos_treino_split
+        senao
+            adicione dados_s[idx_sel] a dados_teste_split
+            adicione rotulos_s[idx_sel] a rotulos_teste_split
+        fim
+        i_dados_split é i_dados_split + 1
+    fim
+    devolva registro
+        dados_treino: dados_treino_split
+        rotulos_treino: rotulos_treino_split
+        dados_teste: dados_teste_split
+        rotulos_teste: rotulos_teste_split
+    fim
+fim
+
+função matriz_confusao recebendo y_real_conf, y_pred_conf
+    classes_conf é registro
+    i_conf é 0
+    enquanto i_conf < tamanho(y_real_conf)
+        chave_conf é "" + y_real_conf[i_conf]
+        classes_conf[chave_conf] é verdadeiro
+        chave_pred_conf é "" + y_pred_conf[i_conf]
+        classes_conf[chave_pred_conf] é verdadeiro
+        i_conf é i_conf + 1
+    fim
+    classes_lista_conf é []
+    para cada classe_item, _ in classes_conf
+        adicione classe_item a classes_lista_conf
+    fim
+    resultado_conf é []
+    i_classe_matriz é 0
+    enquanto i_classe_matriz < tamanho(classes_lista_conf)
+        linha_matriz_conf é []
+        j_classe_matriz é 0
+        enquanto j_classe_matriz < tamanho(classes_lista_conf)
+            adicione 0 a linha_matriz_conf
+            j_classe_matriz é j_classe_matriz + 1
+        fim
+        adicione linha_matriz_conf a resultado_conf
+        i_classe_matriz é i_classe_matriz + 1
+    fim
+    i_preencher é 0
+    enquanto i_preencher < tamanho(y_real_conf)
+        linha_idx_matriz é -1; coluna_idx_matriz é -1
+        i_busca_real é 0
+        enquanto i_busca_real < tamanho(classes_lista_conf)
+            se classes_lista_conf[i_busca_real] igual "" + y_real_conf[i_preencher] então
+                linha_idx_matriz é i_busca_real; pare
+            fim
+            i_busca_real é i_busca_real + 1
+        fim
+        i_busca_pred é 0
+        enquanto i_busca_pred < tamanho(classes_lista_conf)
+            se classes_lista_conf[i_busca_pred] igual "" + y_pred_conf[i_preencher] então
+                coluna_idx_matriz é i_busca_pred; pare
+            fim
+            i_busca_pred é i_busca_pred + 1
+        fim
+        se linha_idx_matriz >= 0 e coluna_idx_matriz >= 0 então
+            resultado_conf[linha_idx_matriz][coluna_idx_matriz] é resultado_conf[linha_idx_matriz][coluna_idx_matriz] + 1
+        fim
+        i_preencher é i_preencher + 1
+    fim
+    devolva registro classes: classes_lista_conf matriz: resultado_conf fim
+fim
+
+teste "distancia euclidiana"
+    p1_ml é [0, 0]; p2_ml é [3, 4]
+    dist_ml é distancia_euclidiana(p1_ml, p2_ml)
+    esporte dist_ml igual a 5
+fim
+
+teste "knn classificacao simples"
+    dados_knn é [[1, 1], [2, 2], [10, 10], [11, 11]]
+    rotulos_knn é ["A", "A", "B", "B"]
+    ponto_knn é [3, 3]
+    rotulo_predito é knn(dados_knn, rotulos_knn, ponto_knn, 3)
+    esporte rotulo_predito igual a "A"
+fim
+
+teste "regressao linear"
+    x_rl_teste é [1, 2, 3, 4, 5]
+    y_rl_teste é [2, 4, 6, 8, 10]
+    modelo_rl é regressao_linear(x_rl_teste, y_rl_teste)
+    pred_rl é prever_linear(modelo_rl, 6)
+    esporte abs(pred_rl - 12) < 0.001
+fim
+
+teste "normalizacao minmax"
+    dados_norm é [10, 20, 30, 40, 50]
+    normalizados é normalizar_minmax(dados_norm)
+    esporte normalizados[0] igual a 0
+    esporte normalizados[4] igual a 1
+fim
+
+teste "acuracia"
+    y_real_acuracia é ["A", "A", "B", "B"]
+    y_pred_acuracia é ["A", "B", "B", "B"]
+    acc_acuracia é acuracia(y_real_acuracia, y_pred_acuracia)
+    esporte acc_acuracia igual a 0.75
+fim
+
+teste "erro quadratico medio"
+    y_real_eqm é [2, 4, 6]
+    y_pred_eqm é [2.1, 3.9, 6.1]
+    eqm é erro_quadratico_medio(y_real_eqm, y_pred_eqm)
+    esporte eqm >= 0
+fim

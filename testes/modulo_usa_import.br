@@ -1,0 +1,5 @@
+de "texto" importe "maiusculo"
+
+função gritar recebendo valor
+    devolva maiusculo(valor)
+fim

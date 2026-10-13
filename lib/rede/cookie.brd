@@ -1,0 +1,42 @@
+# Documentação BRD: cookie
+
+## Nome
+
+Cookie
+
+## Descrição
+
+Leitura, escrita e segurança de cookies. Permite criar, ler e gerenciar cookies HTTP.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* criar: Cria um novo cookie.
+* ler: Lê um cookie pelo nome.
+* escrever: Escreve um cookie.
+* deletar: Deleta um cookie.
+* definir_expiracao: Define o tempo de expiração do cookie.
+* definir_seguro: Define se o cookie é seguro (HTTPS only).
+* definir_http_only: Define se o cookie é HTTP only.
+* definir_same_site: Define a política SameSite.
+* definir_dominio: Define o domínio do cookie.
+* definir_caminho: Define o caminho do cookie.
+* assinar: Assina o cookie para segurança.
+* verificar_assinatura: Verifica a assinatura do cookie.
+
+## Exemplo
+
+```br
+usar rede.cookie
+
+cookie é criar "usuario", "joao", registro
+    expira: 3600
+    seguro: verdadeiro
+    http_only: verdadeiro
+fim
+
+assinar cookie, "segredo_secreto"
+escrever cookie
+```

@@ -1,0 +1,5 @@
+importar "introspeccao"
+
+teste "nome do modulo introspeccao"
+    espere introspeccao.nome() igual a "introspeccao"
+fim

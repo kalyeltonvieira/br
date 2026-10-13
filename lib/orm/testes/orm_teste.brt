@@ -1,0 +1,5 @@
+importar "orm"
+
+teste "nome do modulo orm"
+    espere orm.nome() igual a "orm"
+fim

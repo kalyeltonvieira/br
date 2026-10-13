@@ -1,0 +1,32 @@
+explicacao
+    Modulo http_cliente compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "http_cliente"
+fim
+
+funcao descricao
+    devolva "Modulo http_cliente compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao exemplo recebendo url
+    devolva url
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim
+
+funcao get recebendo url e cabecalhos
+    devolva ""
+fim
+
+funcao post recebendo url e corpo e cabecalhos
+    devolva ""
+fim

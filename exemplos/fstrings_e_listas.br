@@ -1,0 +1,84 @@
+# Exemplo: F-strings e List Comprehensions
+
+# ==================== F-STRINGS ====================
+nome é "Maria"
+idade é 30
+cidade é "São Paulo"
+
+# F-string básica
+mostre "Olá, eu sou ${nome}!"
+
+# F-string com múltiplas variáveis
+mostre "Tenho ${idade} anos e moro em ${cidade}"
+
+# F-string com expressões
+mostre "Daqui a 5 anos terei ${idade + 5} anos"
+mostre "2 + 2 = ${2 + 2}"
+
+# F-string em atribuições
+mensagem é "Usuário ${nome}, idade: ${idade}"
+mostre mensagem
+
+# ==================== LIST COMPREHENSIONS ====================
+
+# Lista base
+numeros é [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+mostre "Números: ${numeros}"
+
+# Comprehension: transformação
+quadrados é [x * x para x em numeros]
+mostre "Quadrados: ${quadrados}"
+
+# Comprehension: filtro (apenas pares)
+pares é [x para x em numeros se x % 2 == 0]
+mostre "Pares: ${pares}"
+
+# Comprehension: filtro (apenas ímpares)
+impares é [x para x em numeros se x % 2 != 0]
+mostre "Ímpares: ${impares}"
+
+# Comprehension: transformação + filtro
+quadrados_pares é [x * x para x em numeros se x % 2 == 0]
+mostre "Quadrados dos pares: ${quadrados_pares}"
+
+# Comprehension com texto
+nomes é ["Ana", "Bruno", "Carlos", "Diana"]
+saudacoes é ["Olá, ${nome}!" para nome em nomes]
+mostre "Saudações: ${saudacoes}"
+
+# ==================== COMBINANDO TUDO ====================
+
+frutas é ["maçã", "banana", "laranja", "uva", "manga"]
+
+# F-string + list comprehension
+frutas_maiusculas é [nome.para_maiusculo() para nome em frutas]
+mostre "Frutas em maiúsculo: ${frutas_maiusculas}"
+
+# F-string em loop
+para cada fruta em frutas
+    mostre "Eu gosto de ${fruta}"
+fim
+
+# Comprehension com condição complexa
+frutas_com_a é [fruta para fruta em frutas se fruta.contem("a")]
+mostre "Frutas com 'a': ${frutas_com_a}"
+
+# ==================== CASOS DE USO PRÁTICOS ====================
+
+# Processar lista de números
+valores é [10, 20, 30, 40, 50]
+valores_dobrados é [v * 2 para v em valores]
+mostre "Valores dobrados: ${valores_dobrados}"
+
+# Filtrar dados
+idades é [15, 22, 18, 30, 12, 25, 17]
+maiores_idade é [idade para idade em idades se idade >= 18]
+mostre "Maiores de idade: ${maiores_idade}"
+
+# Transformar texto
+palavras é ["python", "java", "c++", "javascript"]
+linguagens_formatadas é ["${p.para_maiusculo()} é uma linguagem" para p em palavras]
+mostre "Linguagens: ${linguagens_formatadas}"
+
+mostre ""
+mostre "Exemplo concluído!"

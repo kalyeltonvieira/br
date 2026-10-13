@@ -1,0 +1,24 @@
+explicacao
+    Modulo mapas compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "mapas"
+fim
+
+funcao descricao
+    devolva "Modulo mapas compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao exemplo recebendo x
+    devolva x
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim

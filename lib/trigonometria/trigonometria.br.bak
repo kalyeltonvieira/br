@@ -1,0 +1,38 @@
+# Trigonometria module for sine, cosine, tangent and identities
+
+explicacao
+    trigonometria: seno, cosseno, tangente e identidades.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "trigonometria"
+fim
+
+função descricao
+    devolva "Seno, cosseno, tangente e identidades."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função seno recebendo angulo
+    devolva 0.0
+fim
+
+função cosseno recebendo angulo
+    devolva 0.0
+fim
+
+função tangente recebendo angulo
+    devolva 0.0
+fim
+
+função identidade recebendo tipo, valor
+    devolva "identidade"
+fim
+
+função fechar
+    devolva verdadeiro
+fim

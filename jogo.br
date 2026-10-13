@@ -1,0 +1,12 @@
+# Jogo grafico em BR
+# Controles: setas ou A/D para mover, ESC para sair.
+
+importar "jogos"
+
+titulo é "BR Rebatedor"
+largura é 800
+altura é 520
+
+mostre "Abrindo janela grafica do jogo..."
+jogos.rebatedor(titulo, largura, altura)
+mostre "Jogo encerrado."

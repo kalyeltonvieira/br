@@ -1,0 +1,5 @@
+importar "instalador"
+
+teste "nome do modulo instalador"
+    espere instalador.nome() igual a "instalador"
+fim

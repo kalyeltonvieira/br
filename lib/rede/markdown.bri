@@ -1,0 +1,16 @@
+contrato markdown
+    função nome
+    função descricao
+    função versao
+    função para_html recebendo markdown
+    função para_markdown recebendo html
+    função ler recebendo arquivo
+    função escrever recebendo arquivo e markdown
+    função criar_tabela recebendo cabecalho e linhas
+    função criar_lista recebendo itens e ordenada
+    função criar_link recebendo texto e url
+    função criar_imagem recebendo alt e url
+    função criar_codigo recebendo codigo e linguagem
+    função criar_citacao recebendo texto
+    função validar recebendo markdown
+fim

@@ -1,0 +1,5 @@
+importar "compressao"
+
+teste "nome do modulo compressao"
+    espere compressao.nome() igual a "compressao"
+fim

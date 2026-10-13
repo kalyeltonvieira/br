@@ -1,0 +1,34 @@
+# Dashboard module for panels, indicators, metrics and widgets
+
+explicacao
+    dashboard: painéis, indicadores, métricas e widgets.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "dashboard"
+fim
+
+função descricao
+    devolva "Painéis, indicadores, métricas e widgets."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função criar_painel recebendo nome, layout
+    devolva "ID_PAINEL"
+fim
+
+função adicionar_widget recebendo painel_id, widget_tipo, dados
+    devolva verdadeiro
+fim
+
+função atualizar_indicador recebendo painel_id, indicador_id, valor
+    devolva verdadeiro
+fim
+
+função fechar
+    devolva verdadeiro
+fim

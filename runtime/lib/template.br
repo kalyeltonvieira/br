@@ -1,0 +1,299 @@
+explicacao
+    Template: sistema de templates com substituição de variáveis,
+    condicionais, loops, filtros e herança. Ideal para gerar HTML,
+    relatórios, e-mails e textos dinâmicos.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome
+    devolva "template"
+fim
+
+função descricao
+    devolva "Template: sistema de templates com variáveis, loops e condicionais"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# ============ RENDERIZAÇÃO ============
+
+função renderizar recebendo template_texto e variaveis
+    resultado é template_texto
+    
+    # Substituir variáveis {{ nome }}
+    resultado = _substituir_variaveis(resultado, variaveis)
+    
+    # Processar condicionais {% se condicao %}...{% fim %}
+    resultado = _processar_condicionais(resultado, variaveis)
+    
+    # Processar loops {% para cada item em lista %}...{% fim %}
+    resultado = _processar_loops(resultado, variaveis)
+    
+    devolva resultado
+fim
+
+função _substituir_variaveis recebendo texto e vars
+    resultado é texto
+    i é 0
+    
+    enquanto verdadeiro
+        pos_inicio é encontrar(resultado, "{{")
+        se pos_inicio < 0 então
+            pare
+        fim
+        
+        pos_fim é encontrar(resultado, "}}", pos_inicio)
+        se pos_fim < 0 então
+            pare
+        fim
+        
+        chave é aparar(resultado[pos_inicio+2:pos_fim])
+        
+        # Suporta chave aninhada (pessoa.nome)
+        valor é _resolver_chave(vars, chave)
+        se valor nulo então
+            valor é ""
+        fim
+        
+        resultado é resultado[0:pos_inicio] + valor + resultado[pos_fim+2:]
+    fim
+    
+    devolva resultado
+fim
+
+função _resolver_chave recebendo vars e chave
+    se contem(chave, ".") então
+        partes é dividir(chave, ".")
+        atual é vars
+        para cada parte em partes
+            se atual nulo ou tipo(atual) diferente "registro" então
+                devolva nulo
+            fim
+            se parte em atual então
+                atual é atual[parte]
+            senao
+                devolva nulo
+            fim
+        fim
+        devolva atual
+    senao
+        se chave em vars então
+            devolva vars[chave]
+        fim
+    fim
+    devolva nulo
+fim
+
+função _processar_condicionais recebendo texto e vars
+    resultado é texto
+    
+    enquanto verdadeiro
+        pos_inicio é encontrar(resultado, "{% se ")
+        se pos_inicio < 0 então
+            pos_inicio é encontrar(resultado, "{%se ")
+        fim
+        se pos_inicio < 0 então
+            pare
+        fim
+        
+        pos_fim_tag é encontrar(resultado, "%}", pos_inicio)
+        se pos_fim_tag < 0 então
+            pare
+        fim
+        
+        # Extrair condição
+        tag_conteudo é resultado[pos_inicio+5:pos_fim_tag]
+        condicao é aparar(tag_conteudo)
+        
+        pos_fim_bloco é _encontrar_fim_bloco(resultado, pos_fim_tag + 2)
+        se pos_fim_bloco < 0 então
+            pare
+        fim
+        
+        conteudo_bloco é resultado[pos_fim_tag+2:pos_fim_bloco]
+        
+        # Avaliar condição
+        senao_pos é encontrar(conteudo_bloco, "{% senao %}")
+        se senao_pos < 0 então
+            senao_pos é encontrar(conteudo_bloco, "{%senao%}")
+        fim
+        
+        bloco_se é ""
+        bloco_senao é ""
+        
+        se senao_pos >= 0 então
+            bloco_se é conteudo_bloco[0:senao_pos]
+            bloco_senao é conteudo_bloco[senao_pos+11:]
+        senao
+            bloco_se é conteudo_bloco
+        fim
+        
+        condicao_atende é _avaliar_condicao(condicao, vars)
+        
+        bloco_renderizado é bloco_se se condicao_atende senao bloco_senao
+        resultado é resultado[0:pos_inicio] + bloco_renderizado + resultado[pos_fim_bloco+6:]
+    fim
+    
+    devolva resultado
+fim
+
+função _avaliar_condicao recebendo condicao e vars
+    cond_limpa é aparar(condicao)
+    
+    se comeca_com(cond_limpa, "not ") então
+        var_nome é cond_limpa[4:]
+        valor é _resolver_chave(vars, var_nome)
+        devolva valor igual falso ou valor igual nulo ou valor igual "" ou valor igual 0
+    fim
+    
+    se contem(cond_limpa, " == ") então
+        partes é dividir(cond_limpa, " == ")
+        esquerda é _resolver_chave(vars, aparar(partes[0]))
+        direita é aparar(partes[1])
+        devolva "" + esquerda igual "" + direita
+    fim
+    
+    se contem(cond_limpa, " != ") então
+        partes é dividir(cond_limpa, " != ")
+        esquerda é _resolver_chave(vars, aparar(partes[0]))
+        direita é aparar(partes[1])
+        devolva "" + esquerda diferente "" + direita
+    fim
+    
+    se contem(cond_limpa, " > ") então
+        partes é dividir(cond_limpa, " > ")
+        esquerda é _resolver_chave(vars, aparar(partes[0]))
+        direita é _resolver_chave(vars, aparar(partes[1]))
+        devolva esquerda > direita
+    fim
+    
+    se contem(cond_limpa, " < ") então
+        partes é dividir(cond_limpa, " < ")
+        esquerda é _resolver_chave(vars, aparar(partes[0]))
+        direita é _resolver_chave(vars, aparar(partes[1]))
+        devolva esquerda < direita
+    fim
+    
+    # Simples (verdadeiro/falso)
+    valor é _resolver_chave(vars, cond_limpa)
+    devolva valor igual verdadeiro ou (valor diferente falso e valor diferente nulo e valor diferente "" e valor diferente 0)
+fim
+
+função _processar_loops recebendo texto e vars
+    resultado é texto
+    
+    enquanto verdadeiro
+        pos_inicio é encontrar(resultado, "{% para cada ")
+        se pos_inicio < 0 então
+            pos_inicio é encontrar(resultado, "{%para cada ")
+        fim
+        se pos_inicio < 0 então
+            pare
+        fim
+        
+        pos_fim_tag é encontrar(resultado, "%}", pos_inicio)
+        se pos_fim_tag < 0 então
+            pare
+        fim
+        
+        tag_conteudo é resultado[pos_inicio+12:pos_fim_tag]
+        partes_tag é dividir(tag_conteudo, "em")
+        se tamanho(partes_tag) < 2 então
+            pare
+        fim
+        
+        var_item é aparar(partes_tag[0])
+        nome_lista é aparar(partes_tag[1])
+        
+        pos_fim_bloco é _encontrar_fim_bloco(resultado, pos_fim_tag + 2)
+        se pos_fim_bloco < 0 então
+            pare
+        fim
+        
+        conteudo_bloco é resultado[pos_fim_tag+2:pos_fim_bloco]
+        
+        lista_valor é _resolver_chave(vars, nome_lista)
+        se lista_valor nulo então
+            lista_valor é []
+        fim
+        
+        bloco_resultado é ""
+        para cada item em lista_valor
+            escopo_loop é vars
+            escopo_loop[var_item] é item
+            bloco_item é _substituir_variaveis(conteudo_bloco, escopo_loop)
+            bloco_resultado é bloco_resultado + bloco_item
+        fim
+        
+        resultado é resultado[0:pos_inicio] + bloco_resultado + resultado[pos_fim_bloco+6:]
+    fim
+    
+    devolva resultado
+fim
+
+função _encontrar_fim_bloco recebendo texto, pos_inicio
+    pos_fim é encontrar(texto, "{% fim %}", pos_inicio)
+    se pos_fim < 0 então
+        pos_fim é encontrar(texto, "{%fim%}", pos_inicio)
+    fim
+    devolva pos_fim
+fim
+
+função renderizar_arquivo recebendo caminho_template e variaveis
+    importar "arquivo" as arq
+    tente
+        conteudo é arq.ler_texto(caminho_template)
+        devolva renderizar(conteudo, variaveis)
+    capture erro
+        devolva ""
+    fim
+fim
+
+função renderizar_html recebendo template_texto e variaveis
+    importar "texto" as txt
+    html_escapado é registro
+    
+    para cada chave, valor em variaveis
+        se tipo(valor) igual "texto" então
+            html_escapado[chave] é txt.substituir(valor, "<", "<")
+            html_escapado[chave] é txt.substituir(html_escapado[chave], ">", ">")
+            html_escapado[chave] é txt.substituir(html_escapado[chave], "&", "&")
+        senao
+            html_escapado[chave] é valor
+        fim
+    fim
+    
+    devolva renderizar(template_texto, html_escapado)
+fim
+
+# ============ TESTES ============
+
+teste "template substituir variavel"
+    template é "Olá {{ nome }}!"
+    vars é registro nome: "João" fim
+    resultado é renderizar(template, vars)
+    esporte resultado igual a "Olá João!"
+fim
+
+teste "template loop"
+    template é "{% para cada item em lista %}{{ item }},{% fim %}"
+    vars é registro lista: [1, 2, 3] fim
+    resultado é renderizar(template, vars)
+    esporte resultado igual a "1,2,3,"
+fim
+
+teste "template condicional"
+    template é "{% se ativo %}Ativo{% senao %}Inativo{% fim %}"
+    vars é registro ativo: verdadeiro fim
+    resultado é renderizar(template, vars)
+    esporte resultado igual a "Ativo"
+fim
+
+teste "template variavel aninhada"
+    template é "{{ usuario.nome }}"
+    vars é registro usuario: registro nome: "Ana" fim fim
+    resultado é renderizar(template, vars)
+    esporte resultado igual a "Ana"
+fim

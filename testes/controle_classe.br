@@ -1,0 +1,21 @@
+classe Pessoa
+    nome: texto
+    idade: inteiro
+fim
+
+p = Pessoa("Ana", 30)
+mostre p.nome
+
+repita 2 vezes
+    mostre "tick"
+fim
+
+valor = 2
+escolha valor
+    caso 1
+        mostre "um"
+    caso 2
+        mostre "dois"
+    padrao
+        mostre "outro"
+fim

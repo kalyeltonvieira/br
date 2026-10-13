@@ -1,0 +1,9 @@
+contrato lsp
+    função nome
+    função descricao
+    função versao
+    função iniciar
+    função autocomplete recebendo codigo
+    função diagnostico recebendo codigo
+    função simbolo recebendo codigo
+fim

@@ -1,0 +1,20 @@
+contrato oauth
+    função nome
+    função descricao
+    função versao
+    função criar_cliente recebendo provedor, client_id e client_secret
+    função definir_redirect_uri recebendo cliente e uri
+    função adicionar_scope recebendo cliente e scope
+    função obter_url_autorizacao recebendo cliente
+    função trocar_codigo recebendo cliente e codigo
+    função atualizar_token recebendo cliente e refresh_token
+    função obter_usuario recebendo cliente e token
+    função revogar_token recebendo cliente e token
+    função validar_token recebendo cliente e token
+    função criar_google_cliente recebendo client_id e client_secret
+    função criar_github_cliente recebendo client_id e client_secret
+    função criar_facebook_cliente recebendo client_id e client_secret
+    função definir_callback recebendo cliente e callback
+    função iniciar_fluxo recebendo cliente
+    função processar_callback recebendo cliente e codigo
+fim

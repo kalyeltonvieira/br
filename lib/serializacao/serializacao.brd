@@ -1,0 +1,19 @@
+# Documentação BRD: serializacao
+
+## Nome
+
+Serialização
+
+## Descrição
+
+converter dados entre objeto, texto, binário e formatos externos.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* para_texto: Serializa para texto.
+* de_texto: Desserializa texto.
+* para_binario: Serializa para binário.
+* clonar: Clona estrutura.

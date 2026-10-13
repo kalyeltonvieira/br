@@ -1,0 +1,31 @@
+# Sintese_voz module for text‑to‑speech and artificial voices
+
+explicacao
+    sintese_voz: texto para fala e vozes artificiais.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "sintese_voz"
+fim
+
+função descricao
+    devolva "Texto para fala e vozes artificiais."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# Simple synthesis: return the reversed text as a placeholder for audio bytes
+função sintetizar recebendo texto, voz
+    devolva texto.inverter()
+fim
+
+função listar_voces
+    devolva ["default", "male", "female"]
+fim
+
+função fechar
+    devolva verdadeiro
+fim

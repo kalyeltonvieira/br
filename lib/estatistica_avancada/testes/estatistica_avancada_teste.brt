@@ -1,0 +1,5 @@
+importar "estatistica_avancada"
+
+teste "nome do modulo estatistica_avancada"
+    espere estatistica_avancada.nome() igual a "estatistica_avancada"
+fim

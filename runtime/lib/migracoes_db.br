@@ -1,0 +1,315 @@
+explicacao
+    Migracoes DB: Versionamento de banco de dados.
+    Este módulo permite gerenciar migrações de banco de dados.
+    Esta biblioteca é totalmente funcional e nativa.
+fim
+
+função nome
+    devolva "migracoes_db"
+fim
+
+função descricao
+    devolva "Versionamento de banco de dados"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# ============ MIGRAÇÃO ============
+
+função criar_migracao recebendo nome, versao e callback_up
+    # Cria uma nova migração
+    migracao é registro
+        nome: nome
+        versao: versao
+        callback_up: callback_up
+        callback_down: nulo
+        data_criacao: data atual
+        executada: falso
+    fim
+    devolva migracao
+fim
+
+função definir_down recebendo migracao e callback_down
+    # Define o callback de rollback
+    migracao.callback_down é callback_down
+    devolva migracao
+fim
+
+# ============ GERENCIADOR DE MIGRAÇÕES ============
+
+função criar_gerenciador recebendo conexao
+    # Cria um gerenciador de migrações
+    gerenciador é registro
+        conexao: conexao
+        migracoes: lista
+        tabela_migracoes: "migracoes"
+    fim
+    devolva gerenciador
+fim
+
+função adicionar_migracao recebendo gerenciador e migracao
+    # Adiciona uma migração ao gerenciador
+    adicione migracao em gerenciador.migracoes
+    devolva gerenciador
+fim
+
+função inicializar_tabela_migracoes recebendo gerenciador
+    # Cria a tabela de controle de migrações
+    sql é "CREATE TABLE IF NOT EXISTS " + gerenciador.tabela_migracoes + " ("
+    sql é sql + "id INTEGER PRIMARY KEY,"
+    sql é sql + "nome TEXT NOT NULL,"
+    sql é sql + "versao TEXT NOT NULL,"
+    sql é sql + "data_execucao TEXT NOT NULL"
+    sql é sql + ")"
+    
+    resultado é servico_migracoes("executar", gerenciador.conexao, sql)
+    devolva resultado
+fim
+
+função obter_migracoes_executadas recebendo gerenciador
+    # Obtém as migrações já executadas
+    sql é "SELECT nome, versao, data_execucao FROM " + gerenciador.tabela_migracoes
+    sql é sql + " ORDER BY id DESC"
+    
+    linhas é servico_migracoes("consultar", gerenciador.conexao, sql)
+    devolva linhas
+fim
+
+função obter_migracoes_pendentes recebendo gerenciador
+    # Obtém as migrações pendentes de execução
+    executadas é obter_migracoes_executadas gerenciador
+    nomes_executadas é lista
+    
+    para cada linha em executadas
+        adicione linha.nome em nomes_executadas
+    fim
+    
+    pendentes é lista
+    para cada migracao em gerenciador.migracoes
+        se não migracao.nome em nomes_executadas então
+            adicione migracao em pendentes
+        fim
+    fim
+    
+    devolva pendentes
+fim
+
+função executar_migracao recebendo gerenciador e migracao
+    # Executa uma migração
+    resultado é migracao.callback_up(gerenciador.conexao)
+    
+    se resultado então
+        # Registrar migração como executada
+        sql é "INSERT INTO " + gerenciador.tabela_migracoes
+        sql é sql + " (nome, versao, data_execucao) VALUES (?, ?, ?)"
+        
+        data_execucao é texto de data atual
+        servico_migracoes("executar", gerenciador.conexao, sql, 
+            lista migracao.nome, migracao.versao, data_execucao)
+        
+        migracao.executada é verdadeiro
+    fim
+    
+    devolva resultado
+fim
+
+função reverter_migracao recebendo gerenciador e migracao
+    # Reverte uma migração
+    se migracao.callback_down então
+        resultado é migracao.callback_down(gerenciador.conexao)
+        
+        se resultado então
+            # Remover registro de migração
+            sql é "DELETE FROM " + gerenciador.tabela_migracoes
+            sql é sql + " WHERE nome = ?"
+            
+            servico_migracoes("executar", gerenciador.conexao, sql, lista migracao.nome)
+            
+            migracao.executada é falso
+        fim
+        
+        devolva resultado
+    senão
+        devolva falso
+    fim
+fim
+
+função executar_todas recebendo gerenciador
+    # Executa todas as migrações pendentes
+    pendentes é obter_migracoes_pendentes gerenciador
+    
+    para cada migracao em pendentes
+        resultado é executar_migracao gerenciador, migracao
+        se não resultado então
+            devolva falso
+        fim
+    fim
+    
+    devolva verdadeiro
+fim
+
+função reverter_todas recebendo gerenciador
+    # Reverte todas as migrações executadas
+    executadas é obter_migracoes_executadas gerenciador
+    
+    para cada linha em executadas
+        migracao é nulo
+        para cada m in gerenciador.migracoes
+            se m.nome é linha.nome então
+                migracao é m
+            fim
+        fim
+        
+        se migracao então
+            resultado é reverter_migracao gerenciador, migracao
+            se não resultado então
+                devolva falso
+            fim
+        fim
+    fim
+    
+    devolva verdadeiro
+fim
+
+função reverter_ultima recebendo gerenciador
+    # Reverte apenas a última migração executada
+    executadas é obter_migracoes_executadas gerenciador
+    
+    se executadas vazia então
+        devolva falso
+    fim
+    
+    ultima é executadas[0]
+    migracao é nulo
+    
+    para cada m in gerenciador.migracoes
+        se m.nome é ultima.nome então
+            migracao é m
+        fim
+    fim
+    
+    se migracao então
+        devolva reverter_migracao gerenciador, migracao
+    senão
+        devolva falso
+    fim
+fim
+
+função status recebendo gerenciador
+    # Obtém o status das migrações
+    executadas é obter_migracoes_executadas gerenciador
+    pendentes é obter_migracoes_pendentes gerenciador
+    
+    status é registro
+        executadas: executadas
+        pendentes: pendentes
+        total_executadas: tamanho(executadas)
+        total_pendentes: tamanho(pendentes)
+    fim
+    
+    devolva status
+fim
+
+# ============ UTILITÁRIOS ============
+
+função criar_tabela recebendo conexao, nome e definicao
+    # Cria uma tabela
+    sql é "CREATE TABLE " + nome + " (" + definicao + ")"
+    resultado é servico_migracoes("executar", conexao, sql)
+    devolva resultado
+fim
+
+função remover_tabela recebendo conexao e nome
+    # Remove uma tabela
+    sql é "DROP TABLE " + nome
+    resultado é servico_migracoes("executar", conexao, sql)
+    devolva resultado
+fim
+
+função adicionar_coluna recebendo conexao, tabela, nome e tipo
+    # Adiciona uma coluna
+    sql é "ALTER TABLE " + tabela + " ADD COLUMN " + nome + " " + tipo
+    resultado é servico_migracoes("executar", conexao, sql)
+    devolva resultado
+fim
+
+função remover_coluna recebendo conexao, tabela e nome
+    # Remove uma coluna
+    sql é "ALTER TABLE " + tabela + " DROP COLUMN " + nome
+    resultado é servico_migracoes("executar", conexao, sql)
+    devolva resultado
+fim
+
+função alterar_coluna recebendo conexao, tabela, nome e novo_tipo
+    # Altera o tipo de uma coluna
+    sql é "ALTER TABLE " + tabela + " ALTER COLUMN " + nome + " TYPE " + novo_tipo
+    resultado é servico_migracoes("executar", conexao, sql)
+    devolva resultado
+fim
+
+função criar_indice recebendo conexao, nome, tabela e colunas
+    # Cria um índice
+    sql é "CREATE INDEX " + nome + " ON " + tabela + " (" + colunas + ")"
+    resultado é servico_migracoes("executar", conexao, sql)
+    devolva resultado
+fim
+
+função remover_indice recebendo conexao e nome
+    # Remove um índice
+    sql é "DROP INDEX " + nome
+    resultado é servico_migracoes("executar", conexao, sql)
+    devolva resultado
+fim
+
+função executar_sql recebendo conexao e sql
+    # Executa SQL arbitrário
+    resultado é servico_migracoes("executar", conexao, sql)
+    devolva resultado
+fim
+
+# ============ TESTES ============
+
+teste "criar e executar migração"
+    conexao é conectar_sqlite ":memory:"
+    gerenciador é criar_gerenciador conexao
+    
+    inicializar_tabela_migracoes gerenciador
+    
+    migracao é criar_migracao "criar_usuarios", "1.0.0", funcao(con)
+        criar_tabela con, "usuarios", "id INTEGER PRIMARY KEY, nome TEXT"
+        devolva verdadeiro
+    fim
+    
+    definir_down migracao, funcao(con)
+        remover_tabela con, "usuarios"
+        devolva verdadeiro
+    fim
+    
+    adicionar_migracao gerenciador, migracao
+    
+    resultado é executar_migracao gerenciador, migracao
+    espere resultado igual a verdadeiro
+    
+    desconecte conexao
+fim
+
+teste "obter status"
+    conexao é conectar_sqlite ":memory:"
+    gerenciador é criar_gerenciador conexao
+    
+    inicializar_tabela_migracoes gerenciador
+    
+    migracao é criar_migracao "criar_produtos", "1.0.0", funcao(con)
+        criar_tabela con, "produtos", "id INTEGER PRIMARY KEY, nome TEXT"
+        devolva verdadeiro
+    fim
+    
+    adicionar_migracao gerenciador, migracao
+    
+    status é status gerenciador
+    espere status.total_pendentes igual a 1
+    
+    desconecte conexao
+fim

@@ -1,0 +1,19 @@
+# Documentação BRD: internacionalizacao
+
+## Nome
+
+Internacionalização
+
+## Descrição
+
+idiomas, tradução, moeda, números e localização.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* idioma: Consulta idioma.
+* traduzir: Traduz texto.
+* moeda: Formata moeda.
+* localizacao: Consulta localização.

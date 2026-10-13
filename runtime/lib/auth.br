@@ -1,0 +1,92 @@
+explicacao
+    Modulo auth compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "auth"
+fim
+
+funcao descricao
+    devolva "Modulo auth compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao criar_usuario recebendo nome e email e senha
+    devolva nome
+fim
+
+funcao autenticar recebendo email e senha
+    devolva verdadeiro
+fim
+
+funcao buscar_usuario recebendo email
+    devolva email
+fim
+
+funcao buscar_usuario_por_id recebendo id
+    devolva id
+fim
+
+funcao atualizar_senha recebendo usuario e senha_antiga e senha_nova
+    devolva usuario
+fim
+
+funcao definir_token recebendo usuario e token
+    devolva usuario
+fim
+
+funcao validar_token recebendo token
+    devolva token
+fim
+
+funcao revogar_token recebendo usuario
+    devolva usuario
+fim
+
+funcao ativar_usuario recebendo usuario
+    devolva usuario
+fim
+
+funcao desativar_usuario recebendo usuario
+    devolva usuario
+fim
+
+funcao definir_papel recebendo usuario e papel
+    devolva usuario
+fim
+
+funcao verificar_permissao recebendo usuario e permissao
+    devolva usuario
+fim
+
+funcao adicionar_permissao recebendo usuario e permissao
+    devolva usuario
+fim
+
+funcao remover_permissao recebendo usuario e permissao
+    devolva usuario
+fim
+
+funcao registrar_tentativa_login recebendo usuario e sucesso
+    devolva usuario
+fim
+
+funcao bloquear_usuario recebendo usuario
+    devolva usuario
+fim
+
+funcao desbloquear_usuario recebendo usuario
+    devolva usuario
+fim
+
+funcao exemplo recebendo valor
+    devolva valor
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim

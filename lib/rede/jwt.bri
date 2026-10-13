@@ -1,0 +1,17 @@
+contrato jwt
+    função nome
+    função descricao
+    função versao
+    função criar recebendo payload e segredo
+    função validar recebendo token e segredo
+    função decodificar recebendo token
+    função definir_expiracao recebendo payload e segundos
+    função definir_issuer recebendo payload e issuer
+    função definir_audience recebendo payload e audience
+    função definir_subject recebendo payload e subject
+    função verificar_expiracao recebendo token
+    função verificar_issuer recebendo token e issuer
+    função verificar_audience recebendo token e audience
+    função criar_refresh_token recebendo payload e segredo
+    função refrescar recebendo refresh_token e segredo
+fim

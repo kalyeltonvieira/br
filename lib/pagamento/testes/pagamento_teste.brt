@@ -1,0 +1,5 @@
+importar "pagamento"
+
+teste "nome do modulo pagamento"
+    espere pagamento.nome() igual a "pagamento"
+fim

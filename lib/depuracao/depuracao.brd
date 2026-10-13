@@ -1,0 +1,19 @@
+# Documentação BRD: depuracao
+
+## Nome
+
+Depuração
+
+## Descrição
+
+breakpoints, pilha de chamadas, rastreamento e inspeção.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* breakpoint: Cria breakpoint.
+* pilha: Obtém pilha.
+* rastrear: Rastreia valor.
+* inspecionar: Inspeciona variável.

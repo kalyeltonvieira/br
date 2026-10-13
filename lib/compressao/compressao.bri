@@ -1,0 +1,9 @@
+contrato compressao
+    função nome
+    função descricao
+    função versao
+    função zip recebendo caminho
+    função unzip recebendo caminho
+    função gzip recebendo caminho
+    função tar recebendo caminho
+fim

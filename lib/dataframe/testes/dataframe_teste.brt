@@ -1,0 +1,5 @@
+importar "dataframe"
+
+teste "nome do modulo dataframe"
+    espere dataframe.nome() igual a "dataframe"
+fim

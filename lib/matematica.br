@@ -1,0 +1,187 @@
+# Biblioteca de Matemática - BR
+# Funções matemáticas avançadas
+
+# ==================== OPERAÇÕES BÁSICAS ====================
+
+função somar recebendo a e b
+    devolva a + b
+fim
+
+função subtrair recebendo a e b
+    devolva a - b
+fim
+
+função multiplicar recebendo a e b
+    devolva a * b
+fim
+
+função dividir recebendo a e b
+    se b == 0
+        lance "Divisão por zero"
+    fim
+    devolva a / b
+fim
+
+função resto recebendo a e b
+    devolva a % b
+fim
+
+# ==================== POTÊNCIA E RAIZ ====================
+
+função potencia recebendo base e expoente
+    devolva base ** expoente
+fim
+
+função raiz_quadrada recebendo numero
+    devolva numero ** 0.5
+fim
+
+função raiz_cubica recebendo numero
+    devolva numero ** (1/3)
+fim
+
+# ==================== TRIGONOMETRIA ====================
+
+função seno recebendo angulo
+    devolva seno(angulo)
+fim
+
+função cosseno recebendo angulo
+    devolva cosseno(angulo)
+fim
+
+função tangente recebendo angulo
+    devolva tangente(angulo)
+fim
+
+função graus_para_radianos recebendo graus
+    devolva graus * 3.14159 / 180
+fim
+
+função radianos_para_graus recebendo radianos
+    devolva radianos * 180 / 3.14159
+fim
+
+# ==================== ARREDONDAMENTO ====================
+
+função arredondar recebendo numero
+    devolva arredondar(numero)
+fim
+
+função teto recebendo numero
+    devolva teto(numero)
+fim
+
+função chao recebendo numero
+    devolva chao(numero)
+fim
+
+função absoluto recebendo numero
+    devolva absoluto(numero)
+fim
+
+# ==================== ESTATÍSTICA ====================
+
+função media recebendo numeros
+    soma é 0
+    para cada num em numeros
+        soma é soma + num
+    fim
+    devolva soma / numeros.tamanho()
+fim
+
+função mediana recebendo numeros
+    ordenado é numeros.ordenar()
+    tamanho é ordenado.tamanho()
+    se tamanho % 2 == 0
+        devolva (ordenado[tamanho/2 - 1] + ordenado[tamanho/2]) / 2
+    senao
+        devolva ordenado[tamanho/2]
+    fim
+fim
+
+função minimo recebendo numeros
+    menor é numeros[0]
+    para cada num em numeros
+        se num < menor
+            menor é num
+        fim
+    fim
+    devolva menor
+fim
+
+função maximo recebendo numeros
+    maior é numeros[0]
+    para cada num em numeros
+        se num > maior
+            maior é num
+        fim
+    fim
+    devolva maior
+fim
+
+função soma_total recebendo numeros
+    soma é 0
+    para cada num em numeros
+        soma é soma + num
+    fim
+    devolva soma
+fim
+
+# ==================== NÚMEROS ALEATÓRIOS ====================
+
+função aleatorio
+    devolva aleatorio()
+fim
+
+função aleatorio_entre recebendo min e max
+    devolva aleatorio() * (max - min) + min
+fim
+
+função escolher recebendo lista
+    indice é arredondar(aleatorio_entre(0, lista.tamanho() - 1))
+    devolva lista[indice]
+fim
+
+# ==================== UTILITÁRIOS ====================
+
+função fatorial recebendo n
+    se n <= 1
+        devolva 1
+    fim
+    devolva n * fatorial(n - 1)
+fim
+
+função fibonacci recebendo n
+    se n <= 1
+        devolva n
+    fim
+    devolva fibonacci(n - 1) + fibonacci(n - 2)
+fim
+
+função eh_primo recebendo numero
+    se numero <= 1
+        devolva falso
+    fim
+    i é 2
+    enquanto i * i <= numero
+        se numero % i == 0
+            devolva falso
+        fim
+        i é i + 1
+    fim
+    devolva verdadeiro
+fim
+
+função mdc recebendo a e b
+    enquanto b != 0
+        temp é b
+        b é a % b
+        a é temp
+    fim
+    devolva a
+fim
+
+função mmc recebendo a e b
+    devolva (a * b) / mdc(a, b)
+fim

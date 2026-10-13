@@ -1,0 +1,5 @@
+importar "relatorio"
+
+teste "nome do modulo relatorio"
+    espere relatorio.nome() igual a "relatorio"
+fim

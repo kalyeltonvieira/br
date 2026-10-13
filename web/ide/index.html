@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BR IDE - Playground Online</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/dracula.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🇧🇷 BR IDE</h1>
+            <p class="subtitle">Ambiente de Desenvolvimento Online da Linguagem BR</p>
+        </header>
+
+        <main>
+            <div class="editor-container">
+                <div class="toolbar">
+                    <button id="btn-executar" class="btn btn-primary">
+                        <span>▶</span> Executar
+                    </button>
+                    <button id="btn-compilar" class="btn btn-secondary">
+                        <span>⚙</span> Compilar
+                    </button>
+                    <button id="btn-limpar" class="btn btn-secondary">
+                        <span>🗑</span> Limpar
+                    </button>
+                    <button id="btn-exemplos" class="btn btn-secondary">
+                        <span>📚</span> Exemplos
+                    </button>
+                    <button id="btn-compartilhar" class="btn btn-secondary">
+                        <span>🔗</span> Compartilhar
+                    </button>
+                    <div class="separator"></div>
+                    <select id="select-exemplo" class="select">
+                        <option value="">Carregar exemplo...</option>
+                        <option value="ola">Olá Mundo</option>
+                        <option value="fatorial">Fatorial</option>
+                        <option value="fibonacci">Fibonacci</option>
+                        <option value="sqlite">SQLite</option>
+                        <option value="gui">GUI Simples</option>
+                        <option value="async">Async/Await</option>
+                    </select>
+                </div>
+
+                <div class="editor-wrapper">
+                    <div class="editor-header">
+                        <span class="filename">main.br</span>
+                        <span class="status" id="status-editor">Pronto</span>
+                    </div>
+                    <textarea id="editor"></textarea>
+                </div>
+
+                <div class="output-container">
+                    <div class="output-header">
+                        <span>Console</span>
+                        <button id="btn-limpar-console" class="btn-small">Limpar</button>
+                    </div>
+                    <div id="console-output"></div>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="panel">
+                    <h3>📖 Documentação</h3>
+                    <ul class="doc-links">
+                        <li><a href="#" data-doc="sintaxe">Sintaxe Básica</a></li>
+                        <li><a href="#" data-doc="variaveis">Variáveis</a></li>
+                        <li><a href="#" data-doc="funcoes">Funções</a></li>
+                        <li><a href="#" data-doc="controle">Controle de Fluxo</a></li>
+                        <li><a href="#" data-doc="classes">Classes e POO</a></li>
+                        <li><a href="#" data-doc="modulos">Módulos</a></li>
+                        <li><a href="#" data-doc="sqlite">SQLite Nativo</a></li>
+                        <li><a href="#" data-doc="rede">Rede e HTTP</a></li>
+                        <li><a href="#" data-doc="gui">GUI Nativa</a></li>
+                        <li><a href="#" data-doc="ia">IA Nativa</a></li>
+                    </ul>
+                </div>
+
+                <div class="panel">
+                    <h3>⚡ Atalhos</h3>
+                    <ul class="shortcuts">
+                        <li><kbd>Ctrl</kbd> + <kbd>Enter</kbd> - Executar</li>
+                        <li><kbd>Ctrl</kbd> + <kbd>S</kbd> - Salvar</li>
+                        <li><kbd>Ctrl</kbd> + <kbd>L</kbd> - Limpar</li>
+                        <li><kbd>F1</kbd> - Ajuda</li>
+                    </ul>
+                </div>
+
+                <div class="panel">
+                    <h3>📊 Estatísticas</h3>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Linhas:</span>
+                            <span class="stat-value" id="stat-linhas">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Caracteres:</span>
+                            <span class="stat-value" id="stat-caracteres">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Tempo:</span>
+                            <span class="stat-value" id="stat-tempo">0ms</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>BR IDE v2.0 • Linguagem de Programação Brasileira • <a href="https://github.com/brlang" target="_blank">GitHub</a></p>
+        </footer>
+    </div>
+
+    <!-- Modal de Documentação -->
+    <div id="modal-doc" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modal-title">Documentação</h2>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Modal de Exemplos -->
+    <div id="modal-exemplos" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Exemplos de Código</h2>
+            <div id="exemplos-list"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/javascript/javascript.min.js"></script>
+    <script src="runtime-br.js"></script>
+    <script src="ide.js"></script>
+</body>
+</html>

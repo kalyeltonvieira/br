@@ -1,0 +1,63 @@
+# Manifesto do Projeto - Linguagem BR
+# Formato oficial .brm
+
+nome "linguagem-br"
+versao "2.0.0"
+autor "Comunidade BR"
+descricao "Linguagem de programação em português brasileiro com runtime C++ nativo"
+
+# Dependências
+dependencias
+    runtime_cpp "2.0.0"
+    ferramentas_python "2.0.0"
+fim
+
+# Permissões do projeto
+permissoes
+    arquivos
+    rede
+    console
+fim
+
+# Configurações de build
+build
+    entrada "runtime/src/main.cpp"
+    saida "bin/br.exe"
+    compilador "g++"
+    flags "-std=c++17 -O2"
+fim
+
+# Estrutura do projeto
+estrutura
+    fonte "runtime/src"
+    include "runtime/include"
+    bibliotecas "lib"
+    exemplos "exemplos"
+    testes "testes"
+    documentacao "docs"
+    ferramentas "ferramentas"
+fim
+
+# Módulos padrão
+modulos
+    arquivo
+    rede
+    banco
+    ia
+    colecoes
+    matematica
+    texto
+    data_hora
+fim
+
+# Extensões de arquivo
+extensoes
+    codigo ".br"
+    bytecode ".brc"
+    pacote ".brp"
+    manifesto ".brm"
+    documentacao ".brd"
+    teste ".brt"
+    interface ".bri"
+    agente ".bra"
+fim

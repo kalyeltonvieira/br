@@ -1,0 +1,59 @@
+teste "lista inline com indice"
+    variavel dados = [1, 2, 3]
+    espere dados[1] igual a 2
+fim
+
+teste "registro inline com propriedade"
+    variavel pessoa = {"nome": "Ana", "idade": 30}
+    espere pessoa.nome igual a "Ana"
+fim
+
+teste "registro inline com indice texto"
+    variavel pessoa = {"nome": "Ana"}
+    espere pessoa["nome"] igual a "Ana"
+fim
+
+teste "comparador igual moderno"
+    espere 2 == 2 igual a verdadeiro
+fim
+
+teste "comparador diferente moderno"
+    espere 2 != 3 igual a verdadeiro
+fim
+
+teste "comparador maior ou igual moderno"
+    espere 3 >= 3 igual a verdadeiro
+fim
+
+teste "comparador menor ou igual moderno"
+    espere 2 <= 3 igual a verdadeiro
+fim
+
+teste "atribuicao com igual"
+    variavel x = 1
+    x = x + 2
+    espere x igual a 3
+fim
+
+teste "comentario barra dupla"
+    // comentario moderno
+    espere 1 igual a 1
+fim
+
+teste "atribuir indice lista"
+    variavel dados = [1, 2, 3]
+    dados[1] = 9
+    espere dados[1] igual a 9
+fim
+
+teste "atribuir chave registro"
+    variavel pessoa = {"nome": "Ana"}
+    pessoa["nome"] = "Bia"
+    espere pessoa.nome igual a "Bia"
+fim
+
+teste "atribuir propriedade registro"
+    variavel pessoa = {"nome": "Ana"}
+    pessoa.nome = "Bia"
+    espere pessoa["nome"] igual a "Bia"
+fim

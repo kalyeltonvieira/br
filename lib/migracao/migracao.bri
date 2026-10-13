@@ -1,0 +1,9 @@
+contrato migracao
+    função nome
+    função descricao
+    função versao
+    função migrar recebendo projeto
+    função versao recebendo projeto
+    função api recebendo nome_item
+    função relatorio recebendo projeto
+fim

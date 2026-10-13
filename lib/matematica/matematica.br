@@ -1,0 +1,32 @@
+explicacao
+    Matemática: operações básicas, avançadas, estatística e números aleatórios.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "matematica"
+fim
+
+função descricao
+    devolva "Matemática: operações básicas, avançadas, estatística e números aleatórios"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função somar recebendo a e b
+    devolva a + b
+fim
+
+função subtrair recebendo a e b
+    devolva a - b
+fim
+
+função multiplicar recebendo a e b
+    devolva a * b
+fim
+
+função dividir recebendo a e b
+    devolva a / b
+fim

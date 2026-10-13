@@ -1,0 +1,33 @@
+# Documentação BRD: roteador
+
+## Nome
+
+Roteador
+
+## Descrição
+
+Rotas, parâmetros e grupos de rotas. Permite definir rotas HTTP com parâmetros e grupos de rotas.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* criar: Cria um novo roteador.
+* adicionar_rota: Adiciona uma rota ao roteador.
+* adicionar_grupo: Adiciona um grupo de rotas com prefixo.
+* adicionar_parametro: Adiciona um parâmetro à rota.
+* adicionar_validacao: Adiciona um validador à rota.
+* rotear: Roteia a requisição para o handler correto.
+* definir_prefixo: Define o prefixo global do roteador.
+
+## Exemplo
+
+```br
+usar rede.roteador
+
+roteador é criar
+adicionar_rota roteador, "GET", "/usuarios", funcao(req, res)
+    # handler
+fim
+```

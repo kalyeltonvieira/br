@@ -1,0 +1,19 @@
+# Documentação BRD: yaml
+
+## Nome
+
+YAML
+
+## Descrição
+
+leitura, escrita e validação de arquivos YAML.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* ler: Lê conteúdo YAML.
+* escrever: Gera texto YAML.
+* validar: Valida sintaxe YAML.
+* chave: Consulta chave YAML.

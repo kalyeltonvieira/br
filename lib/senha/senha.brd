@@ -1,0 +1,19 @@
+# Documentação BRD: senha
+
+## Nome
+
+Senha
+
+## Descrição
+
+geração, validação e força de senhas.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* gerar: Gera senha.
+* validar: Valida senha.
+* forca: Calcula força da senha.
+* hash: Gera hash de senha.

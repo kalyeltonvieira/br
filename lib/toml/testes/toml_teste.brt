@@ -1,0 +1,5 @@
+importar "toml"
+
+teste "nome do modulo toml"
+    espere toml.nome() igual a "toml"
+fim

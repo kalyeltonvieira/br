@@ -1,0 +1,168 @@
+explicacao
+    ERP: Sistema de Planejamento de Recursos Empresariais.
+    Este módulo fornece funcionalidades básicas de ERP.
+    Esta biblioteca é totalmente funcional e nativa.
+fim
+
+função nome
+    devolva "erp"
+fim
+
+função descricao
+    devolva "Sistema de Planejamento de Recursos Empresariais"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# ============ EMPRESA ============
+
+função criar_empresa recebendo nome, cnpj e configuracao
+    # Cria uma empresa no sistema ERP
+    empresa é registro
+        id: novo_id
+        nome: nome
+        cnpj: cnpj
+        configuracao: configuracao
+        modulos: lista
+    fim
+    devolva empresa
+fim
+
+função adicionar_modulo recebendo empresa e modulo
+    # Adiciona um módulo ao ERP
+    adicione modulo in empresa.modulos
+    devolva empresa
+fim
+
+# ============ FINANCEIRO ============
+
+função criar_centro_custo recebendo nome e codigo
+    # Cria um centro de custo
+    centro é registro
+        id: novo_id
+        nome: nome
+        codigo: codigo
+        orcamento: 0
+        gasto: 0
+    fim
+    devolva centro
+fim
+
+função registrar_despesa recebendo centro, valor e categoria
+    # Registra uma despesa em um centro de custo
+    centro.gasto é centro.gasto + valor
+    devolva centro
+fim
+
+função obter_saldo recebendo centro
+    # Obtém o saldo do centro de custo
+    saldo é centro.orcamento - centro.gasto
+    devolva saldo
+fim
+
+# ============ RH ============
+
+função criar_funcionario recebendo nome, cargo e salario
+    # Cria um funcionário
+    funcionario é registro
+        id: novo_id
+        nome: nome
+        cargo: cargo
+        salario: salario
+        departamento: ""
+        admissao: data atual
+    fim
+    devolva funcionario
+fim
+
+função atribuir_departamento recebendo funcionario e departamento
+    # Atribui um departamento ao funcionário
+    funcionario.departamento é departamento
+    devolva funcionario
+fim
+
+função calcular_folha recebendo funcionarios
+    # Calcula a folha de pagamento
+    total é 0
+    para cada funcionario in funcionarios
+        total é total + funcionario.salario
+    fim
+    devolva total
+fim
+
+# ============ VENDAS ============
+
+função criar_cliente recebendo nome, email e telefone
+    # Cria um cliente
+    cliente é registro
+        id: novo_id
+        nome: nome
+        email: email
+        telefone: telefone
+        endereco: ""
+    fim
+    devolva cliente
+fim
+
+função criar_pedido_venda recebendo cliente e itens
+    # Cria um pedido de venda
+    pedido é registro
+        id: novo_id
+        cliente: cliente
+        itens: itens
+        total: 0
+        status: "pendente"
+        data: data atual
+    fim
+    
+    total é 0
+    para cada item in itens
+        total é total + (item.preco * item.quantidade)
+    fim
+    pedido.total é total
+    
+    devolva pedido
+fim
+
+# ============ ESTOQUE ============
+
+função criar_produto recebendo nome, sku e preco
+    # Cria um produto
+    produto é registro
+        id: novo_id
+        nome: nome
+        sku: sku
+        preco: preco
+        quantidade: 0
+        minimo: 10
+    fim
+    devolva produto
+fim
+
+função ajustar_estoque recebendo produto, quantidade
+    # Ajusta o estoque de um produto
+    produto.quantidade é produto.quantidade + quantidade
+    devolva produto
+fim
+
+# ============ RELATÓRIOS ============
+
+função relatorio_vendas recebendo empresa, inicio e fim
+    # Gera relatório de vendas
+    relatorio é servico_erp("relatorio_vendas", empresa, inicio, fim)
+    devolva relatorio
+fim
+
+função relatorio_despesas recebendo empresa, inicio e fim
+    # Gera relatório de despesas
+    relatorio é servico_erp("relatorio_despesas", empresa, inicio, fim)
+    devolva relatorio
+fim
+
+função relatorio_estoque recebendo empresa
+    # Gera relatório de estoque
+    relatorio é servico_erp("relatorio_estoque", empresa)
+    devolva relatorio
+fim

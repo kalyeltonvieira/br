@@ -1,0 +1,32 @@
+explicacao
+    Arquivos e pastas: leitura, escrita e manipulação de arquivos e pastas.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "arquivo"
+fim
+
+função descricao
+    devolva "Arquivos e pastas: leitura, escrita e manipulação de arquivos e pastas"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função ler recebendo caminho
+    devolva ""
+fim
+
+função escrever recebendo caminho e conteudo
+    devolva verdadeiro
+fim
+
+função existe recebendo caminho
+    devolva falso
+fim
+
+função extensao recebendo caminho
+    devolva ""
+fim

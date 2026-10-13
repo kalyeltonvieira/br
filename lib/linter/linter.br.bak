@@ -1,0 +1,32 @@
+explicacao
+    Linter: análise estática e avisos de qualidade.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "linter"
+fim
+
+função descricao
+    devolva "Linter: análise estática e avisos de qualidade"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função analisar recebendo codigo
+    devolva "[]"
+fim
+
+função avisos recebendo codigo
+    devolva "[]"
+fim
+
+função regra recebendo nome_item
+    devolva nome_item
+fim
+
+função corrigir recebendo codigo
+    devolva codigo
+fim

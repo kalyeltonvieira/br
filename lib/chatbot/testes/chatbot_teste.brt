@@ -1,0 +1,5 @@
+importar "chatbot"
+
+teste "nome do modulo chatbot"
+    espere chatbot.nome() igual a "chatbot"
+fim

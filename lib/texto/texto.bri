@@ -1,0 +1,9 @@
+contrato texto
+    função nome
+    função descricao
+    função versao
+    função vazio recebendo valor
+    função contem recebendo valor e trecho
+    função slug recebendo valor
+    função formatar recebendo modelo e valor
+fim

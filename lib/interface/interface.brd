@@ -1,0 +1,19 @@
+# Documentação BRD: interface
+
+## Nome
+
+Interface de terminal
+
+## Descrição
+
+terminal, cores, menus, perguntas, progresso e tabelas.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* linha: Monta linha de terminal.
+* perguntar: Solicita entrada do usuário.
+* progresso: Exibe progresso.
+* tabela: Renderiza tabela.

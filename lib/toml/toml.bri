@@ -1,0 +1,9 @@
+contrato toml
+    função nome
+    função descricao
+    função versao
+    função ler recebendo dados
+    função escrever recebendo dados
+    função validar recebendo dados
+    função secao recebendo dados e nome_item
+fim

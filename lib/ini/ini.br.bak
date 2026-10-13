@@ -1,0 +1,32 @@
+explicacao
+    INI: leitura, escrita e edição de arquivos INI.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "ini"
+fim
+
+função descricao
+    devolva "INI: leitura, escrita e edição de arquivos INI"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função ler recebendo dados
+    devolva dados
+fim
+
+função escrever recebendo dados
+    devolva dados
+fim
+
+função editar recebendo dados e chave e valor
+    devolva dados
+fim
+
+função secao recebendo dados e nome_item
+    devolva nome_item
+fim

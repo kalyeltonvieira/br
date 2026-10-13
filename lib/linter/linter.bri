@@ -1,0 +1,9 @@
+contrato linter
+    função nome
+    função descricao
+    função versao
+    função analisar recebendo codigo
+    função avisos recebendo codigo
+    função regra recebendo nome_item
+    função corrigir recebendo codigo
+fim

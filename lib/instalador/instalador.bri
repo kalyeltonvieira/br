@@ -1,0 +1,9 @@
+contrato instalador
+    função nome
+    função descricao
+    função versao
+    função criar recebendo projeto
+    função windows recebendo projeto
+    função linux recebendo projeto
+    função manifesto recebendo projeto
+fim

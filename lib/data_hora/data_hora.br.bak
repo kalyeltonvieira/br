@@ -1,0 +1,32 @@
+explicacao
+    Datas e horários: datas, horários, duração, calendário e fusos.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "data_hora"
+fim
+
+função descricao
+    devolva "Datas e horários: datas, horários, duração, calendário e fusos"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função agora
+    devolva "2026-06-06T00:00:00"
+fim
+
+função hoje
+    devolva "2026-06-06"
+fim
+
+função diferenca recebendo inicio e fim_valor
+    devolva 0
+fim
+
+função fuso
+    devolva "America/Sao_Paulo"
+fim

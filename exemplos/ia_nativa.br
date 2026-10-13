@@ -1,0 +1,57 @@
+# Exemplo: IA Nativa em BR
+
+# ==================== IA BÁSICA ====================
+
+# Perguntar à IA
+resposta é pergunte para ia "Qual a capital do Brasil?"
+mostre "Resposta: ${resposta}"
+
+# IA com contexto
+contexto é "Você é um professor de programação"
+pergunta é "O que é uma função?"
+resposta2 é pergunte para ia "${contexto}\nPergunta: ${pergunta}"
+mostre "Resposta 2: ${resposta2}"
+
+# ==================== AGENTE SIMPLES ====================
+
+# Criar um agente
+agente assistente
+    especialidade "programacao BR"
+    
+    função ajudar recebendo pergunta
+        resposta é pergunte para ia "Ajude com: ${pergunta}"
+        devolva resposta
+    fim
+fim
+
+# Usar o agente
+ajuda é assistente()
+mostre "Agente: ${ajuda.ajudar('Como usar decorators?')}"
+
+# ==================== ANÁLISE DE CÓDIGO ====================
+
+# Analisar código
+codigo é leia_arquivo("exemplos/aplicacao_completa.br")
+analise é ia.analisar(codigo)
+mostre "Análise: ${analise}"
+
+# ==================== GERAÇÃO DE CÓDIGO ====================
+
+# Gerar função
+descricao é "Criar função que calcula fibonacci"
+funcao_gerada é ia.gerar_codigo(descricao)
+mostre "Código gerado: ${funcao_gerada}"
+
+# ==================== AUTO-DEBUGGING ====================
+
+tente
+    # Código com erro
+    resultado é 10 / 0
+capture erro
+    # IA sugere correção
+    sugestao é ia.sugerir_correcao(erro)
+    mostre "Sugestão: ${sugestao}"
+fim
+
+mostre ""
+mostre "Exemplo de IA concluído!"

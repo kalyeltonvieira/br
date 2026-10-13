@@ -1,0 +1,38 @@
+# MySQL module for integration with MySQL and MariaDB databases
+
+explicacao
+    MySQL: integração com MySQL e MariaDB.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "mysql"
+fim
+
+função descricao
+    devolva "Integração com MySQL e MariaDB."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função conectar recebendo conexao_string
+    devolva verdadeiro
+fim
+
+função consulta recebendo sql
+    devolva sql
+fim
+
+função transacao
+    devolva verdadeiro
+fim
+
+função migrar
+    devolva verdadeiro
+fim
+
+função fechar
+    devolva verdadeiro
+fim

@@ -1,0 +1,9 @@
+contrato log
+    função nome
+    função descricao
+    função versao
+    função info recebendo mensagem
+    função aviso recebendo mensagem
+    função erro recebendo mensagem
+    função nivel recebendo valor
+fim

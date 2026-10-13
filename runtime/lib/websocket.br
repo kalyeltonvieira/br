@@ -1,0 +1,76 @@
+explicacao
+    Modulo websocket compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "websocket"
+fim
+
+funcao descricao
+    devolva "Modulo websocket compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao criar_servidor recebendo porta e callback
+    devolva porta
+fim
+
+funcao iniciar_servidor recebendo servidor
+    devolva servidor
+fim
+
+funcao parar_servidor recebendo servidor
+    devolva servidor
+fim
+
+funcao criar_cliente recebendo url
+    devolva url
+fim
+
+funcao conectar recebendo cliente
+    devolva verdadeiro
+fim
+
+funcao desconectar recebendo cliente
+    devolva cliente
+fim
+
+funcao enviar recebendo cliente e mensagem
+    devolva verdadeiro
+fim
+
+funcao broadcast recebendo servidor e mensagem
+    devolva servidor
+fim
+
+funcao definir_callback recebendo cliente e evento e callback
+    devolva cliente
+fim
+
+funcao adicionar_cliente recebendo servidor e cliente
+    devolva servidor
+fim
+
+funcao remover_cliente recebendo servidor e cliente
+    devolva servidor
+fim
+
+funcao obter_clientes recebendo servidor
+    devolva servidor
+fim
+
+funcao definir_ping_interval recebendo servidor e segundos
+    devolva servidor
+fim
+
+funcao exemplo recebendo valor
+    devolva valor
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim

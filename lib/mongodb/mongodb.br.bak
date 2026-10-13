@@ -1,0 +1,38 @@
+# MongoDB module for integration with MongoDB database
+
+explicacao
+    MongoDB: integração com o banco de dados MongoDB.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "mongodb"
+fim
+
+função descricao
+    devolva "Integração com MongoDB."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função conectar recebendo uri
+    devolva verdadeiro
+fim
+
+função consulta recebendo filtro
+    devolva filtro
+fim
+
+função transacao
+    devolva verdadeiro
+fim
+
+função migrar
+    devolva verdadeiro
+fim
+
+função fechar
+    devolva verdadeiro
+fim

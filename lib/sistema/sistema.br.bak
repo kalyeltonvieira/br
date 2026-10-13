@@ -1,0 +1,32 @@
+explicacao
+    Sistema operacional: argumentos, variáveis de ambiente, processos e comandos.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "sistema"
+fim
+
+função descricao
+    devolva "Sistema operacional: argumentos, variáveis de ambiente, processos e comandos"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função plataforma
+    devolva "windows"
+fim
+
+função argumentos
+    devolva "[]"
+fim
+
+função ambiente recebendo chave
+    devolva ""
+fim
+
+função executar recebendo comando
+    devolva 0
+fim

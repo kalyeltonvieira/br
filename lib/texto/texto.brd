@@ -1,0 +1,19 @@
+# Documentação BRD: texto
+
+## Nome
+
+Texto e strings
+
+## Descrição
+
+strings, regex, validações, formatação e acentos.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* vazio: Verifica texto vazio.
+* contem: Verifica presença de trecho.
+* slug: Gera slug textual.
+* formatar: Formata texto simples.

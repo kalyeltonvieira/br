@@ -1,0 +1,81 @@
+# Classificacao module for classification of texts, images and data
+
+explicacao
+    classificacao: classificação de textos, imagens e dados.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "classificacao"
+fim
+
+função descricao
+    devolva "Classificação de textos, imagens e dados."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# Simple text classifier: count word occurrences per class and pick max
+função treinar_modelo recebendo tipo, dados_treino
+    # dados_treino: list of [texto, classe]
+    variavel modelo = {}  // map classe -> map palavra -> contador
+    para cada par em dados_treino
+        variavel texto = par[0]
+        variavel classe = par[1]
+        se modelo[classe] == nulo então
+            modelo[classe] = {}
+        fim
+        variavel palavras = texto.separar(" ")
+        para cada palavra em palavras
+            se modelo[classe][palavra] == nulo então
+                modelo[classe][palavra] = 1
+            senão
+                modelo[classe][palavra] = modelo[classe][palavra] + 1
+            fim
+        fim
+    fim
+    devolva modelo
+fim
+
+função classificar recebendo modelo_id, entrada
+    # entrada: texto a classificar
+    variavel melhor = nulo
+    variavel melhor_contagem = -1
+    para cada classe em modelo_id
+        variavel contagem_map = modelo_id.obter(classe)
+        variavel contagem = 0
+        variavel palavras = entrada.separar(" ")
+        para cada palavra em palavras
+            se contagem_map[palavra] != nulo então
+                contagem = contagem + contagem_map[palavra]
+            fim
+        fim
+        se contagem > melhor_contagem então
+            melhor_contagem = contagem
+            melhor = classe
+        fim
+    fim
+    devolva melhor
+fim
+
+função avaliar recebendo modelo_id, dados_teste
+    # dados_teste: list of [texto, classe]
+    variavel corretos = 0
+    variavel total = 0
+    para cada par em dados_teste
+        variavel texto = par[0]
+        variavel classe_real = par[1]
+        variavel classe_pred = classificar(modelo_id, texto)
+        se classe_pred == classe_real então
+            corretos = corretos + 1
+        fim
+        total = total + 1
+    fim
+    devolva corretos / total
+fim
+
+função fechar
+    devolva verdadeiro
+fim

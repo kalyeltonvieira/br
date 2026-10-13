@@ -1,0 +1,12 @@
+# Teste mínimo que deve funcionar
+
+mostre "Teste básico..."
+
+numero é 10
+texto é "funcionando"
+mostre "Número: " + numero
+mostre "Texto: " + texto
+
+# Operações matemáticas diretas
+soma é 5 + 3
+mostre "5 + 3 = " + soma

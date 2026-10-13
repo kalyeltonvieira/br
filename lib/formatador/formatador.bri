@@ -1,0 +1,9 @@
+contrato formatador
+    função nome
+    função descricao
+    função versao
+    função formatar recebendo codigo
+    função arquivo recebendo caminho
+    função verificar recebendo codigo
+    função configurar recebendo opcoes
+fim

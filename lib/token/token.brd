@@ -1,0 +1,19 @@
+# Documentação BRD: token
+
+## Nome
+
+Token
+
+## Descrição
+
+geração e validação de tokens simples.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* gerar: Gera token simples.
+* validar: Valida token.
+* expirar: Expira token.
+* renovar: Renova token.

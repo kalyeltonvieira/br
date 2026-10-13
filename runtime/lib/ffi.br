@@ -1,0 +1,32 @@
+explicacao
+    FFI: integração com C, C++, DLLs, Python, JavaScript e Shell.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "ffi"
+fim
+
+função descricao
+    devolva "FFI: integração com C, C++, DLLs, Python, JavaScript e Shell"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função dll recebendo caminho
+    devolva caminho
+fim
+
+função python recebendo codigo
+    devolva codigo
+fim
+
+função javascript recebendo codigo
+    devolva codigo
+fim
+
+função shell recebendo comando
+    devolva comando
+fim

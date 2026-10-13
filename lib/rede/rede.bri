@@ -1,0 +1,9 @@
+contrato rede
+    função nome
+    função descricao
+    função versao
+    função get recebendo url
+    função post recebendo url e dados
+    função baixar recebendo url e caminho
+    função url_valida recebendo url
+fim

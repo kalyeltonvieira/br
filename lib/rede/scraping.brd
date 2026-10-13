@@ -1,0 +1,44 @@
+# Documentação BRD: scraping
+
+## Nome
+
+Scraping
+
+## Descrição
+
+Extração de dados de páginas web. Permite extrair dados estruturados de páginas web HTML.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* obter_html: Obtém o HTML de uma página.
+* selecionar_todos: Seleciona todos os elementos que correspondem ao seletor CSS.
+* selecionar_um: Seleciona o primeiro elemento que corresponde ao seletor CSS.
+* obter_texto: Obtém o texto de um elemento.
+* obter_atributo: Obtém um atributo de um elemento.
+* obter_links: Obtém todos os links de uma página.
+* obter_imagens: Obtém todas as imagens de uma página.
+* obter_tabelas: Obtém todas as tabelas de uma página.
+* parsear_tabela: Parseia uma tabela HTML em dados estruturados.
+* limpar_texto: Limpa o texto removendo espaços extras.
+* extrair_json: Extrai dados JSON de um elemento.
+* seguir_links: Segue links recursivamente até uma profundidade.
+* definir_cabecalho: Define um cabeçalho para as requisições.
+* definir_proxy: Define um proxy para as requisições.
+* definir_timeout: Define o timeout das requisições.
+* definir_delay: Define um delay entre requisições.
+
+## Exemplo
+
+```br
+usar rede.scraping
+
+html é obter_html "https://exemplo.com"
+elementos é selecionar_todos html, ".produto"
+para cada elemento em elementos
+    texto é obter_texto elemento
+    mostre texto
+fim
+```

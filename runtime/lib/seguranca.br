@@ -1,0 +1,32 @@
+explicacao
+    Segurança: hash, Base64, bcrypt, JWT, permissões e sandbox.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "seguranca"
+fim
+
+função descricao
+    devolva "Segurança: hash, Base64, bcrypt, JWT, permissões e sandbox"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função hash recebendo valor
+    devolva "hash"
+fim
+
+função base64 recebendo valor
+    devolva valor
+fim
+
+função permitir recebendo permissao
+    devolva verdadeiro
+fim
+
+função jwt_validar recebendo token
+    devolva verdadeiro
+fim

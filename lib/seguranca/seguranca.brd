@@ -1,0 +1,19 @@
+# Documentação BRD: seguranca
+
+## Nome
+
+Segurança
+
+## Descrição
+
+hash, Base64, bcrypt, JWT, permissões e sandbox.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* hash: Gera hash textual.
+* base64: Codifica em Base64.
+* permitir: Verifica permissão.
+* jwt_validar: Valida token JWT.

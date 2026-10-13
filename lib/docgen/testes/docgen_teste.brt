@@ -1,0 +1,5 @@
+importar "docgen"
+
+teste "nome do modulo docgen"
+    espere docgen.nome() igual a "docgen"
+fim

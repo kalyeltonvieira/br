@@ -1,0 +1,40 @@
+# Documentação BRD: oauth
+
+## Nome
+
+OAuth
+
+## Descrição
+
+Login com provedores externos. Permite autenticação via OAuth 2.0 com provedores como Google, GitHub, Facebook.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* criar_cliente: Cria um cliente OAuth para um provedor.
+* definir_redirect_uri: Define a URI de redirecionamento.
+* adicionar_scope: Adiciona um scope ao cliente.
+* obter_url_autorizacao: Obtém a URL de autorização.
+* trocar_codigo: Troca o código de autorização por um token de acesso.
+* atualizar_token: Atualiza o token de acesso usando o refresh token.
+* obter_usuario: Obtém informações do usuário usando o token.
+* revogar_token: Revoga um token de acesso.
+* validar_token: Valida se um token ainda é válido.
+* criar_google_cliente: Cria um cliente OAuth para Google.
+* criar_github_cliente: Cria um cliente OAuth para GitHub.
+* criar_facebook_cliente: Cria um cliente OAuth para Facebook.
+* definir_callback: Define uma função de callback para processar o resultado.
+* iniciar_fluxo: Inicia o fluxo de autenticação OAuth.
+* processar_callback: Processa o callback do provedor OAuth.
+
+## Exemplo
+
+```br
+usar rede.oauth
+
+cliente é criar_google_cliente "client_id", "client_secret"
+definir_redirect_uri cliente, "https://meusite.com/callback"
+url é obter_url_autorizacao cliente
+```

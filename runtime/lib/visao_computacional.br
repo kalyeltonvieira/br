@@ -1,0 +1,36 @@
+explicacao
+    Modulo visao_computacional compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "visao_computacional"
+fim
+
+funcao descricao
+    devolva "Modulo visao_computacional compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao detectar_objetos recebendo imagem
+    devolva imagem
+fim
+
+funcao segmentar_imagem recebendo imagem
+    devolva imagem
+fim
+
+funcao reconhecer_texto recebendo imagem
+    devolva imagem
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim
+
+funcao exemplo recebendo valor
+    devolva valor
+fim

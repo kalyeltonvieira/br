@@ -1,0 +1,19 @@
+# Documentação BRD: data_hora
+
+## Nome
+
+Datas e horários
+
+## Descrição
+
+datas, horários, duração, calendário e fusos.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* agora: Retorna data/hora atual.
+* hoje: Retorna data atual.
+* diferenca: Calcula duração entre datas.
+* fuso: Retorna fuso padrão.

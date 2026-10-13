@@ -1,0 +1,9 @@
+contrato repl
+    função nome
+    função descricao
+    função versao
+    função iniciar
+    função avaliar recebendo codigo
+    função historico
+    função sair
+fim

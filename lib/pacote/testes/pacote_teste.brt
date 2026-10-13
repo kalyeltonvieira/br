@@ -1,0 +1,5 @@
+importar "pacote"
+
+teste "nome do modulo pacote"
+    espere pacote.nome() igual a "pacote"
+fim

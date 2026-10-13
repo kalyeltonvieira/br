@@ -1,0 +1,5 @@
+importar "querybuilder"
+
+teste "nome do modulo querybuilder"
+    espere querybuilder.nome() igual a "querybuilder"
+fim

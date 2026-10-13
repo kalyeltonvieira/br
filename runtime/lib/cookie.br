@@ -1,0 +1,72 @@
+explicacao
+    Modulo cookie compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "cookie"
+fim
+
+funcao descricao
+    devolva "Modulo cookie compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao criar recebendo nome e valor e opcoes
+    devolva verdadeiro
+fim
+
+funcao ler recebendo nome
+    devolva ""
+fim
+
+funcao escrever recebendo cookie
+    devolva cookie
+fim
+
+funcao deletar recebendo nome
+    devolva nome
+fim
+
+funcao definir_expiracao recebendo cookie e segundos
+    devolva cookie
+fim
+
+funcao definir_seguro recebendo cookie e seguro
+    devolva cookie
+fim
+
+funcao definir_http_only recebendo cookie e http_only
+    devolva cookie
+fim
+
+funcao definir_same_site recebendo cookie e same_site
+    devolva cookie
+fim
+
+funcao definir_dominio recebendo cookie e dominio
+    devolva cookie
+fim
+
+funcao definir_caminho recebendo cookie e caminho
+    devolva cookie
+fim
+
+funcao assinar recebendo cookie e segredo
+    devolva verdadeiro
+fim
+
+funcao verificar_assinatura recebendo cookie e segredo
+    devolva cookie
+fim
+
+funcao exemplo recebendo valor
+    devolva valor
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim

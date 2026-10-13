@@ -1,0 +1,155 @@
+# Biblioteca de Arquivos - BR
+# Manipulação de arquivos e diretórios
+
+# ==================== LEITURA ====================
+
+função ler recebendo caminho
+    devolva leia_arquivo(caminho)
+fim
+
+função ler_linhas recebendo caminho
+    conteudo é leia_arquivo(caminho)
+    linhas é []
+    linha_atual é ""
+    para cada caractere em conteudo
+        se caractere == "\n"
+            linhas.adicionar(linha_atual)
+            linha_atual é ""
+        senao
+            linha_atual é linha_atual + caractere
+        fim
+    fim
+    se linha_atual != ""
+        linhas.adicionar(linha_atual)
+    fim
+    devolva linhas
+fim
+
+função ler_csv recebendo caminho
+    linhas é ler_linhas(caminho)
+    dados é []
+    para cada linha em linhas
+        colunas é linha.dividir(",")
+        dados.adicionar(colunas)
+    fim
+    devolva dados
+fim
+
+função ler_json recebendo caminho
+    # Simplificado - retorna como texto
+    devolva leia_arquivo(caminho)
+fim
+
+# ==================== ESCRITA ====================
+
+função escrever recebendo caminho e conteudo
+    # Implementação simplificada
+    arquivo é abrir(caminho, "w")
+    arquivo.escrever(conteudo)
+    arquivo.fechar()
+    devolva verdadeiro
+fim
+
+função escrever_linhas recebendo caminho e linhas
+    conteudo é ""
+    para cada linha em linhas
+        conteudo é conteudo + linha + "\n"
+    fim
+    devolva escrever(caminho, conteudo)
+fim
+
+função adicionar recebendo caminho e conteudo
+    # Adiciona ao final do arquivo
+    arquivo é abrir(caminho, "a")
+    arquivo.escrever(conteudo)
+    arquivo.fechar()
+    devolva verdadeiro
+fim
+
+# ==================== INFORMAÇÕES ====================
+
+função existe recebendo caminho
+    devolva arquivo_existe(caminho)
+fim
+
+função tamanho recebendo caminho
+    devolva tamanho_arquivo(caminho)
+fim
+
+função extensao recebendo caminho
+    partes é caminho.dividir(".")
+    devolva partes[partes.tamanho() - 1]
+fim
+
+função nome recebendo caminho
+    partes é caminho.dividir("/")
+    nome_completo é partes[partes.tamanho() - 1]
+    nome_sem_ext é nome_completo.dividir(".")[0]
+    devolva nome_sem_ext
+fim
+
+função caminho_pai recebendo caminho
+    partes é caminho.dividir("/")
+    if partes.tamanho() <= 1
+        devolva "/"
+    fim
+    pai é ""
+    i é 0
+    enquanto i < partes.tamanho() - 1
+        se i > 0
+            pai é pai + "/"
+        fim
+        pai é pai + partes[i]
+        i é i + 1
+    fim
+    devolva pai
+fim
+
+# ==================== DIRETÓRIOS ====================
+
+função listar recebendo caminho
+    devolva listar_arquivos(caminho)
+fim
+
+função criar_diretorio recebendo caminho
+    devolva criar_pasta(caminho)
+fim
+
+função remover recebendo caminho
+    devolva remover_arquivo(caminho)
+fim
+
+função renomear recebendo caminho_antigo e caminho_novo
+    devolva renomear_arquivo(caminho_antigo, caminho_novo)
+fim
+
+função copiar recebendo origem e destino
+    conteudo é ler(origem)
+    devolva escrever(destino, conteudo)
+fim
+
+função mover recebendo origem e destino
+    copiar(origem, destino)
+    devolva remover(origem)
+fim
+
+# ==================== UTILITÁRIOS ====================
+
+função caminho_absoluto recebendo caminho
+    # Simplificado
+    devolva caminho
+fim
+
+função caminho_relativo recebendo caminho
+    # Simplificado
+    devolva caminho
+fim
+
+função eh_arquivo recebendo caminho
+    devolva existe(caminho)
+fim
+
+função eh_diretorio recebendo caminho
+    # Simplificado
+    devolva falso
+fim

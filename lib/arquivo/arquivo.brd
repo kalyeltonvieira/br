@@ -1,0 +1,32 @@
+# Documentação BRD: arquivo
+
+## Nome
+
+Arquivos e pastas
+
+## Descrição
+
+leitura, escrita e manipulação de arquivos e pastas.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* ler: Lê um arquivo de texto.
+* escrever: Escreve texto em arquivo.
+* anexar: Acrescenta texto ao fim de um arquivo.
+* linhas: Le arquivo de texto e retorna lista de linhas.
+* existe: Verifica existência de caminho.
+* arquivo: Verifica se o caminho e um arquivo.
+* diretorio_existe: Verifica se o caminho e um diretorio.
+* criar_diretorio: Cria diretorio, incluindo pais.
+* listar: Lista nomes dentro de um diretorio.
+* remover/apagar: Remove arquivo ou diretorio vazio.
+* copiar: Copia arquivo ou diretorio.
+* mover: Move arquivo ou diretorio.
+* tamanho: Retorna tamanho em bytes.
+* nome_arquivo: Retorna o nome final do caminho.
+* absoluto: Retorna caminho absoluto.
+* extensao: Obtém a extensão do caminho.
+* diretorio: Retorna o diretorio do caminho.

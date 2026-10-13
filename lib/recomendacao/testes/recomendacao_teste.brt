@@ -1,0 +1,5 @@
+importar "recomendacao"
+
+teste "nome do modulo recomendacao"
+    espere recomendacao.nome() igual a "recomendacao"
+fim

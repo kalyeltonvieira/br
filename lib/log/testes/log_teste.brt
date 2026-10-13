@@ -1,0 +1,5 @@
+importar "log"
+
+teste "nome do modulo log"
+    espere log.nome() igual a "log"
+fim

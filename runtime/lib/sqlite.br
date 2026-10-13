@@ -1,0 +1,24 @@
+explicacao
+    Modulo sqlite compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "sqlite"
+fim
+
+funcao descricao
+    devolva "Modulo sqlite compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao exemplo recebendo x
+    devolva x
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim

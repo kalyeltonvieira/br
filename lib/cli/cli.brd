@@ -1,0 +1,19 @@
+# Documentação BRD: cli
+
+## Nome
+
+CLI
+
+## Descrição
+
+criação de comandos, flags e argumentos de terminal.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* comando: Cria comando de terminal.
+* flag: Define flag de comando.
+* argumento: Define argumento de comando.
+* executar_cli: Executa comando CLI.

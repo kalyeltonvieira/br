@@ -1,0 +1,38 @@
+# Estoque module for inventory control, entries, exits and alerts
+
+explicacao
+    estoque: controle de estoque, entradas, saídas e alertas.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "estoque"
+fim
+
+função descricao
+    devolva "Controle de estoque, entradas, saídas e alertas."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função registrar_entrada recebendo produto_id, quantidade
+    devolva verdadeiro
+fim
+
+função registrar_saida recebendo produto_id, quantidade
+    devolva verdadeiro
+fim
+
+função obter_saldo recebendo produto_id
+    devolva 0
+fim
+
+função alertar_estoque_baixo recebendo produto_id, limite
+    devolva verdadeiro
+fim
+
+função fechar
+    devolva verdadeiro
+fim

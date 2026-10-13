@@ -1,0 +1,38 @@
+# Assinatura module for recurring plans, monthly fees and renewals
+
+explicacao
+    assinatura: planos recorrentes, mensalidades e renovações.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "assinatura"
+fim
+
+função descricao
+    devolva "Planos recorrentes, mensalidades e renovações."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função criar_plano recebendo nome, preco, periodo
+    devolva verdadeiro
+fim
+
+função assinar recebendo usuario, plano_id
+    devolva "ID_ASSINATURA"
+fim
+
+função renovar recebendo assinatura_id
+    devolva verdadeiro
+fim
+
+função cancelar recebendo assinatura_id
+    devolva verdadeiro
+fim
+
+função fechar
+    devolva verdadeiro
+fim

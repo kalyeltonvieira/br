@@ -1,0 +1,9 @@
+contrato xml
+    função nome
+    função descricao
+    função versao
+    função validar recebendo dados
+    função ler recebendo dados
+    função gerar recebendo dados
+    função consultar recebendo dados e caminho
+fim

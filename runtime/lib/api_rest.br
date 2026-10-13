@@ -1,0 +1,68 @@
+explicacao
+    Modulo api_rest compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "api_rest"
+fim
+
+funcao descricao
+    devolva "Modulo api_rest compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao criar recebendo nome e versao
+    devolva verdadeiro
+fim
+
+funcao adicionar_recurso recebendo api e recurso e operacoes
+    devolva api
+fim
+
+funcao adicionar_operacao recebendo api e recurso e metodo e handler
+    devolva api
+fim
+
+funcao definir_autenticacao recebendo api e tipo
+    devolva api
+fim
+
+funcao adicionar_rate_limit recebendo api e maximo e periodo
+    devolva api
+fim
+
+funcao gerar_documentacao recebendo api
+    devolva api
+fim
+
+funcao validar_requisicao recebendo api e requisicao
+    devolva api
+fim
+
+funcao formatar_resposta recebendo api e dados e status
+    devolva api
+fim
+
+funcao adicionar_paginacao recebendo api e maximo
+    devolva api
+fim
+
+funcao adicionar_filtro recebendo api e campo e tipo
+    devolva api
+fim
+
+funcao adicionar_ordenacao recebendo api e campo e direcao
+    devolva api
+fim
+
+funcao exemplo recebendo valor
+    devolva valor
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim

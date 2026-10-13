@@ -1,0 +1,38 @@
+# Dataframe module for tabular data, columns, rows and operations
+
+explicacao
+    dataframe: dados tabulares, colunas, linhas e operações.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "dataframe"
+fim
+
+função descricao
+    devolva "Dados tabulares, colunas, linhas e operações."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função criar recebendo colunas
+    devolva "ID_DATAFRAME"
+fim
+
+função inserir_linha recebendo dataframe_id, linha
+    devolva verdadeiro
+fim
+
+função selecionar_colunas recebendo dataframe_id, colunas
+    devolva []
+fim
+
+função aplicar_operacao recebendo dataframe_id, operacao, colunas
+    devolva verdadeiro
+fim
+
+função fechar
+    devolva verdadeiro
+fim

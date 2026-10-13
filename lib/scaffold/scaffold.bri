@@ -1,0 +1,9 @@
+contrato scaffold
+    função nome
+    função descricao
+    função versao
+    função projeto recebendo nome_item
+    função arquivo recebendo nome_item
+    função template recebendo nome_item
+    função estrutura recebendo nome_item
+fim

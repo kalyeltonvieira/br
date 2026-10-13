@@ -1,0 +1,9 @@
+contrato json
+    função nome
+    função descricao
+    função versao
+    função validar recebendo dados
+    função gerar recebendo dados
+    função parsear recebendo dados
+    função bonito recebendo dados
+fim

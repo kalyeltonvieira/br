@@ -1,0 +1,32 @@
+explicacao
+    Build: sistema de build e empacotamento.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "build"
+fim
+
+função descricao
+    devolva "Build: sistema de build e empacotamento"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função construir recebendo projeto
+    devolva verdadeiro
+fim
+
+função limpar recebendo projeto
+    devolva verdadeiro
+fim
+
+função empacotar recebendo projeto
+    devolva projeto
+fim
+
+função artefato recebendo nome_item
+    devolva nome_item
+fim

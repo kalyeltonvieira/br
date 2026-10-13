@@ -1,0 +1,261 @@
+# Biblioteca de Coleções - BR
+# Estruturas de dados avançadas
+
+# ==================== LISTA ====================
+
+função lista_vazia
+    devolva []
+fim
+
+função lista_de recebendo *elementos
+    devolva [elementos]
+fim
+
+função adicionar recebendo lista e elemento
+    lista.adicionar(elemento)
+    devolva lista
+fim
+
+função remover recebendo lista e elemento
+    # Remove primeira ocorrência
+    i é 0
+    enquanto i < lista.tamanho()
+        se lista[i] == elemento
+            lista.remover(i)
+            devolva lista
+        fim
+        i é i + 1
+    fim
+    devolva lista
+fim
+
+função remover_indice recebendo lista e indice
+    lista.remover(indice)
+    devolva lista
+fim
+
+função obter recebendo lista e indice
+    devolva lista.obter(indice)
+fim
+
+função definir recebendo lista e indice e valor
+    lista[indice] é valor
+    devolva lista
+fim
+
+função tamanho recebendo lista
+    devolva lista.tamanho()
+fim
+
+função primeiro recebendo lista
+    devolva lista.primeiro()
+fim
+
+função ultimo recebendo lista
+    devolva lista.ultimo()
+fim
+
+função contem recebendo lista e elemento
+    i é 0
+    enquanto i < lista.tamanho()
+        se lista[i] == elemento
+            devolva verdadeiro
+        fim
+        i é i + 1
+    fim
+    devolva falso
+fim
+
+função indice_de recebendo lista e elemento
+    i é 0
+    enquanto i < lista.tamanho()
+        se lista[i] == elemento
+            devolva i
+        fim
+        i é i + 1
+    fim
+    devolva -1
+fim
+
+função contar recebendo lista e elemento
+    contador é 0
+    para cada item em lista
+        se item == elemento
+            contador é contador + 1
+        fim
+    fim
+    devolva contador
+fim
+
+função inverter recebendo lista
+    resultado é []
+    i é lista.tamanho() - 1
+    enquanto i >= 0
+        resultado.adicionar(lista[i])
+        i é i - 1
+    fim
+    devolva resultado
+fim
+
+função ordenar recebendo lista
+    # Bubble sort simplificado
+    n é lista.tamanho()
+    i é 0
+    enquanto i < n - 1
+        j é 0
+        enquanto j < n - i - 1
+            se lista[j] > lista[j + 1]
+                temp é lista[j]
+                lista[j] é lista[j + 1]
+                lista[j + 1] é temp
+            fim
+            j é j + 1
+        fim
+        i é i + 1
+    fim
+    devolva lista
+fim
+
+função embaralhar recebendo lista
+    i é lista.tamanho() - 1
+    enquanto i > 0
+        j é arredondar(aleatorio_entre(0, i))
+        temp é lista[i]
+        lista[i] é lista[j]
+        lista[j] é temp
+        i é i - 1
+    fim
+    devolva lista
+fim
+
+função limpar recebendo lista
+    lista é []
+    devolva lista
+fim
+
+função clonar recebendo lista
+    devolva lista
+fim
+
+# ==================== FILTROS E MAPEAMENTO ====================
+
+função filtrar recebendo lista e condicao
+    resultado é []
+    para cada item em lista
+        se condicao(item)
+            resultado.adicionar(item)
+        fim
+    fim
+    devolva resultado
+fim
+
+função mapear recebendo lista e funcao
+    resultado é []
+    para cada item em lista
+        resultado.adicionar(funcao(item))
+    fim
+    devolva resultado
+fim
+
+função reduzir recebendo lista e funcao e inicial
+    acumulador é inicial
+    para cada item em lista
+        acumulador é funcao(acumulador, item)
+    fim
+    devolva acumulador
+fim
+
+função encontrar recebendo lista e condicao
+    para cada item em lista
+        se condicao(item)
+            devolva item
+        fim
+    fim
+    devolva nulo
+fim
+
+função todos recebendo lista e condicao
+    para cada item em lista
+        se nao condicao(item)
+            devolva falso
+        fim
+    fim
+    devolva verdadeiro
+fim
+
+função algum recebendo lista e condicao
+    para cada item em lista
+        se condicao(item)
+            devolva verdadeiro
+        fim
+    fim
+    devolva falso
+fim
+
+# ==================== AGREGAÇÃO ====================
+
+função soma recebendo lista
+    total é 0
+    para cada item em lista
+        total é total + item
+    fim
+    devolva total
+fim
+
+função media recebendo lista
+    devolva soma(lista) / lista.tamanho()
+fim
+
+função minimo recebendo lista
+    menor é lista[0]
+    i é 1
+    enquanto i < lista.tamanho()
+        se lista[i] < menor
+            menor é lista[i]
+        fim
+        i é i + 1
+    fim
+    devolva menor
+fim
+
+função maximo recebendo lista
+    maior é lista[0]
+    i é 1
+    enquanto i < lista.tamanho()
+        se lista[i] > maior
+            maior é lista[i]
+        fim
+        i é i + 1
+    fim
+    devolva maior
+fim
+
+# ==================== CONCATENAÇÃO ====================
+
+função concatenar recebendo lista1 e lista2
+    resultado é lista1.clonar()
+    para cada item em lista2
+        resultado.adicionar(item)
+    fim
+    devolva resultado
+fim
+
+função unico recebendo lista
+    resultado é []
+    para cada item em lista
+        se nao resultado.contem(item)
+            resultado.adicionar(item)
+        fim
+    fim
+    devolva resultado
+fim
+
+função planificar recebendo lista
+    resultado é []
+    para cada sublista em lista
+        para cada item em sublista
+            resultado.adicionar(item)
+        fim
+    fim
+    devolva resultado
+fim

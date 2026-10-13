@@ -1,0 +1,166 @@
+# Biblioteca de Data e Hora - BR
+# Manipulação de datas e horários
+
+# ==================== DATA ATUAL ====================
+
+função data_atual
+    devolva data_hoje()
+fim
+
+função hora_atual
+    devolva hora_agora()
+fim
+
+função agora
+    devolva data_hora_atual()
+fim
+
+# ==================== CRIAÇÃO DE DATAS ====================
+
+função criar_data recebendo ano e mes e dia
+    devolva nova_data(ano, mes, dia)
+fim
+
+função criar_hora recebendo hora e minuto e segundo
+    devolva nova_hora(hora, minuto, segundo)
+fim
+
+# ==================== FORMATAÇÃO ====================
+
+função formatar_data recebendo data e formato
+    # Formatos: "DD/MM/AAAA", "AAAA-MM-DD", "DD de MMM de AAAA"
+    devolva data.para_texto(formato)
+fim
+
+função formatar_hora recebendo hora
+    devolva hora.para_texto("HH:MM:SS")
+fim
+
+função formatar_data_hora recebendo data_hora
+    devolva data_hora.para_texto("DD/MM/AAAA HH:MM:SS")
+fim
+
+# ==================== EXTRAÇÃO ====================
+
+função extrair_ano recebendo data
+    devolva data.ano
+fim
+
+função extrair_mes recebendo data
+    devolva data.mes
+fim
+
+função extrair_dia recebendo data
+    devolva data.dia
+fim
+
+função extrair_hora recebendo hora
+    devolva hora.hora
+fim
+
+função extrair_minuto recebendo hora
+    devolva hora.minuto
+fim
+
+função extrair_segundo recebendo hora
+    devolva hora.segundo
+fim
+
+# ==================== OPERAÇÕES COM DATAS ====================
+
+função somar_dias recebendo data e dias
+    devolva data.somar_dias(dias)
+fim
+
+função somar_meses recebendo data e meses
+    devolva data.somar_meses(meses)
+fim
+
+função somar_anos recebendo data e anos
+    devolva data.somar_anos(anos)
+fim
+
+função diferenca_dias recebendo data1 e data2
+    devolva (data2 - data1).dias
+fim
+
+função diferenca_anos recebendo data1 e data2
+    devolva (data2 - data1).anos
+fim
+
+# ==================== COMPARAÇÃO ====================
+
+função eh_hoje recebendo data
+    devolva data == data_atual()
+fim
+
+função eh_passado recebendo data
+    devolva data < data_atual()
+fim
+
+função eh_futuro recebendo data
+    devolva data > data_atual()
+fim
+
+função comparar recebendo data1 e data2
+    se data1 < data2
+        devolva -1
+    senao se data1 > data2
+        devolva 1
+    senao
+        devolva 0
+    fim
+fim
+
+# ==================== DIA DA SEMANA ====================
+
+função dia_semana recebendo data
+    # 0 = Domingo, 1 = Segunda, ..., 6 = Sábado
+    devolva data.dia_semana
+fim
+
+função nome_dia_semana recebendo data
+    nomes é ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"]
+    devolva nomes[data.dia_semana]
+fim
+
+função eh_fim_semana recebendo data
+    dia é data.dia_semana
+    devolva dia == 0 ou dia == 6
+fim
+
+função eh_dia_util recebendo data
+    devolva nao eh_fim_semana(data)
+fim
+
+# ==================== UTILITÁRIOS ====================
+
+função eh_bissexto recebendo ano
+    se ano % 400 == 0
+        devolva verdadeiro
+    fim
+    se ano % 100 == 0
+        devolva falso
+    fim
+    se ano % 4 == 0
+        devolva verdadeiro
+    fim
+    devolva falso
+fim
+
+função dias_no_mes recebendo ano e mes
+    dias é [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    se mes == 2 e eh_bissexto(ano)
+        devolva 29
+    fim
+    devolva dias[mes - 1]
+fim
+
+função idade recebendo data_nascimento
+    hoje é data_atual()
+    idade é hoje.ano - data_nascimento.ano
+    se hoje.mes < data_nascimento.mes ou (hoje.mes == data_nascimento.mes e hoje.dia < data_nascimento.dia)
+        idade é idade - 1
+    fim
+    devolva idade
+fim

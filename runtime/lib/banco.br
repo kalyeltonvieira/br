@@ -1,0 +1,321 @@
+explicacao
+    Banco de Dados: interface SQL nativa para SQLite, PostgreSQL, MySQL e MongoDB.
+    Suporta consultas, migrações, transações e relacionamentos.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome
+    devolva "banco"
+fim
+
+função descricao
+    devolva "Banco de Dados: SQLite, PostgreSQL, MySQL, consultas e migrações"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# ============ CONEXÃO ============
+
+banco_conexoes é registro
+banco_contador_conexao é 0
+
+função conectar recebendo configuracao
+    tipo_db é configuracao.tipo se configuracao.tipo nulo senao "sqlite"
+    caminho é configuracao.caminho se configuracao.caminho nulo senao ":memory:"
+    
+    conexao_id é banco_contador_conexao
+    banco_contador_conexao é banco_contador_conexao + 1
+    
+    banco_conexoes[conexao_id] é registro
+        tipo: tipo_db
+        caminho: caminho
+        conectado: verdadeiro
+        transacao_ativa: falso
+        tabelas: []
+    fim
+    
+    devolva conexao_id
+fim
+
+função desconectar recebendo conexao_id
+    se conexao_id em banco_conexoes então
+        banco_conexoes[conexao_id].conectado é falso
+        devolva verdadeiro
+    fim
+    devolva falso
+fim
+
+função conectado recebendo conexao_id
+    se conexao_id em banco_conexoes então
+        devolva banco_conexoes[conexao_id].conectado
+    fim
+    devolva falso
+fim
+
+# ============ EXECUÇÃO SQL ============
+
+função executar recebendo conexao_id e sql
+    se não conectado(conexao_id) então
+        devolva erro "Banco de dados não conectado"
+    fim
+    devolva servico_banco("executar", conexao_id, sql)
+fim
+
+função consultar recebendo conexao_id e sql
+    se não conectado(conexao_id) então
+        devolva erro "Banco de dados não conectado"
+    fim
+    devolva servico_banco("consultar", conexao_id, sql)
+fim
+
+função consultar_primeiro recebendo conexao_id e sql
+    resultados é consultar(conexao_id, sql)
+    se tamanho(resultados) > 0 então
+        devolva resultados[0]
+    fim
+    devolva nulo
+fim
+
+função consultar_valor recebendo conexao_id e sql
+    resultados é consultar(conexao_id, sql)
+    se tamanho(resultados) > 0 e tamanho(resultados[0]) > 0 então
+        devolva resultados[0][0]
+    fim
+    devolva nulo
+fim
+
+# ============ TRANSAÇÕES ============
+
+função iniciar_transacao recebendo conexao_id
+    se não conectado(conexao_id) então
+        devolva erro "Banco não conectado"
+    fim
+    banco_conexoes[conexao_id].transacao_ativa é verdadeiro
+    executar(conexao_id, "BEGIN TRANSACTION")
+    devolva verdadeiro
+fim
+
+função confirmar_transacao recebendo conexao_id
+    se não banco_conexoes[conexao_id].transacao_ativa então
+        devolva erro "Nenhuma transação ativa"
+    fim
+    executar(conexao_id, "COMMIT")
+    banco_conexoes[conexao_id].transacao_ativa é falso
+    devolva verdadeiro
+fim
+
+função reverter_transacao recebendo conexao_id
+    se não banco_conexoes[conexao_id].transacao_ativa então
+        devolva erro "Nenhuma transação ativa"
+    fim
+    executar(conexao_id, "ROLLBACK")
+    banco_conexoes[conexao_id].transacao_ativa é falso
+    devolva verdadeiro
+fim
+
+# ============ CRUD CONVENIENTE ============
+
+função criar_tabela recebendo conexao_id, nome_tabela e colunas
+    sql é "CREATE TABLE IF NOT EXISTS " + nome_tabela + " ("
+    primeira é verdadeiro
+    
+    para cada coluna em colunas
+        se não primeira então
+            sql é sql + ", "
+        senao
+            primeira é falso
+        fim
+        sql é sql + coluna.nome + " " + coluna.tipo
+    fim
+    
+    sql é sql + ")"
+    executar(conexao_id, sql)
+    banco_conexoes[conexao_id].tabelas é adicione nome_tabela a banco_conexoes[conexao_id].tabelas
+    devolva verdadeiro
+fim
+
+função inserir recebendo conexao_id, nome_tabela e dados
+    colunas é ""
+    valores é ""
+    primeira é verdadeiro
+    
+    para cada chave, valor em dados
+        se não primeira então
+            colunas é colunas + ", "
+            valores é valores + ", "
+        senao
+            primeira é falso
+        fim
+        colunas é colunas + chave
+        se tipo(valor) igual "texto" então
+            valores é valores + "'" + valor + "'"
+        senao se valor igual nulo então
+            valores é valores + "NULL"
+        senao
+            valores é valores + valor
+        fim
+    fim
+    
+    sql é "INSERT INTO " + nome_tabela + " (" + colunas + ") VALUES (" + valores + ")"
+    devolva executar(conexao_id, sql)
+fim
+
+função buscar recebendo conexao_id, nome_tabela e condicao
+    sql é "SELECT * FROM " + nome_tabela
+    se condicao não nulo então
+        sql é sql + " WHERE " + condicao
+    fim
+    devolva consultar(conexao_id, sql)
+fim
+
+função buscar_primeiro recebendo conexao_id, nome_tabela e condicao
+    sql é "SELECT * FROM " + nome_tabela
+    se condicao não nulo então
+        sql é sql + " WHERE " + condicao
+    fim
+    sql é sql + " LIMIT 1"
+    resultado é consultar_primeiro(conexao_id, sql)
+    devolva resultado
+fim
+
+função atualizar recebendo conexao_id, nome_tabela, dados e condicao
+    sets é ""
+    primeira é verdadeiro
+    
+    para cada chave, valor em dados
+        se não primeira então
+            sets é sets + ", "
+        senao
+            primeira é falso
+        fim
+        se tipo(valor) igual "texto" então
+            sets é sets + chave + " = '" + valor + "'"
+        senao se valor igual nulo então
+            sets é sets + chave + " = NULL"
+        senao
+            sets é sets + chave + " = " + valor
+        fim
+    fim
+    
+    sql é "UPDATE " + nome_tabela + " SET " + sets
+    se condicao não nulo então
+        sql é sql + " WHERE " + condicao
+    fim
+    
+    devolva executar(conexao_id, sql)
+fim
+
+função deletar recebendo conexao_id, nome_tabela e condicao
+    sql é "DELETE FROM " + nome_tabela
+    se condicao não nulo então
+        sql é sql + " WHERE " + condicao
+    fim
+    devolva executar(conexao_id, sql)
+fim
+
+# ============ CONSULTAS SIMPLES ============
+
+função contar recebendo conexao_id, nome_tabela e condicao
+    sql é "SELECT COUNT(*) FROM " + nome_tabela
+    se condicao não nulo então
+        sql é sql + " WHERE " + condicao
+    fim
+    resultado é consultar_valor(conexao_id, sql)
+    devolva resultado se resultado nulo senao 0
+fim
+
+função existe_registro recebendo conexao_id, nome_tabela e condicao
+    sql é "SELECT 1 FROM " + nome_tabela + " WHERE " + condicao + " LIMIT 1"
+    resultado é consultar(conexao_id, sql)
+    devolva tamanho(resultado) > 0
+fim
+
+# ============ MIGRAÇÕES ============
+
+migracoes_executadas é []
+
+função migracao_nova recebendo nome, sql_sobe e sql_desce
+    devolva registro
+        nome: nome
+        sobe: sql_sobe
+        desce: sql_desce
+        executada: falso
+    fim
+fim
+
+função migrar recebendo conexao_id e migracoes
+    # Criar tabela de controle
+    criar_tabela(conexao_id, "_migracoes", [
+        registro nome: "nome" tipo: "TEXT" fim
+        registro nome: "executada_em" tipo: "TIMESTAMP" fim
+    ])
+    
+    para cada migracao em migracoes
+        sql_verifica é "SELECT 1 FROM _migracoes WHERE nome = '" + migracao.nome + "'"
+        resultados é consultar(conexao_id, sql_verifica)
+        
+        se tamanho(resultados) igual 0 então
+            executar(conexao_id, migracao.sobe)
+            executar(conexao_id, "INSERT INTO _migracoes (nome, executada_em) VALUES ('" + migracao.nome + "', datetime('now'))")
+            migracao.executada é verdadeiro
+            adicione migracao.nome a migracoes_executadas
+        fim
+    fim
+    
+    devolva migracoes_executadas
+fim
+
+função reverter_migracao recebendo conexao_id e migracoes
+    i é tamanho(migracoes) - 1
+    enquanto i >= 0
+        migracao é migracoes[i]
+        se executar(conexao_id, migracao.desce) então
+            executar(conexao_id, "DELETE FROM _migracoes WHERE nome = '" + migracao.nome + "'")
+        fim
+        i é i - 1
+    fim
+    devolva verdadeiro
+fim
+
+# ============ MONGODB (SIMPLIFICADO) ============
+
+função mongo_conectar recebendo url
+    devolva servico_banco("mongo_conectar", url)
+fim
+
+função mongo_buscar recebendo conexao_id, colecao e filtro
+    devolva servico_banco("mongo_buscar", conexao_id, colecao, filtro)
+fim
+
+função mongo_inserir recebendo conexao_id, colecao e documento
+    devolva servico_banco("mongo_inserir", conexao_id, colecao, documento)
+fim
+
+# ============ TESTES ============
+
+teste "criar tabela e inserir"
+    config é registro tipo: "sqlite" caminho: ":memory:" fim
+    conn é conectar(config)
+    esporte conn >= 0
+    
+    colunas é [
+        registro nome: "id" tipo: "INTEGER PRIMARY KEY" fim
+        registro nome: "nome" tipo: "TEXT" fim
+        registro nome: "email" tipo: "TEXT" fim
+    ]
+    criar_tabela(conn, "usuarios", colunas)
+    
+    inserir(conn, "usuarios", registro nome: "João" email: "joao@email.com" fim)
+    
+    resultados é buscar(conn, "usuarios", nulo)
+    esporte tamanho(resultados) >= 1
+fim
+
+teste "iniciar transacao"
+    config é registro tipo: "sqlite" caminho: ":memory:" fim
+    conn é conectar(config)
+    esporte iniciar_transacao(conn) igual a verdadeiro
+    esporte confirmar_transacao(conn) igual a verdadeiro
+fim

@@ -1,0 +1,19 @@
+# Documentação BRD: lsp
+
+## Nome
+
+LSP
+
+## Descrição
+
+suporte para editor, autocomplete e diagnóstico.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* iniciar: Inicia servidor LSP.
+* autocomplete: Retorna sugestões de autocomplete.
+* diagnostico: Retorna diagnósticos do código.
+* simbolo: Lista símbolos do documento.

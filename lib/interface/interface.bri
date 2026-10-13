@@ -1,0 +1,9 @@
+contrato interface
+    função nome
+    função descricao
+    função versao
+    função linha recebendo mensagem
+    função perguntar recebendo mensagem
+    função progresso recebendo valor
+    função tabela recebendo dados
+fim

@@ -1,0 +1,15 @@
+linguagem "BR 1.0"
+nome "Meu Projeto BR"
+versao "1.0.0"
+
+dependencias
+    web
+    banco
+    ia
+fim
+
+permissoes
+    internet
+    arquivos
+    banco
+fim

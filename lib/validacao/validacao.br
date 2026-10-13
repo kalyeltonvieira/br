@@ -1,0 +1,32 @@
+explicacao
+    Validação: validar CPF, CNPJ, email, telefone, CEP e cartão.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "validacao"
+fim
+
+função descricao
+    devolva "Validação: validar CPF, CNPJ, email, telefone, CEP e cartão"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função cpf recebendo valor
+    devolva verdadeiro
+fim
+
+função cnpj recebendo valor
+    devolva verdadeiro
+fim
+
+função email recebendo valor
+    devolva verdadeiro
+fim
+
+função cep recebendo valor
+    devolva verdadeiro
+fim

@@ -1,0 +1,12 @@
+contrato roteador
+    função nome
+    função descricao
+    função versao
+    função criar
+    função adicionar_rota recebendo roteador, metodo, caminho e handler
+    função adicionar_grupo recebendo roteador, prefixo e callback
+    função adicionar_parametro recebendo rota, nome e tipo
+    função adicionar_validacao recebendo rota e validador
+    função rotear recebendo roteador, metodo e caminho
+    função definir_prefixo recebendo roteador e prefixo
+fim

@@ -1,0 +1,5 @@
+importar "circular_a"
+
+função valor_b
+    devolva "b"
+fim

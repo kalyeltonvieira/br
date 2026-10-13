@@ -1,0 +1,32 @@
+explicacao
+    Logs: logger, níveis, arquivos de log, rotação e formatação.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "log"
+fim
+
+função descricao
+    devolva "Logs: logger, níveis, arquivos de log, rotação e formatação"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função info recebendo mensagem
+    devolva verdadeiro
+fim
+
+função aviso recebendo mensagem
+    devolva verdadeiro
+fim
+
+função erro recebendo mensagem
+    devolva verdadeiro
+fim
+
+função nivel recebendo valor
+    devolva valor
+fim

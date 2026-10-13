@@ -1,0 +1,9 @@
+contrato template
+    função nome
+    função descricao
+    função versao
+    função renderizar recebendo modelo e dados
+    função html recebendo modelo
+    função codigo recebendo modelo
+    função variavel recebendo nome_item
+fim

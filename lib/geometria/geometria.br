@@ -1,0 +1,34 @@
+# Geometria module for points, lines, areas, volumes and angles
+
+explicacao
+    geometria: pontos, linhas, áreas, volumes e ângulos.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "geometria"
+fim
+
+função descricao
+    devolva "Pontos, linhas, áreas, volumes e ângulos."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função calcular_area recebendo tipo, parametros
+    devolva 0.0
+fim
+
+função calcular_volume recebendo tipo, parametros
+    devolva 0.0
+fim
+
+função distancia_entre_pontos recebendo p1, p2
+    devolva 0.0
+fim
+
+função fechar
+    devolva verdadeiro
+fim

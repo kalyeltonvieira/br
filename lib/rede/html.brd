@@ -1,0 +1,39 @@
+# Documentação BRD: html
+
+## Nome
+
+HTML
+
+## Descrição
+
+Geração e manipulação de HTML. Permite criar, manipular e renderizar elementos HTML.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* criar_elemento: Cria um elemento HTML.
+* adicionar_filho: Adiciona um filho ao elemento.
+* definir_atributo: Define um atributo do elemento.
+* definir_conteudo: Define o conteúdo do elemento.
+* renderizar: Renderiza o elemento como string HTML.
+* criar_documento: Cria um documento HTML completo.
+* adicionar_css: Adiciona CSS ao elemento.
+* adicionar_classe: Adiciona uma classe ao elemento.
+* adicionar_id: Adiciona um ID ao elemento.
+* selecionar: Seleciona elementos por seletor CSS.
+* parsear: Parseia uma string HTML em elementos.
+
+## Exemplo
+
+```br
+usar rede.html
+
+div é criar_elemento "div", registro
+    class: "container"
+fim
+
+definir_conteudo div, "Olá, mundo!"
+html é renderizar div
+```

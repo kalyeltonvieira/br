@@ -1,0 +1,209 @@
+explicacao
+    Feriados: calendário completo de feriados nacionais brasileiros,
+    estaduais e datas comemorativas. Cálculo de feriados móveis
+    como Carnaval, Sexta-Feira Santa e Corpus Christi.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome devolva "feriados" fim
+função descricao devolva "Feriados brasileiros: nacionais, estaduais e datas móveis" fim
+função versao devolva "1.0.0" fim
+
+função feriados_nacionais recebendo ano
+    se ano nulo então
+        importar "data_hora" as dh
+        data_atual é dh.agora()
+        ano é dh.ano(data_atual)
+    fim
+    
+    pascoa_data é _calcular_pascoa(ano)
+    carnaval_data é pascoa_data - 47 * 86400
+    sexta_santa_data é pascoa_data - 2 * 86400
+    corpus_christi_data é pascoa_data + 60 * 86400
+    
+    feriados_fixos é [
+        registro nome: "Confraternização Universal" dia: 1 mes: 1 fixo: verdadeiro fim
+        registro nome: "Tiradentes" dia: 21 mes: 4 fixo: verdadeiro fim
+        registro nome: "Dia do Trabalhador" dia: 1 mes: 5 fixo: verdadeiro fim
+        registro nome: "Independência do Brasil" dia: 7 mes: 9 fixo: verdadeiro fim
+        registro nome: "Nossa Senhora Aparecida" dia: 12 mes: 10 fixo: verdadeiro fim
+        registro nome: "Finados" dia: 2 mes: 11 fixo: verdadeiro fim
+        registro nome: "Proclamação da República" dia: 15 mes: 11 fixo: verdadeiro fim
+        registro nome: "Natal" dia: 25 mes: 12 fixo: verdadeiro fim
+    ]
+    
+    resultado é []
+    
+    para cada f em feriados_fixos
+        ts é _compor_data(ano, f.mes, f.dia)
+        adicione registro nome: f.nome timestamp: ts data: f.dia + "/" + f.mes + "/" + ano tipo: "nacional" a resultado
+    fim
+    
+    # Carnaval
+    adicione registro nome: "Carnaval" timestamp: carnaval_data tipo: "nacional" movel: verdadeiro a resultado
+    # Sexta-Feira Santa
+    adicione registro nome: "Sexta-Feira Santa" timestamp: sexta_santa_data tipo: "nacional" movel: verdadeiro a resultado
+    # Páscoa
+    adicione registro nome: "Páscoa" timestamp: pascoa_data tipo: "nacional" movel: verdadeiro a resultado
+    # Corpus Christi
+    adicione registro nome: "Corpus Christi" timestamp: corpus_christi_data tipo: "nacional" movel: verdadeiro a resultado
+    
+    devolva resultado
+fim
+
+função _calcular_pascoa recebendo ano
+    a é ano % 19
+    b é ano / 100
+    c é ano % 100
+    d é b / 4
+    e é b % 4
+    f é (b + 8) / 25
+    g é (b - f + 1) / 3
+    h é (19 * a + b - d - g + 15) % 30
+    i é c / 4
+    k é c % 4
+    l é (32 + 2 * e + 2 * i - h - k) % 7
+    m é (a + 11 * h + 22 * l) / 451
+    mes_pascoa é (h + l - 7 * m + 114) / 31
+    dia_pascoa é ((h + l - 7 * m + 114) % 31) + 1
+    devolva _compor_data(ano, mes_pascoa, dia_pascoa)
+fim
+
+função _compor_data recebendo ano, mes, dia
+    importar "data_hora" as dh
+    devolva dh.criar_data(ano, mes, dia)
+fim
+
+função _decompor_data recebendo timestamp
+    importar "data_hora" as dh
+    devolva [dh.ano(timestamp), dh.mes(timestamp), dh.dia(timestamp)]
+fim
+
+função eh_feriado recebendo timestamp
+    feriados_proc é feriados_nacionais(nulo)
+    importar "data_hora" as dh
+    
+    para cada f in feriados_proc
+        se dh.eh_mesmo_dia(timestamp, f.timestamp) então
+            devolva verdadeiro
+        fim
+    fim
+    devolva falso
+fim
+
+função feriados_no_mes recebendo ano, mes
+    todos_feriados é feriados_nacionais(ano)
+    resultado é []
+    importar "data_hora" as dh
+    
+    para cada f in todos_feriados
+        f_decomp é _decompor_data(f.timestamp)
+        se f_decomp[1] igual mes então
+            adicione f a resultado
+        fim
+    fim
+    
+    devolva resultado
+fim
+
+função feriados_entre recebendo data_inicio, data_fim
+    todos_feriados é feriados_nacionais(nulo)
+    resultado é []
+    
+    para cada f in todos_feriados
+        se f.timestamp >= data_inicio e f.timestamp <= data_fim então
+            adicione f a resultado
+        fim
+    fim
+    
+    devolva resultado
+fim
+
+função dias_uteis recebendo data_inicio, data_fim
+    importar "data_hora" as dh
+    total_dias é dh.diferenca_dias(data_inicio, data_fim)
+    uteis é 0
+    
+    i é 0
+    enquanto i <= total_dias
+        dia_atual é data_inicio + i * 86400
+        dia_semana é dh.dia_da_semana(dia_atual)
+        se dia_semana diferente "sábado" e dia_semana diferente "domingo" e não eh_feriado(dia_atual) então
+            uteis é uteis + 1
+        fim
+        i é i + 1
+    fim
+    
+    devolva uteis
+fim
+
+função proximo_feriado recebendo timestamp
+    todos_feriados é feriados_nacionais(nulo)
+    proximo é nulo
+    min_diferenca é nulo
+    
+    para cada f in todos_feriados
+        se f.timestamp > timestamp então
+            diferenca é f.timestamp - timestamp
+            se min_diferenca nulo ou diferenca < min_diferenca então
+                min_diferenca é diferenca
+                proximo é f
+            fim
+        fim
+    fim
+    
+    devolva proximo
+fim
+
+função nome_feriado recebendo timestamp
+    todos_feriados é feriados_nacionais(nulo)
+    importar "data_hora" as dh
+    
+    para cada f in todos_feriados
+        se dh.eh_mesmo_dia(timestamp, f.timestamp) então
+            devolva f.nome
+        fim
+    fim
+    
+    devolva nulo
+fim
+
+teste "feriados nacionais 2024"
+    feriados_2024 é feriados_nacionais(2024)
+    esporte tamanho(feriados_2024) >= 8
+fim
+
+teste "natal existe"
+    feriados_2024 é feriados_nacionais(2024)
+    tem_natal é falso
+    para cada f in feriados_2024
+        se f.nome igual "Natal" então tem_natal é verdadeiro fim
+    fim
+    esporte tem_natal igual a verdadeiro
+fim
+
+teste "carnaval movel"
+    feriados_2025 é feriados_nacionais(2025)
+    tem_carnaval é falso
+    para cada f in feriados_2025
+        se contem(f.nome, "Carnaval") então tem_carnaval é verdadeiro fim
+    fim
+    esporte tem_carnaval igual a verdadeiro
+fim
+
+teste "pascoa calculada"
+    feriados_2024 é feriados_nacionais(2024)
+    pascoa_2024 é nulo
+    para cada f in feriados_2024
+        se f.nome igual "Páscoa" então pascoa_2024 é f fim
+    fim
+    esporte pascoa_2024 diferente nulo
+fim
+
+teste "dias uteis"
+    importar "data_hora" as dh
+    inicio_2024 é dh.criar_data(2024, 1, 1)
+    fim_2024 è dh.criar_data(2024, 1, 5)
+    uteis é dias_uteis(inicio_2024, fim_2024)
+    esporte uteis >= 0
+fim

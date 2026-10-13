@@ -1,0 +1,5 @@
+importar "lsp"
+
+teste "nome do modulo lsp"
+    espere lsp.nome() igual a "lsp"
+fim

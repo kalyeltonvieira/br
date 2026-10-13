@@ -1,0 +1,23 @@
+teste "parenteses aninhados"
+    espere ((1 + (2 * (3 + 4)))) igual a 15
+fim
+
+teste "texto mais numero converte para texto"
+    espere "10" + 5 igual a "105"
+fim
+
+função sem_valor
+    devolva
+fim
+
+teste "devolva sem valor retorna nulo"
+    espere sem_valor() igual a nulo
+fim
+
+teste "enquanto reavalia condicao"
+    contador é 0
+    enquanto contador < 3
+        contador é contador + 1
+    fim
+    espere contador igual a 3
+fim

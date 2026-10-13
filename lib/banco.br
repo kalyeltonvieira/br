@@ -1,0 +1,76 @@
+# Biblioteca de Banco de Dados - BR
+# Interface simplificada para bancos de dados
+
+# ==================== CONEXÃO ====================
+
+função conectar recebendo tipo e caminho
+    # tipo: "sqlite", "mysql", "postgres"
+    devolva nova_conexao(tipo, caminho)
+fim
+
+função conectar_sqlite recebendo caminho
+    devolva conectar("sqlite", caminho)
+fim
+
+# ==================== QUERIES ====================
+
+função executar recebendo conexao e query
+    devolva conexao.executar(query)
+fim
+
+função consultar recebendo conexao e query
+    devolva conexao.consultar(query)
+fim
+
+# ==================== CRUD SIMPLIFICADO ====================
+
+função inserir recebendo conexao e tabela e dados
+    colunas é []
+    valores é []
+    para cada chave, valor em dados
+        colunas.adicionar(chave)
+        valores.adicionar(valor)
+    fim
+    query é "INSERT INTO " + tabela + " (" + colunas.juntar(", ") + ") VALUES (" + valores.juntar(", ") + ")"
+    devolva executar(conexao, query)
+fim
+
+função buscar recebendo conexao e tabela e condicoes
+    query é "SELECT * FROM " + tabela
+    se condicoes != nulo
+        query é query + " WHERE " + condicoes
+    fim
+    devolva consultar(conexao, query)
+fim
+
+função atualizar recebendo conexao e tabela e dados e condicoes
+    sets é []
+    para cada chave, valor em dados
+        sets.adicionar(chave + " = " + valor)
+    fim
+    query é "UPDATE " + tabela + " SET " + sets.juntar(", ")
+    se condicoes != nulo
+        query é query + " WHERE " + condicoes
+    fim
+    devolva executar(conexao, query)
+fim
+
+função remover recebendo conexao e tabela e condicoes
+    query é "DELETE FROM " + tabela + " WHERE " + condicoes
+    devolva executar(conexao, query)
+fim
+
+# ==================== UTILITÁRIOS ====================
+
+função fechar recebendo conexao
+    conexao.fechar()
+    devolva verdadeiro
+fim
+
+função tabelas recebendo conexao
+    devolva conexao.listar_tabelas()
+fim
+
+função estrutura_tabela recebendo conexao e tabela
+    devolva conexao.descrever_tabela(tabela)
+fim

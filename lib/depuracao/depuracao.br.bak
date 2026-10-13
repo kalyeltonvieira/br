@@ -1,0 +1,32 @@
+explicacao
+    Depuração: breakpoints, pilha de chamadas, rastreamento e inspeção.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "depuracao"
+fim
+
+função descricao
+    devolva "Depuração: breakpoints, pilha de chamadas, rastreamento e inspeção"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função breakpoint recebendo linha
+    devolva linha
+fim
+
+função pilha
+    devolva "[]"
+fim
+
+função rastrear recebendo valor
+    devolva valor
+fim
+
+função inspecionar recebendo valor
+    devolva valor
+fim

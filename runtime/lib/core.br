@@ -1,0 +1,32 @@
+explicacao
+    Núcleo da linguagem: tipos, erros, memória, conversão e funções básicas.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "core"
+fim
+
+função descricao
+    devolva "Núcleo da linguagem: tipos, erros, memória, conversão e funções básicas"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função identidade recebendo valor
+    devolva valor
+fim
+
+função eh_nulo recebendo valor
+    devolva valor igual nulo
+fim
+
+função para_texto recebendo valor
+    devolva "" + valor
+fim
+
+função verdade
+    devolva verdadeiro
+fim

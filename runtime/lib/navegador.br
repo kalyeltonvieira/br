@@ -1,0 +1,92 @@
+explicacao
+    Modulo navegador compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "navegador"
+fim
+
+funcao descricao
+    devolva "Modulo navegador compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao criar_navegador recebendo cabeca
+    devolva cabeca
+fim
+
+funcao iniciar recebendo navegador
+    devolva verdadeiro
+fim
+
+funcao parar recebendo navegador
+    devolva verdadeiro
+fim
+
+funcao abrir_pagina recebendo navegador e url
+    devolva navegador
+fim
+
+funcao fechar_pagina recebendo navegador e pagina
+    devolva navegador
+fim
+
+funcao navegar recebendo pagina e url
+    devolva pagina
+fim
+
+funcao voltar recebendo pagina
+    devolva pagina
+fim
+
+funcao avancar recebendo pagina
+    devolva pagina
+fim
+
+funcao recarregar recebendo pagina
+    devolva pagina
+fim
+
+funcao clicar_elemento recebendo pagina e seletor
+    devolva pagina
+fim
+
+funcao digitar_texto recebendo pagina e seletor
+    devolva pagina
+fim
+
+funcao obter_texto recebendo pagina e seletor
+    devolva pagina
+fim
+
+funcao obter_atributo recebendo pagina e seletor e atributo
+    devolva pagina
+fim
+
+funcao esperar_elemento recebendo pagina e seletor
+    devolva pagina
+fim
+
+funcao executar_script recebendo pagina e script
+    devolva pagina
+fim
+
+funcao tirar_screenshot recebendo pagina e caminho
+    devolva pagina
+fim
+
+funcao definir_tamanho recebendo pagina e largura e altura
+    devolva pagina
+fim
+
+funcao exemplo recebendo valor
+    devolva valor
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim

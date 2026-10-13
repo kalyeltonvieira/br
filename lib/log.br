@@ -1,0 +1,78 @@
+# Biblioteca de Log - BR
+# Sistema de logging
+
+# ==================== NÍVEIS DE LOG ====================
+
+função log_debug recebendo mensagem
+    mostre "[DEBUG] " + mensagem
+fim
+
+função log_info recebendo mensagem
+    mostre "[INFO] " + mensagem
+fim
+
+função log_aviso recebendo mensagem
+    mostre "[AVISO] " + mensagem
+fim
+
+função log_erro recebendo mensagem
+    mostre "[ERRO] " + mensagem
+fim
+
+função log_critico recebendo mensagem
+    mostre "[CRÍTICO] " + mensagem
+fim
+
+# ==================== LOG COM CORES ====================
+
+função log_debug_cor recebendo mensagem
+    mostre cor_ciano("[DEBUG] " + mensagem)
+fim
+
+função log_info_cor recebendo mensagem
+    mostre cor_verde("[INFO] " + mensagem)
+fim
+
+função log_aviso_cor recebendo mensagem
+    mostre cor_amarelo("[AVISO] " + mensagem)
+fim
+
+função log_erro_cor recebendo mensagem
+    mostre cor_vermelho("[ERRO] " + mensagem)
+fim
+
+função log_critico_cor recebendo mensagem
+    mostre vermelho_negrito("[CRÍTICO] " + mensagem)
+fim
+
+# ==================== LOG COM DATA ====================
+
+função log_com_data recebendo nivel e mensagem
+    data é agora()
+    data_str é formatar_data_hora(data)
+    mostre data_str + " [" + nivel + "] " + mensagem
+fim
+
+# ==================== LOG EM ARQUIVO ====================
+
+função log_arquivo recebendo mensagem e caminho
+    arquivo é abrir(caminho, "a")
+    data é agora()
+    data_str é formatar_data_hora(data)
+    arquivo.escrever(data_str + " " + mensagem + "\n")
+    arquivo.fechar()
+    devolva verdadeiro
+fim
+
+# ==================== MÉTRICAS ====================
+
+função log_tempo_inicio
+    devolva tempo_atual_ms()
+fim
+
+função log_tempo_fim recebendo inicio e nome
+    fim é tempo_atual_ms()
+    duracao é fim - inicio
+    mostre "[TEMPO] " + nome + ": " + duracao + "ms"
+    devolva duracao
+fim

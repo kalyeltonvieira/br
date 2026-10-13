@@ -1,0 +1,266 @@
+explicacao
+    Expressões Regulares: busca, validação, extração e substituição
+    usando padrões regex. Suporta flags, grupos, backreferences.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome
+    devolva "regex"
+fim
+
+função descricao
+    devolva "Expressões Regulares: busca, validação, extração e substituição"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# ============ BUSCA ============
+
+função encontrar recebendo texto e padrao
+    devolva servico_regex("encontrar", texto, padrao)
+fim
+
+função encontrar_primeiro recebendo texto e padrao
+    resultados é encontrar(texto, padrao)
+    se tamanho(resultados) > 0 então
+        devolva resultados[0]
+    fim
+    devolva nulo
+fim
+
+função encontrar_todos recebendo texto e padrao
+    devolva encontrar(texto, padrao)
+fim
+
+função encontrar_indices recebendo texto e padrao
+    devolva servico_regex("encontrar_indices", texto, padrao)
+fim
+
+# ============ VALIDAÇÃO ============
+
+função testar recebendo texto e padrao
+    devolva servico_regex("testar", texto, padrao)
+fim
+
+função corresponde recebendo texto e padrao
+    devolva testar(texto, "^" + padrao + "$")
+fim
+
+função corresponde_exato recebendo texto e padrao
+    devolva corresponde(texto, padrao)
+fim
+
+# ============ SUBSTITUIÇÃO ============
+
+função substituir recebendo texto, padrao e substituicao
+    devolva servico_regex("substituir", texto, padrao, substituicao)
+fim
+
+função substituir_todos recebendo texto, padrao e substituicao
+    devolva servico_regex("substituir_todos", texto, padrao, substituicao)
+fim
+
+função substituir_primeiro recebendo texto, padrao e substituicao
+    devolva substituir(texto, padrao, substituicao)
+fim
+
+# ============ EXTRAÇÃO ============
+
+função extrair_grupos recebendo texto e padrao
+    devolva servico_regex("extrair_grupos", texto, padrao)
+fim
+
+função extrair_todos_grupos recebendo texto e padrao
+    devolva servico_regex("extrair_todos_grupos", texto, padrao)
+fim
+
+função separar recebendo texto e padrao
+    devolva servico_regex("separar", texto, padrao)
+fim
+
+# ============ PADRÕES PRONTOS ============
+
+função padrao_email
+    devolva "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+fim
+
+função padrao_url
+    devolva "https?://[\\w./?=&%-]+"
+fim
+
+função padrao_cpf
+    devolva "\\d{3}\\.?\\d{3}\\.?\\d{3}-?\\d{2}"
+fim
+
+função padrao_cnpj
+    devolva "\\d{2}\\.?\\d{3}\\.?\\d{3}/?\\d{4}-?\\d{2}"
+fim
+
+função padrao_telefone
+    devolva "\\(?\\d{2}\\)?\\s?\\d{4,5}-?\\d{4}"
+fim
+
+função padrao_cep
+    devolva "\\d{5}-?\\d{3}"
+fim
+
+função padrao_data
+    devolva "\\d{4}-\\d{2}-\\d{2}|\\d{2}/\\d{2}/\\d{4}"
+fim
+
+função padrao_hora
+    devolva "\\d{2}:\\d{2}(:\\d{2})?"
+fim
+
+função padrao_numero
+    devolva "-?\\d+(\\.\\d+)?"
+fim
+
+função padrao_somente_letras
+    devolva "^[a-zA-ZÀ-ÿ]+$"
+fim
+
+função padrao_somente_numeros
+    devolva "^\\d+$"
+fim
+
+função padrao_alfanumerico
+    devolva "^[a-zA-Z0-9]+$"
+fim
+
+função padrao_ip
+    devolva "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}"
+fim
+
+função padrao_slug
+    devolva "^[a-z0-9]+(-[a-z0-9]+)*$"
+fim
+
+função padrao_hex
+    devolva "^#?([a-fA-F0-9]{3}|[a-fA-F0-9]{6})$"
+fim
+
+função padrao_senha_forte
+    devolva "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%&*]).{8,}$"
+fim
+
+# ============ VALIDAÇÃO PRÁTICA ============
+
+função eh_email recebendo texto
+    devolva corresponde(texto, padrao_email())
+fim
+
+função eh_url recebendo texto
+    devolva corresponde(texto, padrao_url())
+fim
+
+função eh_cpf recebendo texto
+    devolva corresponde(texto, padrao_cpf())
+fim
+
+função eh_cnpj recebendo texto
+    devolva corresponde(texto, padrao_cnpj())
+fim
+
+função eh_telefone recebendo texto
+    devolva corresponde(texto, padrao_telefone())
+fim
+
+função eh_cep recebendo texto
+    devolva corresponde(texto, padrao_cep())
+fim
+
+função eh_data recebendo texto
+    devolva corresponde(texto, padrao_data())
+fim
+
+função eh_numero recebendo texto
+    devolva corresponde(texto, padrao_numero())
+fim
+
+função eh_ip recebendo texto
+    devolva corresponde(texto, padrao_ip())
+fim
+
+função eh_slug recebendo texto
+    devolva corresponde(texto, padrao_slug())
+fim
+
+função eh_hex recebendo texto
+    devolva corresponde(texto, padrao_hex())
+fim
+
+função contem_email recebendo texto
+    resultados é encontrar(texto, padrao_email())
+    devolva tamanho(resultados) > 0
+fim
+
+função contem_url recebendo texto
+    resultados é encontrar(texto, padrao_url())
+    devolva tamanho(resultados) > 0
+fim
+
+função extrair_emails recebendo texto
+    devolva encontrar(texto, padrao_email())
+fim
+
+função extrair_urls recebendo texto
+    devolva encontrar(texto, padrao_url())
+fim
+
+função extrair_numeros recebendo texto
+    devolva encontrar(texto, padrao_numero())
+fim
+
+função mascarar_email recebendo email
+    padrao_local é "^([^@]+)"
+    mascarado é substituir(email, padrao_local, "***")
+    devolva mascarado
+fim
+
+função mascarar_cpf recebendo cpf
+    padrao é "(\\d{3})\\.?\\d{3}\\.?\\d{3}-?(\\d{2})"
+    devolva substituir(cpf, padrao, "$1.***.***-$2")
+fim
+
+função mascarar_telefone recebendo telefone
+    padrao é "(\\(?\\d{2}\\)?\\s?)\\d{4,5}-?(\\d{4})"
+    devolva substituir(telefone, padrao, "$1****-$2")
+fim
+
+# ============ TESTES ============
+
+teste "regex testar"
+    esporte testar("hello123", "[a-z]+\\d+") igual a verdadeiro
+fim
+
+teste "regex corresponde"
+    esporte corresponde("usuario@exemplo.com", padrao_email()) igual a verdadeiro
+    esporte corresponde("invalido", padrao_email()) igual a falso
+fim
+
+teste "regex encontrar"
+    resultados é encontrar("contato: email@teste.com", padrao_email())
+    esporte tamanho(resultados) >= 1
+fim
+
+teste "regex substituir"
+    resultado é substituir("42 é a resposta", "\\d+", "XXX")
+    esporte resultado igual a "XXX é a resposta"
+fim
+
+teste "padroes prontos"
+    esporte eh_email("teste@exemplo.com") igual a verdadeiro
+    esporte eh_url("https://google.com") igual a verdadeiro
+    esporte eh_cpf("529.982.247-25") igual a verdadeiro
+    esporte eh_telefone("(11) 99999-8888") igual a verdadeiro
+    esporte eh_cep("01310-100") igual a verdadeiro
+    esporte eh_ip("192.168.1.1") igual a verdadeiro
+fim
+
+teste "mascarar"
+    resultado é mascarar_cpf("123.456.789-00")
+    esporte contem(resultado, "***")
+fim

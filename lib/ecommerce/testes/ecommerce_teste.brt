@@ -1,0 +1,5 @@
+importar "ecommerce"
+
+teste "nome do modulo ecommerce"
+    espere ecommerce.nome() igual a "ecommerce"
+fim

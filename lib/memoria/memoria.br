@@ -1,0 +1,32 @@
+explicacao
+    Memória: monitorar uso de memória, referências e coleta de lixo.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "memoria"
+fim
+
+função descricao
+    devolva "Memória: monitorar uso de memória, referências e coleta de lixo"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função uso
+    devolva 0
+fim
+
+função coletar
+    devolva verdadeiro
+fim
+
+função referencias recebendo valor
+    devolva 0
+fim
+
+função limite
+    devolva 0
+fim

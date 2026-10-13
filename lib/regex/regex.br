@@ -1,0 +1,32 @@
+explicacao
+    Regex: expressões regulares e busca avançada em texto.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "regex"
+fim
+
+função descricao
+    devolva "Regex: expressões regulares e busca avançada em texto"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função buscar recebendo padrao_texto e valor
+    devolva valor
+fim
+
+função substituir recebendo padrao_texto e novo e valor
+    devolva valor
+fim
+
+função validar recebendo padrao_texto e valor
+    devolva verdadeiro
+fim
+
+função grupos recebendo padrao_texto e valor
+    devolva "[]"
+fim

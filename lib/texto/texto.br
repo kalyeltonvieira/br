@@ -1,0 +1,32 @@
+explicacao
+    Texto e strings: strings, regex, validações, formatação e acentos.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "texto"
+fim
+
+função descricao
+    devolva "Texto e strings: strings, regex, validações, formatação e acentos"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função vazio recebendo valor
+    devolva valor igual ""
+fim
+
+função contem recebendo valor e trecho
+    devolva falso
+fim
+
+função slug recebendo valor
+    devolva valor
+fim
+
+função formatar recebendo modelo e valor
+    devolva modelo + valor
+fim

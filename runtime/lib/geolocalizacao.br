@@ -1,0 +1,236 @@
+explicacao
+    Geolocalização: coordenadas, distâncias (Haversine), CEP,
+    estados, cidades brasileiras, fuso horário e utilidades geográficas.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome devolva "geolocalizacao" fim
+função descricao devolva "Geolocalização: coordenadas, distância CEP e Brasil" fim
+função versao devolva "1.0.0" fim
+
+constante RAIO_TERRA_KM é 6371
+constante RAIO_TERRA_MILHAS é 3959
+
+# ============ DISTÂNCIA (HAVERSINE) ============
+
+função distancia_km recebendo lat1, lon1, lat2 e lon2
+    dlat é para_radianos(lat2 - lat1)
+    dlon é para_radianos(lon2 - lon1)
+    a é seno(dlat/2) * seno(dlat/2) + cosseno(para_radianos(lat1)) * cosseno(para_radianos(lat2)) * seno(dlon/2) * seno(dlon/2)
+    c é 2 * arco_tangente(raiz_quadrada(a), raiz_quadrada(1-a))
+    devolva RAIO_TERRA_KM * c
+fim
+
+função distancia_milhas recebendo lat1, lon1, lat2, lon2
+    dlat é para_radianos(lat2 - lat1)
+    dlon é para_radianos(lon2 - lon1)
+    a é seno(dlat/2) * seno(dlat/2) + cosseno(para_radianos(lat1)) * cosseno(para_radianos(lat2)) * seno(dlon/2) * seno(dlon/2)
+    c é 2 * arco_tangente(raiz_quadrada(a), raiz_quadrada(1-a))
+    devolva RAIO_TERRA_MILHAS * c
+fim
+
+função para_radianos recebendo graus
+    devolva graus * 3.141592653589793 / 180
+fim
+
+função arco_tangente recebendo y, x
+    se x > 0 então devolva arco_tangente_valor(y / x) fim
+    se x < 0 então
+        se y >= 0 então devolva arco_tangente_valor(y / x) + 3.141592653589793 fim
+        se y < 0 então devolva arco_tangente_valor(y / x) - 3.141592653589793 fim
+    fim
+    se y > 0 então devolva 3.141592653589793 / 2 fim
+    se y < 0 então devolva -3.141592653589793 / 2 fim
+    devolva 0
+fim
+
+função arco_tangente_valor recebendo x
+    resultado é x
+    termo é x
+    repita 15 vezes
+        n é contador
+        termo é -termo * x * x
+        resultado é resultado + termo / (2*n+3)
+    fim
+    devolva resultado
+fim
+
+função ponto_central recebendo coordenadas
+    x_total é 0; y_total é 0; z_total é 0
+    n é tamanho(coordenadas)
+    
+    para cada coord em coordenadas
+        lat_rad é para_radianos(coord.latitude)
+        lon_rad é para_radianos(coord.longitude)
+        x_total é x_total + cosseno(lat_rad) * cosseno(lon_rad)
+        y_total é y_total + cosseno(lat_rad) * seno(lon_rad)
+        z_total é z_total + seno(lat_rad)
+    fim
+    
+    x_medio é x_total / n; y_medio é y_total / n; z_medio é z_total / n
+    lon_central é arco_tangente_valor(y_medio, x_medio)
+    lat_central é arco_tangente_valor(z_medio, raiz_quadrada(x_medio*x_medio + y_medio*y_medio))
+    
+    devolva registro latitude: lat_central * 180 / 3.141592653589793 longitude: lon_central * 180 / 3.141592653589793 fim
+fim
+
+# ============ ESTADOS BRASILEIROS ============
+
+função estados_brasil
+    devolva [
+        registro sigla: "AC" nome: "Acre" capital: "Rio Branco" regiao: "Norte" fim
+        registro sigla: "AL" nome: "Alagoas" capital: "Maceió" regiao: "Nordeste" fim
+        registro sigla: "AP" nome: "Amapá" capital: "Macapá" regiao: "Norte" fim
+        registro sigla: "AM" nome: "Amazonas" capital: "Manaus" regiao: "Norte" fim
+        registro sigla: "BA" nome: "Bahia" capital: "Salvador" regiao: "Nordeste" fim
+        registro sigla: "CE" nome: "Ceará" capital: "Fortaleza" regiao: "Nordeste" fim
+        registro sigla: "DF" nome: "Distrito Federal" capital: "Brasília" regiao: "Centro-Oeste" fim
+        registro sigla: "ES" nome: "Espírito Santo" capital: "Vitória" regiao: "Sudeste" fim
+        registro sigla: "GO" nome: "Goiás" capital: "Goiânia" regiao: "Centro-Oeste" fim
+        registro sigla: "MA" nome: "Maranhão" capital: "São Luís" regiao: "Nordeste" fim
+        registro sigla: "MT" nome: "Mato Grosso" capital: "Cuiabá" regiao: "Centro-Oeste" fim
+        registro sigla: "MS" nome: "Mato Grosso do Sul" capital: "Campo Grande" regiao: "Centro-Oeste" fim
+        registro sigla: "MG" nome: "Minas Gerais" capital: "Belo Horizonte" regiao: "Sudeste" fim
+        registro sigla: "PA" nome: "Pará" capital: "Belém" regiao: "Norte" fim
+        registro sigla: "PB" nome: "Paraíba" capital: "João Pessoa" regiao: "Nordeste" fim
+        registro sigla: "PR" nome: "Paraná" capital: "Curitiba" regiao: "Sul" fim
+        registro sigla: "PE" nome: "Pernambuco" capital: "Recife" regiao: "Nordeste" fim
+        registro sigla: "PI" nome: "Piauí" capital: "Teresina" regiao: "Nordeste" fim
+        registro sigla: "RJ" nome: "Rio de Janeiro" capital: "Rio de Janeiro" regiao: "Sudeste" fim
+        registro sigla: "RN" nome: "Rio Grande do Norte" capital: "Natal" regiao: "Nordeste" fim
+        registro sigla: "RS" nome: "Rio Grande do Sul" capital: "Porto Alegre" regiao: "Sul" fim
+        registro sigla: "RO" nome: "Rondônia" capital: "Porto Velho" regiao: "Norte" fim
+        registro sigla: "RR" nome: "Roraima" capital: "Boa Vista" regiao: "Norte" fim
+        registro sigla: "SC" nome: "Santa Catarina" capital: "Florianópolis" regiao: "Sul" fim
+        registro sigla: "SP" nome: "São Paulo" capital: "São Paulo" regiao: "Sudeste" fim
+        registro sigla: "SE" nome: "Sergipe" capital: "Aracaju" regiao: "Nordeste" fim
+        registro sigla: "TO" nome: "Tocantins" capital: "Palmas" regiao: "Norte" fim
+    ]
+fim
+
+função estado_por_sigla recebendo sigla
+    estados é estados_brasil()
+    para cada est em estados
+        se est.sigla igual sigla então devolva est fim
+    fim
+    devolva nulo
+fim
+
+função estado_por_nome recebendo nome
+    estados é estados_brasil()
+    para cada est em estados
+        se est.nome igual nome então devolva est fim
+    fim
+    devolva nulo
+fim
+
+função regiao_por_sigla recebendo sigla
+    estado é estado_por_sigla(sigla)
+    se estado nulo então devolva "" fim
+    devolva estado.regiao
+fim
+
+função estados_por_regiao recebendo regiao
+    resultado é []
+    estados é estados_brasil()
+    para cada est em estados
+        se est.regiao igual regiao então adicione est a resultado fim
+    fim
+    devolva resultado
+fim
+
+# ============ DDD ============
+
+função ddd_estado recebendo ddd
+    mapa_ddd é registro
+        11: "SP" 12: "SP" 13: "SP" 14: "SP" 15: "SP" 16: "SP" 17: "SP" 18: "SP" 19: "SP"
+        21: "RJ" 22: "RJ" 24: "RJ"
+        27: "ES" 28: "ES"
+        31: "MG" 32: "MG" 33: "MG" 34: "MG" 35: "MG" 37: "MG" 38: "MG"
+        41: "PR" 42: "PR" 43: "PR" 44: "PR" 45: "PR" 46: "PR"
+        47: "SC" 48: "SC" 49: "SC"
+        51: "RS" 53: "RS" 54: "RS" 55: "RS"
+        61: "DF"
+        62: "GO" 64: "GO"
+        63: "TO"
+        65: "MT" 66: "MT"
+        67: "MS"
+        68: "AC"
+        69: "RO"
+        71: "BA" 73: "BA" 74: "BA" 75: "BA" 77: "BA"
+        79: "SE"
+        81: "PE" 87: "PE"
+        82: "AL"
+        83: "PB"
+        84: "RN"
+        85: "CE" 88: "CE"
+        86: "PI" 89: "PI"
+        91: "PA" 93: "PA" 94: "PA"
+        92: "AM"
+        95: "RR"
+        96: "AP"
+        97: "AM"
+        98: "MA" 99: "MA"
+    fim
+    devolva mapa_ddd[ddd] se ddd em mapa_ddd senao "Desconhecido"
+fim
+
+função capitais_brasil
+    devolva registro
+        "Rio Branco": registro lat: -9.9740 lon: -67.8076 fim
+        "Maceió": registro lat: -9.6660 lon: -35.7350 fim
+        "Macapá": registro lat: 0.0340 lon: -51.0694 fim
+        "Manaus": registro lat: -3.1190 lon: -60.0217 fim
+        "Salvador": registro lat: -12.9714 lon: -38.5014 fim
+        "Fortaleza": registro lat: -3.7319 lon: -38.5267 fim
+        "Brasília": registro lat: -15.7975 lon: -47.8919 fim
+        "Vitória": registro lat: -20.3155 lon: -40.3128 fim
+        "Goiânia": registro lat: -16.6869 lon: -49.2648 fim
+        "São Luís": registro lat: -2.5387 lon: -44.2825 fim
+        "Cuiabá": registro lat: -15.5989 lon: -56.0949 fim
+        "Campo Grande": registro lat: -20.4697 lon: -54.6201 fim
+        "Belo Horizonte": registro lat: -19.9249 lon: -43.9352 fim
+        "Belém": registro lat: -1.4550 lon: -48.5024 fim
+        "João Pessoa": registro lat: -7.1150 lon: -34.8631 fim
+        "Curitiba": registro lat: -25.4284 lon: -49.2733 fim
+        "Recife": registro lat: -8.0540 lon: -34.8792 fim
+        "Teresina": registro lat: -5.0892 lon: -42.8019 fim
+        "Rio de Janeiro": registro lat: -22.9068 lon: -43.1729 fim
+        "Natal": registro lat: -5.7793 lon: -35.2009 fim
+        "Porto Alegre": registro lat: -30.0346 lon: -51.2177 fim
+        "Porto Velho": registro lat: -8.7608 lon: -63.9020 fim
+        "Boa Vista": registro lat: 2.8235 lon: -60.6753 fim
+        "Florianópolis": registro lat: -27.5948 lon: -48.5571 fim
+        "São Paulo": registro lat: -23.5505 lon: -46.6333 fim
+        "Aracaju": registro lat: -10.9091 lon: -37.0677 fim
+        "Palmas": registro lat: -10.1689 lon: -48.3317 fim
+    fim
+fim
+
+teste "distancia SP-Rio"
+    # São Paulo e Rio de Janeiro
+    distancia é distancia_km(-23.5505, -46.6333, -22.9068, -43.1729)
+    esporte distancia >= 350 e distancia <= 450
+fim
+
+teste "estado por sigla"
+    sp é estado_por_sigla("SP")
+    esporte sp.nome igual a "São Paulo"
+    esporte sp.capital igual a "São Paulo"
+    esporte sp.regiao igual a "Sudeste"
+fim
+
+teste "estados por regiao"
+    sul é estados_por_regiao("Sul")
+    esporte tamanho(sul) igual a 3
+fim
+
+teste "ddd sp"
+    estado_ddd é ddd_estado(11)
+    esporte estado_ddd igual a "SP"
+fim
+
+teste "ddd rj"
+    estado_ddd é ddd_estado(21)
+    esporte estado_ddd igual a "RJ"
+fim

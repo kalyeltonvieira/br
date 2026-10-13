@@ -1,0 +1,85 @@
+explicacao
+    JWT: geração e validação de JSON Web Tokens com suporte a
+    assinatura HMAC, expiração, claims customizadas.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome devolva "jwt" fim
+função descricao devolva "JWT: JSON Web Tokens com assinatura HMAC" fim
+função versao devolva "1.0.0" fim
+
+função codificar recebendo payload e segredo
+    importar "json" as json
+    importar "crypto" as crypto
+    cabecalho é json.gerar(registro alg: "HS256" typ: "JWT" fim)
+    payload_str é json.gerar(payload)
+    cabecalho_b64 é crypto.base64_encode(cabecalho)
+    payload_b64 é crypto.base64_encode(payload_str)
+    assinatura_input é cabecalho_b64 + "." + payload_b64
+    assinatura é crypto.hash_sha256(assinatura_input + segredo)
+    assinatura_b64 é crypto.base64_encode(assinatura)
+    devolva cabecalho_b64 + "." + payload_b64 + "." + assinatura_b64
+fim
+
+função decodificar recebendo token e segredo
+    importar "crypto" as crypto
+    importar "json" as json
+    partes é dividir(token, ".")
+    se tamanho(partes) diferente 3 então
+        devolva nulo
+    fim
+    cabecalho_b64 é partes[0]
+    payload_b64 é partes[1]
+    assinatura_recebida é partes[2]
+    assinatura_esperada_input é cabecalho_b64 + "." + payload_b64
+    assinatura_esperada é crypto.hash_sha256(assinatura_esperada_input + segredo)
+    assinatura_esperada_b64 é crypto.base64_encode(assinatura_esperada)
+    se assinatura_recebida diferente assinatura_esperada_b64 então
+        devolva nulo
+    fim
+    payload_str é crypto.base64_decode(payload_b64)
+    tente
+        payload é json.parsear(payload_str)
+        devolva payload
+    capture erro
+        devolva nulo
+    fim
+fim
+
+função valido recebendo token e segredo
+    resultado é decodificar(token, segredo)
+    devolva resultado diferente nulo
+fim
+
+função expirado recebendo token e segredo
+    importar "data_hora" as dh
+    payload é decodificar(token, segredo)
+    se payload nulo ou payload.exp nulo então
+        devolva falso
+    fim
+    agora é dh.agora()
+    devolva agora > payload.exp
+fim
+
+função criar_com_expiracao recebendo payload segredo e expiracao_segundos
+    importar "data_hora" as dh
+    payload.exp é dh.agora() + expiracao_segundos
+    devolva codificar(payload, segredo)
+fim
+
+teste "criar e validar jwt"
+    payload é registro usuario: "joao" papel: "admin" fim
+    token é codificar(payload, "segredo123")
+    esporte token não nulo
+    esporte valido(token, "segredo123") igual a verdadeiro
+fim
+
+teste "rejeitar token invalido"
+    esporte valido("invalido", "segredo") igual a falso
+fim
+
+teste "rejeitar assinatura errada"
+    payload é registro usuario: "joao" fim
+    token é codificar(payload, "segredo1")
+    esporte valido(token, "segredo2") igual a falso
+fim

@@ -1,0 +1,5 @@
+importar "embeddings"
+
+teste "nome do modulo embeddings"
+    espere embeddings.nome() igual a "embeddings"
+fim

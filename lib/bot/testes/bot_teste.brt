@@ -1,0 +1,5 @@
+importar "bot"
+
+teste "nome do modulo bot"
+    espere bot.nome() igual a "bot"
+fim

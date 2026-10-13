@@ -1,0 +1,465 @@
+explicacao
+    Gráfico: geração de gráficos e visualizações no terminal/console.
+    Suporta gráficos de barras, pizza, linhas, dispersão e histograma.
+    Ideal para relatórios rápidos e dashboards no terminal.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome devolva "grafico" fim
+função descricao devolva "Gráficos e visualizações no terminal ASCII" fim
+função versao devolva "1.0.0" fim
+
+constante SIMBOLO_BLOCO é "█"
+constante SIMBOLO_METADE é "▓"
+constante SIMBOLO_CLARO é "▒"
+constante SIMBOLO_PONTO é "░"
+constante SIMBOLO_LINHA é "─"
+constante SIMBOLO_VERTICAL é "│"
+constante SIMBOLO_CANTO é "└"
+
+# ============ GRÁFICO DE BARRAS ============
+
+função barras recebendo rotulos e valores e largura_max
+    se largura_max nulo então largura_max é 40 fim
+    max_valor é valores[0]
+    para cada v em valores
+        se v > max_valor então max_valor é v fim
+    fim
+    
+    resultado é ""
+    
+    i é 0
+    enquanto i < tamanho(rotulos)
+        rotulo é rotulos[i]
+        valor é valores[i]
+        
+        se max_valor > 0 então
+            comprimento_barra é valor * largura_max / max_valor
+        senao
+            comprimento_barra é 0
+        fim
+        
+        barra é ""
+        j é 0
+        enquanto j < comprimento_barra
+            barra é barra + "█"
+            j é j + 1
+        fim
+        
+        resultado é resultado + rotulo + " |" + barra + " " + valor + "\n"
+        i é i + 1
+    fim
+    
+    devolva resultado
+fim
+
+função barras_horizontais recebendo rotulos e valores e altura_max
+    se altura_max nulo então altura_max é 10 fim
+    max_valor é valores[0]
+    para cada v em valores
+        se v > max_valor então max_valor é v fim
+    fim
+    
+    n é tamanho(valores)
+    se n igual 0 então devolva "" fim
+    
+    linhas_grafico é []
+    i é 0
+    enquanto i < altura_max
+        adicione "" a linhas_grafico
+        i é i + 1
+    fim
+    
+    j é 0
+    enquanto j < n
+        valor é valores[j]
+        rotulo é rotulos[j]
+        altura_barra é valor * altura_max / max_valor se max_valor > 0 senao 0
+        
+        i é 0
+        enquanto i < altura_max
+            linha_item é ""
+            se i >= altura_max - altura_barra então
+                linha_item é " ███ "
+            senao
+                linha_item é "     "
+            fim
+            linhas_grafico[i] é linhas_grafico[i] + linha_item
+            i é i + 1
+        fim
+        
+        j é j + 1
+    fim
+    
+    resultado é ""
+    para cada linha in linhas_grafico
+        resultado é resultado + linha + "\n"
+    fim
+    
+    # Rótulos
+    linha_rotulos é ""
+    j é 0
+    enquanto j < n
+        rotulo_curto é rotulos[j][0:5] se tamanho(rotulos[j]) > 5 senao rotulos[j]
+        linha_rotulos é linha_rotulos + " " + rotulo_curto + "  "
+        j é j + 1
+    fim
+    resultado é resultado + linha_rotulos + "\n"
+    
+    devolva resultado
+fim
+
+função barra_empilhada recebendo rotulos, series e largura
+    se largura nulo então largura é 30 fim
+    n_categorias é tamanho(rotulos)
+    n_series é tamanho(series)
+    
+    max_total é 0
+    i é 0
+    enquanto i < n_categorias
+        total_cat é 0
+        j é 0
+        enquanto j < n_series
+            total_cat é total_cat + series[j][i]
+            j é j + 1
+        fim
+        se total_cat > max_total então max_total é total_cat fim
+        i é i + 1
+    fim
+    
+    cores_barra é ["■", "▓", "▒", "░", "≡", "▲", "▼"]
+    resultado é ""
+    
+    i é 0
+    enquanto i < n_categorias
+        resultado é resultado + rotulos[i] + " "
+        total_cat é 0
+        j é 0
+        enquanto j < n_series
+            total_cat é total_cat + series[j][i]
+            j é j + 1
+        fim
+        
+        largura_atual é 0
+        j é 0
+        enquanto j < n_series
+            comprimento é series[j][i] * largura / max_total se max_total > 0 senao 0
+            simb é cores_barra[j % tamanho(cores_barra)]
+            k é 0
+            enquanto k < comprimento
+                resultado é resultado + simb
+                largura_atual é largura_atual + 1
+                k é k + 1
+            fim
+            j é j + 1
+        fim
+        
+        # Preencher resto
+        enquanto largura_atual < largura
+            resultado é resultado + " "
+            largura_atual é largura_atual + 1
+        fim
+        
+        resultado é resultado + " " + total_cat + "\n"
+        i é i + 1
+    fim
+    
+    devolva resultado
+fim
+
+# ============ GRÁFICO DE PIZZA ============
+
+função pizza recebendo rotulos e valores e largura
+    se largura nulo então largura é 20 fim
+    
+    total é 0
+    para cada v em valores
+        total é total + v
+    fim
+    
+    se total igual 0 então devolva "" fim
+    
+    resultado é ""
+    simbolos_pizza é ["●", "◆", "▲", "■", "♥", "♦", "♣", "♠"]
+    
+    # Mostrar legenda com percentuais
+    i é 0
+    enquanto i < tamanho(rotulos)
+        percentual é valores[i] * 100 / total
+        barra_comprimento é percentual * largura / 100
+        barra_str é ""
+        j é 0
+        enquanto j < barra_comprimento
+            barra_str é barra_str + "─"
+            j é j + 1
+        fim
+        
+        simb é simbolos_pizza[i % tamanho(simbolos_pizza)]
+        resultado é resultado + simb + " " + rotulos[i] + " " + barra_str + " " + percentual + "%\n"
+        i é i + 1
+    fim
+    
+    devolva resultado
+fim
+
+# ============ GRÁFICO DE LINHAS ============
+
+função linhas recebendo rotulos_linha e dados_series e altura
+    se altura nulo então altura é 15 fim
+    n_pontos é tamanho(dados_series[0])
+    n_series é tamanho(dados_series)
+    
+    max_valor é dados_series[0][0]
+    min_valor é dados_series[0][0]
+    
+    si é 0
+    enquanto si < n_series
+        pi é 0
+        enquanto pi < n_pontos
+            v é dados_series[si][pi]
+            se v > max_valor então max_valor é v fim
+            se v < min_valor então min_valor é v fim
+            pi é pi + 1
+        fim
+        si é si + 1
+    fim
+    
+    amplitude é max_valor - min_valor
+    se amplitude igual 0 então amplitude é 1 fim
+    
+    linhas_resultado é []
+    li é 0
+    enquanto li < altura
+        adicione "" a linhas_resultado
+        li é li + 1
+    fim
+    
+    # Desenhar eixos e linhas
+    pi é 0
+    enquanto pi < n_pontos
+        si é 0
+        enquanto si < n_series
+            v_atual é dados_series[si][pi]
+            pos_y é altura - 1 - (v_atual - min_valor) * (altura - 1) / amplitude
+            
+            simbolos_serie é ["●", "▲", "■", "◆", "×", "+", "○", "△"]
+            simb é simbolos_serie[si % tamanho(simbolos_serie)]
+            
+            linha_resultado é linhas_resultado[pos_y]
+            linha_resultado é linha_resultado + " " + simb + " "
+            linhas_resultado[pos_y] é linha_resultado
+            si é si + 1
+        fim
+        pi é pi + 1
+    fim
+    
+    resultado é ""
+    li é 0
+    enquanto li < altura
+        valor_linha é max_valor - li * amplitude / (altura - 1)
+        rotulo_valor é "" + valor_linha
+        resultado é resultado + rotulo_valor + " " + linhas_resultado[li] + "\n"
+        li é li + 1
+    fim
+    
+    devolva resultado
+fim
+
+# ============ HISTOGRAMA ============
+
+função histograma recebendo dados e numero_bins
+    se numero_bins nulo então numero_bins é 10 fim
+    
+    min_dado é dados[0]
+    max_dado é dados[0]
+    para cada v em dados
+        se v < min_dado então min_dado é v fim
+        se v > max_dado então max_dado é v fim
+    fim
+    
+    amplitude_dado é max_dado - min_dado
+    se amplitude_dado igual 0 então amplitude_dado é 1 fim
+    largura_bin é amplitude_dado / numero_bins
+    
+    bins é []
+    i é 0
+    enquanto i < numero_bins
+        adicione 0 a bins
+        i é i + 1
+    fim
+    
+    para cada v em dados
+        indice_bin é (v - min_dado) / largura_bin
+        se indice_bin >= numero_bins então indice_bin é numero_bins - 1 fim
+        bins[indice_bin] é bins[indice_bin] + 1
+    fim
+    
+    max_freq é 0
+    para cada b em bins
+        se b > max_freq então max_freq é b fim
+    fim
+    
+    resultado é ""
+    i é 0
+    enquanto i < numero_bins
+        inicio_bin é min_dado + i * largura_bin
+        fim_bin é inicio_bin + largura_bin
+        
+        freq é bins[i]
+        comprimento_barra é freq * 30 / max_freq se max_freq > 0 senao 0
+        
+        barra_str é ""
+        j é 0
+        enquanto j < comprimento_barra
+            barra_str é barra_str + "█"
+            j é j + 1
+        fim
+        
+        resultado é resultado + inicio_bin + "-" + fim_bin + " |" + barra_str + " " + freq + "\n"
+        i é i + 1
+    fim
+    
+    devolva resultado
+fim
+
+# ============ GRÁFICO DE DISPERSÃO ============
+
+função dispersao recebendo pontos_x e pontos_y e largura e altura
+    se largura nulo então largura é 40 fim
+    se altura nulo então altura é 15 fim
+    
+    min_x é pontos_x[0]
+    max_x é pontos_x[0]
+    min_y é pontos_y[0]
+    max_y é pontos_y[0]
+    
+    i é 0
+    enquanto i < tamanho(pontos_x)
+        x é pontos_x[i]
+        y é pontos_y[i]
+        se x < min_x então min_x é x fim
+        se x > max_x então max_x é x fim
+        se y < min_y então min_y é y fim
+        se y > max_y então max_y é y fim
+        i é i + 1
+    fim
+    
+    range_x é max_x - min_x
+    range_y é max_y - min_y
+    se range_x igual 0 então range_x é 1 fim
+    se range_y igual 0 então range_y é 1 fim
+    
+    tela é []
+    li é 0
+    enquanto li < altura
+        linha_tela é ""
+        ci é 0
+        enquanto ci < largura
+            linha_tela é linha_tela + " "
+            ci é ci + 1
+        fim
+        adicione linha_tela a tela
+        li é li + 1
+    fim
+    
+    i é 0
+    enquanto i < tamanho(pontos_x)
+        x_tela é (pontos_x[i] - min_x) * (largura - 1) / range_x
+        y_tela é altura - 1 - (pontos_y[i] - min_y) * (altura - 1) / range_y
+        
+        linha_antiga é tela[y_tela]
+        linha_nova é ""
+        ci é 0
+        enquanto ci < largura
+            se ci igual x_tela então
+                linha_nova é linha_nova + "●"
+            senao
+                linha_nova é linha_nova + linha_antiga[ci]
+            fim
+            ci é ci + 1
+        fim
+        tela[y_tela] é linha_nova
+        i é i + 1
+    fim
+    
+    resultado é ""
+    li é 0
+    enquanto li < altura
+        resultado é resultado + tela[li] + "\n"
+        li é li + 1
+    fim
+    
+    devolva resultado
+fim
+
+# ============ TABELA DE CORRELAÇÃO ============
+
+função matriz_correlacao recebendo matriz
+    resultado é ""
+    n é tamanho(matriz)
+    
+    cabecalho_linha é "     "
+    i é 0
+    enquanto i < n
+        cabecalho_linha é cabecalho_linha + "  " + (i + 1)
+        i é i + 1
+    fim
+    resultado é resultado + cabecalho_linha + "\n"
+    
+    i é 0
+    enquanto i < n
+        linha_str é "" + (i + 1) + " | "
+        j é 0
+        enquanto j < n
+            valor é matriz[i][j]
+            se valor >= 0.7 então
+                linha_str é linha_str + " ■"
+            senao se valor >= 0.4 então
+                linha_str é linha_str + " ▓"
+            senao se valor >= 0.1 então
+                linha_str é linha_str + " ▒"
+            senao se valor >= -0.1 então
+                linha_str é linha_str + "  ·"
+            senao se valor >= -0.4 então
+                linha_str é linha_str + " ░"
+            senao se valor >= -0.7 então
+                linha_str é linha_str + " ▀"
+            senao
+                linha_str é linha_str + " □"
+            fim
+            j é j + 1
+        fim
+        resultado é resultado + linha_str + "\n"
+        i é i + 1
+    fim
+    
+    devolva resultado
+fim
+
+# ============ TESTES ============
+
+teste "grafico barras"
+    resultado é barras(["A", "B", "C"], [10, 20, 15], 20)
+    esporte contem(resultado, "A")
+    esporte contem(resultado, "10")
+    esporte contem(resultado, "20")
+fim
+
+teste "grafico pizza"
+    resultado é pizza(["Maçã", "Banana", "Laranja"], [30, 20, 50], 15)
+    esporte contem(resultado, "Maçã")
+    esporte contem(resultado, "30%")
+    esporte contem(resultado, "50%")
+fim
+
+teste "histograma"
+    dados é [1, 1, 1, 2, 2, 3, 3, 3, 3, 4, 5, 5, 5, 5, 5]
+    resultado é histograma(dados, 5)
+    esporte contem(resultado, "|")
+fim
+
+teste "grafico linhas"
+    series é [[1, 3, 2, 4], [2, 1, 4, 3]]
+    resultado é linhas(["S1", "S2"], series, 10)
+    esporte tamanho(resultado) > 0
+fim

@@ -1,0 +1,5 @@
+importar "automacao"
+
+teste "nome do modulo automacao"
+    espere automacao.nome() igual a "automacao"
+fim

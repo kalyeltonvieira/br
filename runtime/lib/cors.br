@@ -1,0 +1,60 @@
+explicacao
+    Modulo cors compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "cors"
+fim
+
+funcao descricao
+    devolva "Modulo cors compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao criar recebendo opcoes
+    devolva verdadeiro
+fim
+
+funcao adicionar_origem recebendo cors e origem
+    devolva cors
+fim
+
+funcao adicionar_metodo recebendo cors e metodo
+    devolva cors
+fim
+
+funcao adicionar_cabecalho recebendo cors e cabecalho
+    devolva cors
+fim
+
+funcao permitir_todas_origens recebendo cors
+    devolva cors
+fim
+
+funcao permitir_credenciais recebendo cors
+    devolva cors
+fim
+
+funcao definir_max_idade recebendo cors e segundos
+    devolva cors
+fim
+
+funcao gerar_cabecalhos recebendo cors e origem
+    devolva cors
+fim
+
+funcao verificar_origem recebendo cors e origem
+    devolva cors
+fim
+
+funcao exemplo recebendo valor
+    devolva valor
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim

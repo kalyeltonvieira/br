@@ -1,0 +1,9 @@
+contrato csv
+    função nome
+    função descricao
+    função versao
+    função ler recebendo dados
+    função escrever recebendo dados
+    função cabecalho recebendo dados
+    função linhas recebendo dados
+fim

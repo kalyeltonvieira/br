@@ -1,0 +1,9 @@
+contrato uuid
+    função nome
+    função descricao
+    função versao
+    função gerar
+    função validar recebendo valor
+    função v4
+    função curto
+fim

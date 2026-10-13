@@ -1,0 +1,358 @@
+explicacao
+    Formatador: formatação de dados brasileiros como moeda (R$),
+    CPF/CNPJ, telefone, CEP, data por extenso, números por extenso,
+    valores financeiros e percentuais.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome devolva "formatador" fim
+função descricao devolva "Formatador: moeda, CPF, CEP, telefone, números BR" fim
+função versao devolva "1.0.0" fim
+
+# ============ MOEDA ============
+
+função moeda recebendo valor
+    se valor nulo então devolva "R$ 0,00" fim
+    partes é _formato_decimal(valor)
+    sinal é "" se valor >= 0 senao "-"
+    abs_str é _formatar_milhares(partes.inteiro) + "," + partes.decimais
+    devolva sinal + "R$ " + abs_str
+fim
+
+função _formato_decimal recebendo valor
+    abs_valor é valor se valor >= 0 senao -valor
+    inteiro_str é "" + floor(abs_valor)
+    fracao_valor é abs_valor - floor(abs_valor)
+    fracao_int é arredondar(fracao_valor * 100)
+    decimais_str é "" + fracao_int
+    se fracao_int < 10 então decimais_str é "0" + decimais_str fim
+    devolva registro inteiro: inteiro_str decimais: decimais_str fim
+fim
+
+função _formatar_milhares recebendo numero_str
+    resultado é ""
+    n é tamanho(numero_str)
+    pos é 0
+    
+    enquanto pos < n
+        se pos > 0 e (n - pos) % 3 igual 0 então
+            resultado é resultado + "."
+        fim
+        resultado é resultado + numero_str[pos]
+        pos é pos + 1
+    fim
+    
+    devolva resultado
+fim
+
+função moeda_simples recebendo valor
+    partes é _formato_decimal(valor)
+    sinal é "" se valor >= 0 senao "-"
+    devolva sinal + "R$ " + partes.inteiro + "," + partes.decimais
+fim
+
+função dolar recebendo valor
+    se valor nulo então devolva "$ 0.00" fim
+    sinal é "" se valor >= 0 senao "-"
+    abs_valor é valor se valor >= 0 senao -valor
+    partes é _formato_decimal(abs_valor)
+    devolva sinal + "$ " + partes.inteiro + "." + partes.decimais
+fim
+
+função euro recebendo valor
+    se valor nulo então devolva "€ 0,00" fim
+    sinal é "" se valor >= 0 senao "-"
+    abs_valor é valor se valor >= 0 senao -valor
+    partes é _formato_decimal(abs_valor)
+    devolva sinal + "€ " + partes.inteiro + "," + partes.decimais
+fim
+
+# ============ CPF ============
+
+função cpf recebendo digitos
+    importar "texto" as txt
+    limpo é txt.so_numeros_texto("" + digitos)
+    
+    se tamanho(limpo) diferente 11 então
+        devolva digitos
+    fim
+    
+    devolva limpo[0:3] + "." + limpo[3:6] + "." + limpo[6:9] + "-" + limpo[9:11]
+fim
+
+função cnpj recebendo digitos
+    importar "texto" as txt
+    limpo é txt.so_numeros_texto("" + digitos)
+    
+    se tamanho(limpo) diferente 14 então
+        devolva digitos
+    fim
+    
+    devolva limpo[0:2] + "." + limpo[2:5] + "." + limpo[5:8] + "/" + limpo[8:12] + "-" + limpo[12:14]
+fim
+
+# ============ TELEFONE ============
+
+função telefone recebendo digitos
+    importar "texto" as txt
+    limpo é txt.so_numeros_texto("" + digitos)
+    tam é tamanho(limpo)
+    
+    se tam igual 11 então
+        devolva "(" + limpo[0:2] + ") " + limpo[2:7] + "-" + limpo[7:11]
+    senao se tam igual 10 então
+        devolva "(" + limpo[0:2] + ") " + limpo[2:6] + "-" + limpo[6:10]
+    senao
+        devolva digitos
+    fim
+fim
+
+função celular recebendo digitos
+    importar "texto" as txt
+    limpo é txt.so_numeros_texto("" + digitos)
+    
+    se tamanho(limpo) igual 11 então
+        devolva "(" + limpo[0:2] + ") " + limpo[2:3] + " " + limpo[3:7] + "-" + limpo[7:11]
+    senao
+        devolva telefone(digitos)
+    fim
+fim
+
+# ============ CEP ============
+
+função cep recebendo digitos
+    importar "texto" as txt
+    limpo é txt.so_numeros_texto("" + digitos)
+    
+    se tamanho(limpo) igual 8 então
+        devolva limpo[0:5] + "-" + limpo[5:8]
+    senao
+        devolva digitos
+    fim
+fim
+
+# ============ DATA ============
+
+função data recebendo ano, mes, dia
+    ano_str é "" + ano
+    mes_str é "" + mes
+    dia_str é "" + dia
+    
+    se tamanho(mes_str) < 2 então mes_str é "0" + mes_str fim
+    se tamanho(dia_str) < 2 então dia_str é "0" + dia_str fim
+    
+    devolva dia_str + "/" + mes_str + "/" + ano_str
+fim
+
+função data_hora recebendo ano, mes, dia, hora, minuto, segundo
+    resultado é data(ano, mes, dia) + " "
+    
+    hora_str é "" + hora
+    minuto_str é "" + minuto
+    segundo_str é "" + segundo
+    
+    se tamanho(hora_str) < 2 então hora_str é "0" + hora_str fim
+    se tamanho(minuto_str) < 2 então minuto_str é "0" + minuto_str fim
+    se tamanho(segundo_str) < 2 então segundo_str é "0" + segundo_str fim
+    
+    devolva resultado + hora_str + ":" + minuto_str + ":" + segundo_str
+fim
+
+# ============ NÚMEROS ============
+
+função numero recebendo valor e casas_decimais
+    se casas_decimais nulo então casas_decimais é 2 fim
+    
+    sinal é "" se valor >= 0 senao "-"
+    abs_valor é valor se valor >= 0 senao -valor
+    fator é potencia(10, casas_decimais)
+    valor_arrondado é floor(abs_valor * fator + 0.5) / fator
+    
+    partes é _formato_decimal(valor_arrondado)
+    
+    # Garantir número correto de casas decimais
+    enquanto tamanho(partes.decimais) < casas_decimais
+        partes.decimais é partes.decimais + "0"
+    fim
+    
+    devolva sinal + partes.inteiro + "," + partes.decimais
+fim
+
+função numero_inteiro recebendo valor
+    sinal é "" se valor >= 0 senao "-"
+    abs_valor é valor se valor >= 0 senao -valor
+    inteiro_str é "" + floor(abs_valor)
+    devolva sinal + _formatar_milhares(inteiro_str)
+fim
+
+função percentual recebendo valor e casas_decimais
+    se casas_decimais nulo então casas_decimais é 1 fim
+    devolva numero(valor * 100, casas_decimais) + "%"
+fim
+
+função extenso recebendo valor
+    se valor nulo então devolva "zero" fim
+    se valor igual 0 então devolva "zero" fim
+    
+    unidades é ["", "um", "dois", "três", "quatro", "cinco", "seis", "sete", "oito", "nove",
+               "dez", "onze", "doze", "treze", "quatorze", "quinze", "dezesseis", "dezessete",
+               "dezoito", "dezenove"]
+    dezenas é ["", "", "vinte", "trinta", "quarenta", "cinquenta", "sessenta", "setenta",
+               "oitenta", "noventa"]
+    centenas é ["", "cento", "duzentos", "trezentos", "quatrocentos", "quinhentos",
+               "seiscentos", "setecentos", "oitocentos", "novecentos"]
+    
+    sinal é "" se valor >= 0 senao "menos "
+    abs_val é valor se valor >= 0 senao -valor
+    num_int é floor(abs_val)
+    
+    se num_int igual 0 então devolva "zero" fim
+    
+    resultado é ""
+    
+    # Milhares
+    milhar é num_int / 1000
+    resto é num_int % 1000
+    
+    se milhar > 0 então
+        se milhar igual 1 então resultado é "mil"
+        senao
+            resultado é _extenso_centenas(milhar, unidades, dezenas, centenas) + " mil"
+        fim
+    fim
+    
+    se resto > 0 então
+        se resultado não "" então
+            se resto < 100 então resultado é resultado + " e " senao resultado é resultado + " " fim
+        fim
+        resultado é resultado + _extenso_centenas(resto, unidades, dezenas, centenas)
+    fim
+    
+    devolva sinal + resultado
+fim
+
+função _extenso_centenas recebendo num, unidades, dezenas, centenas
+    se num igual 0 então devolva "" fim
+    se num <= 19 então devolva unidades[num] fim
+    
+    c é num / 100
+    d é (num % 100) / 10
+    u é num % 10
+    
+    resultado é ""
+    
+    se c > 0 então
+        se c igual 1 e num % 100 igual 0 então
+            resultado é "cem"
+            devolva resultado
+        senao
+            resultado é centenas[c]
+        fim
+    fim
+    
+    dezena_num é d * 10 + u
+    se dezena_num > 0 e dezena_num <= 19 então
+        se resultado não "" então resultado é resultado + " e " fim
+        resultado é resultado + unidades[dezena_num]
+        devolva resultado
+    fim
+    
+    se d > 0 então
+        se resultado não "" então resultado é resultado + " e " fim
+        resultado é resultado + dezenas[d]
+    fim
+    
+    se u > 0 então
+        se resultado não "" então resultado é resultado + " e " fim
+        resultado é resultado + unidades[u]
+    fim
+    
+    devolva resultado
+fim
+
+função data_extenso recebendo dia, mes, ano
+    nomes_meses é ["janeiro", "fevereiro", "março", "abril", "maio", "junho",
+                   "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"]
+    devolva extenso(dia) + " de " + nomes_meses[mes - 1] + " de " + extenso(ano)
+fim
+
+# ============ PLACA ============
+
+função placa recebendo valor
+    importar "texto" as txt
+    limpo é txt.remover_espacos("" + valor)
+    
+    se tamanho(limpo) igual 7 então
+        devolva limpo[0:3] + "-" + limpo[3:7]
+    senao se tamanho(limpo) igual 7 então
+        # Mercosul: ABC1D23
+        devolva limpo[0:3] + limpo[3] + limpo[4] + limpo[5:7]
+    fim
+    
+    devolva valor
+fim
+
+# ============ TESTES ============
+
+teste "moeda real"
+    resultado é moeda(1500.50)
+    esporte contem(resultado, "R$")
+    esporte contem(resultado, "1.500,50")
+fim
+
+teste "moeda zero"
+    resultado é moeda(0)
+    esporte resultado igual a "R$ 0,00"
+fim
+
+teste "moeda negativa"
+    resultado é moeda(-50.75)
+    esporte contem(resultado, "-")
+    esporte contem(resultado, "50,75")
+fim
+
+teste "formata cpf"
+    resultado é cpf("52998224725")
+    esporte resultado igual a "529.982.247-25"
+fim
+
+teste "formata cnpj"
+    resultado é cnpj("11444777000161")
+    esporte resultado igual a "11.444.777/0001-61"
+fim
+
+teste "formata telefone"
+    resultado é telefone("11999998888")
+    esporte contem(resultado, "(11)")
+    esporte contem(resultado, "-")
+fim
+
+teste "formata cep"
+    resultado é cep("01310100")
+    esporte resultado igual a "01310-100"
+fim
+
+teste "numero extenso"
+    resultado é extenso(123)
+    esporte resultado igual a "cento e vinte e três"
+fim
+
+teste "numero extenso milhar"
+    resultado é extenso(1984)
+    esporte contem(resultado, "mil")
+fim
+
+teste "numero extenso zero"
+    resultado é extenso(0)
+    esporte resultado igual a "zero"
+fim
+
+teste "numero formatado"
+    resultado é numero(1234.5678, 2)
+    esporte contem(resultado, "1.234,57")
+fim
+
+teste "percentual"
+    resultado é percentual(0.153, 1)
+    esporte contem(resultado, "15,3%")
+fim

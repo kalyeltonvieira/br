@@ -1,0 +1,33 @@
+# Redis module for cache and queue integration with Redis
+
+explicacao
+    Redis: cache e filas com Redis.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "redis"
+fim
+
+função descricao
+    devolva "Cache e filas com Redis."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função conectar recebendo uri
+    devolva verdadeiro
+fim
+
+função set recebendo chave, valor
+    devolva verdadeiro
+fim
+
+função get recebendo chave
+    devolva "valor"im
+
+função fechar
+    devolva verdadeiro
+fim

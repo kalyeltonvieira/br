@@ -1,0 +1,44 @@
+# Documentação BRD: formulario
+
+## Nome
+
+Formulário
+
+## Descrição
+
+Validação e processamento de formulários. Permite validar e processar dados de formulários web.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* criar: Cria um formulário com campos especificados.
+* adicionar_campo: Adiciona um campo ao formulário.
+* definir_obrigatorio: Define se um campo é obrigatório.
+* adicionar_validador: Adiciona um validador a um campo.
+* validar: Valida os dados do formulário.
+* obter_erros: Obtém os erros de validação.
+* obter_dados: Obtém os dados do formulário.
+* limpar_dados: Limpa os dados do formulário.
+* definir_valor_padrao: Define um valor padrão para um campo.
+* validar_email: Valida se um texto é um email válido.
+* validar_url: Valida se um texto é uma URL válida.
+* validar_numero: Valida se um valor é um número.
+* validar_tamanho: Valida se um valor está dentro do tamanho especificado.
+* sanitizar: Sanitiza os dados do formulário removendo HTML e scripts.
+
+## Exemplo
+
+```br
+usar rede.formulario
+
+formulario é criar registro
+    nome: registro tipo: "texto"
+    email: registro tipo: "texto"
+    idade: registro tipo: "numero"
+fim
+
+definir_obrigatorio formulario, "nome", verdadeiro
+validar formulario, dados
+```

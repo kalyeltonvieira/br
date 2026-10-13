@@ -1,0 +1,32 @@
+explicacao
+    Formatador: formatação automática de código .br.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "formatador"
+fim
+
+função descricao
+    devolva "Formatador: formatação automática de código .br"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função formatar recebendo codigo
+    devolva codigo
+fim
+
+função arquivo recebendo caminho
+    devolva caminho
+fim
+
+função verificar recebendo codigo
+    devolva verdadeiro
+fim
+
+função configurar recebendo opcoes
+    devolva opcoes
+fim

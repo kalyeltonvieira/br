@@ -1,0 +1,5 @@
+importar "core"
+
+teste "nome do modulo core"
+    espere core.nome() igual a "core"
+fim

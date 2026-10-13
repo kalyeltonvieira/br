@@ -1,0 +1,34 @@
+# Grafico module for charts: bars, lines, pie, scatter and series
+
+explicacao
+    grafico: barras, linhas, pizza, dispersão e séries.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "grafico"
+fim
+
+função descricao
+    devolva "Barras, linhas, pizza, dispersão e séries."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função criar_grafico recebendo tipo, dados
+    devolva "ID_GRAFICO"
+fim
+
+função adicionar_serie recebendo grafico_id, serie_dados
+    devolva verdadeiro
+fim
+
+função renderizar recebendo grafico_id
+    devolva "IMAGEM_BYTES"
+fim
+
+função fechar
+    devolva verdadeiro
+fim

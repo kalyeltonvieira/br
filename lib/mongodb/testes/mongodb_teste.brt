@@ -1,0 +1,5 @@
+importar "mongodb"
+
+teste "nome do modulo mongodb"
+    espere mongodb.nome() igual a "mongodb"
+fim

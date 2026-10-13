@@ -1,0 +1,32 @@
+explicacao
+    LSP: suporte para editor, autocomplete e diagnóstico.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "lsp"
+fim
+
+função descricao
+    devolva "LSP: suporte para editor, autocomplete e diagnóstico"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função iniciar
+    devolva verdadeiro
+fim
+
+função autocomplete recebendo codigo
+    devolva "[]"
+fim
+
+função diagnostico recebendo codigo
+    devolva "[]"
+fim
+
+função simbolo recebendo codigo
+    devolva "[]"
+fim

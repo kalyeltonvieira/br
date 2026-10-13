@@ -1,0 +1,34 @@
+# Pagamento module for gateways, charges, receipts and payment status
+
+explicacao
+    pagamento: gateways, cobranças, recibos e status de pagamento.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "pagamento"
+fim
+
+função descricao
+    devolva "Gateways, cobranças, recibos e status de pagamento."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função iniciar_pagamento recebendo valor, metodo
+    devolva "ID_PAGAMENTO"
+fim
+
+função consultar_status recebendo id_pagamento
+    devolva "pendente"
+fim
+
+função gerar_recibo recebendo id_pagamento
+    devolva "RECIBO_123"
+fim
+
+função fechar
+    devolva verdadeiro
+fim

@@ -1,0 +1,26 @@
+# Clima module for weather forecast, temperature, rain and wind
+
+explicacao
+    clima: previsão do tempo, temperatura, chuva e vento.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "clima"
+fim
+
+função descricao
+    devolva "Previsão do tempo, temperatura, chuva e vento."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função obter_previsao recebendo local, data
+    devolva {"temperatura": 0, "chuva": false, "vento": 0}
+fim
+
+função fechar
+    devolva verdadeiro
+fim

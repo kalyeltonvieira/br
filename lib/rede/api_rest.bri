@@ -1,0 +1,16 @@
+contrato api_rest
+    função nome
+    função descricao
+    função versao
+    função criar recebendo nome e versao
+    função adicionar_recurso recebendo api, recurso e operacoes
+    função adicionar_operacao recebendo api, recurso, metodo e handler
+    função definir_autenticacao recebendo api e tipo
+    função adicionar_rate_limit recebendo api, maximo e periodo
+    função gerar_documentacao recebendo api
+    função validar_requisicao recebendo api, requisicao
+    função formatar_resposta recebendo api, dados e status
+    função adicionar_paginacao recebendo api, padrao e maximo
+    função adicionar_filtro recebendo api, campo e tipo
+    função adicionar_ordenacao recebendo api, campo e direcao
+fim

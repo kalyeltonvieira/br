@@ -1,0 +1,34 @@
+# NLP module for natural language processing
+
+explicacao
+    nlp: processamento de linguagem natural.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "nlp"
+fim
+
+função descricao
+    devolva "Processamento de linguagem natural."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função tokenizar recebendo texto
+    devolva []
+fim
+
+função analisar_sentimento recebendo texto
+    devolva "neutro"
+fim
+
+função extrair_entidades recebendo texto
+    devolva []
+fim
+
+função fechar
+    devolva verdadeiro
+fim

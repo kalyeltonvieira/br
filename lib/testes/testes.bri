@@ -1,0 +1,9 @@
+contrato testes
+    função nome
+    função descricao
+    função versao
+    função igual recebendo a e b
+    função eh_verdadeiro recebendo valor
+    função eh_falso recebendo valor
+    função mock recebendo nome_item
+fim

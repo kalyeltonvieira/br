@@ -1,0 +1,32 @@
+explicacao
+    Introspecção: inspecionar objetos, módulos, tipos e funções.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "introspeccao"
+fim
+
+função descricao
+    devolva "Introspecção: inspecionar objetos, módulos, tipos e funções"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função tipo recebendo valor
+    devolva "desconhecido"
+fim
+
+função funcoes recebendo valor
+    devolva "[]"
+fim
+
+função campos recebendo valor
+    devolva "[]"
+fim
+
+função modulo recebendo valor
+    devolva valor
+fim

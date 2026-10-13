@@ -1,0 +1,19 @@
+# Documentação BRD: migracao
+
+## Nome
+
+Migração
+
+## Descrição
+
+migração de versões, APIs e projetos.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* migrar: Migra projeto.
+* versao: Consulta versão de migração.
+* api: Migra API.
+* relatorio: Gera relatório de migração.

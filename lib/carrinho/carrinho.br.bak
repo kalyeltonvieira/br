@@ -1,0 +1,42 @@
+# Carrinho module for shopping cart, items, coupons and totals
+
+explicacao
+    carrinho: carrinho de compras, itens, cupons e totais.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "carrinho"
+fim
+
+função descricao
+    devolva "Carrinho de compras, itens, cupons e totais."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função criar_carrinho
+    devolva []
+fim
+
+função adicionar_item recebendo carrinho, produto_id, quantidade
+    devolva verdadeiro
+fim
+
+função remover_item recebendo carrinho, produto_id
+    devolva verdadeiro
+fim
+
+função aplicar_cupom recebendo carrinho, codigo_cupom
+    devolva verdadeiro
+fim
+
+função total recebendo carrinho
+    devolva 0.0
+fim
+
+função fechar
+    devolva verdadeiro
+fim

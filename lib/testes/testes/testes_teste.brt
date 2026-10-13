@@ -1,0 +1,5 @@
+importar "testes"
+
+teste "nome do modulo testes"
+    espere testes.nome() igual a "testes"
+fim

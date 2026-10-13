@@ -1,0 +1,5 @@
+importar "yaml"
+
+teste "nome do modulo yaml"
+    espere yaml.nome() igual a "yaml"
+fim

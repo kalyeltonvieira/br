@@ -1,0 +1,19 @@
+# Documentação BRD: instalador
+
+## Nome
+
+Instalador
+
+## Descrição
+
+criação de instaladores para projetos .br.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* criar: Cria instalador.
+* windows: Cria instalador Windows.
+* linux: Cria instalador Linux.
+* manifesto: Gera manifesto de instalação.

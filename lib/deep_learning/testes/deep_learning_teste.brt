@@ -1,0 +1,5 @@
+importar "deep_learning"
+
+teste "nome do modulo deep_learning"
+    espere deep_learning.nome() igual a "deep_learning"
+fim

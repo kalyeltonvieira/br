@@ -1,0 +1,86 @@
+# Biblioteca de Sistema - BR
+# Funções do sistema operacional
+
+# ==================== AMBIENTE ====================
+
+função variavel_ambiente recebendo nome
+    devolva obter_variavel_ambiente(nome)
+fim
+
+função definir_variavel_ambiente recebendo nome e valor
+    devolva definir_variavel_ambiente(nome, valor)
+fim
+
+função diretorio_atual
+    devolva obter_diretorio_atual()
+fim
+
+função diretorio_usuario
+    devolva obter_diretorio_usuario()
+fim
+
+função diretorio_temporario
+    devolva obter_diretorio_temporario()
+fim
+
+# ==================== EXECUÇÃO ====================
+
+função executar_comando recebendo comando
+    devolva executar(comando)
+fim
+
+função executar_script recebendo caminho
+    devolva executar_arquivo(caminho)
+fim
+
+# ==================== INFORMAÇÕES DO SISTEMA ====================
+
+função sistema_operacional
+    devolva obter_sistema_operacional()
+fim
+
+função arquitetura
+    devolva obter_arquitetura()
+fim
+
+função nome_computador
+    devolva obter_nome_computador()
+fim
+
+função nome_usuario
+    devolva obter_nome_usuario()
+fim
+
+# ==================== PROCESSOS ====================
+
+função lista_processos
+    devolva obter_processos()
+fim
+
+função executar_em_segundo_plano recebendo comando
+    devolva executar_background(comando)
+fim
+
+# ==================== REDE ====================
+
+função nome_host
+    devolva obter_nome_host()
+fim
+
+função endereco_ip
+    devolva obter_endereco_ip()
+fim
+
+# ==================== TEMPO ====================
+
+função dormir recebendo segundos
+    aguarde(segundos)
+fim
+
+função tempo_atual_ms
+    devolva tempo_milissegundos()
+fim
+
+função tempo_atual_s
+    devolva tempo_segundos()
+fim

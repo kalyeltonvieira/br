@@ -1,0 +1,196 @@
+{
+  "name": "br-language",
+  "displayName": "BR Language",
+  "description": "Suporte para a linguagem de programação BR",
+  "version": "1.0.0",
+  "publisher": "br-lang",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets",
+    "Themes"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "br",
+        "aliases": [
+          "BR",
+          "br"
+        ],
+        "extensions": [
+          ".br",
+          ".brm"
+        ],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "dark": "icon.svg",
+          "light": "icon.svg"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "br",
+        "scopeName": "source.br",
+        "path": "./syntaxes/br.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "br",
+        "path": "./snippets/snippets.json"
+      }
+    ],
+    "themes": [
+      {
+        "label": "BR Color Theme",
+        "uiTheme": "vs-dark",
+        "path": "./themes/br-color-theme.json"
+      }
+    ],
+    "configuration": {
+      "title": "BR",
+      "properties": {
+        "br.format.indentSize": {
+          "type": "number",
+          "default": 4,
+          "description": "Tamanho da indentação em espaços"
+        },
+        "br.lint.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Habilitar linting automático"
+        },
+        "br.executablePath": {
+          "type": "string",
+          "default": "br",
+          "description": "Caminho para o executável br"
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "command": "br.run",
+        "key": "f5",
+        "when": "editorLangId == br"
+      },
+      {
+        "command": "br.debug",
+        "key": "ctrl+f5",
+        "when": "editorLangId == br"
+      },
+      {
+        "command": "br.lint",
+        "key": "ctrl+shift+l",
+        "when": "editorLangId == br"
+      }
+    ],
+    "menus": {
+      "editor/title/run": [
+        {
+          "command": "br.run",
+          "when": "editorLangId == br",
+          "group": "navigation"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "br.run",
+          "when": "editorLangId == br",
+          "group": "navigation"
+        },
+        {
+          "command": "br.debug",
+          "when": "editorLangId == br",
+          "group": "navigation"
+        }
+      ]
+    },
+    "breakpoints": [
+      {
+        "language": "br"
+      }
+    ],
+    "debuggers": [
+      {
+        "type": "br",
+        "label": "BR Debug",
+        "program": "./out/debugAdapter.js",
+        "runtime": "node",
+        "configurationAttributes": {
+          "launch": {
+            "required": [
+              "program"
+            ],
+            "properties": {
+              "program": {
+                "type": "string",
+                "description": "Caminho do arquivo BR para executar"
+              },
+              "args": {
+                "type": "array",
+                "description": "Argumentos para passar ao programa"
+              },
+              "stopOnEntry": {
+                "type": "boolean",
+                "default": false,
+                "description": "Parar automaticamente no início do programa"
+              },
+              "console": {
+                "type": "string",
+                "enum": [
+                  "internalConsole",
+                  "integratedTerminal",
+                  "externalTerminal"
+                ],
+                "default": "integratedTerminal",
+                "description": "Onde lançar o programa"
+              }
+            }
+          }
+        },
+        "initialConfigurations": [
+          {
+            "type": "br",
+            "request": "launch",
+            "name": "Executar arquivo BR",
+            "program": "${file}",
+            "console": "integratedTerminal"
+          }
+        ]
+      }
+    ]
+  },
+  "activationEvents": [
+    "onLanguage:br",
+    "onCommand:br.run",
+    "onCommand:br.debug"
+  ],
+  "main": "./out/extension.js",
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "package": "npx @vscode/vsce package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.60.0",
+    "@types/node": "14.x",
+    "typescript": "^4.5.5",
+    "@vscode/vsce": "^2.22.0",
+    "vscode-languageclient": "^7.0.0",
+    "vscode-languageserver": "^7.0.0",
+    "vscode-languageserver-textdocument": "^1.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/br-lang/vscode-br"
+  },
+  "license": "MIT"
+}

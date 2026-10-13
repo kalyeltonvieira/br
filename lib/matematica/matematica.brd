@@ -1,0 +1,19 @@
+# Documentação BRD: matematica
+
+## Nome
+
+Matemática
+
+## Descrição
+
+operações básicas, avançadas, estatística e números aleatórios.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* somar: Soma dois valores.
+* subtrair: Subtrai dois valores.
+* multiplicar: Multiplica dois valores.
+* dividir: Divide dois valores.

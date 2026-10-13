@@ -1,0 +1,9 @@
+importar "circular_b"
+
+função valor_a
+    devolva "a"
+fim
+
+função chama_b
+    devolva circular_b.valor_b()
+fim

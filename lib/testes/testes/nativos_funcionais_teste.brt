@@ -1,0 +1,127 @@
+importar "matematica"
+importar "texto" como modulo_texto
+importar "json"
+importar "csv"
+importar "path"
+importar "regex"
+importar "uuid"
+importar "validacao"
+importar "seguranca"
+importar "senha"
+importar "token"
+importar "data_hora"
+importar "colecoes"
+importar "arquivo"
+importar "sistema"
+importar "introspeccao"
+importar "banco"
+importar "rede"
+importar "env"
+
+teste "matematica real"
+    espere matematica.somar(2, 3) igual a 5
+fim
+
+teste "texto real"
+    espere modulo_texto.maiusculo("br") igual a "BR"
+fim
+
+teste "texto slug"
+    espere modulo_texto.slug("Ola mundo BR") igual a "ola-mundo-br"
+fim
+
+teste "json validar"
+    espere json.validar("{}") igual a verdadeiro
+fim
+
+teste "json invalido"
+    espere json.validar("{") igual a falso
+fim
+
+teste "json colecao"
+    espere colecoes.tamanho(json.parsear("[1,2,3]")) igual a 3
+fim
+
+teste "csv linhas"
+    espere csv.linhas("a,b\n1,2") igual a 2
+fim
+
+teste "csv cabecalho"
+    espere csv.cabecalho("a,b\n1,2") igual a "a,b"
+fim
+
+teste "path extensao"
+    espere path.extensao("arquivo.txt") igual a ".txt"
+fim
+
+teste "arquivo extensao"
+    espere arquivo.extensao("programa.br") igual a ".br"
+fim
+
+teste "regex buscar"
+    espere regex.buscar("[0-9]+", "abc123") igual a "123"
+fim
+
+teste "regex substituir"
+    espere regex.substituir("a", "b", "ana") igual a "bnb"
+fim
+
+teste "uuid validar"
+    espere uuid.validar("00000000-0000-4000-8000-000000000000") igual a verdadeiro
+fim
+
+teste "validacao email"
+    espere validacao.email("dev@br.org") igual a verdadeiro
+fim
+
+teste "validacao cpf"
+    espere validacao.cpf("52998224725") igual a verdadeiro
+fim
+
+teste "validacao cnpj"
+    espere validacao.cnpj("11222333000181") igual a verdadeiro
+fim
+
+teste "validacao cep"
+    espere validacao.cep("12345-678") igual a verdadeiro
+fim
+
+teste "seguranca base64"
+    espere seguranca.base64("br") igual a "YnI="
+fim
+
+teste "senha forca"
+    espere senha.forca("Senha123!") igual a 5
+fim
+
+teste "token validar"
+    espere token.validar("1234567890abcdef") igual a verdadeiro
+fim
+
+teste "data diferenca"
+    espere data_hora.diferenca("2026-06-01", "2026-06-06") igual a 5
+fim
+
+teste "sistema executar seguro"
+    espere sistema.executar("") igual a 0
+    detalhe é sistema.executar_detalhado("")
+    espere detalhe.codigo igual a 0
+fim
+
+teste "introspeccao tipo"
+    espere introspeccao.tipo(json.parsear("{}")) igual a "dict"
+fim
+
+teste "banco sqlite select"
+    banco.conectar(":memory:")
+    espere banco.consulta("select 1") igual a "1"
+fim
+
+teste "rede url valida"
+    espere rede.url_valida("https://br-lang.org") igual a verdadeiro
+fim
+
+teste "env definir ler"
+    env.definir("BR_TESTE_NATIVO", "ok")
+    espere env.ler("BR_TESTE_NATIVO") igual a "ok"
+fim

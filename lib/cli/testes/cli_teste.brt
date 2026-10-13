@@ -1,0 +1,5 @@
+importar "cli"
+
+teste "nome do modulo cli"
+    espere cli.nome() igual a "cli"
+fim

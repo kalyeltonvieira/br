@@ -1,0 +1,675 @@
+explicacao
+    Coleções: funções avançadas para listas, registros, pilhas, filas,
+    conjuntos, ordenação, busca e transformação de dados.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome
+    devolva "colecoes"
+fim
+
+função descricao
+    devolva "Coleções: listas, registros, pilhas, filas, conjuntos e ordenação"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# ============ LISTAS - BÁSICO ============
+
+função vazia recebendo lista
+    devolva tamanho(lista) igual 0
+fim
+
+função primeiro recebendo lista
+    se vazia(lista) então
+        devolva nulo
+    fim
+    devolva lista[0]
+fim
+
+função ultimo recebendo lista
+    se vazia(lista) então
+        devolva nulo
+    fim
+    devolva lista[tamanho(lista) - 1]
+fim
+
+função segundo recebendo lista
+    se tamanho(lista) < 2 então
+        devolva nulo
+    fim
+    devolva lista[1]
+fim
+
+função pegar recebendo lista e indices
+    resultado é []
+    para cada i em indices
+        se i >= 0 e i < tamanho(lista) então
+            adicione lista[i] a resultado
+        fim
+    fim
+    devolva resultado
+fim
+
+# ============ LISTAS - TRANSFORMAÇÃO ============
+
+função mapear recebendo lista e transformacao
+    resultado é []
+    para cada item em lista
+        adicione transformacao(item) a resultado
+    fim
+    devolva resultado
+fim
+
+função filtrar recebendo lista e condicao
+    resultado é []
+    para cada item em lista
+        se condicao(item) então
+            adicione item a resultado
+        fim
+    fim
+    devolva resultado
+fim
+
+função reduzir recebendo lista, combinacao e inicial
+    acumulador é inicial
+    para cada item em lista
+        acumulador é combinacao(acumulador, item)
+    fim
+    devolva acumulador
+fim
+
+função para_cada recebendo lista e acao
+    i é 0
+    enquanto i < tamanho(lista)
+        acao(lista[i], i)
+        i é i + 1
+    fim
+fim
+
+função achatar recebendo lista
+    resultado é []
+    para cada item em lista
+        se tipo(item) igual "lista" então
+            sub é achatar(item)
+            para cada elem em sub
+                adicione elem a resultado
+            fim
+        senao
+            adicione item a resultado
+        fim
+    fim
+    devolva resultado
+fim
+
+função fatiar recebendo lista, inicio, fim
+    se inicio nulo então inicio é 0 fim
+    se fim nulo então fim é tamanho(lista) fim
+    se inicio < 0 então inicio é maximo(0, tamanho(lista) + inicio) fim
+    se fim < 0 então fim é maximo(0, tamanho(lista) + fim) fim
+    
+    resultado é []
+    i é inicio
+    enquanto i < fim e i < tamanho(lista)
+        adicione lista[i] a resultado
+        i é i + 1
+    fim
+    devolva resultado
+fim
+
+função juntar recebendo listas
+    resultado é []
+    para cada lst em listas
+        para cada item em lst
+            adicione item a resultado
+        fim
+    fim
+    devolva resultado
+fim
+
+função inverter recebendo lista
+    resultado é []
+    i é tamanho(lista) - 1
+    enquanto i >= 0
+        adicione lista[i] a resultado
+        i é i - 1
+    fim
+    devolva resultado
+fim
+
+função unico recebendo lista
+    visto é registro
+    resultado é []
+    
+    para cada item em lista
+        chave é "" + item
+        se não (chave em visto) então
+            visto[chave] é verdadeiro
+            adicione item a resultado
+        fim
+    fim
+    
+    devolva resultado
+fim
+
+função reverter recebendo lista
+    devolva inverter(lista)
+fim
+
+# ============ LISTAS - ORDENAÇÃO ============
+
+função ordenar recebendo lista
+    resultado é lista
+    para cada item em lista
+        adicione item a resultado
+    fim
+    
+    n é tamanho(resultado)
+    i é 0
+    enquanto i < n
+        j é 0
+        enquanto j < n - i - 1
+            se resultado[j] > resultado[j + 1] então
+                temp é resultado[j]
+                resultado[j] é resultado[j + 1]
+                resultado[j + 1] é temp
+            fim
+            j é j + 1
+        fim
+        i é i + 1
+    fim
+    
+    devolva resultado
+fim
+
+função ordenar_por recebendo lista e funcao_chave
+    resultado é lista
+    para cada item em lista
+        adicione item a resultado
+    fim
+    
+    n é tamanho(resultado)
+    i é 0
+    enquanto i < n
+        j é 0
+        enquanto j < n - i - 1
+            a_chave é funcao_chave(resultado[j])
+            b_chave é funcao_chave(resultado[j + 1])
+            se a_chave > b_chave então
+                temp é resultado[j]
+                resultado[j] é resultado[j + 1]
+                resultado[j + 1] é temp
+            fim
+            j é j + 1
+        fim
+        i é i + 1
+    fim
+    
+    devolva resultado
+fim
+
+função ordenar_reverso recebendo lista
+    resultado é ordenar(lista)
+    devolva inverter(resultado)
+fim
+
+# ============ LISTAS - BUSCA ============
+
+função encontrar recebendo lista e condicao
+    i é 0
+    enquanto i < tamanho(lista)
+        se condicao(lista[i]) então
+            devolva lista[i]
+        fim
+        i é i + 1
+    fim
+    devolva nulo
+fim
+
+função encontrar_indice recebendo lista e condicao
+    i é 0
+    enquanto i < tamanho(lista)
+        se condicao(lista[i]) então
+            devolva i
+        fim
+        i é i + 1
+    fim
+    devolva -1
+fim
+
+função contem recebendo lista e item
+    para cada elem em lista
+        se elem igual item então
+            devolva verdadeiro
+        fim
+    fim
+    devolva falso
+fim
+
+função todas recebendo lista e condicao
+    para cada item em lista
+        se não condicao(item) então
+            devolva falso
+        fim
+    fim
+    devolva verdadeiro
+fim
+
+função alguma recebendo lista e condicao
+    para cada item em lista
+        se condicao(item) então
+            devolva verdadeiro
+        fim
+    fim
+    devolva falso
+fim
+
+função nenhuma recebendo lista e condicao
+    devolva não alguma(lista, condicao)
+fim
+
+# ============ LISTAS - ESTATÍSTICA ============
+
+função soma recebendo lista
+    total é 0
+    para cada item em lista
+        total é total + item
+    fim
+    devolva total
+fim
+
+função media recebendo lista
+    n é tamanho(lista)
+    se n igual 0 então
+        devolva 0
+    fim
+    devolva soma(lista) / n
+fim
+
+função maximo recebendo lista
+    se vazia(lista) então
+        devolva nulo
+    fim
+    max_valor é lista[0]
+    para cada item em lista
+        se item > max_valor então
+            max_valor é item
+        fim
+    fim
+    devolva max_valor
+fim
+
+função minimo recebendo lista
+    se vazia(lista) então
+        devolva nulo
+    fim
+    min_valor é lista[0]
+    para cada item em lista
+        se item < min_valor então
+            min_valor é item
+        fim
+    fim
+    devolva min_valor
+fim
+
+função contar recebendo lista e item
+    count é 0
+    para cada elem em lista
+        se elem igual item então
+            count é count + 1
+        fim
+    fim
+    devolva count
+fim
+
+# ============ LISTAS - AGRUPAMENTO ============
+
+função agrupar recebendo lista e funcao_chave
+    grupos é registro
+    para cada item em lista
+        chave é funcao_chave(item)
+        se chave em grupos então
+            adicione item a grupos[chave]
+        senao
+            grupos[chave] é [item]
+        fim
+    fim
+    devolva grupos
+fim
+
+função contar_por recebendo lista e funcao_chave
+    contagens é registro
+    para cada item em lista
+        chave é funcao_chave(item)
+        se chave em contagens então
+            contagens[chave] é contagens[chave] + 1
+        senao
+            contagens[chave] é 1
+        fim
+    fim
+    devolva contagens
+fim
+
+função particionar recebendo lista e condicao
+    verdadeiros é []
+    falsos é []
+    para cada item em lista
+        se condicao(item) então
+            adicione item a verdadeiros
+        senao
+            adicione item a falsos
+        fim
+    fim
+    devolva [verdadeiros, falsos]
+fim
+
+# ============ LISTAS - OPERAÇÕES DE CONJUNTO ============
+
+função intersecao recebendo lista1 e lista2
+    set2 é registro
+    para cada item em lista2
+        set2["" + item] é verdadeiro
+    fim
+    
+    resultado é []
+    para cada item em lista1
+        se set2["" + item] então
+            adicione item a resultado
+            set2["" + item] é falso
+        fim
+    fim
+    devolva resultado
+fim
+
+função uniao recebendo lista1 e lista2
+    resultado é []
+    vistos é registro
+    
+    para cada item em lista1
+        chave é "" + item
+        se não (chave em vistos) então
+            vistos[chave] é verdadeiro
+            adicione item a resultado
+        fim
+    fim
+    
+    para cada item em lista2
+        chave é "" + item
+        se não (chave em vistos) então
+            vistos[chave] é verdadeiro
+            adicione item a resultado
+        fim
+    fim
+    
+    devolva resultado
+fim
+
+função diferenca recebendo lista1 e lista2
+    set2 é registro
+    para cada item em lista2
+        set2["" + item] é verdadeiro
+    fim
+    
+    resultado é []
+    para cada item em lista1
+        se não set2["" + item] então
+            adicione item a resultado
+        fim
+    fim
+    devolva resultado
+fim
+
+# ============ PILHA ============
+
+função pilha_nova
+    devolva []
+fim
+
+função pilha_empilhar recebendo pilha e item
+    adicione item a pilha
+    devolva pilha
+fim
+
+função pilha_desempilhar recebendo pilha
+    n é tamanho(pilha)
+    se n igual 0 então
+        devolva nulo
+    fim
+    item é pilha[n - 1]
+    pilha é pilha[0:n-1]
+    devolva item
+fim
+
+função pilha_topo recebendo pilha
+    n é tamanho(pilha)
+    se n igual 0 então
+        devolva nulo
+    fim
+    devolva pilha[n - 1]
+fim
+
+função pilha_tamanho recebendo pilha
+    devolva tamanho(pilha)
+fim
+
+função pilha_vazia recebendo pilha
+    devolva tamanho(pilha) igual 0
+fim
+
+# ============ FILA ============
+
+função fila_nova
+    devolva []
+fim
+
+função fila_enfileirar recebendo fila e item
+    adicione item a fila
+    devolva fila
+fim
+
+função fila_desenfileirar recebendo fila
+    n é tamanho(fila)
+    se n igual 0 então
+        devolva nulo
+    fim
+    item é fila[0]
+    fila é fila[1:n]
+    devolva item
+fim
+
+função fila_frente recebendo fila
+    se tamanho(fila) igual 0 então
+        devolva nulo
+    fim
+    devolva fila[0]
+fim
+
+função fila_tamanho recebendo fila
+    devolva tamanho(fila)
+fim
+
+função fila_vazia recebendo fila
+    devolva tamanho(fila) igual 0
+fim
+
+# ============ FILA PRIORITÁRIA ============
+
+função fila_prioridade_nova
+    devolva []
+fim
+
+função fila_prioridade_inserir recebendo fila, item e prioridade
+    entrada é registro item: item prioridade: prioridade fim
+    adicione entrada a fila
+    
+    # Ordenar por prioridade
+    n é tamanho(fila)
+    i é n - 1
+    enquanto i > 0
+        se fila[i].prioridade < fila[i - 1].prioridade então
+            temp é fila[i]
+            fila[i] é fila[i - 1]
+            fila[i - 1] é temp
+        senao
+            pare
+        fim
+        i é i - 1
+    fim
+    
+    devolva fila
+fim
+
+função fila_prioridade_remover recebendo fila
+    n é tamanho(fila)
+    se n igual 0 então
+        devolva nulo
+    fim
+    item é fila[0].item
+    fila é fila[1:n]
+    devolva item
+fim
+
+# ============ REGISTRO ============
+
+função chaves recebendo registro
+    resultado é []
+    para cada chave, valor em registro
+        adicione chave a resultado
+    fim
+    devolva resultado
+fim
+
+função valores recebendo registro
+    resultado é []
+    para cada chave, valor em registro
+        adicione valor a resultado
+    fim
+    devolva resultado
+fim
+
+função pares recebendo registro
+    resultado é []
+    para cada chave, valor em registro
+        adicione [chave, valor] a resultado
+    fim
+    devolva resultado
+fim
+
+função mesclar recebendo registros
+    resultado é registro
+    para cada reg em registros
+        para cada chave, valor em reg
+            resultado[chave] é valor
+        fim
+    fim
+    devolva resultado
+fim
+
+função registro_mapear recebendo reg e transformacao
+    resultado é registro
+    para cada chave, valor em reg
+        resultado[chave] é transformacao(chave, valor)
+    fim
+    devolva resultado
+fim
+
+função registro_filtrar recebendo reg e condicao
+    resultado é registro
+    para cada chave, valor em reg
+        se condicao(chave, valor) então
+            resultado[chave] é valor
+        fim
+    fim
+    devolva resultado
+fim
+
+função registrar_pegar recebendo reg, chaves_desejadas
+    resultado é registro
+    para cada chave em chaves_desejadas
+        se chave em reg então
+            resultado[chave] é reg[chave]
+        fim
+    fim
+    devolva resultado
+fim
+
+função registrar_ignorar recebendo reg, chaves_ignorar
+    resultado é registro
+    para cada chave, valor em reg
+        se não contem(chaves_ignorar, chave) então
+            resultado[chave] é valor
+        fim
+    fim
+    devolva resultado
+fim
+
+# ============ TESTES ============
+
+teste "mapear lista"
+    lista é [1, 2, 3]
+    resultado é mapear(lista, funcao(x) devolva x * 2 fim)
+    esporte resultado[0] igual a 2
+    esporte resultado[1] igual a 4
+    esporte resultado[2] igual a 6
+fim
+
+teste "filtrar lista"
+    lista é [1, 2, 3, 4, 5]
+    resultado é filtrar(lista, funcao(x) devolva x > 3 fim)
+    esporte tamanho(resultado) igual a 2
+    esporte resultado[0] igual a 4
+fim
+
+teste "soma lista"
+    lista é [1, 2, 3, 4, 5]
+    esporte soma(lista) igual a 15
+fim
+
+teste "maximo e minimo"
+    lista é [3, 7, 1, 9, 4]
+    esporte maximo(lista) igual a 9
+    esporte minimo(lista) igual a 1
+fim
+
+teste "pilha funciona"
+    p é pilha_nova()
+    pilha_empilhar(p, 1)
+    pilha_empilhar(p, 2)
+    pilha_empilhar(p, 3)
+    esporte pilha_topo(p) igual a 3
+    esporte pilha_desempilhar(p) igual a 3
+    esporte pilha_topo(p) igual a 2
+fim
+
+teste "fila funciona"
+    f é fila_nova()
+    fila_enfileirar(f, "a")
+    fila_enfileirar(f, "b")
+    esporte fila_desenfileirar(f) igual a "a"
+    esporte fila_desenfileirar(f) igual a "b"
+fim
+
+teste "unico"
+    lista é [1, 2, 1, 3, 2, 4]
+    resultado é unico(lista)
+    esporte tamanho(resultado) igual a 4
+fim
+
+teste "chaves e valores"
+    reg é registro nome: "João" idade: 30 ativo: verdadeiro fim
+    ks é chaves(reg)
+    vs é valores(reg)
+    esporte contem(ks, "nome")
+    esporte contem(vs, "João")
+fim
+
+teste "intersecao"
+    a é [1, 2, 3, 4]
+    b é [3, 4, 5, 6]
+    resultado é intersecao(a, b)
+    esporte tamanho(resultado) igual a 2
+    esporte contem(resultado, 3)
+    esporte contem(resultado, 4)
+fim

@@ -1,0 +1,9 @@
+contrato memoria
+    função nome
+    função descricao
+    função versao
+    função uso
+    função coletar
+    função referencias recebendo valor
+    função limite
+fim

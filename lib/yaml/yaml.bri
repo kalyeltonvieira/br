@@ -1,0 +1,9 @@
+contrato yaml
+    função nome
+    função descricao
+    função versao
+    função ler recebendo dados
+    função escrever recebendo dados
+    função validar recebendo dados
+    função chave recebendo dados e nome_item
+fim

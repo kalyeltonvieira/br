@@ -1,0 +1,5 @@
+importar "calendario_lunar"
+
+teste "nome do modulo calendario_lunar"
+    espere calendario_lunar.nome() igual a "calendario_lunar"
+fim

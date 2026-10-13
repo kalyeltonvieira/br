@@ -1,0 +1,45 @@
+# Visao_computacional module for image processing, detection, segmentation and OCR
+
+explicacao
+    visao_computacional: imagem, detecção, segmentação e OCR.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "visao_computacional"
+fim
+
+função descricao
+    devolva "Imagem, detecção, segmentação e OCR."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# Simple detection: if the image string contains the word "car" return a dummy object
+função detectar_objetos recebendo imagem
+    se imagem contém "car" então
+        devolva [{"label":"car","confidence":0.9}]
+    senão
+        devolva []
+    fim
+fim
+
+# Segmentation returns the original image split into halves (simulated)
+função segmentar_imagem recebendo imagem
+    devolva [imagem[0:inteiro(len(imagem) / 2)], imagem[inteiro(len(imagem) / 2):]]
+fim
+
+# OCR just returns the string "texto" if the image contains any letters
+função reconhecer_texto recebendo imagem
+    se imagem corresponde "[A-Za-z]+" então
+        devolva "texto"
+    senão
+        devolva ""
+    fim
+fim
+
+função fechar
+    devolva verdadeiro
+fim

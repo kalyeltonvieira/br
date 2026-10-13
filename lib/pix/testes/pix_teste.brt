@@ -1,0 +1,5 @@
+importar "pix"
+
+teste "nome do modulo pix"
+    espere pix.nome() igual a "pix"
+fim

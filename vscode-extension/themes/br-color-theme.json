@@ -1,0 +1,93 @@
+{
+  "name": "BR Color Theme",
+  "colors": {
+    "editor.background": "#1e1e1e",
+    "editor.foreground": "#d4d4d4",
+    "editorCursor.foreground": "#ffffff",
+    "editor.lineHighlightBackground": "#2d2d2d",
+    "editor.selectionBackground": "#264f78",
+    "editor.inactiveSelectionBackground": "#3a3d41",
+    "editor.findMatchHighlightBackground": "#515c6a",
+    "editor.findMatchHighlightBorder": "#ffffff",
+    "editor.findMatchBackground": "#613214",
+    "editor.findMatchBorder": "#ffffff",
+    "editorWhitespace.foreground": "#e3e4e229",
+    "editorIndentGuide.background": "#e3e4e229",
+    "editorIndentGuide.activeBackground": "#e3e4e24d",
+    "editorRuler.foreground": "#e3e4e229",
+    "editorCodeLens.foreground": "#e3e4e299",
+    "editorBracketMatch.background": "#515c6a",
+    "editorBracketMatch.border": "#ffffff",
+    "editorGutter.modifiedBackground": "#009c3b",
+    "editorGutter.addedBackground": "#009c3b",
+    "editorGutter.deletedBackground": "#ffdf00",
+    "diffEditor.insertedTextBackground": "#009c3b33",
+    "diffEditor.removedTextBackground": "#ffdf0033"
+  },
+  "tokenColors": [
+    {
+      "name": "Comments",
+      "scope": ["comment"],
+      "settings": {
+        "foreground": "#6a9955",
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "name": "Keywords",
+      "scope": ["keyword.control.br", "keyword.operator.br"],
+      "settings": {
+        "foreground": "#569cd6"
+      }
+    },
+    {
+      "name": "Types",
+      "scope": ["storage.type.br"],
+      "settings": {
+        "foreground": "#4ec9b0"
+      }
+    },
+    {
+      "name": "Constants",
+      "scope": ["constant.language.br"],
+      "settings": {
+        "foreground": "#569cd6"
+      }
+    },
+    {
+      "name": "Strings",
+      "scope": ["string.quoted.double.br", "string.quoted.single.br"],
+      "settings": {
+        "foreground": "#ce9178"
+      }
+    },
+    {
+      "name": "Numbers",
+      "scope": ["constant.numeric.br"],
+      "settings": {
+        "foreground": "#b5cea8"
+      }
+    },
+    {
+      "name": "Functions",
+      "scope": ["entity.name.function.br"],
+      "settings": {
+        "foreground": "#dcdcaa"
+      }
+    },
+    {
+      "name": "Operators",
+      "scope": ["keyword.operator.arithmetic.br"],
+      "settings": {
+        "foreground": "#d4d4d4"
+      }
+    },
+    {
+      "name": "Punctuation",
+      "scope": ["punctuation.br"],
+      "settings": {
+        "foreground": "#d4d4d4"
+      }
+    }
+  ]
+}

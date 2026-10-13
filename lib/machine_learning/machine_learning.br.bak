@@ -1,0 +1,70 @@
+# Machine_learning module for models, training, evaluation and prediction
+
+explicacao
+    machine_learning: modelos, treino, avaliação e predição.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "machine_learning"
+fim
+
+função descricao
+    devolva "Modelos, treino, avaliação e predição."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# Simple linear regression model – stores slope and intercept as a map string
+função criar_modelo recebendo tipo, parametros
+    devolva "{\"slope\":0,\"intercept\":0}"  # placeholder model
+fim
+
+função treinar recebendo modelo_id, dados_treino
+    # dados_treino: list of [x, y] pairs. Compute average slope & intercept (very naive).
+    variavel soma_x = 0
+    variavel soma_y = 0
+    variavel n = 0
+    para cada par em dados_treino
+        variavel x = par[0]
+        variavel y = par[1]
+        soma_x = soma_x + x
+        soma_y = soma_y + y
+        n = n + 1
+    fim
+    variavel media_x = soma_x / n
+    variavel media_y = soma_y / n
+    # slope = 1, intercept = media_y - media_x (simplified)
+    variavel modelo = "{\"slope\":1,\"intercept\":(media_y - media_x)}"
+    devolva modelo
+fim
+
+função avaliar recebendo modelo_id, dados_teste
+    # Return mean squared error (very naive)
+    variavel mse = 0
+    variavel n = 0
+    variavel slope = 1
+    variavel intercept = 0
+    para cada par em dados_teste
+        variavel x = par[0]
+        variavel y = par[1]
+        variavel pred = slope * x + intercept
+        variavel erro = y - pred
+        mse = mse + (erro * erro)
+        n = n + 1
+    fim
+    devolva mse / n
+fim
+
+função predizer recebendo modelo_id, entrada
+    # entrada: valor x
+    variavel slope = 1
+    variavel intercept = 0
+    devolva slope * entrada + intercept
+fim
+
+função fechar
+    devolva verdadeiro
+fim

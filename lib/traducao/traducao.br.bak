@@ -1,0 +1,33 @@
+# Traducao module for automatic translation between languages
+
+explicacao
+    traducao: tradução automática entre idiomas.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "traducao"
+fim
+
+função descricao
+    devolva "Tradução automática entre idiomas."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# Simple mock translation: reverse word order and append target language code
+função traduzir recebendo texto, idioma_origem, idioma_destino
+    variavel palavras = texto.separar(" ")
+    variavel invertido = palavras.inverter()
+    devolva invertido.juntar(" ") + " (" + idioma_destino + ")"
+fim
+
+função listar_idiomas
+    devolva ["en", "pt", "es", "de", "fr"]
+fim
+
+função fechar
+    devolva verdadeiro
+fim

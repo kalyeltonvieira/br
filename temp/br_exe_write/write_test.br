@@ -1,0 +1,4 @@
+importar "arquivo"
+
+arquivo.escrever("saida.txt", "BR escreveu")
+mostre arquivo.ler("saida.txt")

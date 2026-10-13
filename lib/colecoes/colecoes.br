@@ -1,0 +1,32 @@
+explicacao
+    Coleções: listas, dicionários, conjuntos, filas, pilhas e funções funcionais.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "colecoes"
+fim
+
+função descricao
+    devolva "Coleções: listas, dicionários, conjuntos, filas, pilhas e funções funcionais"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função tamanho recebendo dados
+    devolva 0
+fim
+
+função vazia recebendo dados
+    devolva verdadeiro
+fim
+
+função primeiro recebendo dados
+    devolva nulo
+fim
+
+função ordenar recebendo dados
+    devolva dados
+fim

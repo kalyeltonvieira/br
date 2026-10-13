@@ -1,0 +1,133 @@
+# Comentarios no inicio do arquivo devem ser ignorados.
+// Comentarios com duas barras tambem.
+
+teste "comentarios acentos e conte"
+    total é 0 # comentario inline
+    conte de 1 até 3 como i
+        total é total + i
+    fim
+    espere total igual a 6
+fim
+
+teste "para cada em lista inline"
+    numeros é [1, 2, 3]
+    soma é 0
+    para cada item em numeros
+        soma é soma + item
+    fim
+    espere soma igual a 6
+fim
+
+tarefa dobro recebendo valor
+    devolva valor * 2
+fim
+
+teste "tarefa registrada na semantica"
+    promessa é dobro 4
+    resultado é aguarde promessa
+    espere resultado igual a 8
+fim
+
+teste "aguarde chamada direta"
+    resultado é aguarde dobro 5
+    espere resultado igual a 10
+fim
+
+função somar recebendo a e b
+    devolva a + b
+fim
+
+função primeiro recebendo valor
+    devolva valor
+fim
+
+teste "chamada natural com multiplos argumentos"
+    resultado é somar 4 e 6
+    espere resultado igual a 10
+fim
+
+teste "quebra de linha limita chamada natural"
+    resultado é primeiro 7
+    outro é 99
+    espere resultado igual a 7
+    espere outro igual a 99
+fim
+
+importar "matematica" como mat
+
+teste "chamada natural de metodo com ponto"
+    resultado é mat.somar 3 e 4
+    espere resultado igual a 7
+fim
+
+teste "metodos nativos de lista texto e registro"
+    nomes é ["Ana", "Bia"]
+    nomes.adicionar("Caio")
+    espere nomes.tamanho() igual a 3
+    espere nomes.obter(0) igual a "Ana"
+
+    frase é "Brasil brasileiro"
+    espere frase.contem("brasileiro") igual a verdadeiro
+    espere frase.substituir("brasileiro", "BR") igual a "Brasil BR"
+
+    pessoa é {nome: "Ana"}
+    pessoa.definir("idade", 30)
+    espere pessoa.obter("idade") igual a 30
+    espere pessoa.tamanho() igual a 2
+fim
+
+classe Pessoa
+    nome: texto
+    metodo iniciar recebendo nome
+        isto.nome é nome
+    fim
+    metodo saudacao
+        devolva "Ola " + isto.nome
+    fim
+fim
+
+classe Animal
+    nome: texto
+    metodo descrever
+        devolva isto.nome
+    fim
+fim
+
+classe Cachorro herda Animal
+    raca: texto
+fim
+
+teste "classe com construtor e metodo"
+    pessoa é Pessoa("Ana")
+    espere pessoa.nome igual a "Ana"
+    espere pessoa.saudacao() igual a "Ola Ana"
+fim
+
+teste "heranca de campos e metodos"
+    cao é Cachorro("Rex", "Vira-lata")
+    espere cao.nome igual a "Rex"
+    espere cao.raca igual a "Vira-lata"
+    espere cao.descrever() igual a "Rex"
+fim
+
+teste "execute paralelo indentado"
+    execute em paralelo
+        valor é 1 + 1
+    fim
+fim
+
+teste "servicos naturais legados"
+    encontrados é busque todos os clientes
+    espere encontrados.tamanho() igual a 0
+
+    resposta é pergunte para ia
+        "teste"
+    fim
+    espere resposta.contem("teste") igual a verdadeiro
+
+    agente é crie agente
+        especialidade "financeiro"
+    fim
+    resposta_agente é agente.pergunte "analise as vendas"
+    espere resposta_agente.contem("vendas") igual a verdadeiro
+fim

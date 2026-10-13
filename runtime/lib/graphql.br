@@ -1,0 +1,80 @@
+explicacao
+    Modulo graphql compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "graphql"
+fim
+
+funcao descricao
+    devolva "Modulo graphql compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao criar_schema recebendo nome e definicao
+    devolva nome
+fim
+
+funcao adicionar_tipo recebendo schema e nome e campos
+    devolva schema
+fim
+
+funcao adicionar_query recebendo schema e nome e resolver
+    devolva schema
+fim
+
+funcao adicionar_mutation recebendo schema e nome e resolver
+    devolva schema
+fim
+
+funcao adicionar_subscription recebendo schema e nome e resolver
+    devolva schema
+fim
+
+funcao executar_query recebendo schema e query e variaveis
+    devolva schema
+fim
+
+funcao executar_mutation recebendo schema e mutation e variaveis
+    devolva schema
+fim
+
+funcao criar_cliente recebendo url
+    devolva url
+fim
+
+funcao definir_cabecalho recebendo cliente e chave e valor
+    devolva cliente
+fim
+
+funcao query recebendo cliente e query e variaveis
+    devolva cliente
+fim
+
+funcao mutation recebendo cliente e mutation e variaveis
+    devolva cliente
+fim
+
+funcao subscription recebendo cliente e subscription e callback
+    devolva cliente
+fim
+
+funcao validar_schema recebendo schema
+    devolva schema
+fim
+
+funcao gerar_introspecao recebendo schema
+    devolva schema
+fim
+
+funcao exemplo recebendo valor
+    devolva valor
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim

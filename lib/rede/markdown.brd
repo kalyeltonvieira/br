@@ -1,0 +1,36 @@
+# Documentação BRD: markdown
+
+## Nome
+
+Markdown
+
+## Descrição
+
+Leitura, escrita e conversão de Markdown. Permite ler, escrever e converter Markdown para HTML e vice-versa.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* para_html: Converte Markdown para HTML.
+* para_markdown: Converte HTML para Markdown.
+* ler: Lê um arquivo Markdown.
+* escrever: Escreve Markdown em um arquivo.
+* criar_tabela: Cria uma tabela Markdown.
+* criar_lista: Cria uma lista Markdown.
+* criar_link: Cria um link Markdown.
+* criar_imagem: Cria uma imagem Markdown.
+* criar_codigo: Cria um bloco de código Markdown.
+* criar_citacao: Cria uma citação Markdown.
+* validar: Valida a sintaxe do Markdown.
+
+## Exemplo
+
+```br
+usar rede.markdown
+
+md é "# Título\n\n**Texto em negrito**"
+html é para_html md
+mostre html
+```

@@ -1,0 +1,19 @@
+# Documentação BRD: log
+
+## Nome
+
+Logs
+
+## Descrição
+
+logger, níveis, arquivos de log, rotação e formatação.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* info: Registra mensagem INFO.
+* aviso: Registra mensagem de aviso.
+* erro: Registra erro.
+* nivel: Define nível de log.

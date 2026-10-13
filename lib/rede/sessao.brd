@@ -1,0 +1,38 @@
+# Documentação BRD: sessao
+
+## Nome
+
+Sessão
+
+## Descrição
+
+Gerenciamento de sessões web. Permite criar e gerenciar sessões de usuário para aplicações web.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* criar: Cria uma nova sessão.
+* obter: Obtém uma sessão pelo ID.
+* salvar: Salva uma sessão.
+* destruir: Destrói uma sessão.
+* definir_dado: Define um dado na sessão.
+* obter_dado: Obtém um dado da sessão.
+* remover_dado: Remove um dado da sessão.
+* definir_expiracao: Define o tempo de expiração da sessão.
+* expirada: Verifica se a sessão está expirada.
+* regenerar_id: Regenera o ID da sessão.
+
+## Exemplo
+
+```br
+usar rede.sessao
+
+sessao é criar "user123", registro
+    nome: "João"
+    email: "joao@exemplo.com"
+fim
+
+definir_dado sessao, "ultimo_acesso", data atual
+```

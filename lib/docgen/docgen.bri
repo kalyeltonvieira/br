@@ -1,0 +1,9 @@
+contrato docgen
+    função nome
+    função descricao
+    função versao
+    função gerar recebendo projeto
+    função modulo recebendo nome_item
+    função html recebendo projeto
+    função markdown recebendo projeto
+fim

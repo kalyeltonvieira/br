@@ -1,0 +1,87 @@
+# Demonstração das Funcionalidades da Linguagem BR
+# Este arquivo testa as funcionalidades implementadas
+
+# =========== F-STRINGS (NOVO!) ===========
+nome é "Maria"
+idade é 25
+
+# F-string básica
+mensagem é f"Olá, {nome}!"
+mostre mensagem
+
+# F-string com expressão
+info é f"{nome} tem {idade} anos"
+mostre info
+
+# F-string com cálculo
+a é 10
+b é 20
+soma é f"Resultado: {a + b}"
+mostre soma
+
+# =========== VARIÁVEIS E TIPOS ===========
+versao é 2.0
+ativo é verdadeiro
+nada é nulo
+
+mostre "Versão: " + versao
+mostre "Ativo: " + ativo
+mostre "Nulo: " + nada
+
+# =========== FUNÇÕES ===========
+função saudacao recebendo nome
+    devolva f"Bem-vindo, {nome}!"
+fim
+
+função calcular_area recebendo largura e altura
+    devolva largura * altura
+fim
+
+resultado_saudacao é saudacao "João"
+mostre resultado_saudacao
+
+area é calcular_area 10 e 20
+mostre "Área: " + area
+
+# =========== CONDIÇIONAIS ===========
+idade_usuario é 18
+se idade_usuario >= 18 então
+    mostre "Maior de idade"
+senão
+    mostre "Menor de idade"
+fim
+
+# =========== LAÇOS ===========
+mostre "Contagem:"
+conte de 1 até 5 como i
+    mostre "  " + i
+fim
+
+mostre "Repetição:"
+repita 3 vezes
+    mostre "  BR!"
+fim
+
+# =========== LISTAS ===========
+frutas é lista
+    "Maçã"
+    "Banana"
+    "Laranja"
+fim
+
+mostre "Frutas: " + frutas
+mostre "Quantidade: " + frutas.tamanho
+
+# =========== REGISTROS ===========
+pessoa é registro
+    nome: "Carlos"
+    idade: 30
+    cidade: "São Paulo"
+fim
+
+mostre "Nome: " + pessoa.nome
+mostre "Idade: " + pessoa.idade
+
+# =========== TESTE CONCLUÍDO ===========
+mostre ""
+mostre "=== TODAS AS FUNCIONALIDADES FUNCIONANDO! ==="

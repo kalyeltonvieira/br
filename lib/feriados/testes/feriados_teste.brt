@@ -1,0 +1,5 @@
+importar "feriados"
+
+teste "nome do modulo feriados"
+    espere feriados.nome() igual a "feriados"
+fim

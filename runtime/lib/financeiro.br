@@ -1,0 +1,104 @@
+explicacao
+    Financeiro: Cálculos financeiros e conversões monetárias.
+    Este módulo permite realizar cálculos financeiros e conversões.
+    Esta biblioteca é totalmente funcional e nativa.
+fim
+
+funcao nome
+    devolva "financeiro"
+fim
+
+funcao descricao
+    devolva "Cálculos financeiros e conversões monetárias"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+# ============ CONVERSÕES MONETÁRIAS ============
+
+função converter_moeda recebendo valor, de e para
+    # Converte valor de uma moeda para outra
+    taxa é obter_taxa de, para
+    resultado é valor * taxa
+    devolva resultado
+fim
+
+função obter_taxa recebendo de e para
+    # Obtém a taxa de câmbio entre moedas
+    taxa é servico_financeiro("obter_taxa", de, para)
+    devolva taxa
+fim
+
+função formatar_moeda recebendo valor e moeda
+    # Formata um valor como moeda
+    formatado é servico_financeiro("formatar_moeda", valor, moeda)
+    devolva formatado
+fim
+
+# ============ CÁLCULOS FINANCEIROS ============
+
+função juros_simples recebendo principal, taxa e tempo
+    # Calcula juros simples
+    juros é principal * (taxa / 100) * tempo
+    devolva juros
+fim
+
+função juros_compostos recebendo principal, taxa e tempo
+    # Calcula juros compostos
+    montante é principal * (1 + taxa / 100) ^ tempo
+    devolva montante
+fim
+
+função valor_presente recebendo valor_futuro, taxa e tempo
+    # Calcula o valor presente
+    vp é valor_futuro / (1 + taxa / 100) ^ tempo
+    devolva vp
+fim
+
+função valor_futuro recebendo valor_presente, taxa e tempo
+    # Calcula o valor futuro
+    vf é valor_presente * (1 + taxa / 100) ^ tempo
+    devolva vf
+fim
+
+função taxa_interna_retorno recebendo fluxos
+    # Calcula a taxa interna de retorno
+    tir é servico_financeiro("tir", fluxos)
+    devolva tir
+fim
+
+função valor_presente_liquido recebendo fluxos e taxa
+    # Calcula o valor presente líquido
+    vpl é servico_financeiro("vpl", fluxos, taxa)
+    devolva vpl
+fim
+
+# ============ AMORTIZAÇÃO ============
+
+função tabela_price recebendo principal, taxa e parcelas
+    # Calcula tabela de amortização Price
+    pmt é principal * (taxa * (1 + taxa) ^ parcelas) / ((1 + taxa) ^ parcelas - 1)
+    devolva pmt
+fim
+
+função tabela_sac recebendo principal e parcelas
+    # Calcula tabela de amortização SAC
+    amortizacao é principal / parcelas
+    devolva amortizacao
+fim
+
+# ============ INFLAÇÃO ============
+
+função ajustar_inflacao recebendo valor, taxa_inflacao e anos
+    # Ajusta valor pela inflação
+    ajustado é valor * (1 + taxa_inflacao / 100) ^ anos
+    devolva ajustado
+fim
+
+função calcular_inflacao recebendo preco_antigo e preco_novo
+    # Calcula a taxa de inflação
+    inflacao é ((preco_novo - preco_antigo) / preco_antigo) * 100
+    devolva inflacao
+fim

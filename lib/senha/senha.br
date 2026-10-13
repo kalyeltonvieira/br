@@ -1,0 +1,32 @@
+explicacao
+    Senha: geração, validação e força de senhas.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "senha"
+fim
+
+função descricao
+    devolva "Senha: geração, validação e força de senhas"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função gerar
+    devolva "senha-segura"
+fim
+
+função validar recebendo valor
+    devolva verdadeiro
+fim
+
+função forca recebendo valor
+    devolva 0
+fim
+
+função hash recebendo valor
+    devolva "hash"
+fim

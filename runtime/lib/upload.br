@@ -1,0 +1,84 @@
+explicacao
+    Modulo upload compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "upload"
+fim
+
+funcao descricao
+    devolva "Modulo upload compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao enviar recebendo url e arquivo e opcoes
+    devolva verdadeiro
+fim
+
+funcao receber recebendo arquivo e opcoes
+    devolva arquivo
+fim
+
+funcao salvar recebendo arquivo e caminho
+    devolva verdadeiro
+fim
+
+funcao validar recebendo arquivo e tipos_permitidos
+    devolva verdadeiro
+fim
+
+funcao validar_tamanho recebendo arquivo e maximo
+    devolva arquivo
+fim
+
+funcao definir_max_tamanho recebendo upload e maximo
+    devolva upload
+fim
+
+funcao definir_tipos_permitidos recebendo upload e tipos
+    devolva upload
+fim
+
+funcao definir_diretorio recebendo upload e diretorio
+    devolva upload
+fim
+
+funcao definir_nome_personalizado recebendo upload
+    devolva upload
+fim
+
+funcao criar_progresso recebendo upload
+    devolva upload
+fim
+
+funcao atualizar_progresso recebendo progresso e enviado
+    devolva progresso
+fim
+
+funcao cancelar recebendo upload
+    devolva upload
+fim
+
+funcao pausar recebendo upload
+    devolva upload
+fim
+
+funcao retomar recebendo upload
+    devolva upload
+fim
+
+funcao obter_info recebendo arquivo
+    devolva arquivo
+fim
+
+funcao exemplo recebendo valor
+    devolva valor
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim

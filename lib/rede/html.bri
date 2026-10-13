@@ -1,0 +1,16 @@
+contrato html
+    função nome
+    função descricao
+    função versao
+    função criar_elemento recebendo tag e atributos
+    função adicionar_filho recebendo elemento e filho
+    função definir_atributo recebendo elemento, nome e valor
+    função definir_conteudo recebendo elemento e conteudo
+    função renderizar recebendo elemento
+    função criar_documento recebendo titulo e conteudo
+    função adicionar_css recebendo elemento e css
+    função adicionar_classe recebendo elemento e classe
+    função adicionar_id recebendo elemento e id
+    função selecionar recebendo elemento e seletor
+    função parsear recebendo html
+fim

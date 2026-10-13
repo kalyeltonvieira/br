@@ -1,0 +1,30 @@
+# Email module for sending and reading emails
+
+explicacao
+    email: envio e leitura de e-mails.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "email"
+fim
+
+função descricao
+    devolva "Envio e leitura de e-mails."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função enviar recebendo remetente, destinatario, assunto, corpo
+    devolva verdadeiro
+fim
+
+função ler_caixa recebendo conta, senha
+    devolva []
+fim
+
+função fechar
+    devolva verdadeiro
+fim

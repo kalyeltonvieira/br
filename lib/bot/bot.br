@@ -1,0 +1,38 @@
+# Bot module for creating chat and service bots
+
+explicacao
+    bot: criação de bots para chat e serviços.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "bot"
+fim
+
+função descricao
+    devolva "Criação de bots para chat e serviços."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função iniciar recebendo config
+    devolva verdadeiro
+fim
+
+função receber_mensagem recebendo mensagem
+    devolva "resposta"
+fim
+
+função enviar_resposta recebendo resposta
+    devolva verdadeiro
+fim
+
+função encerrar
+    devolva verdadeiro
+fim
+
+função fechar
+    devolva verdadeiro
+fim

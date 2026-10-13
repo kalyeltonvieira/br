@@ -1,0 +1,5 @@
+importar "trigonometria"
+
+teste "nome do modulo trigonometria"
+    espere trigonometria.nome() igual a "trigonometria"
+fim

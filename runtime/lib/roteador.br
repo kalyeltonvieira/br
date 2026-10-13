@@ -1,0 +1,52 @@
+explicacao
+    Modulo roteador compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "roteador"
+fim
+
+funcao descricao
+    devolva "Modulo roteador compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao criar
+    devolva verdadeiro
+fim
+
+funcao adicionar_rota recebendo roteador e metodo e caminho e handler
+    devolva roteador
+fim
+
+funcao adicionar_grupo recebendo roteador e prefixo e callback
+    devolva roteador
+fim
+
+funcao adicionar_parametro recebendo rota e nome e tipo
+    devolva rota
+fim
+
+funcao adicionar_validacao recebendo rota e validador
+    devolva rota
+fim
+
+funcao rotear recebendo roteador e metodo e caminho
+    devolva roteador
+fim
+
+funcao definir_prefixo recebendo roteador e prefixo
+    devolva roteador
+fim
+
+funcao exemplo recebendo valor
+    devolva valor
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim

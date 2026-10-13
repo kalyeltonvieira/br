@@ -1,0 +1,19 @@
+# Documentação BRD: uuid
+
+## Nome
+
+UUID
+
+## Descrição
+
+geração e validação de identificadores únicos.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* gerar: Gera UUID.
+* validar: Valida UUID.
+* v4: Gera UUID v4.
+* curto: Gera identificador curto.

@@ -1,0 +1,9 @@
+contrato core
+    função nome
+    função descricao
+    função versao
+    função identidade recebendo valor
+    função eh_nulo recebendo valor
+    função para_texto recebendo valor
+    função verdade
+fim

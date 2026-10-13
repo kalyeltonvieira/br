@@ -1,0 +1,5 @@
+importar "repl"
+
+teste "nome do modulo repl"
+    espere repl.nome() igual a "repl"
+fim

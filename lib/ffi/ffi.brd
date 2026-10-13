@@ -1,0 +1,19 @@
+# Documentação BRD: ffi
+
+## Nome
+
+FFI
+
+## Descrição
+
+integração com C, C++, DLLs, Python, JavaScript e Shell.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* dll: Carrega DLL.
+* python: Executa Python.
+* javascript: Executa JavaScript.
+* shell: Executa shell.

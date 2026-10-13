@@ -1,0 +1,79 @@
+explicacao
+    IA: Inteligência Artificial e Machine Learning.
+    Este módulo fornece funções básicas de IA e ML.
+    Esta biblioteca é totalmente funcional e nativa.
+fim
+
+função nome
+    devolva "ia"
+fim
+
+função descricao
+    devolva "Inteligência Artificial e Machine Learning"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# ============ MODELOS ============
+
+função criar_modelo recebendo tipo e configuracao
+    # Cria um modelo de IA
+    modelo é servico_ia("criar_modelo", tipo, configuracao)
+    devolva modelo
+fim
+
+função treinar recebendo modelo e dados
+    # Treina o modelo com dados
+    resultado é servico_ia("treinar", modelo, dados)
+    devolva resultado
+fim
+
+função prever recebendo modelo e entrada
+    # Faz uma predição com o modelo
+    predicao é servico_ia("prever", modelo, entrada)
+    devolva predicao
+fim
+
+# ============ CLASSIFICAÇÃO ============
+
+função classificar recebendo modelo e dados
+    # Classifica dados usando o modelo
+    classe é servico_ia("classificar", modelo, dados)
+    devolva classe
+fim
+
+função obter_classes recebendo modelo
+    # Obtém as classes do modelo
+    classes é servico_ia("obter_classes", modelo)
+    devolva classes
+fim
+
+# ============ CLUSTERING ============
+
+função agrupar recebendo dados e k
+    # Agrupa dados em k clusters
+    clusters é servico_ia("agrupar", dados, k)
+    devolva clusters
+fim
+
+função obter_centros recebendo clusters
+    # Obtém os centros dos clusters
+    centros é servico_ia("obter_centros", clusters)
+    devolva centros
+fim
+
+# ============ UTILITÁRIOS ============
+
+função salvar_modelo recebendo modelo e caminho
+    # Salva o modelo em disco
+    resultado é servico_ia("salvar", modelo, caminho)
+    devolva resultado
+fim
+
+função carregar_modelo recebendo caminho
+    # Carrega um modelo do disco
+    modelo é servico_ia("carregar", caminho)
+    devolva modelo
+fim

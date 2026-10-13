@@ -1,0 +1,32 @@
+explicacao
+    Docgen: geração automática de documentação.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "docgen"
+fim
+
+função descricao
+    devolva "Docgen: geração automática de documentação"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função gerar recebendo projeto
+    devolva projeto
+fim
+
+função modulo recebendo nome_item
+    devolva nome_item
+fim
+
+função html recebendo projeto
+    devolva projeto
+fim
+
+função markdown recebendo projeto
+    devolva projeto
+fim

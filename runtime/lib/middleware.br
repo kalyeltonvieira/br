@@ -1,0 +1,56 @@
+explicacao
+    Modulo middleware compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "middleware"
+fim
+
+funcao descricao
+    devolva "Modulo middleware compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao criar recebendo nome e handler
+    devolva verdadeiro
+fim
+
+funcao executar recebendo middleware e requisicao e resposta
+    devolva middleware
+fim
+
+funcao definir_ordem recebendo middleware e ordem
+    devolva middleware
+fim
+
+funcao adicionar_condicao recebendo middleware e condicao
+    devolva middleware
+fim
+
+funcao log_requisicao recebendo requisicao
+    devolva requisicao
+fim
+
+funcao log_resposta recebendo resposta
+    devolva resposta
+fim
+
+funcao autenticar recebendo requisicao
+    devolva verdadeiro
+fim
+
+funcao cors recebendo requisicao e resposta
+    devolva requisicao
+fim
+
+funcao exemplo recebendo valor
+    devolva valor
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim

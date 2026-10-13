@@ -1,0 +1,13 @@
+contrato http_cliente
+    função nome
+    função descricao
+    função versao
+    função get recebendo url e cabecalhos
+    função post recebendo url, corpo e cabecalhos
+    função put recebendo url, corpo e cabecalhos
+    função delete recebendo url e cabecalhos
+    função patch recebendo url, corpo e cabecalhos
+    função definir_timeout recebendo cliente e segundos
+    função definir_proxy recebendo cliente e proxy
+    função definir_autenticacao recebendo cliente, tipo e credenciais
+fim

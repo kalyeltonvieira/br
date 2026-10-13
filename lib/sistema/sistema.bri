@@ -1,0 +1,10 @@
+contrato sistema
+    função nome
+    função descricao
+    função versao
+    função plataforma
+    função argumentos
+    função ambiente recebendo chave
+    função executar recebendo comando
+    função executar_detalhado recebendo comando
+fim

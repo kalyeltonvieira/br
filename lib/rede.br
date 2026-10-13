@@ -1,0 +1,110 @@
+# Biblioteca de Rede - BR
+# Comunicação e protocolos de rede
+
+# ==================== HTTP ====================
+
+função http_get recebendo url
+    devolva acesse(url)
+fim
+
+função http_post recebendo url e dados
+    # Simplificado
+    devolva acesse(url)
+fim
+
+função http_put recebendo url e dados
+    # Simplificado
+    devolva acesse(url)
+fim
+
+função http_delete recebendo url
+    # Simplificado
+    devolva acesse(url)
+fim
+
+# ==================== REQUISIÇÕES ====================
+
+função requisicao_get recebendo url
+    devolva http_get(url)
+fim
+
+função requisicao_post recebendo url e corpo
+    devolva http_post(url, corpo)
+fim
+
+função requisicao_com_cabecalho recebendo url e cabecalhos
+    # Simplificado
+    devolva http_get(url)
+fim
+
+# ==================== RESPOSTA ====================
+
+função resposta_ok recebendo mensagem
+    devolva "200 OK: " + mensagem
+fim
+
+função resposta_erro recebendo codigo e mensagem
+    devolva codigo + " ERROR: " + mensagem
+fim
+
+função resposta_json recebendo dados
+    devolva dados
+fim
+
+# ==================== URL ====================
+
+função url_parse recebendo url
+    # Simplificado - retorna a URL
+    devolva url
+fim
+
+função url_join recebendo base e caminho
+    devolva base + "/" + caminho
+fim
+
+função url_codificar recebendo texto
+    # Simplificado
+    devolva texto
+fim
+
+função url_decodificar recebendo texto
+    # Simplificado
+    devolva texto
+fim
+
+# ==================== JSON ====================
+
+função json_parse recebendo texto
+    # Simplificado - retorna como texto
+    devolva texto
+fim
+
+função json_gerar recebendo objeto
+    # Simplificado - retorna como texto
+    devolva objeto
+fim
+
+# ==================== UTILITÁRIOS ====================
+
+função eh_url_valida recebendo url
+    devolva url.comeca_com("http://") ou url.comeca_com("https://")
+fim
+
+função extrair_dominio recebendo url
+    partes é url.dividir("/")
+    devolva partes[2] se partes.tamanho() >= 3 senao ""
+fim
+
+função extrair_caminho_url recebendo url
+    partes é url.dividir("/")
+    caminho é ""
+    i é 3
+    enquanto i < partes.tamanho()
+        se i > 3
+            caminho é caminho + "/"
+        fim
+        caminho é caminho + partes[i]
+        i é i + 1
+    fim
+    devolva caminho
+fim

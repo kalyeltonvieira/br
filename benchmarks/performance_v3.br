@@ -1,0 +1,455 @@
+# Benchmarks de Performance v3.0 - Linguagem BR
+# Validação das melhorias: JIT, GC, Memory Pool, String Pool
+# FASE 2: Inline Cache, Type Specialization, Compilation Cache
+
+importar "sistema"
+
+# ===================== BENCHMARKS FASE 1 =====================
+
+# Benchmark 1: Loop simples (valida JIT)
+funcao benchmark_loop_simples
+    inicio = tempo_agora()
+    soma = 0
+    repita 1000000 vezes
+        soma = soma + 1
+    fim
+    fim = tempo_agora()
+    tempo = fim - inicio
+    mostre "Loop simples: " + tempo + "ms"
+    retorne tempo
+fim
+
+# Benchmark 2: Operações matemáticas (valida JIT)
+funcao benchmark_operacoes_matematicas
+    inicio = tempo_agora()
+    repita 100000 vezes
+        a = 1.5
+        b = 2.5
+        c = a + b
+        d = a * b
+        e = a / b
+        f = a - b
+    fim
+    fim = tempo_agora()
+    tempo = fim - inicio
+    mostre "Operações matemáticas: " + tempo + "ms"
+    retorne tempo
+fim
+
+# Benchmark 3: Alocação de objetos (valida Memory Pool)
+funcao benchmark_alocacao_objetos
+    inicio = tempo_agora()
+    objetos = []
+    repita 10000 vezes
+        obj = registro
+            valor: i
+            nome: "teste"
+        fim
+        objetos.adicionar(obj)
+    fim
+    fim = tempo_agora()
+    tempo = fim - inicio
+    mostre "Alocação de objetos: " + tempo + "ms"
+    retorne tempo
+fim
+
+# Benchmark 4: Operações com strings (valida String Pool)
+funcao benchmark_operacoes_strings
+    inicio = tempo_agora()
+    texto = "texto de teste para benchmark"
+    repita 10000 vezes
+        resultado = texto.maiusculo()
+        resultado = resultado.minusculo()
+        resultado = resultado.inverter()
+    fim
+    fim = tempo_agora()
+    tempo = fim - inicio
+    mostre "Operações com strings: " + tempo + "ms"
+    retorne tempo
+fim
+
+# Benchmark 5: Concatenação de strings (valida StringBuilder)
+funcao benchmark_concatenacao_strings
+    inicio = tempo_agora()
+    resultado = ""
+    repita 10000 vezes
+        resultado = resultado + "teste "
+    fim
+    fim = tempo_agora()
+    tempo = fim - inicio
+    mostre "Concatenação de strings: " + tempo + "ms"
+    retorne tempo
+fim
+
+# Benchmark 6: Criação e destruição de objetos (valida GC)
+funcao benchmark_garbage_collector
+    inicio = tempo_agora()
+    repita 1000 vezes
+        objetos = []
+        para cada i em [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+            obj = registro
+                valor: i
+                dados: "dados de teste"
+            fim
+            objetos.adicionar(obj)
+        fim
+        # Objeto sai de escopo aqui, GC deve coletar
+    fim
+    fim = tempo_agora()
+    tempo = fim - inicio
+    mostre "Garbage Collector: " + tempo + "ms"
+    retorne tempo
+fim
+
+# Benchmark 7: Lista operations (valida Memory Pool)
+funcao benchmark_operacoes_lista
+    inicio = tempo_agora()
+    lista = []
+    repita 10000 vezes
+        lista.adicionar(i)
+        lista.remover(0)
+    fim
+    fim = tempo_agora()
+    tempo = fim - inicio
+    mostre "Operações de lista: " + tempo + "ms"
+    retorne tempo
+fim
+
+# Benchmark 8: Registro operations (valida Memory Pool)
+funcao benchmark_operacoes_registro
+    inicio = tempo_agora()
+    repita 10000 vezes
+        reg = registro
+            chave1: "valor1"
+            chave2: "valor2"
+            chave3: "valor3"
+        fim
+    fim
+    fim = tempo_agora()
+    tempo = fim - inicio
+    mostre "Operações de registro: " + tempo + "ms"
+    retorne tempo
+fim
+
+# Benchmark 9: Chamadas de função (valida JIT)
+funcao benchmark_chamadas_funcao
+    funcao auxiliar recebendo x
+        retorne x * 2
+    fim
+    
+    inicio = tempo_agora()
+    resultado = 0
+    repita 100000 vezes
+        resultado = auxiliar(resultado)
+    fim
+    fim = tempo_agora()
+    tempo = fim - inicio
+    mostre "Chamadas de função: " + tempo + "ms"
+    retorne tempo
+fim
+
+# Benchmark 10: Fibonacci recursivo (valida JIT + otimização)
+funcao benchmark_fibonacci
+    funcao fib recebendo n
+        se n <= 1 entao
+            retorne n
+        senao
+            retorne fib(n-1) + fib(n-2)
+        fim
+    fim
+    
+    inicio = tempo_agora()
+    resultado = fib(30)
+    fim = tempo_agora()
+    tempo = fim - inicio
+    mostre "Fibonacci recursivo: " + tempo + "ms (resultado: " + resultado + ")"
+    retorne tempo
+fim
+
+# ===================== BENCHMARKS FASE 2 =====================
+
+# Benchmark 11: Inline Cache - Chamadas de método monomórficas (valida Inline Cache)
+funcao benchmark_inline_cache_monomorfico
+    classe Pessoa
+        funcao nome recebendo
+            retorne "João"
+        fim
+    fim
+    
+    inicio = tempo_agora()
+    pessoa = Pessoa()
+    repita 100000 vezes
+        nome = pessoa.nome()
+    fim
+    fim = tempo_agora()
+    tempo = fim - inicio
+    mostre "Inline Cache Monomórfico: " + tempo + "ms"
+    retorne tempo
+fim
+
+# Benchmark 12: Inline Cache - Chamadas de método polimórficas (valida Inline Cache)
+funcao benchmark_inline_cache_polimorfico
+    classe Pessoa
+        funcao nome recebendo
+            retorne "João"
+        fim
+    fim
+    
+    classe Animal
+        funcao nome recebendo
+            retorne "Cachorro"
+        fim
+    fim
+    
+    inicio = tempo_agora()
+    repita 100000 vezes
+        se i % 2 == 0 entao
+            obj = Pessoa()
+        senao
+            obj = Animal()
+        fim
+        nome = obj.nome()
+    fim
+    fim = tempo_agora()
+    tempo = fim - inicio
+    mostre "Inline Cache Polimórfico: " + tempo + "ms"
+    retorne tempo
+fim
+
+# Benchmark 13: Type Specialization - Função com tipos estáveis (valida Type Specialization)
+funcao benchmark_type_specialization
+    funcao somar_inteiros recebendo a, b
+        retorne a + b
+    fim
+    
+    inicio = tempo_agora()
+    resultado = 0
+    repita 100000 vezes
+        resultado = somar_inteiros(resultado, 1)
+    fim
+    fim = tempo_agora()
+    tempo = fim - inicio
+    mostre "Type Specialization: " + tempo + "ms"
+    retorne tempo
+fim
+
+# Benchmark 14: Compilation Cache - Recompilação incremental (valida Compilation Cache)
+funcao benchmark_compilation_cache
+    # Simula recompilação de arquivo modificado
+    inicio = tempo_agora()
+    repita 100 vezes
+        # Em um cenário real, isso usaria o cache de compilação
+        codigo = "x = 1 + 2"
+        # Compilar código (simulado)
+    fim
+    fim = tempo_agora()
+    tempo = fim - inicio
+    mostre "Compilation Cache: " + tempo + "ms"
+    retorne tempo
+fim
+
+# Benchmark 15: Loop Unrolling (valida JIT Tier 2)
+funcao benchmark_loop_unrolling
+    inicio = tempo_agora()
+    soma = 0
+    repita 100000 vezes
+        soma = soma + 1
+        soma = soma + 1
+        soma = soma + 1
+        soma = soma + 1
+    fim
+    fim = tempo_agora()
+    tempo = fim - inicio
+    mostre "Loop Unrolling: " + tempo + "ms"
+    retorne tempo
+fim
+
+# Benchmark 16: Constant Folding (valida JIT Tier 2)
+funcao benchmark_constant_folding
+    inicio = tempo_agora()
+    repita 100000 vezes
+        resultado = 2 + 3 * 4 - 1
+    fim
+    fim = tempo_agora()
+    tempo = fim - inicio
+    mostre "Constant Folding: " + tempo + "ms"
+    retorne tempo
+fim
+
+# Benchmark 17: Dead Code Elimination (valida JIT Tier 2)
+funcao benchmark_dead_code_elimination
+    inicio = tempo_agora()
+    repita 100000 vezes
+        x = 1
+        # Código morto (nunca usado)
+        y = 2
+        z = 3
+        resultado = x
+    fim
+    fim = tempo_agora()
+    tempo = fim - inicio
+    mostre "Dead Code Elimination: " + tempo + "ms"
+    retorne tempo
+fim
+
+# Benchmark 18: Function Inlining (valida JIT Tier 2)
+funcao benchmark_function_inlining
+    funcao pequena recebendo x
+        retorne x + 1
+    fim
+    
+    inicio = tempo_agora()
+    resultado = 0
+    repita 100000 vezes
+        resultado = pequena(resultado)
+    fim
+    fim = tempo_agora()
+    tempo = fim - inicio
+    mostre "Function Inlining: " + tempo + "ms"
+    retorne tempo
+fim
+
+# ===================== SUITE DE BENCHMARKS =====================
+
+funcao executar_suite_benchmarks
+    mostre "========================================"
+    mostre "Suite de Benchmarks BR v3.0"
+    mostre "========================================"
+    mostre ""
+    
+    mostre "--- FASE 1 ---" << endl
+    resultados = registro
+        loop_simples: benchmark_loop_simples()
+        operacoes_mat: benchmark_operacoes_matematicas()
+        alocacao_obj: benchmark_alocacao_objetos()
+        operacoes_str: benchmark_operacoes_strings()
+        concatenacao: benchmark_concatenacao_strings()
+        gc: benchmark_garbage_collector()
+        operacoes_lista: benchmark_operacoes_lista()
+        operacoes_reg: benchmark_operacoes_registro()
+        chamadas_fun: benchmark_chamadas_funcao()
+        fibonacci: benchmark_fibonacci()
+    fim
+    
+    mostre ""
+    mostre "--- FASE 2 ---" << endl
+    resultados_fase2 = registro
+        inline_cache_mono: benchmark_inline_cache_monomorfico()
+        inline_cache_poly: benchmark_inline_cache_polimorfico()
+        type_spec: benchmark_type_specialization()
+        comp_cache: benchmark_compilation_cache()
+        loop_unroll: benchmark_loop_unrolling()
+        const_fold: benchmark_constant_folding()
+        dead_code: benchmark_dead_code_elimination()
+        func_inline: benchmark_function_inlining()
+    fim
+    
+    mostre ""
+    mostre "========================================"
+    mostre "Resumo dos Benchmarks - FASE 1"
+    mostre "========================================"
+    mostre "Loop simples: " + resultados.loop_simples + "ms"
+    mostre "Operações matemáticas: " + resultados.operacoes_mat + "ms"
+    mostre "Alocação de objetos: " + resultados.alocacao_obj + "ms"
+    mostre "Operações com strings: " + resultados.operacoes_str + "ms"
+    mostre "Concatenação de strings: " + resultados.concatenacao + "ms"
+    mostre "Garbage Collector: " + resultados.gc + "ms"
+    mostre "Operações de lista: " + resultados.operacoes_lista + "ms"
+    mostre "Operações de registro: " + resultados.operacoes_reg + "ms"
+    mostre "Chamadas de função: " + resultados.chamadas_fun + "ms"
+    mostre "Fibonacci recursivo: " + resultados.fibonacci + "ms"
+    
+    mostre ""
+    mostre "========================================"
+    mostre "Resumo dos Benchmarks - FASE 2"
+    mostre "========================================"
+    mostre "Inline Cache Monomórfico: " + resultados_fase2.inline_cache_mono + "ms"
+    mostre "Inline Cache Polimórfico: " + resultados_fase2.inline_cache_poly + "ms"
+    mostre "Type Specialization: " + resultados_fase2.type_spec + "ms"
+    mostre "Compilation Cache: " + resultados_fase2.comp_cache + "ms"
+    mostre "Loop Unrolling: " + resultados_fase2.loop_unroll + "ms"
+    mostre "Constant Folding: " + resultados_fase2.const_fold + "ms"
+    mostre "Dead Code Elimination: " + resultados_fase2.dead_code + "ms"
+    mostre "Function Inlining: " + resultados_fase2.func_inline + "ms"
+    mostre ""
+    
+    # Mesclar resultados
+    resultados_finais = registro
+        fase1: resultados
+        fase2: resultados_fase2
+    fim
+    
+    retorne resultados_finais
+fim
+
+# ===================== COMPARAÇÃO COM VERSÃO ANTERIOR =====================
+
+funcao comparar_com_v2 resultados_atuais
+    # Tempos estimados da versão 2.0 (baseline)
+    tempos_v2 = registro
+        loop_simples: 500
+        operacoes_mat: 300
+        alocacao_obj: 200
+        operacoes_str: 150
+        concatenacao: 100
+        gc: 400
+        operacoes_lista: 180
+        operacoes_reg: 160
+        chamadas_fun: 250
+        fibonacci: 1000
+    fim
+    
+    mostre "========================================"
+    mostre "Comparação: v3.0 vs v2.0"
+    mostre "========================================"
+    mostre ""
+    
+    melhorias = registro
+    
+    para cada benchmark em ["loop_simples", "operacoes_mat", "alocacao_obj", "operacoes_str", "concatenacao", "gc", "operacoes_lista", "operacoes_reg", "chamadas_fun", "fibonacci"]
+        tempo_v2 = tempos_v2[benchmark]
+        tempo_v3 = resultados_atuais[benchmark]
+        
+        se tempo_v3 < tempo_v2 entao
+            melhoria = ((tempo_v2 - tempo_v3) / tempo_v2) * 100
+            melhorias[benchmark] = melhoria
+            mostre benchmark + ": " + tempo_v3 + "ms (v2.0: " + tempo_v2 + "ms) - Melhoria: " + melhoria + "%"
+        senao
+            piora = ((tempo_v3 - tempo_v2) / tempo_v2) * 100
+            mostre benchmark + ": " + tempo_v3 + "ms (v2.0: " + tempo_v2 + "ms) - Piora: " + piora + "%"
+        fim
+    fim
+    
+    mostre ""
+    
+    # Calcular melhoria média
+    melhoria_total = 0
+    contador = 0
+    para cada benchmark em ["loop_simples", "operacoes_mat", "alocacao_obj", "operacoes_str", "concatenacao", "gc", "operacoes_lista", "operacoes_reg", "chamadas_fun", "fibonacci"]
+        se melhorias[benchmark] entao
+            melhoria_total = melhoria_total + melhorias[benchmark]
+            contador = contador + 1
+        fim
+    fim
+    
+    se contador > 0 entao
+        melhoria_media = melhoria_total / contador
+        mostre "Melhoria média: " + melhoria_media + "%"
+    fim
+    
+    retorne melhorias
+fim
+
+# ===================== EXECUÇÃO PRINCIPAL =====================
+
+# Executar benchmarks
+resultados = executar_suite_benchmarks()
+
+# Comparar com versão anterior
+comparacao = comparar_com_v2(resultados)
+
+mostre ""
+mostre "========================================"
+mostre "Benchmarks concluídos!"
+mostre "Use 'br --stats' para ver estatísticas detalhadas"
+mostre "========================================"

@@ -1,0 +1,167 @@
+# Biblioteca GUI - BR
+# Interface gráfica nativa
+
+# ==================== JANELA ====================
+
+função nova_janela recebendo titulo e largura e altura
+    janela é registro
+        titulo: titulo
+        largura: largura
+        altura: altura
+        componentes: []
+        visivel: falso
+        cor_fundo: "branco"
+    fim
+    devolva janela
+fim
+
+função mostrar_janela recebendo janela
+    janela.visivel é verdadeiro
+    mostre "Janela: " + janela.titulo + " (" + janela.largura + "x" + janela.altura + ")"
+    devolva janela
+fim
+
+função fechar_janela recebendo janela
+    janela.visivel é falso
+    mostre "Janela fechada: " + janela.titulo
+    devolva verdadeiro
+fim
+
+# ==================== COMPONENTES ====================
+
+função novo_botao recebendo texto e acao
+    botao é registro
+        tipo: "botao"
+        texto: texto
+        acao: acao
+        largura: 100
+        altura: 30
+        habilitado: verdadeiro
+    fim
+    devolva botao
+fim
+
+função novo_campo_texto recebendo rotulo
+    campo é registro
+        tipo: "campo_texto"
+        rotulo: rotulo
+        valor: ""
+        largura: 200
+        altura: 25
+    fim
+    devolva campo
+fim
+
+função nova_label recebendo texto
+    label é registro
+        tipo: "label"
+        texto: texto
+        largura: 100
+        altura: 20
+    fim
+    devolva label
+fim
+
+função nova_lista recebendo itens
+    lista_componente é registro
+        tipo: "lista"
+        itens: itens
+        selecionado: nulo
+    fim
+    devolva lista_componente
+fim
+
+função novo_checkbox recebendo texto e marcado
+    checkbox é registro
+        tipo: "checkbox"
+        texto: texto
+        marcado: marcado
+    fim
+    devolva checkbox
+fim
+
+função novo_slider recebendo minimo e maximo e valor
+    slider é registro
+        tipo: "slider"
+        minimo: minimo
+        maximo: maximo
+        valor: valor
+    fim
+    devolva slider
+fim
+
+# ==================== LAYOUT ====================
+
+função adicionar_componente recebendo janela e componente
+    janela.componentes.adicionar(componente)
+    devolva janela
+fim
+
+função remover_componente recebendo janela e indice
+    se indice >= 0 e indice < tamanho_lista(janela.componentes)
+        janela.componentes.remover(indice)
+    fim
+    devolva janela
+fim
+
+# ==================== EVENTOS ====================
+
+função aguardar_clique recebendo janela
+    para cada componente em janela.componentes
+        se componente.tipo == "botao" e componente.habilitado
+            mostre "Botão clicado: " + componente.texto
+            componente.acao()
+            devolva componente
+        fim
+    fim
+    devolva nulo
+fim
+
+função obter_valor recebendo janela e rotulo
+    para cada componente em janela.componentes
+        se componente.tipo == "campo_texto" e componente.rotulo == rotulo
+            devolva componente.valor
+        fim
+    fim
+    devolva ""
+fim
+
+função definir_valor recebendo janela e rotulo e valor
+    para cada componente em janela.componentes
+        se componente.tipo == "campo_texto" e componente.rotulo == rotulo
+            componente.valor é valor
+            devolva verdadeiro
+        fim
+    fim
+    devolva falso
+fim
+
+# ==================== DIÁLOGOS ====================
+
+função mostrar_alerta recebendo mensagem
+    mostre "[Alerta] " + mensagem
+fim
+
+função mostrar_confirmacao recebendo mensagem
+    mostre "[Confirmação] " + mensagem + " (sim/não)"
+    devolva verdadeiro
+fim
+
+# ==================== EXEMPLO ====================
+
+função exemplo_gui
+    # Criar janela
+    janela é nova_janela("Meu App BR", 800, 600)
+    
+    # Adicionar componentes
+    adicionar_componente(janela, nova_label("Bem-vindo ao BR!"))
+    adicionar_componente(janela, novo_campo_texto("Nome"))
+    adicionar_componente(janela, novo_botao("Enviar", funcao()
+        mostre "Botão Enviar clicado!"
+    fim))
+    adicionar_componente(janela, novo_checkbox("Aceito os termos", falso))
+    adicionar_componente(janela, novo_slider(0, 100, 50))
+    
+    # Mostrar janela
+    mostrar_janela(janela)
+fim

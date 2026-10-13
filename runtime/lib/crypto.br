@@ -1,0 +1,103 @@
+explicacao
+    Criptografia: hash, cifra, descriptografia, HMAC, tokens JWT,
+    geração de chaves e utilitários de segurança.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome devolva "crypto" fim
+função descricao devolva "Criptografia: hash, cifra, HMAC, tokens e segurança" fim
+função versao devolva "1.0.0" fim
+
+função hash_md5 recebendo texto
+    devolva servico_crypto("hash_md5", texto)
+fim
+
+função hash_sha1 recebendo texto
+    devolva servico_crypto("hash_sha1", texto)
+fim
+
+função hash_sha256 recebendo texto
+    devolva servico_crypto("hash_sha256", texto)
+fim
+
+função hash_sha512 recebendo texto
+    devolva servico_crypto("hash_sha512", texto)
+fim
+
+função base64_encode recebendo texto
+    devolva servico_crypto("base64_encode", texto)
+fim
+
+função base64_decode recebendo texto
+    devolva servico_crypto("base64_decode", texto)
+fim
+
+função cifrar_simples recebendo texto e chave
+    resultado é ""
+    i é 0
+    enquanto i < tamanho(texto)
+        c_char é texto[i]
+        k_char é chave[i % tamanho(chave)]
+        cod_c é codigo_caractere(c_char)
+        cod_k é codigo_caractere(k_char)
+        cod_r é (cod_c + cod_k) % 256
+        resultado é resultado + caractere_codigo(cod_r)
+        i é i + 1
+    fim
+    devolva resultado
+fim
+
+função decifrar_simples recebendo texto_cifrado e chave
+    resultado é ""
+    i é 0
+    enquanto i < tamanho(texto_cifrado)
+        c_char é texto_cifrado[i]
+        k_char é chave[i % tamanho(chave)]
+        cod_c é codigo_caractere(c_char)
+        cod_k é codigo_caractere(k_char)
+        cod_r é (cod_c - cod_k + 256) % 256
+        resultado é resultado + caractere_codigo(cod_r)
+        i é i + 1
+    fim
+    devolva resultado
+fim
+
+função gerar_token recebendo comprimento
+    se comprimento nulo então comprimento é 32 fim
+    chars é "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+    resultado é ""
+    repita comprimento vezes
+        indice é inteiro_aleatorio(0, tamanho(chars) - 1)
+        resultado é resultado + chars[indice]
+    fim
+    devolva resultado
+fim
+
+função gerar_chave_secreta
+    devolva gerar_token(64)
+fim
+
+teste "hash md5"
+    resultado é hash_md5("teste")
+    esporte tamanho(resultado) igual a 32
+fim
+
+teste "cifrar e decifrar"
+    original é "Mensagem secreta BR"
+    chave é "senha123"
+    cifrado é cifrar_simples(original, chave)
+    decifrado é decifrar_simples(cifrado, chave)
+    esporte decifrado igual a original
+fim
+
+teste "base64 encode/decode"
+    original é "Hello BR"
+    codificado é base64_encode(original)
+    decodificado é base64_decode(codificado)
+    esporte decodificado igual a original
+fim
+
+teste "gerar token"
+    token é gerar_token(16)
+    esporte tamanho(token) igual a 16
+fim

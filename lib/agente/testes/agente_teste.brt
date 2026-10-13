@@ -1,0 +1,5 @@
+importar "agente"
+
+teste "nome do modulo agente"
+    espere agente.nome() igual a "agente"
+fim

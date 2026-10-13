@@ -1,0 +1,20 @@
+contrato upload
+    função nome
+    função descricao
+    função versao
+    função enviar recebendo url, arquivo e opcoes
+    função receber recebendo arquivo e opcoes
+    função salvar recebendo arquivo e caminho
+    função validar recebendo arquivo e tipos_permitidos
+    função validar_tamanho recebendo arquivo e maximo
+    função definir_max_tamanho recebendo upload e maximo
+    função definir_tipos_permitidos recebendo upload e tipos
+    função definir_diretorio recebendo upload e diretorio
+    função definir_nome_personalizado recebendo upload e funcao
+    função criar_progresso recebendo upload
+    função atualizar_progresso recebendo progresso e enviado
+    função cancelar recebendo upload
+    função pausar recebendo upload
+    função retomar recebendo upload
+    função obter_info recebendo arquivo
+fim

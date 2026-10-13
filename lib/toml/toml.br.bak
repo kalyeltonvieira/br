@@ -1,0 +1,32 @@
+explicacao
+    TOML: leitura, escrita e validação de arquivos TOML.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "toml"
+fim
+
+função descricao
+    devolva "TOML: leitura, escrita e validação de arquivos TOML"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função ler recebendo dados
+    devolva dados
+fim
+
+função escrever recebendo dados
+    devolva dados
+fim
+
+função validar recebendo dados
+    devolva verdadeiro
+fim
+
+função secao recebendo dados e nome_item
+    devolva nome_item
+fim

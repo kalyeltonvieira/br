@@ -1,0 +1,34 @@
+# Calendario Lunar module for moon phases, lunar cycles and special dates
+
+explicacao
+    calendario_lunar: fases da lua, ciclos lunares e datas especiais.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "calendario_lunar"
+fim
+
+função descricao
+    devolva "Fases da lua, ciclos lunares e datas especiais."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função fase_atual
+    devolva "Lua Cheia"
+fim
+
+função proxima_fase
+    devolva "Lua Minguante"
+fim
+
+função data_especial recebendo descricao
+    devolva "2026-01-01"
+fim
+
+função fechar
+    devolva verdadeiro
+fim

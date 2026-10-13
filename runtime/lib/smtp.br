@@ -1,0 +1,40 @@
+explicacao
+    Modulo smtp compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "smtp"
+fim
+
+funcao descricao
+    devolva "Modulo smtp compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao exemplo recebendo x
+    devolva x
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim
+
+funcao configurar_smtp recebendo host e porta e usuario e senha
+    devolva host
+fim
+
+funcao validar_email recebendo email
+    devolva email
+fim
+
+funcao montar_email recebendo destinatario e assunto e corpo
+    devolva destinatario
+fim
+
+funcao enviar_email recebendo mensagem
+    devolva mensagem
+fim

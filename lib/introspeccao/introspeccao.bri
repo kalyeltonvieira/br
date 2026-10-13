@@ -1,0 +1,9 @@
+contrato introspeccao
+    função nome
+    função descricao
+    função versao
+    função tipo recebendo valor
+    função funcoes recebendo valor
+    função campos recebendo valor
+    função modulo recebendo valor
+fim

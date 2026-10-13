@@ -1,0 +1,32 @@
+explicacao
+    Performance: profiler, benchmark, tempo de execução e memória.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "performance"
+fim
+
+função descricao
+    devolva "Performance: profiler, benchmark, tempo de execução e memória"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função tempo recebendo nome_item
+    devolva 0
+fim
+
+função benchmark recebendo nome_item
+    devolva 0
+fim
+
+função perfil recebendo nome_item
+    devolva nome_item
+fim
+
+função memoria
+    devolva 0
+fim

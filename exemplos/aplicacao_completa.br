@@ -1,0 +1,151 @@
+# Aplicação Completa em BR - Sistema de Gestão de Biblioteca
+# Demonstração de funcionalidades avançadas
+
+# ==================== MODELOS ====================
+
+classe Livro
+    titulo: texto
+    autor: texto
+    ano: inteiro
+    disponivel: booleano
+    
+    função apresentar
+        status é "Disponível" se isto.disponivel senao "Emprestado"
+        mostre "${isto.titulo} - ${isto.autor} (${isto.ano}) - ${status}"
+    fim
+fim
+
+classe Usuario
+    nome: texto
+    email: texto
+    livros_emprestados: lista
+    
+    função adicionar_emprestimo recebendo livro
+        isto.livros_emprestados.adicionar(livro)
+        livro.disponivel é falso
+    fim
+    
+    função listar_emprestimos
+        mostre "Livros emprestados por ${isto.nome}:"
+        para cada livro em isto.livros_emprestados
+            mostre "  - ${livro.titulo}"
+        fim
+    fim
+fim
+
+# ==================== FUNÇÕES COM DECORATORS ====================
+
+# Decorator para logging
+função logar_operacao recebendo funcao
+    devolva função wrapper recebendo *args
+        mostre "[LOG] Executando: ${funcao.nome}"
+        resultado é funcao(*args)
+        mostre "[LOG] Concluído: ${funcao.nome}"
+        devolva resultado
+    fim
+fim
+# Decorator para validar entrada
+função validar_texto recebendo funcao
+    devolva função wrapper recebendo *args
+        para cada arg em args
+            se arg.tipo == "texto" e arg.texto.vazio()
+                lance "Argumento texto não pode ser vazio"
+            fim
+        fim
+        resultado é funcao(*args)
+        devolva resultado
+    fim
+fim
+
+# ==================== SISTEMA DE BIBLIOTECA ====================
+
+# Função com decorators
+@logar_operacao
+@validar_texto
+função cadastrar_livro recebendo titulo, autor, ano
+    livro é Livro(titulo, autor, ano, verdadeiro)
+    livros.adicionar(livro)
+    mostre "Livro cadastrado: ${titulo}"
+    devolva livro
+fim
+
+função buscar_livro recebendo titulo
+    para cada livro em livros
+        se livro.titulo == titulo
+            devolva livro
+        fim
+    fim
+    devolva nulo
+fim
+
+função emprestar_livro recebendo titulo, usuario
+    livro é buscar_livro(titulo)
+    se livro == nulo
+        mostre "Erro: Livro não encontrado"
+        devolva falso
+    fim
+    se nao livro.disponivel
+        mostre "Erro: Livro já está emprestado"
+        devolva falso
+    fim
+    usuario.adicionar_emprestimo(livro)
+    mostre "Empréstimo realizado: ${titulo} para ${usuario.nome}"
+    devolva verdadeiro
+fim
+
+função listar_livros_disponiveis
+    mostre "=== Livros Disponíveis ==="
+    para cada livro em livros
+        se livro.disponivel
+            livro.apresentar()
+        fim
+    fim
+fim
+
+# ==================== PROGRAMA PRINCIPAL ====================
+
+# Inicializar sistema
+livros é []
+mostre "=== Sistema de Biblioteca ==="
+mostre ""
+
+# Cadastrar livros usando F-strings e list comprehensions
+autores é ["Machado de Assis", "Clarice Lispector", "Jorge Amado", "Monteiro Lobato"]
+anos é [1899, 1977, 1936, 1920]
+
+i é 0
+para cada autor em autores
+    titulo é "Obra ${i + 1} - ${autor}"
+    cadastrar_livro(titulo, autor, anos[i])
+    i é i + 1
+fim
+
+mostre ""
+
+# Cadastrar usuários
+usuario1 é Usuario("João Silva", "joao@email.com", [])
+usuario2 é Usuario("Maria Santos", "maria@email.com", [])
+
+mostre "=== Empréstimos ==="
+mostre ""
+
+# Fazer empréstimos
+emprestar_livro("Obra 1 - Machado de Assis", usuario1)
+emprestar_livro("Obra 2 - Clarice Lispector", usuario2)
+
+mostre ""
+
+# Listar empréstimos
+usuario1.listar_emprestimos()
+usuario2.listar_emprestimos()
+
+mostre ""
+
+# Listar disponíveis usando list comprehension
+mostre "=== Estatísticas ==="
+disponiveis é [livro para livro em livros se livro.disponivel]
+mostre "Livros disponíveis: ${disponiveis.tamanho()}"
+mostre "Total de livros: ${livros.tamanho()}"
+
+mostre ""
+mostre "=== Sistema finalizado! ==="

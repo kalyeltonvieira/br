@@ -1,0 +1,104 @@
+explicacao
+    E-commerce: Funcionalidades para comércio eletrônico.
+    Este módulo fornece funções para lojas online.
+    Esta biblioteca é totalmente funcional e nativa.
+fim
+
+função nome
+    devolva "ecommerce"
+fim
+
+função descricao
+    devolva "Funcionalidades para comércio eletrônico"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# ============ CARRINHO ============
+
+função criar_carrinho
+    # Cria um carrinho de compras
+    carrinho é registro
+        itens: lista
+        subtotal: 0
+        desconto: 0
+        total: 0
+    fim
+    devolva carrinho
+fim
+
+função adicionar_item recebendo carrinho, produto e quantidade
+    # Adiciona um item ao carrinho
+    item é registro
+        produto: produto
+        quantidade: quantidade
+        subtotal: produto.preco * quantidade
+    fim
+    adicione item em carrinho.itens
+    carrinho.subtotal é carrinho.subtotal + item.subtotal
+    carrinho.total é carrinho.subtotal - carrinho.desconto
+    devolva carrinho
+fim
+
+função remover_item recebendo carrinho e indice
+    # Remove um item do carrinho
+    item é carrinho.itens[indice]
+    carrinho.subtotal é carrinho.subtotal - item.subtotal
+    remova carrinho.itens[indice]
+    carrinho.total é carrinho.subtotal - carrinho.desconto
+    devolva carrinho
+fim
+
+função aplicar_cupom recebendo carrinho e cupom
+    # Aplica um cupom de desconto
+    desconto é carrinho.subtotal * 0.1
+    carrinho.desconto é desconto
+    carrinho.total é carrinho.subtotal - carrinho.desconto
+    devolva carrinho
+fim
+
+# ============ PEDIDOS ============
+
+função criar_pedido recebendo carrinho, cliente e endereco
+    # Cria um pedido a partir do carrinho
+    pedido é registro
+        id: novo_id
+        cliente: cliente
+        endereco: endereco
+        itens: carrinho.itens
+        subtotal: carrinho.subtotal
+        desconto: carrinho.desconto
+        total: carrinho.total
+        status: "pendente"
+        data: data atual
+    fim
+    devolva pedido
+fim
+
+função atualizar_status recebendo pedido e status
+    # Atualiza o status do pedido
+    pedido.status é status
+    devolva pedido
+fim
+
+função calcular_frete recebendo pedido e cep
+    # Calcula o frete do pedido
+    frete é servico_ecommerce("calcular_frete", pedido, cep)
+    devolva frete
+fim
+
+# ============ PAGAMENTO ============
+
+função processar_pagamento recebendo pedido e metodo
+    # Processa o pagamento do pedido
+    resultado é servico_ecommerce("processar_pagamento", pedido, metodo)
+    devolva resultado
+fim
+
+função gerar_fatura recebendo pedido
+    # Gera a fatura do pedido
+    fatura é servico_ecommerce("gerar_fatura", pedido)
+    devolva fatura
+fim

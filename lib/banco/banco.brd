@@ -1,0 +1,19 @@
+# Documentação BRD: banco
+
+## Nome
+
+Banco de dados
+
+## Descrição
+
+SQLite, conexão, consultas, transações e migrações.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* conectar: Abre conexão.
+* consulta: Executa consulta.
+* transacao: Inicia transação.
+* migrar: Executa migrações.

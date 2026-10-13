@@ -1,0 +1,32 @@
+explicacao
+    Path: manipulação de caminhos, diretórios e extensões.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "path"
+fim
+
+função descricao
+    devolva "Path: manipulação de caminhos, diretórios e extensões"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função juntar recebendo base e nome_item
+    devolva base + nome_item
+fim
+
+função diretorio recebendo caminho
+    devolva caminho
+fim
+
+função extensao recebendo caminho
+    devolva ""
+fim
+
+função normalizar recebendo caminho
+    devolva caminho
+fim

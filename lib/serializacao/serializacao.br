@@ -1,0 +1,32 @@
+explicacao
+    Serialização: converter dados entre objeto, texto, binário e formatos externos.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "serializacao"
+fim
+
+função descricao
+    devolva "Serialização: converter dados entre objeto, texto, binário e formatos externos"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função para_texto recebendo dados
+    devolva "" + dados
+fim
+
+função de_texto recebendo dados
+    devolva dados
+fim
+
+função para_binario recebendo dados
+    devolva dados
+fim
+
+função clonar recebendo dados
+    devolva dados
+fim

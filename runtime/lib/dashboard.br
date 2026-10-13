@@ -1,0 +1,135 @@
+explicacao
+    Dashboard: Criação de dashboards e visualizações.
+    Este módulo permite criar dashboards interativos.
+    Esta biblioteca é totalmente funcional e nativa.
+fim
+
+função nome
+    devolva "dashboard"
+fim
+
+função descricao
+    devolva "Criação de dashboards e visualizações"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# ============ CRIAÇÃO ============
+
+função criar recebendo titulo
+    # Cria um novo dashboard
+    dashboard é registro
+        titulo: titulo
+        widgets: lista
+        layout: "grade"
+        tema: "claro"
+    fim
+    devolva dashboard
+fim
+
+função adicionar_widget recebendo dashboard, tipo e configuracao
+    # Adiciona um widget ao dashboard
+    widget é registro
+        tipo: tipo
+        configuracao: configuracao
+        dados: nulo
+    fim
+    adicione widget em dashboard.widgets
+    devolva dashboard
+fim
+
+função definir_layout recebendo dashboard e layout
+    # Define o layout do dashboard
+    dashboard.layout é layout
+    devolva dashboard
+fim
+
+função definir_tema recebendo dashboard e tema
+    # Define o tema do dashboard
+    dashboard.tema é tema
+    devolva dashboard
+fim
+
+# ============ WIDGETS ============
+
+função criar_grafico recebendo tipo, dados e opcoes
+    # Cria um widget de gráfico
+    widget é registro
+        tipo: "grafico"
+        grafico_tipo: tipo
+        dados: dados
+        opcoes: opcoes
+    fim
+    devolva widget
+fim
+
+função criar_tabela recebendo dados e colunas
+    # Cria um widget de tabela
+    widget é registro
+        tipo: "tabela"
+        dados: dados
+        colunas: colunas
+    fim
+    devolva widget
+fim
+
+função criar_kpi recebendo titulo, valor e formato
+    # Cria um widget de KPI
+    widget é registro
+        tipo: "kpi"
+        titulo: titulo
+        valor: valor
+        formato: formato
+    fim
+    devolva widget
+fim
+
+função criar_indicador recebendo titulo, valor, minimo e maximo
+    # Cria um widget de indicador
+    widget é registro
+        tipo: "indicador"
+        titulo: titulo
+        valor: valor
+        minimo: minimo
+        maximo: maximo
+    fim
+    devolva widget
+fim
+
+# ============ DADOS ============
+
+função atualizar_dados recebendo dashboard, widget_id e dados
+    # Atualiza os dados de um widget
+    dashboard.widgets[widget_id].dados é dados
+    devolva dashboard
+fim
+
+função atualizar_todos recebendo dashboard e dados
+    # Atualiza todos os widgets com novos dados
+    para cada widget in dashboard.widgets
+        widget.dados é dados
+    fim
+    devolva dashboard
+fim
+
+# ============ EXPORTAÇÃO ============
+
+função exportar_html recebendo dashboard
+    # Exporta o dashboard como HTML
+    html é servico_dashboard("exportar_html", dashboard)
+    devolva html
+fim
+
+função exportar_json recebendo dashboard
+    # Exporta o dashboard como JSON
+    json é servico_dashboard("exportar_json", dashboard)
+    devolva json
+fim
+
+função exportar_png recebendo dashboard e caminho
+    # Exporta o dashboard como PNG
+    resultado é servico_dashboard("exportar_png", dashboard, caminho)
+    devolva resultado
+fim

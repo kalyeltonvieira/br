@@ -1,0 +1,19 @@
+contrato graphql
+    função nome
+    função descricao
+    função versao
+    função criar_schema recebendo nome e definicao
+    função adicionar_tipo recebendo schema, nome e campos
+    função adicionar_query recebendo schema, nome e resolver
+    função adicionar_mutation recebendo schema, nome e resolver
+    função adicionar_subscription recebendo schema, nome e resolver
+    função executar_query recebendo schema, query e variaveis
+    função executar_mutation recebendo schema, mutation e variaveis
+    função criar_cliente recebendo url
+    função definir_cabecalho recebendo cliente, chave e valor
+    função query recebendo cliente, query e variaveis
+    função mutation recebendo cliente, mutation e variaveis
+    função subscription recebendo cliente, subscription e callback
+    função validar_schema recebendo schema
+    função gerar_introspecao recebendo schema
+fim

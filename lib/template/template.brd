@@ -1,0 +1,19 @@
+# Documentação BRD: template
+
+## Nome
+
+Templates
+
+## Descrição
+
+renderizar templates de texto, HTML e código.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* renderizar: Renderiza template.
+* html: Renderiza HTML.
+* codigo: Renderiza código.
+* variavel: Cria variável de template.

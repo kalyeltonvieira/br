@@ -1,0 +1,5 @@
+importar "yaml"
+
+mostre yaml.nome()
+mostre yaml.descricao()
+mostre yaml.versao()

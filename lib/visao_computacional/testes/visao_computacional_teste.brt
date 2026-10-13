@@ -1,0 +1,5 @@
+importar "visao_computacional"
+
+teste "nome do modulo visao_computacional"
+    espere visao_computacional.nome() igual a "visao_computacional"
+fim

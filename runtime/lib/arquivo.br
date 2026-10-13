@@ -1,0 +1,365 @@
+explicacao
+    Arquivo: manipulação completa de arquivos e diretórios.
+    Leitura, escrita, cópia, movimentação, listagem, permissões,
+    formatações suportadas: texto, JSON, CSV, binário.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome
+    devolva "arquivo"
+fim
+
+função descricao
+    devolva "Arquivo: manipulação completa de arquivos e diretórios"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# ============ LEITURA ============
+
+função ler recebendo caminho
+    devolva servico_nativo("ARQUIVOS", "LER", caminho)
+fim
+
+função ler_texto recebendo caminho
+    tente
+        conteudo é ler(caminho)
+        devolva conteudo
+    capture erro
+        devolva ""
+    fim
+fim
+
+função ler_linhas recebendo caminho
+    tente
+        conteudo é ler(caminho)
+        importar "texto" as txt
+        devolva txt.dividir_linhas(conteudo)
+    capture erro
+        devolva []
+    fim
+fim
+
+função ler_json recebendo caminho
+    importar "json" as json
+    tente
+        conteudo é ler(caminho)
+        devolva json.parsear(conteudo)
+    capture erro
+        devolva nulo
+    fim
+fim
+
+função ler_csv recebendo caminho
+    importar "csv" as csv
+    tente
+        conteudo é ler(caminho)
+        devolva csv.ler(conteudo)
+    capture erro
+        devolva []
+    fim
+fim
+
+função ler_csv_com_cabecalho recebendo caminho
+    importar "csv" as csv
+    tente
+        conteudo é ler(caminho)
+        devolva csv.ler_com_cabecalho(conteudo)
+    capture erro
+        devolva []
+    fim
+fim
+
+# ============ ESCRITA ============
+
+função escrever recebendo caminho e conteudo
+    tente
+        servico_nativo("ARQUIVOS", "ESCREVER", caminho, "" + conteudo)
+        devolva verdadeiro
+    capture erro
+        devolva falso
+    fim
+fim
+
+função escrever_linhas recebendo caminho e linhas
+    resultado é ""
+    primeira é verdadeiro
+    para cada linha em linhas
+        se não primeira então
+            resultado é resultado + "\n"
+        senao
+            primeira é falso
+        fim
+        resultado é resultado + linha
+    fim
+    devolva escrever(caminho, resultado)
+fim
+
+função escrever_json recebendo caminho e dados
+    importar "json" as json
+    tente
+        texto_json é json.bonito(dados)
+        devolva escrever(caminho, texto_json)
+    capture erro
+        devolva falso
+    fim
+fim
+
+função escrever_csv recebendo caminho e dados
+    importar "csv" as csv_mod
+    tente
+        texto_csv é csv_mod.escrever(dados)
+        devolva escrever(caminho, texto_csv)
+    capture erro
+        devolva falso
+    fim
+fim
+
+função anexar recebendo caminho e conteudo
+    devolva servico_nativo("ARQUIVOS", "ANEXAR", caminho, conteudo)
+fim
+
+função anexar_linha recebendo caminho e linha
+    devolva anexar(caminho, linha + "\n")
+fim
+
+# ============ DIRETÓRIOS ============
+
+função criar_diretorio recebendo caminho
+    devolva servico_nativo("ARQUIVOS", "CRIAR_DIRETORIO", caminho)
+fim
+
+função criar_diretorios recebendo caminho
+    devolva servico_nativo("ARQUIVOS", "CRIAR_DIRETORIOS", caminho)
+fim
+
+função listar recebendo caminho
+    devolva servico_nativo("ARQUIVOS", "LISTAR", caminho)
+fim
+
+função listar_arquivos recebendo caminho
+    todos é listar(caminho)
+    resultado é []
+    para cada item em todos
+        se eh_arquivo(juntar(caminho, item)) então
+            adicione item a resultado
+        fim
+    fim
+    devolva resultado
+fim
+
+função listar_diretorios recebendo caminho
+    todos é listar(caminho)
+    resultado é []
+    para cada item em todos
+        se eh_diretorio(juntar(caminho, item)) então
+            adicione item a resultado
+        fim
+    fim
+    devolva resultado
+fim
+
+função listar_recursivo recebendo caminho
+    resultado é []
+    _listar_rec(caminho, "", resultado)
+    devolva resultado
+fim
+
+função _listar_rec recebendo base, relativo, resultado
+    atual é base se relativo "" senao juntar(base, relativo)
+    itens é listar(atual)
+    
+    para cada item em itens
+        caminho_item é relativo se relativo "" senao relativo + "/" + item
+        adicione caminho_item a resultado
+        caminho_completo é juntar(base, caminho_item)
+        se eh_diretorio(caminho_completo) então
+            _listar_rec(base, caminho_item, resultado)
+        fim
+    fim
+fim
+
+função remover_diretorio recebendo caminho
+    devolva servico_nativo("ARQUIVOS", "REMOVER_DIRETORIO", caminho)
+fim
+
+# ============ OPERAÇÕES ============
+
+função copiar recebendo origem e destino
+    devolva servico_nativo("ARQUIVOS", "COPIAR", origem, destino)
+fim
+
+função mover recebendo origem e destino
+    devolva servico_nativo("ARQUIVOS", "MOVER", origem, destino)
+fim
+
+função remover recebendo caminho
+    devolva servico_nativo("ARQUIVOS", "REMOVER", caminho)
+fim
+
+função renomear recebendo caminho e novo_nome
+    dir_pai é diretorio_pai(caminho)
+    destino é juntar(dir_pai, novo_nome)
+    devolva mover(caminho, destino)
+fim
+
+# ============ INFORMAÇÕES ============
+
+função existe recebendo caminho
+    devolva servico_nativo("ARQUIVOS", "EXISTE", caminho)
+fim
+
+função eh_arquivo recebendo caminho
+    devolva servico_nativo("ARQUIVOS", "EH_ARQUIVO", caminho)
+fim
+
+função eh_diretorio recebendo caminho
+    devolva servico_nativo("ARQUIVOS", "EH_DIRETORIO", caminho)
+fim
+
+função tamanho recebendo caminho
+    devolva servico_nativo("ARQUIVOS", "TAMANHO", caminho)
+fim
+
+função modificado_em recebendo caminho
+    devolva servico_nativo("ARQUIVOS", "MODIFICADO_EM", caminho)
+fim
+
+função permissao_leitura recebendo caminho
+    devolva servico_nativo("ARQUIVOS", "PERMISSAO_LEITURA", caminho)
+fim
+
+função permissao_escrita recebendo caminho
+    devolva servico_nativo("ARQUIVOS", "PERMISSAO_ESCRITA", caminho)
+fim
+
+# ============ CAMINHOS ============
+
+função juntar recebendo partes
+    importar "texto" as txt
+    resultado é ""
+    primeira é verdadeiro
+    
+    para cada parte em partes
+        se vazio(parte) então
+            continue
+        fim
+        
+        se primeira então
+            resultado é parte
+            primeira é falso
+        senao
+            # Garantir apenas um separador
+            se not txt.termina_com(resultado, "/") e not txt.termina_com(resultado, "\\") então
+                resultado é resultado + "/"
+            fim
+            se txt.comeca_com(parte, "/") ou txt.comeca_com(parte, "\\") então
+                parte é parte[1:]
+            fim
+            resultado é resultado + parte
+        fim
+    fim
+    
+    devolva resultado
+fim
+
+função diretorio_pai recebendo caminho
+    importar "texto" as txt
+    
+    # Remover separador do final
+    enquanto txt.termina_com(caminho, "/") ou txt.termina_com(caminho, "\\")
+        caminho é caminho[0:tamanho(caminho)-1]
+    fim
+    
+    pos_barra é txt.encontrar_ultimo(caminho, "/")
+    pos_contra_barra é txt.encontrar_ultimo(caminho, "\\")
+    
+    pos é pos_barra se pos_barra > pos_contra_barra senao pos_contra_barra
+    se pos < 0 então
+        devolva ""
+    fim
+    
+    devolva caminho[0:pos]
+fim
+
+função nome_arquivo recebendo caminho
+    importar "texto" as txt
+    
+    caminho_limpo é caminho
+    enquanto txt.termina_com(caminho_limpo, "/") ou txt.termina_com(caminho_limpo, "\\")
+        caminho_limpo é caminho_limpo[0:tamanho(caminho_limpo)-1]
+    fim
+    
+    pos_barra é txt.encontrar_ultimo(caminho_limpo, "/")
+    pos_contra_barra é txt.encontrar_ultimo(caminho_limpo, "\\")
+    
+    pos é pos_barra se pos_barra > pos_contra_barra senao pos_contra_barra
+    se pos < 0 então
+        devolva caminho_limpo
+    fim
+    
+    devolva caminho_limpo[pos+1:]
+fim
+
+função extensao recebendo caminho
+    importar "texto" as txt
+    nome é nome_arquivo(caminho)
+    pos_ponto é txt.encontrar_ultimo(nome, ".")
+    se pos_ponto < 0 então
+        devolva ""
+    fim
+    devolva nome[pos_ponto:]
+fim
+
+função sem_extensao recebendo caminho
+    importar "texto" as txt
+    nome é nome_arquivo(caminho)
+    pos_ponto é txt.encontrar_ultimo(nome, ".")
+    se pos_ponto < 0 então
+        devolva nome
+    fim
+    devolva nome[0:pos_ponto]
+fim
+
+função caminho_absoluto recebendo caminho
+    devolva servico_nativo("ARQUIVOS", "CAMINHO_ABSOLUTO", caminho)
+fim
+
+# ============ ARQUIVO TEMPORÁRIO ============
+
+função temporario recebendo prefixo
+    devolva servico_nativo("ARQUIVOS", "TEMPORARIO", prefixo)
+fim
+
+função diretorio_temporario recebendo prefixo
+    devolva servico_nativo("ARQUIVOS", "DIRETORIO_TEMPORARIO", prefixo)
+fim
+
+# ============ TESTES ============
+
+teste "caminhos - nome arquivo"
+    resultado é nome_arquivo("/home/usuario/arquivo.txt")
+    esporte resultado igual a "arquivo.txt"
+fim
+
+teste "caminhos - extensao"
+    resultado é extensao("documento.pdf")
+    esporte resultado igual a ".pdf"
+fim
+
+teste "caminhos - diretorio pai"
+    resultado é diretorio_pai("/home/usuario/arquivo.txt")
+    esporte resultado igual a "/home/usuario"
+fim
+
+teste "caminhos - juntar"
+    resultado é juntar(["/home", "usuario", "arquivo.txt"])
+    esporte resultado igual a "/home/usuario/arquivo.txt"
+fim
+
+teste "caminhos - sem extensao"
+    resultado é sem_extensao("arquivo.txt")
+    esporte resultado igual a "arquivo"
+fim

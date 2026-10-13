@@ -1,0 +1,19 @@
+# Documentação BRD: core
+
+## Nome
+
+Núcleo da linguagem
+
+## Descrição
+
+tipos, erros, memória, conversão e funções básicas.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* identidade: Devolve o próprio valor.
+* eh_nulo: Verifica se um valor é nulo.
+* para_texto: Converte um valor para texto.
+* verdade: Constante lógica verdadeira.

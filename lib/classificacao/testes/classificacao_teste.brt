@@ -1,0 +1,5 @@
+importar "classificacao"
+
+teste "nome do modulo classificacao"
+    espere classificacao.nome() igual a "classificacao"
+fim

@@ -1,0 +1,343 @@
+explicacao
+    Backup DB: Backup e restauração de bancos.
+    Este módulo permite fazer backup e restauração de bancos de dados.
+    Esta biblioteca é totalmente funcional e nativa.
+fim
+
+função nome
+    devolva "backup_db"
+fim
+
+função descricao
+    devolva "Backup e restauração de bancos"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# ============ BACKUP SQLITE ============
+
+função backup_sqlite recebendo caminho_origem e caminho_destino
+    # Faz backup de um banco SQLite
+    resultado é servico_backup("backup_sqlite", caminho_origem, caminho_destino)
+    devolva resultado
+fim
+
+função restaurar_sqlite recebendo caminho_origem e caminho_destino
+    # Restaura um banco SQLite
+    resultado é servico_backup("restaurar_sqlite", caminho_origem, caminho_destino)
+    devolva resultado
+fim
+
+# ============ BACKUP POSTGRESQL ============
+
+função backup_postgres recebendo conexao, banco e caminho_destino
+    # Faz backup de um banco PostgreSQL
+    resultado é servico_backup("backup_postgres", conexao, banco, caminho_destino)
+    devolva resultado
+fim
+
+função restaurar_postgres recebendo conexao, banco e caminho_origem
+    # Restaura um banco PostgreSQL
+    resultado é servico_backup("restaurar_postgres", conexao, banco, caminho_origem)
+    devolva resultado
+fim
+
+função backup_postgres_completo recebendo conexao e caminho_destino
+    # Faz backup completo do servidor PostgreSQL
+    resultado é servico_backup("backup_postgres_completo", conexao, caminho_destino)
+    devolva resultado
+fim
+
+# ============ BACKUP MYSQL ============
+
+função backup_mysql recebendo conexao, banco e caminho_destino
+    # Faz backup de um banco MySQL/MariaDB
+    resultado é servico_backup("backup_mysql", conexao, banco, caminho_destino)
+    devolva resultado
+fim
+
+função restaurar_mysql recebendo conexao, banco e caminho_origem
+    # Restaura um banco MySQL/MariaDB
+    resultado é servico_backup("restaurar_mysql", conexao, banco, caminho_origem)
+    devolva resultado
+fim
+
+função backup_mysql_completo recebendo conexao e caminho_destino
+    # Faz backup completo do servidor MySQL/MariaDB
+    resultado é servico_backup("backup_mysql_completo", conexao, caminho_destino)
+    devolva resultado
+fim
+
+# ============ BACKUP MONGODB ============
+
+função backup_mongodb recebendo conexao, banco e caminho_destino
+    # Faz backup de um banco MongoDB
+    resultado é servico_backup("backup_mongodb", conexao, banco, caminho_destino)
+    devolva resultado
+fim
+
+função restaurar_mongodb recebendo conexao, banco e caminho_origem
+    # Restaura um banco MongoDB
+    resultado é servico_backup("restaurar_mongodb", conexao, banco, caminho_origem)
+    devolva resultado
+fim
+
+função backup_mongodb_colecao recebendo conexao, banco, colecao e caminho_destino
+    # Faz backup de uma coleção MongoDB
+    resultado é servico_backup("backup_mongodb_colecao", conexao, banco, colecao, caminho_destino)
+    devolva resultado
+fim
+
+# ============ BACKUP REDIS ============
+
+função backup_redis recebendo conexao e caminho_destino
+    # Faz backup do Redis (dump)
+    resultado é servico_backup("backup_redis", conexao, caminho_destino)
+    devolva resultado
+fim
+
+função restaurar_redis recebendo conexao e caminho_origem
+    # Restaura o Redis
+    resultado é servico_backup("restaurar_redis", conexao, caminho_origem)
+    devolva resultado
+fim
+
+# ============ BACKUP AUTOMATIZADO ============
+
+função criar_agendamento recebendo tipo, conexao, banco e intervalo
+    # Cria um agendamento de backup automático
+    agendamento é registro
+        tipo: tipo
+        conexao: conexao
+        banco: banco
+        intervalo: intervalo
+        ultimo_backup: nulo
+        ativo: verdadeiro
+    fim
+    devolva agendamento
+fim
+
+função executar_agendamento recebendo agendamento e diretorio
+    # Executa um backup agendado
+    timestamp é texto de data atual
+    nome_arquivo é agendamento.banco + "_" + timestamp + ".backup"
+    caminho_destino é unir_caminhos lista diretorio, nome_arquivo
+    
+    se agendamento.tipo é "sqlite" então
+        resultado é backup_sqlite agendamento.banco, caminho_destino
+    senão se agendamento.tipo é "postgres" então
+        resultado é backup_postgres agendamento.conexao, agendamento.banco, caminho_destino
+    senão se agendamento.tipo é "mysql" então
+        resultado é backup_mysql agendamento.conexao, agendamento.banco, caminho_destino
+    senão se agendamento.tipo é "mongodb" então
+        resultado é backup_mongodb agendamento.conexao, agendamento.banco, caminho_destino
+    senão se agendamento.tipo é "redis" então
+        resultado é backup_redis agendamento.conexao, caminho_destino
+    senão
+        devolva falso
+    fim
+    
+    se resultado então
+        agendamento.ultimo_backup é data atual
+    fim
+    
+    devolva resultado
+fim
+
+função ativar_agendamento recebendo agendamento
+    # Ativa um agendamento
+    agendamento.ativo é verdadeiro
+    devolva verdadeiro
+fim
+
+função desativar_agendamento recebendo agendamento
+    # Desativa um agendamento
+    agendamento.ativo é falso
+    devolva verdadeiro
+fim
+
+# ============ GERENCIAMENTO DE BACKUPS ============
+
+função listar_backups recebendo diretorio
+    # Lista todos os backups em um diretório
+    arquivos é listar_arquivos diretorio
+    backups é lista
+    
+    para cada arquivo em arquivos
+        se contem arquivo, ".backup" ou contem arquivo, ".sql" ou contem arquivo, ".dump" então
+            caminho_completo é unir_caminhos lista diretorio, arquivo
+            info é registro
+                nome: arquivo
+                caminho: caminho_completo
+                tamanho: tamanho caminho_completo
+                modificado_em: modificado_em caminho_completo
+            fim
+            adicione info em backups
+        fim
+    fim
+    
+    devolva backups
+fim
+
+função obter_info_backup recebendo caminho
+    # Obtém informações sobre um backup
+    info é registro
+        nome: nome_arquivo caminho
+        caminho: caminho
+        tamanho: tamanho caminho
+        modificado_em: modificado_em caminho
+        existe: existe caminho
+    fim
+    devolva info
+fim
+
+função deletar_backup recebendo caminho
+    # Deleta um arquivo de backup
+    resultado é remover caminho
+    devolva resultado
+fim
+
+função compactar_backup recebendo caminho_origem
+    # Compacta um backup
+    caminho_destino é caminho_origem + ".gz"
+    resultado é servico_backup("compactar", caminho_origem, caminho_destino)
+    devolva resultado
+fim
+
+função descompactar_backup recebendo caminho_origem
+    # Descompacta um backup
+    caminho_destino é substituir ".gz" por "" em caminho_origem
+    resultado é servico_backup("descompactar", caminho_origem, caminho_destino)
+    devolva resultado
+fim
+
+# ============ ROTACIONAMENTO DE BACKUPS ============
+
+função rotacionar_backups recebendo diretorio, prefixo e maximo
+    # Mantém apenas os N backups mais recentes
+    backups é listar_backups diretorio
+    
+    backups_prefixo é lista
+    para cada backup in backups
+        se contem backup.nome, prefixo então
+            adicione backup in backups_prefixo
+        fim
+    fim
+    
+    # Ordenar por data de modificação (mais recente primeiro)
+    backups_ordenados é lista
+    para cada i de 0 até tamanho(backups_prefixo) - 1
+        mais_recente é backups_prefixo[0]
+        para cada backup in backups_prefixo
+            se backup.modificado_em > mais_recente.modificado_em então
+                mais_recente é backup
+            fim
+        fim
+        adicione mais_recente in backups_ordenados
+        remova mais_recente de backups_prefixo
+    fim
+    
+    # Deletar backups excedentes
+    se tamanho(backups_ordenados) > maximo então
+        para cada i de maximo até tamanho(backups_ordenados) - 1
+            deletar_backup backups_ordenados[i].caminho
+        fim
+    fim
+    
+    devolva verdadeiro
+fim
+
+função limpar_backups_antigos recebendo diretorio, dias
+    # Remove backups mais antigos que X dias
+    backups é listar_backups diretorio
+    data_limite é data atual - (dias * 86400)
+    
+    para cada backup in backups
+        se backup.modificado_em < data_limite então
+            deletar_backup backup.caminho
+        fim
+    fim
+    
+    devolva verdadeiro
+fim
+
+# ============ VERIFICAÇÃO DE INTEGRIDADE ============
+
+função verificar_integridade recebendo caminho
+    # Verifica a integridade de um backup
+    resultado é servico_backup("verificar_integridade", caminho)
+    devolva resultado
+fim
+
+função verificar_sqlite recebendo caminho
+    # Verifica a integridade de um backup SQLite
+    resultado é servico_backup("verificar_sqlite", caminho)
+    devolva resultado
+fim
+
+# ============ UTILITÁRIOS ============
+
+função calcular_tamanho_total recebendo diretorio
+    # Calcula o tamanho total dos backups em um diretório
+    backups é listar_backups diretorio
+    total é 0
+    
+    para cada backup in backups
+        total é total + backup.tamanho
+    fim
+    
+    devolva total
+fim
+
+função gerar_nome_backup recebendo banco
+    # Gera um nome para o backup
+    timestamp é texto de data atual
+    nome é banco + "_" + timestamp + ".backup"
+    devolva nome
+fim
+
+função criar_diretorio_backups recebendo caminho
+    # Cria um diretório para backups
+    resultado é criar_diretorio caminho
+    devolva resultado
+fim
+
+# ============ TESTES ============
+
+teste "backup e restaurar sqlite"
+    caminho_origem é "teste.db"
+    caminho_destino é "teste_backup.db"
+    
+    # Criar banco de teste
+    conexao é conectar_sqlite caminho_origem
+    criar_tabela conexao, "usuarios", "id INTEGER PRIMARY KEY, nome TEXT"
+    desconecte conexao
+    
+    # Fazer backup
+    resultado_backup é backup_sqlite caminho_origem, caminho_destino
+    espere resultado_backup igual a verdadeiro
+    
+    # Verificar se backup foi criado
+    espere existe caminho_destino igual a verdadeiro
+    
+    # Limpar
+    remover caminho_origem
+    remover caminho_destino
+fim
+
+teste "listar backups"
+    diretorio é "backups_teste"
+    criar_diretorio diretorio
+    
+    # Criar backup de teste
+    caminho_backup é unir_caminhos lista diretorio, "teste.backup"
+    escrever caminho_backup, "conteudo de teste"
+    
+    backups é listar_backups diretorio
+    espere tamanho(backups) igual a 1
+    
+    # Limpar
+    remover_diretorio diretorio
+fim

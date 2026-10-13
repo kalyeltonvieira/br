@@ -1,0 +1,38 @@
+# Pix module for Pix keys, QR Code Pix and instant payments
+
+explicacao
+    pix: chaves Pix, QR Code Pix e pagamentos instantâneos.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "pix"
+fim
+
+função descricao
+    devolva "Chaves Pix, QR Code Pix e pagamentos instantâneos."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função registrar_chave recebendo tipo, valor
+    devolva verdadeiro
+fim
+
+função gerar_qr recebendo valor, chave
+    devolva "QR_CODE_STRING"
+fim
+
+função pagar recebendo qr_code
+    devolva verdadeiro
+fim
+
+função consultar_pagamento recebendo id_pagamento
+    devolva {}
+fim
+
+função fechar
+    devolva verdadeiro
+fim

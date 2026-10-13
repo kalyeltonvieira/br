@@ -1,0 +1,32 @@
+explicacao
+    Templates: renderizar templates de texto, HTML e código.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "template"
+fim
+
+função descricao
+    devolva "Templates: renderizar templates de texto, HTML e código"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função renderizar recebendo modelo e dados
+    devolva modelo
+fim
+
+função html recebendo modelo
+    devolva modelo
+fim
+
+função codigo recebendo modelo
+    devolva modelo
+fim
+
+função variavel recebendo nome_item
+    devolva nome_item
+fim

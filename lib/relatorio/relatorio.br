@@ -1,0 +1,34 @@
+# Relatorio module for generating reports in text, table and file formats
+
+explicacao
+    relatorio: geração de relatórios em texto, tabela e arquivo.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "relatorio"
+fim
+
+função descricao
+    devolva "Geração de relatórios em texto, tabela e arquivo."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função gerar_texto recebendo dados
+    devolva "RELATORIO_TEXTO"
+fim
+
+função gerar_tabela recebendo dados
+    devolva []
+fim
+
+função salvar_arquivo recebendo caminho, dados
+    devolva verdadeiro
+fim
+
+função fechar
+    devolva verdadeiro
+fim

@@ -1,0 +1,5 @@
+importar "sintese_voz"
+
+teste "nome do modulo sintese_voz"
+    espere sintese_voz.nome() igual a "sintese_voz"
+fim

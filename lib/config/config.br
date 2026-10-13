@@ -1,0 +1,32 @@
+explicacao
+    Configuração: carregar arquivos INI, ENV, YAML e TOML.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "config"
+fim
+
+função descricao
+    devolva "Configuração: carregar arquivos INI, ENV, YAML e TOML"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função ini recebendo dados
+    devolva dados
+fim
+
+função env recebendo dados
+    devolva dados
+fim
+
+função yaml recebendo dados
+    devolva dados
+fim
+
+função toml recebendo dados
+    devolva dados
+fim

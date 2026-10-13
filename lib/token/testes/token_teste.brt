@@ -1,0 +1,5 @@
+importar "token"
+
+teste "nome do modulo token"
+    espere token.nome() igual a "token"
+fim

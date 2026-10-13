@@ -1,0 +1,32 @@
+explicacao
+    Modulo recomendacao compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "recomendacao"
+fim
+
+funcao descricao
+    devolva "Modulo recomendacao compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao recomendar_recebendo
+    devolva verdadeiro
+fim
+
+funcao gerar_ranking recebendo criterio e itens
+    devolva criterio
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim
+
+funcao exemplo recebendo valor
+    devolva valor
+fim

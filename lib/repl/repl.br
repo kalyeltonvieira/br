@@ -1,0 +1,32 @@
+explicacao
+    REPL: console interativo da linguagem.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "repl"
+fim
+
+função descricao
+    devolva "REPL: console interativo da linguagem"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função iniciar
+    devolva verdadeiro
+fim
+
+função avaliar recebendo codigo
+    devolva codigo
+fim
+
+função historico
+    devolva "[]"
+fim
+
+função sair
+    devolva verdadeiro
+fim

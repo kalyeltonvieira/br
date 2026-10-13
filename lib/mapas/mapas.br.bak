@@ -1,0 +1,34 @@
+# Mapas module for routes, points, coordinates and map layers
+
+explicacao
+    mapas: rotas, pontos, coordenadas e camadas de mapa.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "mapas"
+fim
+
+função descricao
+    devolva "Rotas, pontos, coordenadas e camadas de mapa."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função criar_rota recebendo origem, destino
+    devolva []
+fim
+
+função adicionar_ponto recebendo coordenadas
+    devolva verdadeiro
+fim
+
+função obter_camada recebendo nome
+    devolva []
+fim
+
+função fechar
+    devolva verdadeiro
+fim

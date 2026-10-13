@@ -1,0 +1,5 @@
+teste "teste nao"
+    a é verdadeiro
+    b é nao a
+    espere b igual a falso
+fim

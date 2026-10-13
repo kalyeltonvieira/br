@@ -1,0 +1,2763 @@
+{
+  "Função": {
+    "prefix": "fun",
+    "body": [
+      "função ${1:nome} recebendo ${2:parametros}",
+      "    ${3:// corpo}",
+      "fim"
+    ],
+    "description": "Declaração de função"
+  },
+  "Função com Retorno": {
+    "prefix": "funret",
+    "body": [
+      "função ${1:nome} recebendo ${2:parametros}",
+      "    ${3:// corpo}",
+      "    devolva ${4:valor}",
+      "fim"
+    ],
+    "description": "Função com retorno"
+  },
+  "Se": {
+    "prefix": "se",
+    "body": [
+      "se ${1:condição} então",
+      "    ${2:// corpo}",
+      "fim"
+    ],
+    "description": "Estrutura condicional se"
+  },
+  "Se Senão": {
+    "prefix": "sese",
+    "body": [
+      "se ${1:condição} então",
+      "    ${2:// corpo se}",
+      "senão",
+      "    ${3:// corpo senão}",
+      "fim"
+    ],
+    "description": "Estrutura condicional se-senão"
+  },
+  "Se Senão Se": {
+    "prefix": "sesesese",
+    "body": [
+      "se ${1:condição1} então",
+      "    ${2:// corpo se1}",
+      "senão se ${3:condição2} então",
+      "    ${4:// corpo se2}",
+      "senão",
+      "    ${5:// corpo senão}",
+      "fim"
+    ],
+    "description": "Estrutura condicional se-senão se-senão"
+  },
+  "Enquanto": {
+    "prefix": "enquanto",
+    "body": [
+      "enquanto ${1:condição}",
+      "    ${2:// corpo}",
+      "fim"
+    ],
+    "description": "Loop enquanto"
+  },
+  "Para Cada": {
+    "prefix": "paracada",
+    "body": [
+      "para cada ${1:item} em ${2:lista}",
+      "    ${3:// corpo}",
+      "fim"
+    ],
+    "description": "Loop para cada"
+  },
+  "Para de até": {
+    "prefix": "parade",
+    "body": [
+      "para ${1:i} de ${2:inicio} até ${3:fim}",
+      "    ${4:// corpo}",
+      "fim"
+    ],
+    "description": "Loop para de até"
+  },
+  "Repita Vezes": {
+    "prefix": "repita",
+    "body": [
+      "repita ${1:vezes}",
+      "    ${2:// corpo}",
+      "fim"
+    ],
+    "description": "Loop repita vezes"
+  },
+  "Tente Capture": {
+    "prefix": "tente",
+    "body": [
+      "tente",
+      "    ${1:// corpo tente}",
+      "capture ${2:erro}",
+      "    ${3:// corpo capture}",
+      "fim"
+    ],
+    "description": "Tratamento de erros"
+  },
+  "Execute em Paralelo": {
+    "prefix": "paralelo",
+    "body": [
+      "execute em paralelo",
+      "    ${1:// corpo}",
+      "fim"
+    ],
+    "description": "Execução paralela"
+  },
+  "Mostre": {
+    "prefix": "mostre",
+    "body": [
+      "mostre ${1:valor}"
+    ],
+    "description": "Imprimir valor"
+  },
+  "Mostre com Texto": {
+    "prefix": "mostretxt",
+    "body": [
+      "mostre \"${1:texto}\""
+    ],
+    "description": "Imprimir texto"
+  },
+  "Devolva": {
+    "prefix": "devolva",
+    "body": [
+      "devolva ${1:valor}"
+    ],
+    "description": "Retornar valor"
+  },
+  "Devolva Nulo": {
+    "prefix": "devolvanulo",
+    "body": [
+      "devolva nulo"
+    ],
+    "description": "Retornar nulo"
+  },
+  "Devolva Verdadeiro": {
+    "prefix": "devolverdadeiro",
+    "body": [
+      "devolva verdadeiro"
+    ],
+    "description": "Retornar verdadeiro"
+  },
+  "Devolva Falso": {
+    "prefix": "devolfalso",
+    "body": [
+      "devolva falso"
+    ],
+    "description": "Retornar falso"
+  },
+  "Lista": {
+    "prefix": "lista",
+    "body": [
+      "${1:nome} é lista",
+      "    ${2:// elementos}",
+      "fim"
+    ],
+    "description": "Declaração de lista"
+  },
+  "Lista Vazia": {
+    "prefix": "listavazia",
+    "body": [
+      "${1:nome} é lista",
+      "fim"
+    ],
+    "description": "Lista vazia"
+  },
+  "Registro": {
+    "prefix": "registro",
+    "body": [
+      "${1:nome} é registro",
+      "    ${2:propriedade}: ${3:valor}",
+      "fim"
+    ],
+    "description": "Declaração de registro"
+  },
+  "Registro Vazio": {
+    "prefix": "registrovazio",
+    "body": [
+      "${1:nome} é registro",
+      "fim"
+    ],
+    "description": "Registro vazio"
+  },
+  "Explicação": {
+    "prefix": "explicacao",
+    "body": [
+      "explicacao",
+      "${1:// documentação}",
+      "fim"
+    ],
+    "description": "Bloco de documentação"
+  },
+  "Teste": {
+    "prefix": "teste",
+    "body": [
+      "teste \"${1:nome do teste}\"",
+      "    ${2:// corpo do teste}",
+      "fim"
+    ],
+    "description": "Declaração de teste"
+  },
+  "Teste Espere Igual": {
+    "prefix": "testeigual",
+    "body": [
+      "teste \"${1:nome do teste}\"",
+      "    espere ${2:valor1} igual a ${3:valor2}",
+      "fim"
+    ],
+    "description": "Teste de igualdade"
+  },
+  "Objetivo": {
+    "prefix": "objetivo",
+    "body": [
+      "objetivo",
+      "    ${1:// descrição do objetivo}",
+      "fim"
+    ],
+    "description": "Bloco de objetivo"
+  },
+  "Constante": {
+    "prefix": "constante",
+    "body": [
+      "${1:nome} é constante ${2:valor}"
+    ],
+    "description": "Declaração de constante"
+  },
+  "Variável": {
+    "prefix": "var",
+    "body": [
+      "${1:nome} é ${2:valor}"
+    ],
+    "description": "Declaração de variável"
+  },
+  "Variável com Tipo": {
+    "prefix": "vartipo",
+    "body": [
+      "${1:nome} : ${2:tipo} é ${3:valor}"
+    ],
+    "description": "Variável com tipo explícito"
+  },
+  "Variável Inteiro": {
+    "prefix": "varint",
+    "body": [
+      "${1:nome} : inteiro é ${2:valor}"
+    ],
+    "description": "Variável inteiro"
+  },
+  "Variável Decimal": {
+    "prefix": "vardec",
+    "body": [
+      "${1:nome} : decimal é ${2:valor}"
+    ],
+    "description": "Variável decimal"
+  },
+  "Variável Texto": {
+    "prefix": "vartxt",
+    "body": [
+      "${1:nome} : texto é \"${2:valor}\""
+    ],
+    "description": "Variável texto"
+  },
+  "Variável Booleano": {
+    "prefix": "varbool",
+    "body": [
+      "${1:nome} : booleano é ${2:valor}"
+    ],
+    "description": "Variável booleano"
+  },
+  "Leia": {
+    "prefix": "leia",
+    "body": [
+      "${1:nome} é leia \"${2:prompt}\""
+    ],
+    "description": "Ler entrada do usuário"
+  },
+  "Salve": {
+    "prefix": "salve",
+    "body": [
+      "salve ${1:valor} em ${2:arquivo}"
+    ],
+    "description": "Salvar valor em arquivo"
+  },
+  "Remova": {
+    "prefix": "remova",
+    "body": [
+      "remova ${1:item} de ${2:lista}"
+    ],
+    "description": "Remover item de lista"
+  },
+  "Busque": {
+    "prefix": "busque",
+    "body": [
+      "${1:resultado} é busque ${2:valor} em ${3:lista}"
+    ],
+    "description": "Buscar valor em lista"
+  },
+  "Acesse": {
+    "prefix": "acesse",
+    "body": [
+      "${1:valor} é acesse ${2:objeto}.${3:propriedade}"
+    ],
+    "description": "Acessar propriedade de objeto"
+  },
+  "Pergunte para IA": {
+    "prefix": "perguntaia",
+    "body": [
+      "${1:resposta} é pergunte para ia",
+      "    \"${2:pergunta}\"",
+      "fim"
+    ],
+    "description": "Perguntar para IA de execução"
+  },
+  "Crie Agente": {
+    "prefix": "agente",
+    "body": [
+      "${1:nome} é crie agente",
+      "    especialidade \"${2:especialidade}\"",
+      "fim"
+    ],
+    "description": "Criar agente de IA"
+  },
+  "Pergunte ao Agente": {
+    "prefix": "perguntaagente",
+    "body": [
+      "${1:resposta} é ${2:agente}.pergunte \"${3:pergunta}\""
+    ],
+    "description": "Perguntar ao agente de IA"
+  },
+  "Usar Módulo": {
+    "prefix": "usar",
+    "body": [
+      "usar ${1:modulo}"
+    ],
+    "description": "Importar módulo"
+  },
+  "Classe": {
+    "prefix": "classe",
+    "body": [
+      "classe ${1:Nome}",
+      "    ${2:// propriedades e métodos}",
+      "fim"
+    ],
+    "description": "Declaração de classe"
+  },
+  "Contrato": {
+    "prefix": "contrato",
+    "body": [
+      "contrato ${1:Nome}",
+      "    ${2:// definições}",
+      "fim"
+    ],
+    "description": "Declaração de contrato"
+  },
+  "Soma": {
+    "prefix": "soma",
+    "body": [
+      "${1:resultado} é ${2:a} + ${3:b}"
+    ],
+    "description": "Soma de dois valores"
+  },
+  "Subtração": {
+    "prefix": "sub",
+    "body": [
+      "${1:resultado} é ${2:a} - ${3:b}"
+    ],
+    "description": "Subtração de dois valores"
+  },
+  "Multiplicação": {
+    "prefix": "mult",
+    "body": [
+      "${1:resultado} é ${2:a} * ${3:b}"
+    ],
+    "description": "Multiplicação de dois valores"
+  },
+  "Divisão": {
+    "prefix": "div",
+    "body": [
+      "${1:resultado} é ${2:a} / ${3:b}"
+    ],
+    "description": "Divisão de dois valores"
+  },
+  "Módulo": {
+    "prefix": "mod",
+    "body": [
+      "${1:resultado} é ${2:a} % ${3:b}"
+    ],
+    "description": "Módulo de dois valores"
+  },
+  "Potência": {
+    "prefix": "pot",
+    "body": [
+      "${1:resultado} é ${2:a} ^ ${3:b}"
+    ],
+    "description": "Potência de dois valores"
+  },
+  "Igual": {
+    "prefix": "igual",
+    "body": [
+      "${1:resultado} é ${2:a} == ${3:b}"
+    ],
+    "description": "Comparação de igualdade"
+  },
+  "Diferente": {
+    "prefix": "diferente",
+    "body": [
+      "${1:resultado} é ${2:a} != ${3:b}"
+    ],
+    "description": "Comparação de diferença"
+  },
+  "Maior Que": {
+    "prefix": "maior",
+    "body": [
+      "${1:resultado} é ${2:a} > ${3:b}"
+    ],
+    "description": "Comparação maior que"
+  },
+  "Menor Que": {
+    "prefix": "menor",
+    "body": [
+      "${1:resultado} é ${2:a} < ${3:b}"
+    ],
+    "description": "Comparação menor que"
+  },
+  "Maior ou Igual": {
+    "prefix": "maiorigual",
+    "body": [
+      "${1:resultado} é ${2:a} >= ${3:b}"
+    ],
+    "description": "Comparação maior ou igual"
+  },
+  "Menor ou Igual": {
+    "prefix": "menorigual",
+    "body": [
+      "${1:resultado} é ${2:a} <= ${3:b}"
+    ],
+    "description": "Comparação menor ou igual"
+  },
+  "E Lógico": {
+    "prefix": "e",
+    "body": [
+      "${1:resultado} é ${2:a} e ${3:b}"
+    ],
+    "description": "Operação E lógico"
+  },
+  "Ou Lógico": {
+    "prefix": "ou",
+    "body": [
+      "${1:resultado} é ${2:a} ou ${3:b}"
+    ],
+    "description": "Operação OU lógico"
+  },
+  "Não Lógico": {
+    "prefix": "nao",
+    "body": [
+      "${1:resultado} é não ${2:valor}"
+    ],
+    "description": "Operação NÃO lógico"
+  },
+  "Concatenar Texto": {
+    "prefix": "concat",
+    "body": [
+      "${1:resultado} é ${2:texto1} + ${3:texto2}"
+    ],
+    "description": "Concatenação de textos"
+  },
+  "Comprimento de Texto": {
+    "prefix": "comprimento",
+    "body": [
+      "${1:resultado} é comprimento de ${2:texto}"
+    ],
+    "description": "Comprimento de texto"
+  },
+  "Substring": {
+    "prefix": "substring",
+    "body": [
+      "${1:resultado} é substring de ${2:texto} de ${3:inicio} até ${4:fim}"
+    ],
+    "description": "Substring de texto"
+  },
+  "Converter para Maiúsculas": {
+    "prefix": "maiusculas",
+    "body": [
+      "${1:resultado} é maiusculas de ${2:texto}"
+    ],
+    "description": "Converter para maiúsculas"
+  },
+  "Converter para Minúsculas": {
+    "prefix": "minusculas",
+    "body": [
+      "${1:resultado} é minusculas de ${2:texto}"
+    ],
+    "description": "Converter para minúsculas"
+  },
+  "Adicionar à Lista": {
+    "prefix": "adicione",
+    "body": [
+      "adicione ${1:item} em ${2:lista}"
+    ],
+    "description": "Adicionar item à lista"
+  },
+  "Tamanho da Lista": {
+    "prefix": "tamanho",
+    "body": [
+      "${1:resultado} é tamanho de ${2:lista}"
+    ],
+    "description": "Tamanho da lista"
+  },
+  "Obter da Lista": {
+    "prefix": "obter",
+    "body": [
+      "${1:resultado} é obter ${2:indice} de ${3:lista}"
+    ],
+    "description": "Obter item da lista por índice"
+  },
+  "Contém": {
+    "prefix": "contem",
+    "body": [
+      "${1:resultado} é ${2:lista} contém ${3:valor}"
+    ],
+    "description": "Verificar se lista contém valor"
+  },
+  "Dividir Texto": {
+    "prefix": "dividir",
+    "body": [
+      "${1:resultado} é dividir ${2:texto} por \"${3:separador}\""
+    ],
+    "description": "Dividir texto por separador"
+  },
+  "Substituir Texto": {
+    "prefix": "substituir",
+    "body": [
+      "${1:resultado} é substituir \"${2:antigo}\" por \"${3:novo}\" em ${4:texto}"
+    ],
+    "description": "Substituir texto"
+  },
+  "Espere": {
+    "prefix": "espere",
+    "body": [
+      "espere ${1:segundos}"
+    ],
+    "description": "Esperar por segundos"
+  },
+  "Comentário de Linha": {
+    "prefix": "#",
+    "body": [
+      "# ${1:comentário}"
+    ],
+    "description": "Comentário de linha"
+  },
+  "Verdadeiro": {
+    "prefix": "verdadeiro",
+    "body": [
+      "verdadeiro"
+    ],
+    "description": "Valor verdadeiro"
+  },
+  "Falso": {
+    "prefix": "falso",
+    "body": [
+      "falso"
+    ],
+    "description": "Valor falso"
+  },
+  "Nulo": {
+    "prefix": "nulo",
+    "body": [
+      "nulo"
+    ],
+    "description": "Valor nulo"
+  },
+  "Incrementar": {
+    "prefix": "inc",
+    "body": [
+      "${1:variavel} é ${1:variavel} + 1"
+    ],
+    "description": "Incrementar variável"
+  },
+  "Decrementar": {
+    "prefix": "dec",
+    "body": [
+      "${1:variavel} é ${1:variavel} - 1"
+    ],
+    "description": "Decrementar variável"
+  },
+  "Trocar Valores": {
+    "prefix": "trocar",
+    "body": [
+      "${1:temp} é ${2:a}",
+      "${2:a} é ${3:b}",
+      "${3:b} é ${1:temp}"
+    ],
+    "description": "Trocar valores de duas variáveis"
+  },
+  "Valor Absoluto": {
+    "prefix": "abs",
+    "body": [
+      "${1:resultado} é absoluto de ${2:valor}"
+    ],
+    "description": "Valor absoluto"
+  },
+  "Arredondar": {
+    "prefix": "arredondar",
+    "body": [
+      "${1:resultado} é arredondar ${2:valor}"
+    ],
+    "description": "Arredondar valor"
+  },
+  "Piso": {
+    "prefix": "piso",
+    "body": [
+      "${1:resultado} é piso de ${2:valor}"
+    ],
+    "description": "Piso de valor"
+  },
+  "Teto": {
+    "prefix": "teto",
+    "body": [
+      "${1:resultado} é teto de ${2:valor}"
+    ],
+    "description": "Teto de valor"
+  },
+  "Raiz Quadrada": {
+    "prefix": "raiz",
+    "body": [
+      "${1:resultado} é raiz de ${2:valor}"
+    ],
+    "description": "Raiz quadrada"
+  },
+  "Logaritmo": {
+    "prefix": "log",
+    "body": [
+      "${1:resultado} é log de ${2:valor}"
+    ],
+    "description": "Logaritmo"
+  },
+  "Aleatório": {
+    "prefix": "aleatorio",
+    "body": [
+      "${1:resultado} é aleatorio entre ${2:min} e ${3:max}"
+    ],
+    "description": "Número aleatório"
+  },
+  "Data Atual": {
+    "prefix": "data",
+    "body": [
+      "${1:resultado} é data atual"
+    ],
+    "description": "Data atual"
+  },
+  "Hora Atual": {
+    "prefix": "hora",
+    "body": [
+      "${1:resultado} é hora atual"
+    ],
+    "description": "Hora atual"
+  },
+  "Formatar Data": {
+    "prefix": "formatardata",
+    "body": [
+      "${1:resultado} é formatar ${2:data} como \"${3:formato}\""
+    ],
+    "description": "Formatar data"
+  },
+  "Criar Arquivo": {
+    "prefix": "criararquivo",
+    "body": [
+      "criar arquivo ${1:caminho}"
+    ],
+    "description": "Criar arquivo"
+  },
+  "Ler Arquivo": {
+    "prefix": "lerarquivo",
+    "body": [
+      "${1:conteudo} é ler arquivo ${2:caminho}"
+    ],
+    "description": "Ler arquivo"
+  },
+  "Excluir Arquivo": {
+    "prefix": "excluirarquivo",
+    "body": [
+      "excluir arquivo ${1:caminho}"
+    ],
+    "description": "Excluir arquivo"
+  },
+  "Diretório Atual": {
+    "prefix": "diratual",
+    "body": [
+      "${1:resultado} é diretório atual"
+    ],
+    "description": "Diretório atual"
+  },
+  "Listar Diretório": {
+    "prefix": "listardir",
+    "body": [
+      "${1:arquivos} é listar diretório ${2:caminho}"
+    ],
+    "description": "Listar diretório"
+  },
+  "Criar Diretório": {
+    "prefix": "criardir",
+    "body": [
+      "criar diretório ${1:caminho}"
+    ],
+    "description": "Criar diretório"
+  },
+  "Excluir Diretório": {
+    "prefix": "excluirdir",
+    "body": [
+      "excluir diretório ${1:caminho}"
+    ],
+    "description": "Excluir diretório"
+  },
+  "Existe Arquivo": {
+    "prefix": "existe",
+    "body": [
+      "${1:resultado} é existe arquivo ${2:caminho}"
+    ],
+    "description": "Verificar se arquivo existe"
+  },
+  "Tarefa em Segundo Plano": {
+    "prefix": "tarefa",
+    "body": [
+      "tarefa ${1:nome}",
+      "    ${2:// corpo}",
+      "fim"
+    ],
+    "description": "Tarefa em segundo plano"
+  },
+  "Canal de Comunicação": {
+    "prefix": "canal",
+    "body": [
+      "${1:nome} é canal"
+    ],
+    "description": "Criar canal de comunicação"
+  },
+  "Escrever no Canal": {
+    "prefix": "escrevercanal",
+    "body": [
+      "escreva ${1:valor} no canal ${2:nome}"
+    ],
+    "description": "Escrever no canal"
+  },
+  "Ler do Canal": {
+    "prefix": "lercanal",
+    "body": [
+      "${1:valor} é ler do canal ${2:nome}"
+    ],
+    "description": "Ler do canal"
+  },
+  "Chamar Serviço": {
+    "prefix": "servico",
+    "body": [
+      "${1:resultado} é chamar serviço ${2:servidor}.${3:metodo} recebendo ${4:argumentos}"
+    ],
+    "description": "Chamar serviço nativo"
+  },
+  "Sistema Mostrar": {
+    "prefix": "sistemamostrar",
+    "body": [
+      "chamar serviço SISTEMA.MOSTRAR recebendo ${1:valor}"
+    ],
+    "description": "Sistema mostrar"
+  },
+  "Sistema Ler": {
+    "prefix": "sistemaler",
+    "body": [
+      "${1:valor} é chamar serviço SISTEMA.LER recebendo ${2:prompt}"
+    ],
+    "description": "Sistema ler"
+  },
+  "Sistema Salvar": {
+    "prefix": "sistemasalvar",
+    "body": [
+      "chamar serviço SISTEMA.SALVAR recebendo ${1:valor}, ${2:arquivo}"
+    ],
+    "description": "Sistema salvar"
+  },
+  "Sistema Carregar": {
+    "prefix": "sistamacarregar",
+    "body": [
+      "${1:valor} é chamar serviço SISTEMA.CARREGAR recebendo ${1:arquivo}"
+    ],
+    "description": "Sistema carregar"
+  },
+  "Banco Conectar": {
+    "prefix": "bancoconectar",
+    "body": [
+      "${1:conexao} é conectar banco ${2:tipo} em \"${3:caminho}\""
+    ],
+    "description": "Conectar ao banco de dados"
+  },
+  "Banco Consultar": {
+    "prefix": "bancoconsultar",
+    "body": [
+      "${1:resultados} é consultar ${2:conexao} com \"${3:query}\""
+    ],
+    "description": "Consultar banco de dados"
+  },
+  "Banco Executar": {
+    "prefix": "bancoexecutar",
+    "body": [
+      "executar ${1:conexao} com \"${2:query}\""
+    ],
+    "description": "Executar query no banco"
+  },
+  "Banco Desconectar": {
+    "prefix": "bancodesconectar",
+    "body": [
+      "desconectar ${1:conexao}"
+    ],
+    "description": "Desconectar do banco"
+  },
+  "HTTP GET": {
+    "prefix": "httpget",
+    "body": [
+      "${1:resposta} é http GET \"${2:url}\""
+    ],
+    "description": "Requisição HTTP GET"
+  },
+  "HTTP POST": {
+    "prefix": "httppost",
+    "body": [
+      "${1:resposta} é http POST \"${2:url}\" com ${3:corpo}"
+    ],
+    "description": "Requisição HTTP POST"
+  },
+  "HTTP PUT": {
+    "prefix": "httpput",
+    "body": [
+      "${1:resposta} é http PUT \"${2:url}\" com ${3:corpo}"
+    ],
+    "description": "Requisição HTTP PUT"
+  },
+  "HTTP DELETE": {
+    "prefix": "httpdelete",
+    "body": [
+      "${1:resposta} é http DELETE \"${2:url}\""
+    ],
+    "description": "Requisição HTTP DELETE"
+  },
+  "JSON Parse": {
+    "prefix": "jsonparse",
+    "body": [
+      "${1:objeto} é parse JSON ${2:texto}"
+    ],
+    "description": "Parsear JSON"
+  },
+  "JSON Stringify": {
+    "prefix": "jsonstringify",
+    "body": [
+      "${1:texto} é stringify JSON ${2:objeto}"
+    ],
+    "description": "Converter objeto para JSON"
+  },
+  "Base64 Encode": {
+    "prefix": "base64encode",
+    "body": [
+      "${1:resultado} é base64 encode ${2:texto}"
+    ],
+    "description": "Codificar em Base64"
+  },
+  "Base64 Decode": {
+    "prefix": "base64decode",
+    "body": [
+      "${1:resultado} é base64 decode ${2:texto}"
+    ],
+    "description": "Decodificar Base64"
+  },
+  "Hash MD5": {
+    "prefix": "hashmd5",
+    "body": [
+      "${1:hash} é hash MD5 de ${2:texto}"
+    ],
+    "description": "Hash MD5"
+  },
+  "Hash SHA256": {
+    "prefix": "hashsha256",
+    "body": [
+      "${1:hash} é hash SHA256 de ${2:texto}"
+    ],
+    "description": "Hash SHA256"
+  },
+  "Criar Processo": {
+    "prefix": "processo",
+    "body": [
+      "${1:processo} é criar processo \"${2:comando}\""
+    ],
+    "description": "Criar processo externo"
+  },
+  "Esperar Processo": {
+    "prefix": "esperarprocesso",
+    "body": [
+      "esperar ${1:processo}"
+    ],
+    "description": "Esperar processo terminar"
+  },
+  "Matar Processo": {
+    "prefix": "matarprocesso",
+    "body": [
+      "matar ${1:processo}"
+    ],
+    "description": "Matar processo"
+  },
+  "Variável de Ambiente": {
+    "prefix": "env",
+    "body": [
+      "${1:valor} é variável de ambiente \"${2:nome}\""
+    ],
+    "description": "Obter variável de ambiente"
+  },
+  "Definir Variável de Ambiente": {
+    "prefix": "setenv",
+    "body": [
+      "definir variável de ambiente \"${1:nome}\" como \"${2:valor}\""
+    ],
+    "description": "Definir variável de ambiente"
+  },
+  "Argumentos de Linha de Comando": {
+    "prefix": "args",
+    "body": [
+      "${1:argumentos} é argumentos de linha de comando"
+    ],
+    "description": "Obter argumentos de linha de comando"
+  },
+  "Versão do BR": {
+    "prefix": "versaobr",
+    "body": [
+      "${1:versao} é versão do BR"
+    ],
+    "description": "Versão do BR"
+  },
+  "Plataforma": {
+    "prefix": "plataforma",
+    "body": [
+      "${1:plataforma} é plataforma atual"
+    ],
+    "description": "Plataforma atual"
+  },
+  "Arquitetura": {
+    "prefix": "arquitetura",
+    "body": [
+      "${1:arquitetura} é arquitetura atual"
+    ],
+    "description": "Arquitetura atual"
+  },
+  "Memória Disponível": {
+    "prefix": "memoria",
+    "body": [
+      "${1:memoria} é memória disponível"
+    ],
+    "description": "Memória disponível"
+  },
+  "CPU Disponível": {
+    "prefix": "cpu",
+    "body": [
+      "${1:cpu} é CPU disponível"
+    ],
+    "description": "CPU disponível"
+  },
+  "Coletar Lixo": {
+    "prefix": "gc",
+    "body": [
+      "coletar lixo"
+    ],
+    "description": "Forçar coleta de lixo"
+  },
+  "Perfil de Performance": {
+    "prefix": "perfil",
+    "body": [
+      "iniciar perfil de performance",
+      "    ${1:// código}",
+      "parar perfil de performance"
+    ],
+    "description": "Perfil de performance"
+  },
+  "Debug Log": {
+    "prefix": "debug",
+    "body": [
+      "debug log \"${1:mensagem}\""
+    ],
+    "description": "Log de debug"
+  },
+  "Assert": {
+    "prefix": "assert",
+    "body": [
+      "assert ${1:condição} senão \"${2:mensagem de erro}\""
+    ],
+    "description": "Assert"
+  },
+  "Tipo de Valor": {
+    "prefix": "tipo",
+    "body": [
+      "${1:tipo} é tipo de ${2:valor}"
+    ],
+    "description": "Tipo de valor"
+  },
+  "Converter para Inteiro": {
+    "prefix": "toint",
+    "body": [
+      "${1:resultado} é inteiro de ${2:valor}"
+    ],
+    "description": "Converter para inteiro"
+  },
+  "Converter para Decimal": {
+    "prefix": "todec",
+    "body": [
+      "${1:resultado} é decimal de ${2:valor}"
+    ],
+    "description": "Converter para decimal"
+  },
+  "Converter para Texto": {
+    "prefix": "totxt",
+    "body": [
+      "${1:resultado} é texto de ${2:valor}"
+    ],
+    "description": "Converter para texto"
+  },
+  "Converter para Booleano": {
+    "prefix": "tobool",
+    "body": [
+      "${1:resultado} é booleano de ${2:valor}"
+    ],
+    "description": "Converter para booleano"
+  },
+  "É Nulo": {
+    "prefix": "ehnulo",
+    "body": [
+      "${1:resultado} é ${2:valor} é nulo"
+    ],
+    "description": "Verificar se é nulo"
+  },
+  "É Vazio": {
+    "prefix": "ehvazio",
+    "body": [
+      "${1:resultado} é ${2:valor} é vazio"
+    ],
+    "description": "Verificar se é vazio"
+  },
+  "Máximo": {
+    "prefix": "max",
+    "body": [
+      "${1:resultado} é máximo de ${2:lista}"
+    ],
+    "description": "Valor máximo"
+  },
+  "Mínimo": {
+    "prefix": "min",
+    "body": [
+      "${1:resultado} é mínimo de ${2:lista}"
+    ],
+    "description": "Valor mínimo"
+  },
+  "Soma da Lista": {
+    "prefix": "somalista",
+    "body": [
+      "${1:resultado} é soma de ${2:lista}"
+    ],
+    "description": "Soma da lista"
+  },
+  "Média da Lista": {
+    "prefix": "media",
+    "body": [
+      "${1:resultado} é média de ${2:lista}"
+    ],
+    "description": "Média da lista"
+  },
+  "Mediana da Lista": {
+    "prefix": "mediana",
+    "body": [
+      "${1:resultado} é mediana de ${2:lista}"
+    ],
+    "description": "Mediana da lista"
+  },
+  "Ordenar Lista": {
+    "prefix": "ordenar",
+    "body": [
+      "${1:resultado} é ordenar ${2:lista}"
+    ],
+    "description": "Ordenar lista"
+  },
+  "Inverter Lista": {
+    "prefix": "inverter",
+    "body": [
+      "${1:resultado} é inverter ${2:lista}"
+    ],
+    "description": "Inverter lista"
+  },
+  "Embaralhar Lista": {
+    "prefix": "embaralhar",
+    "body": [
+      "${1:resultado} é embaralhar ${2:lista}"
+    ],
+    "description": "Embaralhar lista"
+  },
+  "Fatiar Lista": {
+    "prefix": "fatiar",
+    "body": [
+      "${1:resultado} é fatiar ${2:lista} de ${3:inicio} até ${4:fim}"
+    ],
+    "description": "Fatiar lista"
+  },
+  "Juntar Listas": {
+    "prefix": "juntar",
+    "body": [
+      "${1:resultado} é juntar ${2:lista1} com ${3:lista2}"
+    ],
+    "description": "Juntar listas"
+  },
+  "União de Listas": {
+    "prefix": "uniao",
+    "body": [
+      "${1:resultado} é união de ${2:lista1} e ${3:lista2}"
+    ],
+    "description": "União de listas"
+  },
+  "Interseção de Listas": {
+    "prefix": "intersecao",
+    "body": [
+      "${1:resultado} é interseção de ${2:lista1} e ${3:lista2}"
+    ],
+    "description": "Interseção de listas"
+  },
+  "Diferença de Listas": {
+    "prefix": "diferenca",
+    "body": [
+      "${1:resultado} é diferença de ${2:lista1} e ${3:lista2}"
+    ],
+    "description": "Diferença de listas"
+  },
+  "Lista Única": {
+    "prefix": "unica",
+    "body": [
+      "${1:resultado} é única ${2:lista}"
+    ],
+    "description": "Remover duplicados da lista"
+  },
+  "Contar Ocorrências": {
+    "prefix": "contar",
+    "body": [
+      "${1:resultado} é contar ${2:valor} em ${3:lista}"
+    ],
+    "description": "Contar ocorrências"
+  },
+  "Índice de Valor": {
+    "prefix": "indice",
+    "body": [
+      "${1:resultado} é índice de ${2:valor} em ${3:lista}"
+    ],
+    "description": "Índice de valor na lista"
+  },
+  "Último Índice": {
+    "prefix": "ultimoidice",
+    "body": [
+      "${1:resultado} é último índice de ${2:valor} em ${3:lista}"
+    ],
+    "description": "Último índice de valor"
+  },
+  "Primeiro Elemento": {
+    "prefix": "primeiro",
+    "body": [
+      "${1:resultado} é primeiro de ${2:lista}"
+    ],
+    "description": "Primeiro elemento"
+  },
+  "Último Elemento": {
+    "prefix": "ultimo",
+    "body": [
+      "${1:resultado} é último de ${2:lista}"
+    ],
+    "description": "Último elemento"
+  },
+  "Pegar N Primeiros": {
+    "prefix": "pegarn",
+    "body": [
+      "${1:resultado} é pegar ${2:n} primeiros de ${3:lista}"
+    ],
+    "description": "Pegar N primeiros elementos"
+  },
+  "Pegar N Últimos": {
+    "prefix": "pegarnultimos",
+    "body": [
+      "${1:resultado} é pegar ${2:n} últimos de ${3:lista}"
+    ],
+    "description": "Pegar N últimos elementos"
+  },
+  "Pular N Primeiros": {
+    "prefix": "pularn",
+    "body": [
+      "${1:resultado} é pular ${2:n} primeiros de ${3:lista}"
+    ],
+    "description": "Pular N primeiros elementos"
+  },
+  "Mapear Função": {
+    "prefix": "mapear",
+    "body": [
+      "${1:resultado} é mapear ${2:função} em ${3:lista}"
+    ],
+    "description": "Mapear função sobre lista"
+  },
+  "Filtrar Lista": {
+    "prefix": "filtrar",
+    "body": [
+      "${1:resultado} é filtrar ${2:condição} em ${3:lista}"
+    ],
+    "description": "Filtrar lista"
+  },
+  "Reduzir Lista": {
+    "prefix": "reduzir",
+    "body": [
+      "${1:resultado} é reduzir ${2:lista} com ${3:função}"
+    ],
+    "description": "Reduzir lista"
+  },
+  "Qualquer": {
+    "prefix": "qualquer",
+    "body": [
+      "${1:resultado} é qualquer ${2:condição} em ${3:lista}"
+    ],
+    "description": "Verificar se qualquer elemento satisfaz condição"
+  },
+  "Todos": {
+    "prefix": "todos",
+    "body": [
+      "${1:resultado} é todos ${2:condição} em ${3:lista}"
+    ],
+    "description": "Verificar se todos elementos satisfazem condição"
+  },
+  "Zip Listas": {
+    "prefix": "zip",
+    "body": [
+      "${1:resultado} é zip ${2:lista1} com ${3:lista2}"
+    ],
+    "description": "Zip listas"
+  },
+  "Enumerar Lista": {
+    "prefix": "enumerar",
+    "body": [
+      "${1:resultado} é enumerar ${2:lista}"
+    ],
+    "description": "Enumerar lista"
+  },
+  "Agrupar Por": {
+    "prefix": "agrupar",
+    "body": [
+      "${1:resultado} é agrupar ${2:lista} por ${3:chave}"
+    ],
+    "description": "Agrupar por chave"
+  },
+  "Ordenar Por": {
+    "prefix": "ordenarpor",
+    "body": [
+      "${1:resultado} é ordenar ${2:lista} por ${3:chave}"
+    ],
+    "description": "Ordenar por chave"
+  },
+  "Achatamento": {
+    "prefix": "achatar",
+    "body": [
+      "${1:resultado} é achatar ${2:lista}"
+    ],
+    "description": "Achatar lista aninhada"
+  },
+  "Particionar Lista": {
+    "prefix": "particionar",
+    "body": [
+      "${1:resultado} é particionar ${2:lista} em ${3:tamanho}"
+    ],
+    "description": "Particionar lista"
+  },
+  "Janela Deslizante": {
+    "prefix": "janela",
+    "body": [
+      "${1:resultado} é janela deslizante de ${2:tamanho} em ${3:lista}"
+    ],
+    "description": "Janela deslizante"
+  },
+  "Chunk Lista": {
+    "prefix": "chunk",
+    "body": [
+      "${1:resultado} é chunk ${2:lista} em ${3:tamanho}"
+    ],
+    "description": "Chunk lista"
+  },
+  "Transpor Lista": {
+    "prefix": "transpor",
+    "body": [
+      "${1:resultado} é transpor ${2:lista}"
+    ],
+    "description": "Transpor lista"
+  },
+  "Rotacionar Lista": {
+    "prefix": "rotacionar",
+    "body": [
+      "${1:resultado} é rotacionar ${2:lista} por ${3:n}"
+    ],
+    "description": "Rotacionar lista"
+  },
+  "Combinar Listas": {
+    "prefix": "combinar",
+    "body": [
+      "${1:resultado} é combinar ${2:lista1} e ${3:lista2}"
+    ],
+    "description": "Combinar listas"
+  },
+  "Produto Cartesiano": {
+    "prefix": "produto",
+    "body": [
+      "${1:resultado} é produto cartesiano de ${2:lista1} e ${3:lista2}"
+    ],
+    "description": "Produto cartesiano"
+  },
+  "Permutações": {
+    "prefix": "permutacoes",
+    "body": [
+      "${1:resultado} é permutações de ${2:lista}"
+    ],
+    "description": "Permutações"
+  },
+  "Combinações": {
+    "prefix": "combinacoes",
+    "body": [
+      "${1:resultado} é combinações de ${2:lista} de ${3:tamanho}"
+    ],
+    "description": "Combinações"
+  },
+  "Range": {
+    "prefix": "range",
+    "body": [
+      "${1:resultado} é range de ${2:inicio} até ${3:fim}"
+    ],
+    "description": "Range de valores"
+  },
+  "Repeat": {
+    "prefix": "repeat",
+    "body": [
+      "${1:resultado} é repetir ${2:valor} ${3:vezes} vezes"
+    ],
+    "description": "Repetir valor"
+  },
+  "Cycle": {
+    "prefix": "cycle",
+    "body": [
+      "${1:resultado} é ciclo ${2:lista}"
+    ],
+    "description": "Ciclo infinito"
+  },
+  "Take While": {
+    "prefix": "takewhile",
+    "body": [
+      "${1:resultado} é pegar enquanto ${2:condição} de ${3:lista}"
+    ],
+    "description": "Pegar enquanto condição"
+  },
+  "Drop While": {
+    "prefix": "dropwhile",
+    "body": [
+      "${1:resultado} é descartar enquanto ${2:condição} de ${3:lista}"
+    ],
+    "description": "Descartar enquanto condição"
+  },
+  "Take N": {
+    "prefix": "taken",
+    "body": [
+      "${1:resultado} é pegar ${2:n} de ${3:lista}"
+    ],
+    "description": "Pegar N elementos"
+  },
+  "Drop N": {
+    "prefix": "dropn",
+    "body": [
+      "${1:resultado} é descartar ${2:n} de ${3:lista}"
+    ],
+    "description": "Descartar N elementos"
+  },
+  "Zip Longest": {
+    "prefix": "ziplongest",
+    "body": [
+      "${1:resultado} é zip mais longo de ${2:lista1} e ${3:lista2}"
+    ],
+    "description": "Zip mais longo"
+  },
+  "Zip Fill": {
+    "prefix": "zipfill",
+    "body": [
+      "${1:resultado} é zip ${2:lista1} e ${3:lista2} preenchendo com ${4:valor}"
+    ],
+    "description": "Zip preenchendo com valor"
+  },
+  "Accumulate": {
+    "prefix": "acumular",
+    "body": [
+      "${1:resultado} é acumular ${2:lista} com ${3:função}"
+    ],
+    "description": "Acumular valores"
+  },
+  "Chain": {
+    "prefix": "chain",
+    "body": [
+      "${1:resultado} é encadear ${2:lista1} e ${3:lista2}"
+    ],
+    "description": "Encadear listas"
+  },
+  "Compress": {
+    "prefix": "comprimir",
+    "body": [
+      "${1:resultado} é comprimir ${2:lista1} com ${3:lista2}"
+    ],
+    "description": "Comprimir listas"
+  },
+  "Islice": {
+    "prefix": "islice",
+    "body": [
+      "${1:resultado} é fatiar ${2:lista} de ${3:inicio} até ${4:fim} passo ${5:passo}"
+    ],
+    "description": "Fatiar iterador"
+  },
+  "Tee": {
+    "prefix": "tee",
+    "body": [
+      "${1:resultados} é tee ${2:lista} em ${3:n} cópias"
+    ],
+    "description": "Tee iterador"
+  },
+  "Group By": {
+    "prefix": "groupby",
+    "body": [
+      "${1:resultado} é agrupar ${2:lista} por ${3:chave}"
+    ],
+    "description": "Agrupar por chave"
+  },
+  "Itertools": {
+    "prefix": "itertools",
+    "body": [
+      "usar itertools"
+    ],
+    "description": "Importar itertools"
+  },
+  "Math": {
+    "prefix": "math",
+    "body": [
+      "usar math"
+    ],
+    "description": "Importar math"
+  },
+  "Random": {
+    "prefix": "random",
+    "body": [
+      "usar random"
+    ],
+    "description": "Importar random"
+  },
+  "Datetime": {
+    "prefix": "datetime",
+    "body": [
+      "usar datetime"
+    ],
+    "description": "Importar datetime"
+  },
+  "JSON": {
+    "prefix": "json",
+    "body": [
+      "usar json"
+    ],
+    "description": "Importar json"
+  },
+  "OS": {
+    "prefix": "os",
+    "body": [
+      "usar os"
+    ],
+    "description": "Importar os"
+  },
+  "Path": {
+    "prefix": "path",
+    "body": [
+      "usar path"
+    ],
+    "description": "Importar path"
+  },
+  "Sys": {
+    "prefix": "sys",
+    "body": [
+      "usar sys"
+    ],
+    "description": "Importar sys"
+  },
+  "Re": {
+    "prefix": "re",
+    "body": [
+      "usar re"
+    ],
+    "description": "Importar regex"
+  },
+  "Collections": {
+    "prefix": "collections",
+    "body": [
+      "usar collections"
+    ],
+    "description": "Importar collections"
+  },
+  "Functools": {
+    "prefix": "functools",
+    "body": [
+      "usar functools"
+    ],
+    "description": "Importar functools"
+  },
+  "Operator": {
+    "prefix": "operator",
+    "body": [
+      "usar operator"
+    ],
+    "description": "Importar operator"
+  },
+  "Hashlib": {
+    "prefix": "hashlib",
+    "body": [
+      "usar hashlib"
+    ],
+    "description": "Importar hashlib"
+  },
+  "Base64": {
+    "prefix": "base64",
+    "body": [
+      "usar base64"
+    ],
+    "description": "Importar base64"
+  },
+  "Urllib": {
+    "prefix": "urllib",
+    "body": [
+      "usar urllib"
+    ],
+    "description": "Importar urllib"
+  },
+  "Http": {
+    "prefix": "http",
+    "body": [
+      "usar http"
+    ],
+    "description": "Importar http"
+  },
+  "Socket": {
+    "prefix": "socket",
+    "body": [
+      "usar socket"
+    ],
+    "description": "Importar socket"
+  },
+  "Threading": {
+    "prefix": "threading",
+    "body": [
+      "usar threading"
+    ],
+    "description": "Importar threading"
+  },
+  "Multiprocessing": {
+    "prefix": "multiprocessing",
+    "body": [
+      "usar multiprocessing"
+    ],
+    "description": "Importar multiprocessing"
+  },
+  "Queue": {
+    "prefix": "queue",
+    "body": [
+      "usar queue"
+    ],
+    "description": "Importar queue"
+  },
+  "Time2": {
+    "prefix": "time2",
+    "body": [
+      "usar time"
+    ],
+    "description": "Importar time"
+  },
+  "Logging2": {
+    "prefix": "logging2",
+    "body": [
+      "usar logging"
+    ],
+    "description": "Importar logging"
+  },
+  "Unittest": {
+    "prefix": "unittest",
+    "body": [
+      "usar unittest"
+    ],
+    "description": "Importar unittest"
+  },
+  "Pickle": {
+    "prefix": "pickle",
+    "body": [
+      "usar pickle"
+    ],
+    "description": "Importar pickle"
+  },
+  "Shelve": {
+    "prefix": "shelve",
+    "body": [
+      "usar shelve"
+    ],
+    "description": "Importar shelve"
+  },
+  "Sqlite": {
+    "prefix": "sqlite",
+    "body": [
+      "usar sqlite"
+    ],
+    "description": "Importar sqlite"
+  },
+  "Csv": {
+    "prefix": "csv",
+    "body": [
+      "usar csv"
+    ],
+    "description": "Importar csv"
+  },
+  "Xml": {
+    "prefix": "xml",
+    "body": [
+      "usar xml"
+    ],
+    "description": "Importar xml"
+  },
+  "Html": {
+    "prefix": "html",
+    "body": [
+      "usar html"
+    ],
+    "description": "Importar html"
+  },
+  "Email": {
+    "prefix": "email",
+    "body": [
+      "usar email"
+    ],
+    "description": "Importar email"
+  },
+  "Smtplib": {
+    "prefix": "smtplib",
+    "body": [
+      "usar smtplib"
+    ],
+    "description": "Importar smtplib"
+  },
+  "Imaplib": {
+    "prefix": "imaplib",
+    "body": [
+      "usar imaplib"
+    ],
+    "description": "Importar imaplib"
+  },
+  "Poplib": {
+    "prefix": "poplib",
+    "body": [
+      "usar poplib"
+    ],
+    "description": "Importar poplib"
+  },
+  "Ftplib": {
+    "prefix": "ftplib",
+    "body": [
+      "usar ftplib"
+    ],
+    "description": "Importar ftplib"
+  },
+  "Telnetlib": {
+    "prefix": "telnetlib",
+    "body": [
+      "usar telnetlib"
+    ],
+    "description": "Importar telnetlib"
+  },
+  "Uuid": {
+    "prefix": "uuid",
+    "body": [
+      "usar uuid"
+    ],
+    "description": "Importar uuid"
+  },
+  "Decimal": {
+    "prefix": "decimal",
+    "body": [
+      "usar decimal"
+    ],
+    "description": "Importar decimal"
+  },
+  "Fractions": {
+    "prefix": "fractions",
+    "body": [
+      "usar fractions"
+    ],
+    "description": "Importar fractions"
+  },
+  "Statistics": {
+    "prefix": "statistics",
+    "body": [
+      "usar statistics"
+    ],
+    "description": "Importar statistics"
+  },
+  "String": {
+    "prefix": "string",
+    "body": [
+      "usar string"
+    ],
+    "description": "Importar string"
+  },
+  "Textwrap": {
+    "prefix": "textwrap",
+    "body": [
+      "usar textwrap"
+    ],
+    "description": "Importar textwrap"
+  },
+  "Unicodedata": {
+    "prefix": "unicodedata",
+    "body": [
+      "usar unicodedata"
+    ],
+    "description": "Importar unicodedata"
+  },
+  "Codecs": {
+    "prefix": "codecs",
+    "body": [
+      "usar codecs"
+    ],
+    "description": "Importar codecs"
+  },
+  "IO": {
+    "prefix": "io",
+    "body": [
+      "usar io"
+    ],
+    "description": "Importar io"
+  },
+  "Pathlib": {
+    "prefix": "pathlib",
+    "body": [
+      "usar pathlib"
+    ],
+    "description": "Importar pathlib"
+  },
+  "Shutil": {
+    "prefix": "shutil",
+    "body": [
+      "usar shutil"
+    ],
+    "description": "Importar shutil"
+  },
+  "Tempfile": {
+    "prefix": "tempfile",
+    "body": [
+      "usar tempfile"
+    ],
+    "description": "Importar tempfile"
+  },
+  "Glob": {
+    "prefix": "glob",
+    "body": [
+      "usar glob"
+    ],
+    "description": "Importar glob"
+  },
+  "Fnmatch": {
+    "prefix": "fnmatch",
+    "body": [
+      "usar fnmatch"
+    ],
+    "description": "Importar fnmatch"
+  },
+  "Linecache": {
+    "prefix": "linecache",
+    "body": [
+      "usar linecache"
+    ],
+    "description": "Importar linecache"
+  },
+  "Pdb": {
+    "prefix": "pdb",
+    "body": [
+      "usar pdb"
+    ],
+    "description": "Importar pdb"
+  },
+  "CProfile": {
+    "prefix": "cprofile",
+    "body": [
+      "usar cprofile"
+    ],
+    "description": "Importar cprofile"
+  },
+  "Timeit": {
+    "prefix": "timeit",
+    "body": [
+      "usar timeit"
+    ],
+    "description": "Importar timeit"
+  },
+  "Trace": {
+    "prefix": "trace",
+    "body": [
+      "usar trace"
+    ],
+    "description": "Importar trace"
+  },
+  "Tracemalloc": {
+    "prefix": "tracemalloc",
+    "body": [
+      "usar tracemalloc"
+    ],
+    "description": "Importar tracemalloc"
+  },
+  "Resource": {
+    "prefix": "resource",
+    "body": [
+      "usar resource"
+    ],
+    "description": "Importar resource"
+  },
+  "Signal": {
+    "prefix": "signal",
+    "body": [
+      "usar signal"
+    ],
+    "description": "Importar signal"
+  },
+  "Select": {
+    "prefix": "select",
+    "body": [
+      "usar select"
+    ],
+    "description": "Importar select"
+  },
+  "Selectors": {
+    "prefix": "selectors",
+    "body": [
+      "usar selectors"
+    ],
+    "description": "Importar selectors"
+  },
+  "Asyncio": {
+    "prefix": "asyncio",
+    "body": [
+      "usar asyncio"
+    ],
+    "description": "Importar asyncio"
+  },
+  "Concurrent Futures": {
+    "prefix": "concurrent",
+    "body": [
+      "usar concurrent.futures"
+    ],
+    "description": "Importar concurrent.futures"
+  },
+  "Subprocess": {
+    "prefix": "subprocess",
+    "body": [
+      "usar subprocess"
+    ],
+    "description": "Importar subprocess"
+  },
+  "Multiprocessing2": {
+    "prefix": "multiprocessing2",
+    "body": [
+      "usar multiprocessing"
+    ],
+    "description": "Importar multiprocessing"
+  },
+  "Threading2": {
+    "prefix": "threading2",
+    "body": [
+      "usar threading"
+    ],
+    "description": "Importar threading"
+  },
+  "Queue2": {
+    "prefix": "queue2",
+    "body": [
+      "usar queue"
+    ],
+    "description": "Importar queue"
+  },
+  "Weakref": {
+    "prefix": "weakref",
+    "body": [
+      "usar weakref"
+    ],
+    "description": "Importar weakref"
+  },
+  "Copy": {
+    "prefix": "copy",
+    "body": [
+      "usar copy"
+    ],
+    "description": "Importar copy"
+  },
+  "Pprint": {
+    "prefix": "pprint",
+    "body": [
+      "usar pprint"
+    ],
+    "description": "Importar pprint"
+  },
+  "Repr": {
+    "prefix": "repr",
+    "body": [
+      "usar repr"
+    ],
+    "description": "Importar repr"
+  },
+  "Types": {
+    "prefix": "types",
+    "body": [
+      "usar types"
+    ],
+    "description": "Importar types"
+  },
+  "Inspect": {
+    "prefix": "inspect",
+    "body": [
+      "usar inspect"
+    ],
+    "description": "Importar inspect"
+  },
+  "Importlib": {
+    "prefix": "importlib",
+    "body": [
+      "usar importlib"
+    ],
+    "description": "Importar importlib"
+  },
+  "Warnings": {
+    "prefix": "warnings",
+    "body": [
+      "usar warnings"
+    ],
+    "description": "Importar warnings"
+  },
+  "Contextlib": {
+    "prefix": "contextlib",
+    "body": [
+      "usar contextlib"
+    ],
+    "description": "Importar contextlib"
+  },
+  "Atexit": {
+    "prefix": "atexit",
+    "body": [
+      "usar atexit"
+    ],
+    "description": "Importar atexit"
+  },
+  "Getpass": {
+    "prefix": "getpass",
+    "body": [
+      "usar getpass"
+    ],
+    "description": "Importar getpass"
+  },
+  "Curses": {
+    "prefix": "curses",
+    "body": [
+      "usar curses"
+    ],
+    "description": "Importar curses"
+  },
+  "Tkinter": {
+    "prefix": "tkinter",
+    "body": [
+      "usar tkinter"
+    ],
+    "description": "Importar tkinter"
+  },
+  "Turtle": {
+    "prefix": "turtle",
+    "body": [
+      "usar turtle"
+    ],
+    "description": "Importar turtle"
+  },
+  "Pygame": {
+    "prefix": "pygame",
+    "body": [
+      "usar pygame"
+    ],
+    "description": "Importar pygame"
+  },
+  "Numpy": {
+    "prefix": "numpy",
+    "body": [
+      "usar numpy"
+    ],
+    "description": "Importar numpy"
+  },
+  "Pandas": {
+    "prefix": "pandas",
+    "body": [
+      "usar pandas"
+    ],
+    "description": "Importar pandas"
+  },
+  "Matplotlib": {
+    "prefix": "matplotlib",
+    "body": [
+      "usar matplotlib"
+    ],
+    "description": "Importar matplotlib"
+  },
+  "Scipy": {
+    "prefix": "scipy",
+    "body": [
+      "usar scipy"
+    ],
+    "description": "Importar scipy"
+  },
+  "Requests": {
+    "prefix": "requests",
+    "body": [
+      "usar requests"
+    ],
+    "description": "Importar requests"
+  },
+  "BeautifulSoup": {
+    "prefix": "bs4",
+    "body": [
+      "usar bs4"
+    ],
+    "description": "Importar BeautifulSoup"
+  },
+  "Lxml": {
+    "prefix": "lxml",
+    "body": [
+      "usar lxml"
+    ],
+    "description": "Importar lxml"
+  },
+  "Scrapy": {
+    "prefix": "scrapy",
+    "body": [
+      "usar scrapy"
+    ],
+    "description": "Importar scrapy"
+  },
+  "Flask": {
+    "prefix": "flask",
+    "body": [
+      "usar flask"
+    ],
+    "description": "Importar Flask"
+  },
+  "Django": {
+    "prefix": "django",
+    "body": [
+      "usar django"
+    ],
+    "description": "Importar Django"
+  },
+  "FastAPI": {
+    "prefix": "fastapi",
+    "body": [
+      "usar fastapi"
+    ],
+    "description": "Importar FastAPI"
+  },
+  "Pydantic": {
+    "prefix": "pydantic",
+    "body": [
+      "usar pydantic"
+    ],
+    "description": "Importar Pydantic"
+  },
+  "SQLAlchemy": {
+    "prefix": "sqlalchemy",
+    "body": [
+      "usar sqlalchemy"
+    ],
+    "description": "Importar SQLAlchemy"
+  },
+  "Alembic": {
+    "prefix": "alembic",
+    "body": [
+      "usar alembic"
+    ],
+    "description": "Importar Alembic"
+  },
+  "Celery": {
+    "prefix": "celery",
+    "body": [
+      "usar celery"
+    ],
+    "description": "Importar Celery"
+  },
+  "Redis": {
+    "prefix": "redis",
+    "body": [
+      "usar redis"
+    ],
+    "description": "Importar Redis"
+  },
+  "MongoDB": {
+    "prefix": "mongodb",
+    "body": [
+      "usar mongodb"
+    ],
+    "description": "Importar MongoDB"
+  },
+  "Elasticsearch": {
+    "prefix": "elasticsearch",
+    "body": [
+      "usar elasticsearch"
+    ],
+    "description": "Importar Elasticsearch"
+  },
+  "Kafka": {
+    "prefix": "kafka",
+    "body": [
+      "usar kafka"
+    ],
+    "description": "Importar Kafka"
+  },
+  "RabbitMQ": {
+    "prefix": "rabbitmq",
+    "body": [
+      "usar rabbitmq"
+    ],
+    "description": "Importar RabbitMQ"
+  },
+  "Docker": {
+    "prefix": "docker",
+    "body": [
+      "usar docker"
+    ],
+    "description": "Importar Docker"
+  },
+  "Kubernetes2": {
+    "prefix": "kubernetes2",
+    "body": [
+      "usar kubernetes"
+    ],
+    "description": "Importar Kubernetes"
+  },
+  "Terraform": {
+    "prefix": "terraform",
+    "body": [
+      "usar terraform"
+    ],
+    "description": "Importar Terraform"
+  },
+  "Ansible": {
+    "prefix": "ansible",
+    "body": [
+      "usar ansible"
+    ],
+    "description": "Importar Ansible"
+  },
+  "Jenkins": {
+    "prefix": "jenkins",
+    "body": [
+      "usar jenkins"
+    ],
+    "description": "Importar Jenkins"
+  },
+  "Git": {
+    "prefix": "git",
+    "body": [
+      "usar git"
+    ],
+    "description": "Importar Git"
+  },
+  "Github": {
+    "prefix": "github",
+    "body": [
+      "usar github"
+    ],
+    "description": "Importar Github"
+  },
+  "Gitlab": {
+    "prefix": "gitlab",
+    "body": [
+      "usar gitlab"
+    ],
+    "description": "Importar Gitlab"
+  },
+  "Bitbucket": {
+    "prefix": "bitbucket",
+    "body": [
+      "usar bitbucket"
+    ],
+    "description": "Importar Bitbucket"
+  },
+  "AWS": {
+    "prefix": "aws",
+    "body": [
+      "usar aws"
+    ],
+    "description": "Importar AWS"
+  },
+  "Azure": {
+    "prefix": "azure",
+    "body": [
+      "usar azure"
+    ],
+    "description": "Importar Azure"
+  },
+  "GCP": {
+    "prefix": "gcp",
+    "body": [
+      "usar gcp"
+    ],
+    "description": "Importar GCP"
+  },
+  "OpenAI": {
+    "prefix": "openai",
+    "body": [
+      "usar openai"
+    ],
+    "description": "Importar OpenAI"
+  },
+  "Anthropic": {
+    "prefix": "anthropic",
+    "body": [
+      "usar anthropic"
+    ],
+    "description": "Importar Anthropic"
+  },
+  "HuggingFace": {
+    "prefix": "huggingface",
+    "body": [
+      "usar huggingface"
+    ],
+    "description": "Importar HuggingFace"
+  },
+  "LangChain": {
+    "prefix": "langchain",
+    "body": [
+      "usar langchain"
+    ],
+    "description": "Importar LangChain"
+  },
+  "Transformers": {
+    "prefix": "transformers",
+    "body": [
+      "usar transformers"
+    ],
+    "description": "Importar Transformers"
+  },
+  "Torch": {
+    "prefix": "torch",
+    "body": [
+      "usar torch"
+    ],
+    "description": "Importar PyTorch"
+  },
+  "TensorFlow": {
+    "prefix": "tensorflow",
+    "body": [
+      "usar tensorflow"
+    ],
+    "description": "Importar TensorFlow"
+  },
+  "Keras": {
+    "prefix": "keras",
+    "body": [
+      "usar keras"
+    ],
+    "description": "Importar Keras"
+  },
+  "Scikit-learn": {
+    "prefix": "sklearn",
+    "body": [
+      "usar sklearn"
+    ],
+    "description": "Importar Scikit-learn"
+  },
+  "XGBoost": {
+    "prefix": "xgboost",
+    "body": [
+      "usar xgboost"
+    ],
+    "description": "Importar XGBoost"
+  },
+  "LightGBM": {
+    "prefix": "lightgbm",
+    "body": [
+      "usar lightgbm"
+    ],
+    "description": "Importar LightGBM"
+  },
+  "CatBoost": {
+    "prefix": "catboost",
+    "body": [
+      "usar catboost"
+    ],
+    "description": "Importar CatBoost"
+  },
+  "Optuna": {
+    "prefix": "optuna",
+    "body": [
+      "usar optuna"
+    ],
+    "description": "Importar Optuna"
+  },
+  "Ray": {
+    "prefix": "ray",
+    "body": [
+      "usar ray"
+    ],
+    "description": "Importar Ray"
+  },
+  "Dask": {
+    "prefix": "dask",
+    "body": [
+      "usar dask"
+    ],
+    "description": "Importar Dask"
+  },
+  "Polars": {
+    "prefix": "polars",
+    "body": [
+      "usar polars"
+    ],
+    "description": "Importar Polars"
+  },
+  "Vaex": {
+    "prefix": "vaex",
+    "body": [
+      "usar vaex"
+    ],
+    "description": "Importar Vaex"
+  },
+  "Modin": {
+    "prefix": "modin",
+    "body": [
+      "usar modin"
+    ],
+    "description": "Importar Modin"
+  },
+  "Koalas": {
+    "prefix": "koalas",
+    "body": [
+      "usar koalas"
+    ],
+    "description": "Importar Koalas"
+  },
+  "PySpark": {
+    "prefix": "pyspark",
+    "body": [
+      "usar pyspark"
+    ],
+    "description": "Importar PySpark"
+  },
+  "Apache Spark": {
+    "prefix": "spark",
+    "body": [
+      "usar spark"
+    ],
+    "description": "Importar Apache Spark"
+  },
+  "Hadoop": {
+    "prefix": "hadoop",
+    "body": [
+      "usar hadoop"
+    ],
+    "description": "Importar Hadoop"
+  },
+  "Hive": {
+    "prefix": "hive",
+    "body": [
+      "usar hive"
+    ],
+    "description": "Importar Hive"
+  },
+  "Presto": {
+    "prefix": "presto",
+    "body": [
+      "usar presto"
+    ],
+    "description": "Importar Presto"
+  },
+  "Trino": {
+    "prefix": "trino",
+    "body": [
+      "usar trino"
+    ],
+    "description": "Importar Trino"
+  },
+  "ClickHouse": {
+    "prefix": "clickhouse",
+    "body": [
+      "usar clickhouse"
+    ],
+    "description": "Importar ClickHouse"
+  },
+  "TimescaleDB": {
+    "prefix": "timescaledb",
+    "body": [
+      "usar timescaledb"
+    ],
+    "description": "Importar TimescaleDB"
+  },
+  "InfluxDB": {
+    "prefix": "influxdb",
+    "body": [
+      "usar influxdb"
+    ],
+    "description": "Importar InfluxDB"
+  },
+  "Prometheus": {
+    "prefix": "prometheus",
+    "body": [
+      "usar prometheus"
+    ],
+    "description": "Importar Prometheus"
+  },
+  "Grafana": {
+    "prefix": "grafana",
+    "body": [
+      "usar grafana"
+    ],
+    "description": "Importar Grafana"
+  },
+  "Kibana": {
+    "prefix": "kibana",
+    "body": [
+      "usar kibana"
+    ],
+    "description": "Importar Kibana"
+  },
+  "Logstash": {
+    "prefix": "logstash",
+    "body": [
+      "usar logstash"
+    ],
+    "description": "Importar Logstash"
+  },
+  "Filebeat": {
+    "prefix": "filebeat",
+    "body": [
+      "usar filebeat"
+    ],
+    "description": "Importar Filebeat"
+  },
+  "Metricbeat": {
+    "prefix": "metricbeat",
+    "body": [
+      "usar metricbeat"
+    ],
+    "description": "Importar Metricbeat"
+  },
+  "Heartbeat": {
+    "prefix": "heartbeat",
+    "body": [
+      "usar heartbeat"
+    ],
+    "description": "Importar Heartbeat"
+  },
+  "Packetbeat": {
+    "prefix": "packetbeat",
+    "body": [
+      "usar packetbeat"
+    ],
+    "description": "Importar Packetbeat"
+  },
+  "Auditbeat": {
+    "prefix": "auditbeat",
+    "body": [
+      "usar auditbeat"
+    ],
+    "description": "Importar Auditbeat"
+  },
+  "Journalbeat": {
+    "prefix": "journalbeat",
+    "body": [
+      "usar journalbeat"
+    ],
+    "description": "Importar Journalbeat"
+  },
+  "Winlogbeat": {
+    "prefix": "winlogbeat",
+    "body": [
+      "usar winlogbeat"
+    ],
+    "description": "Importar Winlogbeat"
+  },
+  "Functionbeat": {
+    "prefix": "functionbeat",
+    "body": [
+      "usar functionbeat"
+    ],
+    "description": "Importar Functionbeat"
+  },
+  "Elastic Agent": {
+    "prefix": "elasticagent",
+    "body": [
+      "usar elasticagent"
+    ],
+    "description": "Importar Elastic Agent"
+  },
+  "APM": {
+    "prefix": "apm",
+    "body": [
+      "usar apm"
+    ],
+    "description": "Importar APM"
+  },
+  "SIEM": {
+    "prefix": "siem",
+    "body": [
+      "usar siem"
+    ],
+    "description": "Importar SIEM"
+  },
+  "Security": {
+    "prefix": "security",
+    "body": [
+      "usar security"
+    ],
+    "description": "Importar Security"
+  },
+  "Observability": {
+    "prefix": "observability",
+    "body": [
+      "usar observability"
+    ],
+    "description": "Importar Observability"
+  },
+  "Monitoring": {
+    "prefix": "monitoring",
+    "body": [
+      "usar monitoring"
+    ],
+    "description": "Importar Monitoring"
+  },
+  "Logging": {
+    "prefix": "logging",
+    "body": [
+      "usar logging"
+    ],
+    "description": "Importar Logging"
+  },
+  "Tracing": {
+    "prefix": "tracing",
+    "body": [
+      "usar tracing"
+    ],
+    "description": "Importar Tracing"
+  },
+  "Profiling": {
+    "prefix": "profiling",
+    "body": [
+      "usar profiling"
+    ],
+    "description": "Importar Profiling"
+  },
+  "Debugging": {
+    "prefix": "debugging",
+    "body": [
+      "usar debugging"
+    ],
+    "description": "Importar Debugging"
+  },
+  "Testing": {
+    "prefix": "testing",
+    "body": [
+      "usar testing"
+    ],
+    "description": "Importar Testing"
+  },
+  "CI/CD": {
+    "prefix": "cicd",
+    "body": [
+      "usar cicd"
+    ],
+    "description": "Importar CI/CD"
+  },
+  "DevOps": {
+    "prefix": "devops",
+    "body": [
+      "usar devops"
+    ],
+    "description": "Importar DevOps"
+  },
+  "SRE": {
+    "prefix": "sre",
+    "body": [
+      "usar sre"
+    ],
+    "description": "Importar SRE"
+  },
+  "Cloud Native": {
+    "prefix": "cloudnative",
+    "body": [
+      "usar cloudnative"
+    ],
+    "description": "Importar Cloud Native"
+  },
+  "Microservices": {
+    "prefix": "microservices",
+    "body": [
+      "usar microservices"
+    ],
+    "description": "Importar Microservices"
+  },
+  "Serverless": {
+    "prefix": "serverless",
+    "body": [
+      "usar serverless"
+    ],
+    "description": "Importar Serverless"
+  },
+  "Containers": {
+    "prefix": "containers",
+    "body": [
+      "usar containers"
+    ],
+    "description": "Importar Containers"
+  },
+  "Kubernetes3": {
+    "prefix": "kubernetes3",
+    "body": [
+      "usar kubernetes"
+    ],
+    "description": "Importar Kubernetes"
+  },
+  "Service Mesh": {
+    "prefix": "servicemesh",
+    "body": [
+      "usar servicemesh"
+    ],
+    "description": "Importar Service Mesh"
+  },
+  "API Gateway": {
+    "prefix": "apigateway",
+    "body": [
+      "usar apigateway"
+    ],
+    "description": "Importar API Gateway"
+  },
+  "Load Balancer": {
+    "prefix": "loadbalancer",
+    "body": [
+      "usar loadbalancer"
+    ],
+    "description": "Importar Load Balancer"
+  },
+  "CDN": {
+    "prefix": "cdn",
+    "body": [
+      "usar cdn"
+    ],
+    "description": "Importar CDN"
+  },
+  "WAF": {
+    "prefix": "waf",
+    "body": [
+      "usar waf"
+    ],
+    "description": "Importar WAF"
+  },
+  "DDoS Protection": {
+    "prefix": "ddos",
+    "body": [
+      "usar ddos"
+    ],
+    "description": "Importar DDoS Protection"
+  },
+  "SSL/TLS": {
+    "prefix": "ssl",
+    "body": [
+      "usar ssl"
+    ],
+    "description": "Importar SSL/TLS"
+  },
+  "OAuth": {
+    "prefix": "oauth",
+    "body": [
+      "usar oauth"
+    ],
+    "description": "Importar OAuth"
+  },
+  "OIDC": {
+    "prefix": "oidc",
+    "body": [
+      "usar oidc"
+    ],
+    "description": "Importar OIDC"
+  },
+  "SAML": {
+    "prefix": "saml",
+    "body": [
+      "usar saml"
+    ],
+    "description": "Importar SAML"
+  },
+  "JWT": {
+    "prefix": "jwt",
+    "body": [
+      "usar jwt"
+    ],
+    "description": "Importar JWT"
+  },
+  "RBAC": {
+    "prefix": "rbac",
+    "body": [
+      "usar rbac"
+    ],
+    "description": "Importar RBAC"
+  },
+  "ABAC": {
+    "prefix": "abac",
+    "body": [
+      "usar abac"
+    ],
+    "description": "Importar ABAC"
+  },
+  "PBAC": {
+    "prefix": "pbac",
+    "body": [
+      "usar pbac"
+    ],
+    "description": "Importar PBAC"
+  },
+  "Zero Trust": {
+    "prefix": "zerotrust",
+    "body": [
+      "usar zerotrust"
+    ],
+    "description": "Importar Zero Trust"
+  },
+  "Defense in Depth": {
+    "prefix": "defense",
+    "body": [
+      "usar defense"
+    ],
+    "description": "Importar Defense in Depth"
+  },
+  "Least Privilege": {
+    "prefix": "leastprivilege",
+    "body": [
+      "usar leastprivilege"
+    ],
+    "description": "Importar Least Privilege"
+  },
+  "Need to Know": {
+    "prefix": "needtoknow",
+    "body": [
+      "usar needtoknow"
+    ],
+    "description": "Importar Need to Know"
+  },
+  "Separation of Duties": {
+    "prefix": "separation",
+    "body": [
+      "usar separation"
+    ],
+    "description": "Importar Separation of Duties"
+  }
+}

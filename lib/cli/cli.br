@@ -1,0 +1,32 @@
+explicacao
+    CLI: criação de comandos, flags e argumentos de terminal.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "cli"
+fim
+
+função descricao
+    devolva "CLI: criação de comandos, flags e argumentos de terminal"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função comando recebendo nome_item
+    devolva nome_item
+fim
+
+função flag recebendo nome_item
+    devolva nome_item
+fim
+
+função argumento recebendo nome_item
+    devolva nome_item
+fim
+
+função executar_cli recebendo nome_item
+    devolva 0
+fim

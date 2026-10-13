@@ -1,0 +1,5 @@
+importar "senha"
+
+teste "nome do modulo senha"
+    espere senha.nome() igual a "senha"
+fim

@@ -1,0 +1,23 @@
+name: BR CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validar:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Validar sintaxe Python
+        run: python -m py_compile br.py ferramentas\*.py ide_br\main.py
+      - name: Rodar testes BR
+        run: python ferramentas\tester.py testes\automatizados.br
+      - name: Validar modulos e controles
+        run: |
+          python br.py testes\modulos_importacao.br
+          python br.py testes\controle_classe.br
+          python br.py testes\contrato_exemplo.br

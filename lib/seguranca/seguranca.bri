@@ -1,0 +1,9 @@
+contrato seguranca
+    função nome
+    função descricao
+    função versao
+    função hash recebendo valor
+    função base64 recebendo valor
+    função permitir recebendo permissao
+    função jwt_validar recebendo token
+fim

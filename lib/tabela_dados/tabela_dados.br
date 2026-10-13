@@ -1,0 +1,38 @@
+# Tabela_dados module for structured tables, filters and aggregations
+
+explicacao
+    tabela_dados: tabelas estruturadas, filtros e agregações.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "tabela_dados"
+fim
+
+função descricao
+    devolva "Tabelas estruturadas, filtros e agregações."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função criar_tabela recebendo colunas
+    devolva "ID_TABELA"
+fim
+
+função inserir_linha recebendo tabela_id, linha
+    devolva verdadeiro
+fim
+
+função filtrar recebendo tabela_id, condicoes
+    devolva []
+fim
+
+função agregar recebendo tabela_id, operacao, coluna
+    devolva 0
+fim
+
+função fechar
+    devolva verdadeiro
+fim

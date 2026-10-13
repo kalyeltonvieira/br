@@ -1,0 +1,22 @@
+contrato auth
+    função nome
+    função descricao
+    função versao
+    função criar_usuario recebendo nome, email e senha
+    função autenticar recebendo email e senha
+    função buscar_usuario recebendo email
+    função buscar_usuario_por_id recebendo id
+    função atualizar_senha recebendo usuario, senha_antiga e senha_nova
+    função definir_token recebendo usuario e token
+    função validar_token recebendo token
+    função revogar_token recebendo usuario
+    função ativar_usuario recebendo usuario
+    função desativar_usuario recebendo usuario
+    função definir_papel recebendo usuario e papel
+    função verificar_permissao recebendo usuario e permissao
+    função adicionar_permissao recebendo usuario e permissao
+    função remover_permissao recebendo usuario e permissao
+    função registrar_tentativa_login recebendo usuario, sucesso
+    função bloquear_usuario recebendo usuario
+    função desbloquear_usuario recebendo usuario
+fim

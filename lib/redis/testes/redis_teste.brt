@@ -1,0 +1,5 @@
+importar "redis"
+
+teste "nome do modulo redis"
+    espere redis.nome() igual a "redis"
+fim

@@ -1,0 +1,5 @@
+importar "memoria"
+
+teste "nome do modulo memoria"
+    espere memoria.nome() igual a "memoria"
+fim

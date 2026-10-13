@@ -1,0 +1,30 @@
+# SMTP module for sending emails via SMTP
+
+explicacao
+    smtp: envio de e-mails via SMTP.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "smtp"
+fim
+
+função descricao
+    devolva "Envio de e-mails via SMTP."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função conectar recebendo servidor, porta, usuario, senha
+    devolva verdadeiro
+fim
+
+função enviar recebendo remetente, destinatario, assunto, corpo
+    devolva verdadeiro
+fim
+
+função fechar
+    devolva verdadeiro
+fim

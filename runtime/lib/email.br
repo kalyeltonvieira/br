@@ -1,0 +1,104 @@
+explicacao
+    Email: envio e recebimento de emails com suporte a SMTP, POP3, IMAP,
+    anexos, templates HTML e validação de endereços.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome devolva "email" fim
+função descricao devolva "Email: SMTP, POP3, IMAP, anexos e templates HTML" fim
+função versao devolva "1.0.0" fim
+
+função enviar recebendo configuracao e mensagem
+    devolva servico_email("enviar", configuracao, mensagem)
+fim
+
+função enviar_simples recebendo para, assunto, corpo
+    config é registro
+        servidor: "localhost"
+        porta: 25
+    fim
+    mensagem é registro
+        para: para
+        assunto: assunto
+        corpo: corpo
+    fim
+    devolva enviar(config, mensagem)
+fim
+
+função criar_mensagem recebendo para, assunto e corpo
+    devolva registro
+        para: para
+        assunto: assunto
+        corpo: corpo
+        anexos: []
+        cc: []
+        bcc: []
+        prioridade: "normal"
+    fim
+fim
+
+função adicionar_anexo recebendo mensagem e caminho_arquivo
+    importar "arquivo" as arq
+    se arq.existe(caminho_arquivo) então
+        adicione caminho_arquivo a mensagem.anexos
+    fim
+    devolva mensagem
+fim
+
+função adicionar_cc recebendo mensagem e endereco
+    se mensagem.cc nulo então mensagem.cc é [] fim
+    adicione endereco a mensagem.cc
+    devolva mensagem
+fim
+
+função adicionar_bcc recebendo mensagem e endereco
+    se mensagem.bcc nulo então mensagem.bcc é [] fim
+    adicione endereco a mensagem.bcc
+    devolva mensagem
+fim
+
+função criar_template_html recebendo titulo, conteudo e link
+    html é "<!DOCTYPE html><html><head><meta charset='UTF-8'><title>" + titulo + "</title>"
+    html é html + "<style>body{font-family:Arial,sans-serif;background:#f4f4f4;margin:0;padding:20px}"
+    html é html + ".container{max-width:600px;margin:0 auto;background:#fff;border-radius:8px;padding:30px}"
+    html é html + "h1{color:#333;font-size:24px}p{color:#666;line-height:1.6}</style></head><body>"
+    html é html + "<div class='container'><h1>" + titulo + "</h1><p>" + conteudo + "</p>"
+    se link não nulo e link não "" então
+        html é html + "<p><a href='" + link + "' style='display:inline-block;background:#007bff;color:#fff;padding:10px 20px;text-decoration:none;border-radius:4px'>Clique aqui</a></p>"
+    fim
+    html é html + "</div></body></html>
+    devolva html
+fim
+
+função validar_configuracao recebendo config
+    erros é []
+    se config.servidor nulo ou config.servidor "" então
+        adicione "Servidor SMTP é obrigatório" a erros
+    fim
+    se config.porta nulo então
+        adicione "Porta é obrigatória" a erros
+    fim
+    se config.usuario nulo e config.senha nulo então
+        adicione "Requer autenticação" a erros
+    fim
+    devolva erros
+fim
+
+teste "criar mensagem"
+    msg é criar_mensagem("teste@exemplo.com", "Assunto", "Corpo")
+    esporte msg.para igual a "teste@exemplo.com"
+    esporte msg.assunto igual a "Assunto"
+fim
+
+teste "adicionar anexo"
+    msg é criar_mensagem("a@b.com", "Teste", "Corpo")
+    msg é adicionar_anexo(msg, "arquivo.txt")
+    esporte msg.anexos não nulo
+fim
+
+teste "template html"
+    html é criar_template_html("Bem-vindo", "Conteúdo do email", "https://site.com")
+    esporte contem(html, "Bem-vindo")
+    esporte contem(html, "Conteúdo")
+    esporte contem(html, "https://site.com")
+fim

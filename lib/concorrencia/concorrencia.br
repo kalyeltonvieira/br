@@ -1,0 +1,32 @@
+explicacao
+    Concorrência: threads, tarefas assíncronas e promessas.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "concorrencia"
+fim
+
+função descricao
+    devolva "Concorrência: threads, tarefas assíncronas e promessas"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função tarefa recebendo nome_item
+    devolva nome_item
+fim
+
+função aguardar recebendo valor
+    devolva valor
+fim
+
+função promessa recebendo valor
+    devolva valor
+fim
+
+função em_paralelo recebendo valor
+    devolva valor
+fim

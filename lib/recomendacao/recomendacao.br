@@ -1,0 +1,35 @@
+# Recomendacao module for personalized recommendations and rankings
+
+explicacao
+    recomendacao: recomendações personalizadas e rankings.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "recomendacao"
+fim
+
+função descricao
+    devolva "Recomendações personalizadas e rankings."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# itens: list of maps with a numeric field "score"
+função recomendar recebendo usuario_id, itens
+    # return top 5 items sorted by score descending
+    variavel ordenado = itens.ordenarPor("score", "desc")
+    devolva ordenado[0:5]
+fim
+
+função gerar_ranking recebendo criterio, itens
+    # criterio ignored, just sort by score descending
+    variavel ordenado = itens.ordenarPor("score", "desc")
+    devolva ordenado
+fim
+
+função fechar
+    devolva verdadeiro
+fim

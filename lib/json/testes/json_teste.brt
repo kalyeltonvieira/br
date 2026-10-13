@@ -1,0 +1,5 @@
+importar "json"
+
+teste "nome do modulo json"
+    espere json.nome() igual a "json"
+fim

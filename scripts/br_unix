@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Wrapper Unix/macOS para executar o interpretador BR.
+# Este arquivo permite usar #!/usr/bin/env br como shebang apos instalacao.
+
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do
+  DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+  TARGET="$(readlink "$SOURCE")"
+  case "$TARGET" in
+    /*) SOURCE="$TARGET" ;;
+    *) SOURCE="$DIR/$TARGET" ;;
+  esac
+done
+
+SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+exec python3 "$SCRIPT_DIR/br.py" "$@"

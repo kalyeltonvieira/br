@@ -1,0 +1,34 @@
+# Agente module for creating automated agents
+
+explicacao
+    agente: criação de agentes automatizados.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "agente"
+fim
+
+função descricao
+    devolva "Criação de agentes automatizados."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função iniciar recebendo perfil
+    devolva verdadeiro
+fim
+
+função executar recebendo ação, parâmetros
+    devolva "resultado"
+fim
+
+função encerrar
+    devolva verdadeiro
+fim
+
+função fechar
+    devolva verdadeiro
+fim

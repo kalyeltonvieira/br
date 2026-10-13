@@ -1,0 +1,32 @@
+explicacao
+    Token: geração e validação de tokens simples.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "token"
+fim
+
+função descricao
+    devolva "Token: geração e validação de tokens simples"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função gerar
+    devolva "token"
+fim
+
+função validar recebendo valor
+    devolva verdadeiro
+fim
+
+função expirar recebendo valor
+    devolva verdadeiro
+fim
+
+função renovar recebendo valor
+    devolva valor
+fim

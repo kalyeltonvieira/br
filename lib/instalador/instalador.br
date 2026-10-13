@@ -1,0 +1,32 @@
+explicacao
+    Instalador: criação de instaladores para projetos .br.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "instalador"
+fim
+
+função descricao
+    devolva "Instalador: criação de instaladores para projetos .br"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função criar recebendo projeto
+    devolva verdadeiro
+fim
+
+função windows recebendo projeto
+    devolva projeto
+fim
+
+função linux recebendo projeto
+    devolva projeto
+fim
+
+função manifesto recebendo projeto
+    devolva projeto
+fim

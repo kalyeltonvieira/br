@@ -1,0 +1,9 @@
+contrato permissao
+    função nome
+    função descricao
+    função versao
+    função permitir recebendo acao
+    função negar recebendo acao
+    função verificar recebendo acao
+    função papel recebendo nome_item
+fim

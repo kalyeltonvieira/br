@@ -1,0 +1,5 @@
+importar "jogo"
+
+teste "nome do modulo jogo"
+    espere jogo.nome() igual a "jogo"
+fim

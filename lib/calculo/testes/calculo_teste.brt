@@ -1,0 +1,5 @@
+importar "calculo"
+
+teste "nome do modulo calculo"
+    espere calculo.nome() igual a "calculo"
+fim

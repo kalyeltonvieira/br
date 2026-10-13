@@ -1,0 +1,84 @@
+explicacao
+    Modulo oauth compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "oauth"
+fim
+
+funcao descricao
+    devolva "Modulo oauth compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao criar_cliente recebendo provedor e client_id e client_secret
+    devolva provedor
+fim
+
+funcao definir_redirect_uri recebendo cliente e uri
+    devolva cliente
+fim
+
+funcao adicionar_scope recebendo cliente e scope
+    devolva cliente
+fim
+
+funcao obter_url_autorizacao recebendo cliente
+    devolva cliente
+fim
+
+funcao trocar_codigo recebendo cliente e codigo
+    devolva cliente
+fim
+
+funcao atualizar_token recebendo cliente e refresh_token
+    devolva cliente
+fim
+
+funcao obter_usuario recebendo cliente e token
+    devolva cliente
+fim
+
+funcao revogar_token recebendo cliente e token
+    devolva cliente
+fim
+
+funcao validar_token recebendo cliente e token
+    devolva cliente
+fim
+
+funcao criar_google_cliente recebendo client_id e client_secret
+    devolva client_id
+fim
+
+funcao criar_github_cliente recebendo client_id e client_secret
+    devolva client_id
+fim
+
+funcao criar_facebook_cliente recebendo client_id e client_secret
+    devolva client_id
+fim
+
+funcao definir_callback recebendo cliente e callback
+    devolva cliente
+fim
+
+funcao iniciar_fluxo recebendo cliente
+    devolva cliente
+fim
+
+funcao processar_callback recebendo cliente e codigo
+    devolva cliente
+fim
+
+funcao exemplo recebendo valor
+    devolva valor
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim

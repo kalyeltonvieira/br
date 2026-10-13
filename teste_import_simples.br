@@ -1,0 +1,18 @@
+# Teste simples de importação
+
+mostre "Teste de importação..."
+
+# Tentar importar matemática
+importar "matematica"
+
+# Chamar função diretamente (se import funcionar)
+resultado é 5 + 3  # Operação direta como fallback
+mostre "5 + 3 = " + resultado
+
+# Testar se funções básicas funcionam
+função teste recebendo x
+    devolva x * 2
+fim
+
+valor é teste 10
+mostre "teste(10) = " + valor

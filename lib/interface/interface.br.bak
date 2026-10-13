@@ -1,0 +1,32 @@
+explicacao
+    Interface de terminal: terminal, cores, menus, perguntas, progresso e tabelas.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "interface"
+fim
+
+função descricao
+    devolva "Interface de terminal: terminal, cores, menus, perguntas, progresso e tabelas"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função linha recebendo mensagem
+    devolva mensagem
+fim
+
+função perguntar recebendo mensagem
+    devolva ""
+fim
+
+função progresso recebendo valor
+    devolva valor
+fim
+
+função tabela recebendo dados
+    devolva dados
+fim

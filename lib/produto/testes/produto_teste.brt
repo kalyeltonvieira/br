@@ -1,0 +1,5 @@
+importar "produto"
+
+teste "nome do modulo produto"
+    espere produto.nome() igual a "produto"
+fim

@@ -1,0 +1,43 @@
+# Chatbot module for conversations, intents, responses and context
+
+explicacao
+    chatbot: conversas, intenções, respostas e contexto.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "chatbot"
+fim
+
+função descricao
+    devolva "Conversas, intenções, respostas e contexto."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# Simple session storage – map from session id to last message
+função iniciar_sessao
+    devolva "sessao_" + random.numero_entre(1,1000)
+fim
+
+função processar_mensagem recebendo sessao_id, mensagem
+    se mensagem contém "hello" ou mensagem contém "ola" então
+        devolva "Olá! Como posso ajudar?"
+    senão se mensagem contém "bye" ou mensagem contém "tchau" então
+        devolva "Até logo!"
+    senão se mensagem contém "tempo" então
+        devolva "Não tenho acesso ao clima agora."
+    senão
+        devolva "Desculpe, não entendi."
+    fim
+fim
+
+função encerrar_sessao recebendo sessao_id
+    devolva verdadeiro
+fim
+
+função fechar
+    devolva verdadeiro
+fim

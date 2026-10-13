@@ -1,0 +1,38 @@
+# IA module for basic artificial intelligence functions
+
+explicacao
+    ia: funções básicas de inteligência artificial.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "ia"
+fim
+
+função descricao
+    devolva "Funções básicas de inteligência artificial."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função treinar recebendo dados, modelo
+    devolva verdadeiro
+fim
+
+função prever recebendo modelo, entrada
+    devolva "resultado"
+fim
+
+função salvar_modelo recebendo modelo, caminho
+    devolva verdadeiro
+fim
+
+função carregar_modelo recebendo caminho
+    devolva "modelo"
+fim
+
+função fechar
+    devolva verdadeiro
+fim

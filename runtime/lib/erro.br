@@ -1,0 +1,32 @@
+explicacao
+    Modulo erro compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "erro"
+fim
+
+funcao descricao
+    devolva "Modulo erro compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao tentar
+    devolva verdadeiro
+fim
+
+funcao levantar_erro
+    devolva verdadeiro
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim
+
+funcao exemplo recebendo valor
+    devolva valor
+fim

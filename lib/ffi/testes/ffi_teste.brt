@@ -1,0 +1,5 @@
+importar "ffi"
+
+teste "nome do modulo ffi"
+    espere ffi.nome() igual a "ffi"
+fim

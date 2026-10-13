@@ -1,0 +1,9 @@
+contrato depuracao
+    função nome
+    função descricao
+    função versao
+    função breakpoint recebendo linha
+    função pilha
+    função rastrear recebendo valor
+    função inspecionar recebendo valor
+fim

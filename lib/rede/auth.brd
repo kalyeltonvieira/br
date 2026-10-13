@@ -1,0 +1,41 @@
+# Documentação BRD: auth
+
+## Nome
+
+Auth
+
+## Descrição
+
+Autenticação de usuários. Permite autenticar usuários com senhas, tokens e outros métodos.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* criar_usuario: Cria um novo usuário.
+* autenticar: Autentica um usuário com email e senha.
+* buscar_usuario: Busca um usuário pelo email.
+* buscar_usuario_por_id: Busca um usuário pelo ID.
+* atualizar_senha: Atualiza a senha de um usuário.
+* definir_token: Define um token de autenticação para o usuário.
+* validar_token: Valida se um token é válido.
+* revogar_token: Revoga o token de um usuário.
+* ativar_usuario: Ativa um usuário.
+* desativar_usuario: Desativa um usuário.
+* definir_papel: Define o papel/role de um usuário.
+* verificar_permissao: Verifica se um usuário tem uma permissão.
+* adicionar_permissao: Adiciona uma permissão ao usuário.
+* remover_permissao: Remove uma permissão do usuário.
+* registrar_tentativa_login: Registra uma tentativa de login.
+* bloquear_usuario: Bloqueia um usuário.
+* desbloquear_usuario: Desbloqueia um usuário.
+
+## Exemplo
+
+```br
+usar rede.auth
+
+usuario é criar_usuario "João", "joao@exemplo.com", "senha123"
+autenticado é autenticar "joao@exemplo.com", "senha123"
+```

@@ -1,0 +1,5 @@
+importar "clusterizacao"
+
+teste "nome do modulo clusterizacao"
+    espere clusterizacao.nome() igual a "clusterizacao"
+fim

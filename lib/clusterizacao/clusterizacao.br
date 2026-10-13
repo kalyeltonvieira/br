@@ -1,0 +1,85 @@
+# Clusterizacao module for data clustering and pattern discovery
+
+explicacao
+    clusterizacao: agrupamento de dados e descoberta de padrões.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "clusterizacao"
+fim
+
+função descricao
+    devolva "Agrupamento de dados e descoberta de padrões."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# Helper: Euclidean distance squared for 2‑D points
+função distancia2d recebendo p1, p2
+    variavel dx = p1[0] - p2[0]
+    variavel dy = p1[1] - p2[1]
+    devolva dx*dx + dy*dy
+fim
+
+# Helper: compute centroid (average) of a list of 2‑D points
+função centroid recebendo pontos
+    variavel soma_x = 0
+    variavel soma_y = 0
+    variavel n = 0
+    para cada pt em pontos
+        soma_x = soma_x + pt[0]
+        soma_y = soma_y + pt[1]
+        n = n + 1
+    fim
+    devolva [soma_x / n, soma_y / n]
+fim
+
+# Simple 2‑cluster (k=2) clustering – ignore "metodo" and use naive split
+função executar_clustering recebendo dados, metodo
+    se tamanho(dados) < 2 então
+        devolva []
+    fim
+    # split data in half for initial centroids
+    variavel meio = tamanho(dados) / 2
+    variavel primeiro = dados[0:meio]
+    variavel segundo = dados[meio:]
+    variavel c1 = centroid(primeiro)
+    variavel c2 = centroid(segundo)
+    variavel cluster1 = []
+    variavel cluster2 = []
+    para cada ponto em dados
+        variavel d1 = distancia2d(ponto, c1)
+        variavel d2 = distancia2d(ponto, c2)
+        se d1 <= d2 então
+            cluster1 = cluster1 + [ponto]
+        senão
+            cluster2 = cluster2 + [ponto]
+        fim
+    fim
+    devolva [cluster1, cluster2]
+fim
+
+# Simple evaluation: average intra‑cluster distance
+função avaliar_cluster recebendo dados, clusters
+    variavel total = 0
+    variavel cont = 0
+    conte de 0 até tamanho(clusters) - 1 como i
+        variavel cluster = clusters[i]
+        variavel centro = centroid(cluster)
+        para cada ponto em cluster
+            total = total + distancia2d(ponto, centro)
+            cont = cont + 1
+        fim
+    fim
+    se cont == 0 então
+        devolva 0.0
+    fim
+    devolva total / cont
+fim
+
+função fechar
+    devolva verdadeiro
+fim

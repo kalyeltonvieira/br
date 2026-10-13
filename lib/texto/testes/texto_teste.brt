@@ -1,0 +1,5 @@
+importar "texto" como modulo_texto
+
+teste "nome do modulo texto"
+    espere modulo_texto.nome() igual a "texto"
+fim

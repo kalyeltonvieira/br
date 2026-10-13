@@ -1,0 +1,289 @@
+explicacao
+    Sistema: informações do sistema operacional, processos, ambiente,
+    usuário, memória, disco, rede e utilitários de sistema.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome
+    devolva "sistema"
+fim
+
+função descricao
+    devolva "Sistema: SO, processos, ambiente, usuário e utilitários"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# ============ SISTEMA OPERACIONAL ============
+
+função so_nome
+    importar "arquivo" as arq
+    tente
+        se arq.existe("C:") então
+            devolva "Windows"
+        senao
+            devolva "Linux"
+        fim
+    capture erro
+        devolva "Desconhecido"
+    fim
+fim
+
+função so_versao
+    devolva servico_sistema("so_versao")
+fim
+
+função so_arquitetura
+    devolva servico_sistema("so_arquitetura")
+fim
+
+função hostname
+    devolva servico_sistema("hostname")
+fim
+
+função nome_usuario
+    devolva servico_sistema("nome_usuario")
+fim
+
+função diretorio_usuario
+    devolva servico_sistema("diretorio_usuario")
+fim
+
+função diretorio_atual
+    devolva servico_sistema("diretorio_atual")
+fim
+
+função diretorio_temporario
+    devolva servico_sistema("diretorio_temporario")
+fim
+
+# ============ PROCESSOS ============
+
+função pid
+    devolva servico_sistema("pid")
+fim
+
+função pid_pai
+    devolva servico_sistema("pid_pai")
+fim
+
+função processo_nome
+    devolva servico_sistema("processo_nome")
+fim
+
+função executar recebendo comando
+    devolva servico_sistema("executar", comando)
+fim
+
+função executar_detalhado recebendo comando
+    devolva servico_sistema("executar_detalhado", comando)
+fim
+
+função dormir recebendo milissegundos
+    devolva servico_sistema("dormir", milissegundos)
+fim
+
+# ============ AMBIENTE ============
+
+função variavel recebendo nome
+    devolva servico_sistema("variavel", nome)
+fim
+
+função definir_variavel recebendo nome e valor
+    devolva servico_sistema("definir_variavel", nome, valor)
+fim
+
+função todas_variaveis
+    devolva servico_sistema("todas_variaveis")
+fim
+
+função argumentos_linha_comando
+    devolva servico_sistema("argumentos_linha_comando")
+fim
+
+# ============ MEMÓRIA ============
+
+função memoria_total
+    devolva servico_sistema("memoria_total")
+fim
+
+função memoria_disponivel
+    devolva servico_sistema("memoria_disponivel")
+fim
+
+função memoria_usada
+    devolva servico_sistema("memoria_usada")
+fim
+
+função memoria_em_uso
+    total é memoria_total()
+    disponivel é memoria_disponivel()
+    se total > 0 então
+        devolva (total - disponivel) * 100 / total
+    fim
+    devolva 0
+fim
+
+# ============ DISCO ============
+
+função espaco_disco_total recebendo caminho
+    devolva servico_sistema("espaco_disco_total", caminho)
+fim
+
+função espaco_disco_livre recebendo caminho
+    devolva servico_sistema("espaco_disco_livre", caminho)
+fim
+
+função espaco_disco_usado recebendo caminho
+    total é espaco_disco_total(caminho)
+    livre é espaco_disco_livre(caminho)
+    devolva total - livre
+fim
+
+função disco_em_uso recebendo caminho
+    total é espaco_disco_total(caminho)
+    livre é espaco_disco_livre(caminho)
+    se total > 0 então
+        devolva (total - livre) * 100 / total
+    fim
+    devolva 0
+fim
+
+# ============ TEMPO ============
+
+função tempo_atividade
+    devolva servico_sistema("tempo_atividade")
+fim
+
+função ticks
+    devolva servico_sistema("ticks")
+fim
+
+# ============ REDE ============
+
+função interfaces_rede
+    devolva servico_sistema("interfaces_rede")
+fim
+
+função estatisticas_rede
+    devolva servico_sistema("estatisticas_rede")
+fim
+
+# ============ INFORMAÇÕES ============
+
+função informacoes_sistema
+    devolva registro
+        so: so_nome()
+        hostname: hostname()
+        usuario: nome_usuario()
+        diretorio: diretorio_atual()
+        processador: processador_info()
+        nucleos: nucleos_cpu()
+        memoria: memoria_total()
+        pid: pid()
+    fim
+fim
+
+função processador_info
+    devolva servico_sistema("processador_info")
+fim
+
+função nucleos_cpu
+    devolva servico_sistema("nucleos_cpu")
+fim
+
+função carga_cpu
+    devolva servico_sistema("carga_cpu")
+fim
+
+# ============ UTILITÁRIOS ============
+
+função limpar_tela
+    so é so_nome()
+    se so igual "Windows" então
+        execute em paralelo comando_sistema("cls")
+    senao
+        execute em paralelo comando_sistema("clear")
+    fim
+fim
+
+função beep
+    devolva servico_sistema("beep")
+fim
+
+função area_transferencia_ler
+    devolva servico_sistema("area_transferencia_ler")
+fim
+
+função area_transferencia_escrever recebendo texto
+    devolva servico_sistema("area_transferencia_escrever", texto)
+fim
+
+função comando_sistema recebendo comando
+    tente
+        resultado é servico_sistema("executar", comando)
+        devolva registro
+            sucesso: verdadeiro
+            saida: resultado
+        fim
+    capture erro
+        devolva registro
+            sucesso: falso
+            saída: ""
+            erro: erro.mensagem
+        fim
+    fim
+fim
+
+# ============ TEMPORIZADOR ============
+
+função cronometro_novo
+    devolva registro
+        inicio: servico_sistema("ticks")
+        ticks_inicio: servico_sistema("ticks")
+    fim
+fim
+
+função cronometro_zerar recebendo cronometro
+    cronometro.inicio é servico_sistema("ticks")
+    cronometro.ticks_inicio é servico_sistema("ticks")
+    devolva cronometro
+fim
+
+função cronometro_ler recebendo cronometro
+    agora é servico_sistema("ticks")
+    devolva agora - cronometro.ticks_inicio
+fim
+
+# ============ TESTES ============
+
+teste "informacoes basicas"
+    info é informacoes_sistema()
+    esporte info.so não nulo
+    esporte info.hostname não nulo
+fim
+
+teste "diretorio atual"
+    dir é diretorio_atual()
+    esporte dir não nulo
+    esporte dir não ""
+fim
+
+teste "nome usuario"
+    usuario é nome_usuario()
+    esporte usuario não nulo
+fim
+
+teste "cronometro"
+    crono é cronometro_novo()
+    dormir(10)
+    tempo é cronometro_ler(crono)
+    esporte tempo >= 0
+fim
+
+teste "memoria info"
+    total é memoria_total()
+    esporte total >= 0
+fim

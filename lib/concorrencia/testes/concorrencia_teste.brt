@@ -1,0 +1,5 @@
+importar "concorrencia"
+
+teste "nome do modulo concorrencia"
+    espere concorrencia.nome() igual a "concorrencia"
+fim

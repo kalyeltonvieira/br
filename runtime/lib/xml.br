@@ -1,0 +1,254 @@
+explicacao
+    XML: parser e gerador de XML simples.
+    Suporta elementos, atributos, conteúdo textual,
+    elementos aninhados e parsing de strings XML.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome devolva "xml" fim
+função descricao devolva "XML: parser e gerador de documentos XML" fim
+função versao devolva "1.0.0" fim
+
+função elemento recebendo nome_tag, atributos e conteudo
+    resultado é "<" + nome_tag
+    para cada chave, valor em atributos
+        resultado é resultado + " " + chave + "=\"" + _escapar_xml(valor) + "\""
+    fim
+    se conteudo nulo ou conteudo "" então
+        resultado é resultado + "/>\n"
+    senao
+        resultado é resultado + ">" + conteudo + "</" + nome_tag + ">\n"
+    fim
+    devolva resultado
+fim
+
+função _escapar_xml recebendo texto
+    resultado é "" + texto
+    resultado é substituir(resultado, "&", "&")
+    resultado é substituir(resultado, "<", "<")
+    resultado é substituir(resultado, ">", ">")
+    resultado é substituir(resultado, "\"", """)
+    resultado é substituir(resultado, "'", "'")
+    devolva resultado
+fim
+
+função _desescapar_xml recebendo texto
+    resultado é texto
+    resultado é substituir(resultado, "<", "<")
+    resultado é substituir(resultado, ">", ">")
+    resultado é substituir(resultado, """, "\"")
+    resultado é substituir(resultado, "'", "'")
+    resultado é substituir(resultado, "&", "&")
+    devolva resultado
+fim
+
+função documento recebendo raiz_elemento e declaracao
+    se declaracao nulo ou declaracao igual "" então
+        declaracao é "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+    fim
+    devolva declaracao + "\n" + raiz_elemento
+fim
+
+função parsear recebendo texto_xml
+    resultado_parse é _parsear_elemento(texto_xml, 0)
+    devolva resultado_parse[0] se resultado_parse nulo senao nulo
+fim
+
+função _parsear_elemento recebendo texto, i
+    # Pular espaços
+    enquanto i < tamanho(texto) e (texto[i] igual " " ou texto[i] igual "\n" ou texto[i] igual "\t")
+        i é i + 1
+    fim
+    
+    se i >= tamanho(texto) ou texto[i] diferente "<" então
+        devolva nulo
+    fim
+    
+    # Pular <
+    i é i + 1
+    
+    # Pular <?xml ... ?>
+    se i < tamanho(texto) e texto[i] igual "?" então
+        enquanto i < tamanho(texto) e not (texto[i] igual "?" e i+1 < tamanho(texto) e texto[i+1] igual ">")
+            i é i + 1
+        fim
+        i é i + 2
+        # Tentar próximo elemento
+        return _parsear_elemento(texto, i)
+    fim
+    
+    # Pular comentários <!-- -->
+    se i < tamanho(texto) e texto[i] igual "!" e texto[i+1] igual "-" e texto[i+2] igual "-" então
+        enquanto i < tamanho(texto) e not (texto[i] igual "-" e texto[i+1] igual "-" e texto[i+2] igual ">")
+            i é i + 1
+        fim
+        i é i + 3
+        return _parsear_elemento(texto, i)
+    fim
+    
+    # Ler nome da tag
+    nome_tag_parse é ""
+    enquanto i < tamanho(texto) e texto[i] diferente " " e texto[i] diferente ">" e texto[i] diferente "/"
+        nome_tag_parse é nome_tag_parse + texto[i]
+        i é i + 1
+    fim
+    
+    # Ler atributos
+    atributos_parse é registro
+    enquanto i < tamanho(texto) e texto[i] diferente ">" e texto[i] diferente "/"
+        se texto[i] igual " " então
+            i é i + 1
+            continue
+        fim
+        
+        # Ler nome do atributo
+        nome_attr é ""
+        enquanto i < tamanho(texto) e texto[i] diferente "="
+            nome_attr é nome_attr + texto[i]
+            i é i + 1
+        fim
+        
+        se i < tamanho(texto) então i é i + 1 fim  # pular =
+        
+        # Ler valor do atributo
+        se i < tamanho(texto) e (texto[i] igual "\"" ou texto[i] igual "'") então
+            aspa_attr é texto[i]
+            i é i + 1
+            valor_attr é ""
+            enquanto i < tamanho(texto) e texto[i] diferente aspa_attr
+                valor_attr é valor_attr + texto[i]
+                i é i + 1
+            fim
+            se i < tamanho(texto) então i é i + 1 fim
+            atributos_parse[nome_attr] é _desescapar_xml(valor_attr)
+        fim
+    fim
+    
+    # Tag auto-fechada
+    se i < tamanho(texto) e texto[i] igual "/" então
+        i é i + 2  # pular />
+        devolva [registro nome: nome_tag_parse atributos: atributos_parse conteudo: "" tipo: "elemento" fim, i]
+    fim
+    
+    # Fechar >
+    se i < tamanho(texto) e texto[i] igual ">" então
+        i é i + 1
+    fim
+    
+    # Ler conteúdo
+    conteudo_parse é ""
+    filhos_parse é []
+    
+    enquanto i < tamanho(texto)
+        se texto[i] igual "<" então
+            # Verificar se é tag de fechamento
+            se i+1 < tamanho(texto) e texto[i+1] igual "/" então
+                # Encontrar fim da tag de fechamento
+                enquanto i < tamanho(texto) e texto[i] diferente ">"
+                    i é i + 1
+                fim
+                se i < tamanho(texto) então i é i + 1 fim
+                pare
+            senao
+                # Elemento filho
+                resultado_filho é _parsear_elemento(texto, i)
+                se resultado_filho diferente nulo então
+                    adicione resultado_filho[0] a filhos_parse
+                    i é resultado_filho[1]
+                senao
+                    i é i + 1
+                fim
+            fim
+        senao
+            conteudo_parse é conteudo_parse + texto[i]
+            i é i + 1
+        fim
+    fim
+    
+    resultado_elemento é registro
+        nome: nome_tag_parse
+        atributos: atributos_parse
+        conteudo: aparar(conteudo_parse)
+        filhos: filhos_parse
+        tipo: "elemento"
+    fim
+    
+    devolva [resultado_elemento, i]
+fim
+
+função para_json recebendo xml_elemento
+    se xml_elemento nulo então devolva nulo fim
+    resultado_json é registro
+        tag: xml_elemento.nome
+    fim
+    
+    se xml_elemento.atributos não nulo e tamanho(chaves(xml_elemento.atributos)) > 0 então
+        resultado_json.atributos é xml_elemento.atributos
+    fim
+    
+    se xml_elemento.conteudo não "" então
+        resultado_json.conteudo é xml_elemento.conteudo
+    fim
+    
+    se xml_elemento.filhos não nulo e tamanho(xml_elemento.filhos) > 0 então
+        resultado_json.filhos é []
+        para cada f in xml_elemento.filhos
+            adicione para_json(f) a resultado_json.filhos
+        fim
+    fim
+    
+    devolva resultado_json
+fim
+
+função de_json recebendo dados_json
+    se dados_json nulo então devolva "" fim
+    tag_raiz é dados_json.tag
+    attrs Þ dados_json.atributos se dados_json.atributos nulo senao registro
+    conteudo_raiz é dados_json.conteudo se dados_json.conteudo nulo senao ""
+    
+    se dados_json.filhos nulo ou tamanho(dados_json.filhos) igual 0 então
+        resultado_xml é elemento(tag_raiz, attrs, _escapar_xml(conteudo_raiz))
+        devolva resultado_xml
+    fim
+    
+    conteudo_filhos é ""
+    para cada f_json in dados_json.filhos
+        conteudo_filhos é conteudo_filhos + de_json(f_json)
+    fim
+    devolva elemento(tag_raiz, attrs, conteudo_filhos)
+fim
+
+teste "gerar xml simples"
+    resultado é elemento("livro", registro id: "1" categoria: "ficcao" fim, "Dom Casmurro")
+    esporte contem(resultado, "<livro")
+    esporte contem(resultado, "id=\"1\"")
+    esporte contem(resultado, "Dom Casmurro")
+    esporte contem(resultado, "</livro>")
+fim
+
+teste "xml auto-fechado"
+    resultado é elemento("br", registro, nulo)
+    esporte contem(resultado, "/>")
+fim
+
+teste "xml parse simples"
+    xml_texto é "<livro id=\"1\"><titulo>Dom Casmurro</titulo><autor>Machado</autor></livro>"
+    resultado é parsear(xml_texto)
+    esporte resultado diferente nulo
+    esporte resultado.nome igual a "livro"
+    esporte tamanho(resultado.filhos) igual a 2
+fim
+
+teste "xml documento completo"
+    doc_xml é documento(elemento("root", registro, "conteúdo"))
+    esporte contem(doc_xml, "<?xml")
+    esporte contem(doc_xml, "<root>")
+fim
+
+teste "xml para json"
+    xml_texto é "<pessoa nome=\"João\"><idade>30</idade></pessoa>"
+    parsed é parsear(xml_texto)
+    json_resultado é para_json(parsed)
+    esporte json_resultado.tag igual a "pessoa"
+    esporte json_resultado.atributos.nome igual a "João"
+fim

@@ -1,0 +1,9 @@
+contrato path
+    função nome
+    função descricao
+    função versao
+    função juntar recebendo base e nome_item
+    função diretorio recebendo caminho
+    função extensao recebendo caminho
+    função normalizar recebendo caminho
+fim

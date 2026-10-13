@@ -1,0 +1,5 @@
+importar "scaffold"
+
+teste "nome do modulo scaffold"
+    espere scaffold.nome() igual a "scaffold"
+fim

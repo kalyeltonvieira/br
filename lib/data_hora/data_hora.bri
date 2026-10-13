@@ -1,0 +1,9 @@
+contrato data_hora
+    função nome
+    função descricao
+    função versao
+    função agora
+    função hoje
+    função diferenca recebendo inicio e fim_valor
+    função fuso
+fim

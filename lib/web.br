@@ -1,0 +1,197 @@
+# Biblioteca Web/HTTP - BR
+# Servidor HTTP nativo
+
+# ==================== SERVIDOR HTTP ====================
+
+função servidor_http recebendo porta
+    servidor é novo_servidor_http(porta)
+    devolva servidor
+fim
+
+função novo_servidor_http recebendo porta
+    servidor é registro
+        porta: porta
+        rotas: {}
+        rodando: falso
+    fim
+    devolva servidor
+fim
+
+# ==================== ROTAS ====================
+
+função rota_get recebendo servidor e caminho e handler
+    servidor.rotas[caminho] é registro
+        metodo: "GET"
+        handler: handler
+    fim
+    devolva servidor
+fim
+
+função rota_post recebendo servidor e caminho e handler
+    servidor.rotas[caminho] é registro
+        metodo: "POST"
+        handler: handler
+    fim
+    devolva servidor
+fim
+
+função rota_put recebendo servidor e caminho e handler
+    servidor.rotas[caminho] é registro
+        metodo: "PUT"
+        handler: handler
+    fim
+    devolva servidor
+fim
+
+função rota_delete recebendo servidor e caminho e handler
+    servidor.rotas[caminho] é registro
+        metodo: "DELETE"
+        handler: handler
+    fim
+    devolva servidor
+fim
+
+# ==================== CONTROLE DO SERVIDOR ====================
+
+função iniciar recebendo servidor
+    servidor.rodando é verdadeiro
+    mostre "Servidor HTTP rodando em http://localhost:" + servidor.porta
+    enquanto servidor.rodando
+        requisicao é aguardar_requisicao(servidor.porta)
+        se requisicao != nulo
+            resposta é processar_requisicao(servidor, requisicao)
+            enviar_resposta(requisicao.conexao, resposta)
+            fechar_conexao(requisicao.conexao)
+        fim
+    fim
+fim
+
+função parar recebendo servidor
+    servidor.rodando é falso
+    devolva verdadeiro
+fim
+
+# ==================== PROCESSAMENTO ====================
+
+função processar_requisicao recebendo servidor e requisicao
+    rota é servidor.rotas[requisicao.caminho]
+    
+    se rota == nulo
+        devolva criar_resposta(404, "Não encontrado", "<h1>404 - Página não encontrada</h1>")
+    fim
+    
+    se rota.metodo != requisicao.metodo
+        devolva criar_resposta(405, "Método não permitido", "<h1>405 - Método não permitido</h1>")
+    fim
+    
+    corpo_resposta é rota.handler(requisicao.corpo)
+    devolva criar_resposta(200, "OK", corpo_resposta)
+fim
+
+função criar_resposta recebendo codigo e status e corpo
+    resposta é registro
+        codigo: codigo
+        status: status
+        corpo: corpo
+        headers: registro
+            "Content-Type": "text/html; charset=utf-8"
+            "Connection": "close"
+        fim
+    fim
+    devolva resposta
+fim
+
+# ==================== UTILITÁRIOS ====================
+
+função resposta_json recebendo dados
+    devolva registro
+        codigo: 200
+        status: "OK"
+        corpo: json_gerar(dados)
+        headers: registro
+            "Content-Type": "application/json"
+            "Connection": "close"
+        fim
+    fim
+fim
+
+função resposta_texto recebendo texto
+    devolva registro
+        codigo: 200
+        status: "OK"
+        corpo: texto
+        headers: registro
+            "Content-Type": "text/plain; charset=utf-8"
+            "Connection": "close"
+        fim
+    fim
+fim
+
+função resposta_html recebendo html
+    devolva registro
+        codigo: 200
+        status: "OK"
+        corpo: html
+        headers: registro
+            "Content-Type": "text/html; charset=utf-8"
+            "Connection": "close"
+        fim
+    fim
+fim
+
+função redirecionar recebendo url
+    devolva registro
+        codigo: 302
+        status: "Found"
+        corpo: ""
+        headers: registro
+            "Location": url
+            "Connection": "close"
+        fim
+    fim
+fim
+
+# ==================== MIDDLEWARE ====================
+
+função middleware_log recebendo requisicao e proximo
+    mostre "[" + requisicao.metodo + "] " + requisicao.caminho
+    devolva proximo(requisicao)
+fim
+
+função middleware_cors recebendo requisicao e proximo
+    resposta é proximo(requisicao)
+    resposta.headers["Access-Control-Allow-Origin"] é "*"
+    resposta.headers["Access-Control-Allow-Methods"] é "GET, POST, PUT, DELETE"
+    resposta.headers["Access-Control-Allow-Headers"] é "Content-Type"
+    devolva resposta
+fim
+
+# ==================== EXEMPLO DE USO ====================
+
+função exemplo_servidor
+    servidor é servidor_http(8080)
+    
+    # Adicionar rotas
+    rota_get(servidor, "/", funcao(req)
+        devolva "<h1>Bem-vindo ao servidor BR!</h1><p>Servidor rodando em porta 8080</p>"
+    fim)
+    
+    rota_get(servidor, "/api/ola", funcao(req)
+        devolva resposta_json(registro
+            mensagem: "Olá, Mundo!"
+            versao: "2.0.0"
+            linguagem: "BR"
+        fim)
+    fim)
+    
+    rota_post(servidor, "/api/dados", funcao(req)
+        dados é json_parse(req.corpo)
+        devolva resposta_json(registro
+            sucesso: verdadeiro
+            recebido: dados
+        fim)
+    fim)
+    
+    # Iniciar servidor
+    iniciar(servidor)
+fim

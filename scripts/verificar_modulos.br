@@ -1,0 +1,20 @@
+importar machine_learning
+importar deep_learning
+importar visao_computacional
+importar recomendacao
+importar smtp
+
+mostre "machine_learning nome: " + machine_learning.nome()
+mostre "machine_learning exemplo(5): " + machine_learning.exemplo(5)
+
+mostre "deep_learning nome: " + deep_learning.nome()
+mostre "deep_learning exemplo(7): " + deep_learning.exemplo(7)
+
+mostre "visao_computacional nome: " + visao_computacional.nome()
+mostre "visao_computacional exemplo('texto'): " + visao_computacional.exemplo('texto')
+
+mostre "recomendacao nome: " + recomendacao.nome()
+mostre "recomendacao exemplo([1,2,3]): " + recomendacao.exemplo([1,2,3])
+
+mostre "smtp nome: " + smtp.nome()
+mostre "smtp exemplo('msg'): " + smtp.exemplo('msg')

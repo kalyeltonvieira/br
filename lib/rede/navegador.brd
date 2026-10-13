@@ -1,0 +1,43 @@
+# Documentação BRD: navegador
+
+## Nome
+
+Navegador
+
+## Descrição
+
+Automação básica de navegador. Permite automatizar operações básicas de navegador web.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* criar_navegador: Cria uma instância de navegador.
+* iniciar: Inicia o navegador.
+* parar: Para o navegador.
+* abrir_pagina: Abre uma página no navegador.
+* fechar_pagina: Fecha uma página do navegador.
+* navegar: Navega para uma URL.
+* voltar: Volta para a página anterior.
+* avancar: Avança para a próxima página.
+* recarregar: Recarrega a página.
+* clicar_elemento: Clica em um elemento da página.
+* digitar_texto: Digita texto em um elemento.
+* obter_texto: Obtém o texto de um elemento.
+* obter_atributo: Obtém um atributo de um elemento.
+* esperar_elemento: Espera até que um elemento apareça.
+* executar_script: Executa JavaScript na página.
+* tirar_screenshot: Tira um screenshot da página.
+* definir_tamanho: Define o tamanho da janela.
+
+## Exemplo
+
+```br
+usar rede.navegador
+
+navegador é criar_navegador verdadeiro
+iniciar navegador
+pagina é abrir_pagina navegador, "https://exemplo.com"
+clicar_elemento pagina, "#botao"
+```

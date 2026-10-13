@@ -1,0 +1,5 @@
+importar "linter"
+
+teste "nome do modulo linter"
+    espere linter.nome() igual a "linter"
+fim

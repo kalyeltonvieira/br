@@ -1,0 +1,13 @@
+contrato middleware
+    função nome
+    função descricao
+    função versao
+    função criar recebendo nome e handler
+    função executar recebendo middleware, requisicao e resposta
+    função definir_ordem recebendo middleware e ordem
+    função adicionar_condicao recebendo middleware e condicao
+    função log_requisicao recebendo requisicao
+    função log_resposta recebendo resposta
+    função autenticar recebendo requisicao
+    função cors recebendo requisicao e resposta
+fim

@@ -1,0 +1,19 @@
+# Documentação BRD: scaffold
+
+## Nome
+
+Scaffold
+
+## Descrição
+
+criação automática de projetos e templates.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* projeto: Cria projeto BR.
+* arquivo: Cria arquivo BR.
+* template: Aplica template.
+* estrutura: Cria estrutura de diretórios.

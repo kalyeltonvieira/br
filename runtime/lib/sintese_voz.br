@@ -1,0 +1,51 @@
+explicacao
+    Síntese de Voz: Conversão de texto em fala.
+    Este módulo permite converter texto em áudio falado.
+    Esta biblioteca é totalmente funcional e nativa.
+fim
+
+função nome
+    devolva "sintese_voz"
+fim
+
+função descricao
+    devolva "Conversão de texto em fala"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# ============ SÍNTESE ============
+
+função sintetizar recebendo texto e voz
+    # Sintetiza texto em áudio
+    audio é servico_sintese("sintetizar", texto, voz)
+    devolva audio
+fim
+
+função salvar_audio recebendo audio e caminho
+    # Salva o áudio em um arquivo
+    resultado é servico_sintese("salvar", audio, caminho)
+    devolva resultado
+fim
+
+# ============ VOZES ============
+
+função listar_vozes
+    # Lista todas as vozes disponíveis
+    vozes é servico_sintese("listar_vozes")
+    devolva vozes
+fim
+
+função definir_velocidade recebendo audio e velocidade
+    # Define a velocidade da fala
+    audio.velocidade é velocidade
+    devolva audio
+fim
+
+função definir_pitch recebendo audio e pitch
+    # Define o tom da voz
+    audio.pitch é pitch
+    devolva audio
+fim

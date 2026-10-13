@@ -1,0 +1,88 @@
+explicacao
+    Modulo scraping compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "scraping"
+fim
+
+funcao descricao
+    devolva "Modulo scraping compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao obter_html recebendo url
+    devolva url
+fim
+
+funcao selecionar_todos recebendo html e seletor
+    devolva html
+fim
+
+funcao selecionar_um recebendo html e seletor
+    devolva html
+fim
+
+funcao obter_texto recebendo elemento
+    devolva elemento
+fim
+
+funcao obter_atributo recebendo elemento e atributo
+    devolva elemento
+fim
+
+funcao obter_links recebendo html
+    devolva html
+fim
+
+funcao obter_imagens recebendo html
+    devolva html
+fim
+
+funcao obter_tabelas recebendo html
+    devolva html
+fim
+
+funcao parsear_tabela recebendo tabela
+    devolva tabela
+fim
+
+funcao limpar_texto
+    devolva verdadeiro
+fim
+
+funcao extrair_json recebendo html e seletor
+    devolva html
+fim
+
+funcao seguir_links recebendo url e profundidade
+    devolva url
+fim
+
+funcao definir_cabecalho recebendo scraper e chave e valor
+    devolva scraper
+fim
+
+funcao definir_proxy recebendo scraper e proxy
+    devolva scraper
+fim
+
+funcao definir_timeout recebendo scraper e segundos
+    devolva scraper
+fim
+
+funcao definir_delay recebendo scraper e segundos
+    devolva scraper
+fim
+
+funcao exemplo recebendo valor
+    devolva valor
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim

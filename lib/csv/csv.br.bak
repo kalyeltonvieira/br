@@ -1,0 +1,32 @@
+explicacao
+    CSV: ler, escrever e transformar dados CSV.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "csv"
+fim
+
+função descricao
+    devolva "CSV: ler, escrever e transformar dados CSV"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função ler recebendo dados
+    devolva dados
+fim
+
+função escrever recebendo dados
+    devolva dados
+fim
+
+função cabecalho recebendo dados
+    devolva dados
+fim
+
+função linhas recebendo dados
+    devolva 0
+fim

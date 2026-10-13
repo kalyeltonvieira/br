@@ -1,0 +1,38 @@
+# Embeddings module for vectors and semantic search
+
+explicacao
+    embeddings: vetores e busca semântica.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "embeddings"
+fim
+
+função descricao
+    devolva "Vetores e busca semântica."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função gerar_vetor recebendo texto
+    devolva []
+fim
+
+função buscar_semantica recebendo vetor, indice
+    devolva []
+fim
+
+função salvar recebendo indice, caminho
+    devolva verdadeiro
+fim
+
+função carregar recebendo caminho
+    devolva []
+fim
+
+função fechar
+    devolva verdadeiro
+fim

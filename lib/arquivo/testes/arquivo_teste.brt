@@ -1,0 +1,5 @@
+importar "arquivo"
+
+teste "nome do modulo arquivo"
+    espere arquivo.nome() igual a "arquivo"
+fim

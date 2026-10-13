@@ -1,0 +1,5 @@
+importar "eventos"
+
+teste "nome do modulo eventos"
+    espere eventos.nome() igual a "eventos"
+fim

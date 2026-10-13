@@ -1,0 +1,24 @@
+# Teste Simples BR sem acentos
+nome e "Mundo"
+versao e 2.0
+ano e 2026
+ativo e verdadeiro
+
+mostre "Ola, " + nome
+
+soma e 10 + 5
+mostre "10 + 5 = " + soma
+
+funcao saudacao recebendo nome
+    mostre "Ola, " + nome
+fim
+
+saudacao "Teste"
+
+se ano >= 2000 entao
+    mostre "Ano atual"
+senao
+    mostre "Ano passado"
+fim
+
+mostre "Fim do teste"

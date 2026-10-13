@@ -1,0 +1,5 @@
+importar "algebra"
+
+teste "nome do modulo algebra"
+    espere algebra.nome() igual a "algebra"
+fim

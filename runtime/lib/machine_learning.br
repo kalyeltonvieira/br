@@ -1,0 +1,40 @@
+explicacao
+    Modulo machine_learning compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "machine_learning"
+fim
+
+funcao descricao
+    devolva "Modulo machine_learning compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao criar_modelo recebendo tipo e parametros
+    devolva tipo
+fim
+
+funcao treinar_recebendo
+    devolva verdadeiro
+fim
+
+funcao avaliar_recebendo
+    devolva verdadeiro
+fim
+
+funcao predizer_recebendo
+    devolva verdadeiro
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim
+
+funcao exemplo recebendo valor
+    devolva valor
+fim

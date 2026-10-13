@@ -1,0 +1,5 @@
+importar "financeiro"
+
+teste "nome do modulo financeiro"
+    espere financeiro.nome() igual a "financeiro"
+fim

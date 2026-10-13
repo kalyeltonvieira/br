@@ -1,0 +1,24 @@
+explicacao
+    Modulo algebra compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "algebra"
+fim
+
+funcao descricao
+    devolva "Modulo algebra compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao exemplo recebendo x
+    devolva x
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim

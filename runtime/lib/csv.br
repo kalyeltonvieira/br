@@ -1,0 +1,405 @@
+explicacao
+    CSV: leitura, escrita, transformação e análise de dados CSV.
+    Suporta delimitadores customizados, cabeçalhos, escape e encoding.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome
+    devolva "csv"
+fim
+
+função descricao
+    devolva "CSV: leitura, escrita, transformação e análise de dados CSV"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# ============ LEITURA ============
+
+função ler recebendo texto
+    devolva ler_com_config(texto, ",")
+fim
+
+função ler_com_config recebendo texto e delimitador
+    linhas é dividir_linhas(texto)
+    resultado é []
+    
+    para cada linha em linhas
+        linha_aparada é aparar(linha)
+        se linha_aparada não "" então
+            campos é _parsear_linha(linha_aparada, delimitador)
+            adicione campos a resultado
+        fim
+    fim
+    
+    devolva resultado
+fim
+
+função _parsear_linha recebendo linha e delim
+    resultado é []
+    atual é ""
+    i é 0
+    dentro_aspas é falso
+    
+    enquanto i < tamanho(linha)
+        c é linha[i]
+        
+        se dentro_aspas então
+            se c igual "\"" então
+                se i + 1 < tamanho(linha) e linha[i + 1] igual "\"" então
+                    atual é atual + "\""
+                    i é i + 2
+                    continue
+                senao
+                    dentro_aspas é falso
+                fim
+            senao
+                atual é atual + c
+            fim
+        senao
+            se c igual "\"" então
+                dentro_aspas é verdadeiro
+            senao se c igual delim então
+                adicione atual a resultado
+                atual é ""
+            senao se c igual "\n" ou c igual "\r" então
+                pare
+            senao
+                atual é atual + c
+            fim
+        fim
+        
+        i é i + 1
+    fim
+    
+    adicione atual a resultado
+    devolva resultado
+fim
+
+função _dividir_linhas recebendo texto
+    resultado é []
+    atual é ""
+    i é 0
+    
+    enquanto i < tamanho(texto)
+        c é texto[i]
+        se c igual "\r" então
+            adicione atual a resultado
+            atual é ""
+            se i + 1 < tamanho(texto) e texto[i + 1] igual "\n" então
+                i é i + 1
+            fim
+        senao se c igual "\n" então
+            adicione atual a resultado
+            atual é ""
+        senao
+            atual é atual + c
+        fim
+        i é i + 1
+    fim
+    
+    se atual não "" então
+        adicione atual a resultado
+    fim
+    
+    devolva resultado
+fim
+
+função ler_com_cabecalho recebendo texto
+    devolva ler_com_cabecalho_config(texto, ",")
+fim
+
+função ler_com_cabecalho_config recebendo texto e delimitador
+    linhas é _dividir_linhas(texto)
+    se tamanho(linhas) < 2 então
+        devolva []
+    fim
+    
+    cabecalhos é _parsear_linha(linhas[0], delimitador)
+    resultado é []
+    
+    i é 1
+    enquanto i < tamanho(linhas)
+        valores é _parsear_linha(linhas[i], delimitador)
+        linha_aparada é aparar(linhas[i])
+        se linha_aparada "" então
+            i é i + 1
+            continue
+        fim
+        
+        registro_atual é registro
+        j é 0
+        enquanto j < tamanho(cabecalhos)
+            chave é aparar(cabecalhos[j])
+            valor é valores[j] se j < tamanho(valores) senao ""
+            registro_atual[chave] é aparar(valor)
+            j é j + 1
+        fim
+        
+        adicione registro_atual a resultado
+        i é i + 1
+    fim
+    
+    devolva resultado
+fim
+
+# ============ ESCRITA ============
+
+função escrever recebendo dados
+    devolva escrever_com_config(dados, ",")
+fim
+
+função escrever_com_config recebendo dados e delimitador
+    resultado é ""
+    primeira_linha é verdadeiro
+    
+    para cada linha em dados
+        se não primeira_linha então
+            resultado é resultado + "\n"
+        senao
+            primeira_linha é falso
+        fim
+        
+        primeira_campo é verdadeiro
+        para cada campo em linha
+            se não primeira_campo então
+                resultado é resultado + delimitador
+            senao
+                primeira_campo é falso
+            fim
+            
+            campo_str é "" + campo
+            se contem(campo_str, delimitador) ou contem(campo_str, "\"") ou contem(campo_str, "\n") então
+                campo_str é _escapar_campo(campo_str)
+            fim
+            
+            resultado é resultado + campo_str
+        fim
+    fim
+    
+    devolva resultado
+fim
+
+função _escapar_campo recebendo campo
+    campo é substituir(campo, "\"", "\"\"")
+    devolva "\"" + campo + "\""
+fim
+
+função escrever_com_cabecalho recebendo dados e cabecalhos
+    devolva escrever_com_cabecalho_config(dados, cabecalhos, ",")
+fim
+
+função escrever_com_cabecalho_config recebendo dados, cabecalhos e delimitador
+    resultado é ""
+    
+    # Linha do cabeçalho
+    primeira_campo é verdadeiro
+    para cada chave em cabecalhos
+        se não primeira_campo então
+            resultado é resultado + delimitador
+        senao
+            primeira_campo é falso
+        fim
+        resultado é resultado + chave
+    fim
+    
+    # Linhas de dados
+    para cada registro in dados
+        resultado é resultado + "\n"
+        primeira_campo é verdadeiro
+        
+        para cada chave em cabecalhos
+            se não primeira_campo então
+                resultado é resultado + delimitador
+            senao
+                primeira_campo é falso
+            fim
+            
+            valor_str é "" + registro[chave]
+            se contem(valor_str, delimitador) ou contem(valor_str, "\"") então
+                valor_str é _escapar_campo(valor_str)
+            fim
+            resultado é resultado + valor_str
+        fim
+    fim
+    
+    devolva resultado
+fim
+
+função salvar recebendo caminho e dados
+    tente
+        texto_csv é escrever(dados)
+        escreva_arquivo(caminho, texto_csv)
+        devolva verdadeiro
+    capture erro
+        devolva falso
+    fim
+fim
+
+função salvar_com_cabecalho recebendo caminho, dados e cabecalhos
+    tente
+        texto_csv é escrever_com_cabecalho(dados, cabecalhos)
+        escreva_arquivo(caminho, texto_csv)
+        devolva verdadeiro
+    capture erro
+        devolva falso
+    fim
+fim
+
+função carregar recebendo caminho
+    tente
+        conteudo é leia_arquivo(caminho)
+        devolva ler(conteudo)
+    capture erro
+        devolva []
+    fim
+fim
+
+função carregar_com_cabecalho recebendo caminho
+    tente
+        conteudo é leia_arquivo(caminho)
+        devolva ler_com_cabecalho(conteudo)
+    capture erro
+        devolva []
+    fim
+fim
+
+# ============ TRANSFORMAÇÃO ============
+
+função para_json recebendo dados
+    importar "json" as json
+    devolva json.gerar(dados)
+fim
+
+função para_lista recebendo dados
+    devolva dados
+fim
+
+função cabecalhos recebendo dados
+    se tamanho(dados) > 0 então
+        chaves_objeto é []
+        para cada chave, valor em dados[0]
+            adicione chave a chaves_objeto
+        fim
+        devolva chaves_objeto
+    fim
+    devolva []
+fim
+
+# ============ ANÁLISE ============
+
+função resumo recebendo dados
+    se tamanho(dados) igual 0 então
+        devolva registro linhas: 0 colunas: 0 fim
+    fim
+    
+    cab é cabecalhos(dados)
+    devolva registro
+        linhas: tamanho(dados)
+        colunas: tamanho(cab)
+        cabecalhos: cab
+    fim
+fim
+
+função coluna recebendo dados e nome_coluna
+    resultado é []
+    para cada linha em dados
+        adicione linha[nome_coluna] a resultado
+    fim
+    devolva resultado
+fim
+
+função filtrar recebendo dados, nome_coluna e valor_desejado
+    resultado é []
+    para cada linha em dados
+        se linha[nome_coluna] igual valor_desejado então
+            adicione linha a resultado
+        fim
+    fim
+    devolva resultado
+fim
+
+função ordenar recebendo dados, nome_coluna e crescente
+    se crescente não falso então
+        crescente é verdadeiro
+    fim
+    
+    resultado é dados
+    n é tamanho(resultado)
+    
+    i é 0
+    enquanto i < n - 1
+        j é 0
+        enquanto j < n - i - 1
+            a é resultado[j][nome_coluna]
+            b é resultado[j + 1][nome_coluna]
+            
+            precisa_trocar é falso
+            se crescente então
+                precisa_trocar é a > b
+            senao
+                precisa_trocar é a < b
+            fim
+            
+            se precisa_trocar então
+                temp é resultado[j]
+                resultado[j] é resultado[j + 1]
+                resultado[j + 1] é temp
+            fim
+            
+            j é j + 1
+        fim
+        i é i + 1
+    fim
+    
+    devolva resultado
+fim
+
+função agrupar recebendo dados, nome_coluna
+    grupos é registro
+    
+    para cada linha em dados
+        chave é linha[nome_coluna]
+        se chave em grupos então
+            adicione linha a grupos[chave]
+        senao
+            grupos[chave] é [linha]
+        fim
+    fim
+    
+    devolva grupos
+fim
+
+# ============ TESTES ============
+
+teste "csv ler linhas simples"
+    dados é "a,b,c\n1,2,3\n4,5,6"
+    resultado é ler(dados)
+    esporte tamanho(resultado) igual a 3
+    esporte resultado[0][0] igual a "a"
+    esporte resultado[1][2] igual a "3"
+fim
+
+teste "csv ler com cabeçalho"
+    dados é "nome,idade\nAna,30\nJoão,25"
+    resultado é ler_com_cabecalho(dados)
+    esporte tamanho(resultado) igual a 2
+    esporte resultado[0].nome igual a "Ana"
+    esporte resultado[1].idade igual a "25"
+fim
+
+teste "csv escrever"
+    dados é [["a","b"],["1","2"]]
+    resultado é escrever(dados)
+    esporte contem(resultado, "a,b")
+    esporte contem(resultado, "1,2")
+fim
+
+teste "csv ler com aspas"
+    dados é '"nome completo","cidade"\n"Ana Maria","São Paulo"'
+    resultado é ler(dados)
+    esporte resultado[0][0] igual a "nome completo"
+    esporte resultado[1][1] igual a "São Paulo"
+fim

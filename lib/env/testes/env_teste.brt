@@ -1,0 +1,5 @@
+importar "env"
+
+teste "nome do modulo env"
+    espere env.nome() igual a "env"
+fim

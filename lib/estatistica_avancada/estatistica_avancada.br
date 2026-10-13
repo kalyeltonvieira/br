@@ -1,0 +1,38 @@
+# Estatistica_avancada module for advanced statistics: variance, standard deviation, regression and correlation
+
+explicacao
+    estatistica_avancada: variância, desvio, regressão e correlação.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "estatistica_avancada"
+fim
+
+função descricao
+    devolva "Variância, desvio, regressão e correlação."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função calcular_variancia recebendo valores
+    devolva 0.0
+fim
+
+função calcular_desvio_padrao recebendo valores
+    devolva 0.0
+fim
+
+função regressao_linear recebendo x, y
+    devolva {"slope": 0.0, "intercept": 0.0}
+fim
+
+função correlacao recebendo x, y
+    devolva 0.0
+fim
+
+função fechar
+    devolva verdadeiro
+fim

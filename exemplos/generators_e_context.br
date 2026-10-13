@@ -1,0 +1,121 @@
+# Exemplo: Generators e Context Managers
+
+# ==================== GENERATORS ====================
+
+# Generator que produz números de 1 a n
+função contador recebendo maximo
+    i é 1
+    enquanto i <= maximo
+        yield i
+        i é i + 1
+    fim
+fim
+
+# Generator de Fibonacci
+função fibonacci recebendo limite
+    a é 0
+    b é 1
+    enquanto a <= limite
+        yield a
+        temp é a
+        a é b
+        b é temp + b
+    fim
+fim
+
+# Generator de quadrados
+função quadrados recebendo limite
+    i é 1
+    enquanto i <= limite
+        yield i * i
+        i é i + 1
+    fim
+fim
+
+# ==================== USANDO GENERATORS ====================
+
+mostre "=== Testando Generators ==="
+mostre ""
+
+# Iterar sobre generator
+mostre "1. Contador de 1 a 5:"
+para cada num em contador(5)
+    mostre "  Número: ${num}"
+fim
+
+mostre ""
+
+# Fibonacci
+mostre "2. Fibonacci até 20:"
+para cada fib em fibonacci(20)
+    mostre "  ${fib}"
+fim
+
+mostre ""
+
+# Quadrados
+mostre "3. Quadrados até 5:"
+para cada quad em quadrados(5)
+    mostre "  ${quad}"
+fim
+
+# ==================== CONTEXT MANAGERS ====================
+
+# Context manager para arquivo
+função gerenciar_arquivo recebendo caminho
+    devolva função abrir
+        arquivo é leia_arquivo(caminho)
+        devolva arquivo
+    fim
+fim
+
+# Context manager para medir tempo
+função medir_tempo
+    devolva função iniciar
+        inicio é tempo_atual()
+        devolva função finalizar
+            fim é tempo_atual()
+            mostre "Tempo decorrido: ${fim - inicio}ms"
+        fim
+    fim
+fim
+
+# Context manager para transação
+função transacao
+    devolva função iniciar
+        mostre "Iniciando transação..."
+        devolva função commit
+            mostre "Commit realizado!"
+        fim
+        devolva função rollback
+            mostre "Rollback realizado!"
+        fim
+    fim
+fim
+
+# ==================== USANDO CONTEXT MANAGERS ====================
+
+mostre ""
+mostre "=== Testando Context Managers ==="
+mostre ""
+
+# Context manager de tempo
+contexto timer é medir_tempo()
+    # Simular operação
+    i é 0
+    enquanto i < 1000000
+        i é i + 1
+    fim
+fim
+
+mostre ""
+
+# Context manager de transação
+contexto txn é transacao()
+    mostre "Executando operação..."
+    # Operação bem sucedida
+    txn.commit()
+fim
+
+mostre ""
+mostre "=== Exemplo concluído! ==="

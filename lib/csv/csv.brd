@@ -1,0 +1,19 @@
+# Documentação BRD: csv
+
+## Nome
+
+CSV
+
+## Descrição
+
+ler, escrever e transformar dados CSV.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* ler: Lê CSV.
+* escrever: Gera CSV.
+* cabecalho: Obtém cabeçalho.
+* linhas: Conta linhas.

@@ -1,0 +1,32 @@
+explicacao
+    Banco de dados: SQLite, conexão, consultas, transações e migrações.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "banco"
+fim
+
+função descricao
+    devolva "Banco de dados: SQLite, conexão, consultas, transações e migrações"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função conectar recebendo url
+    devolva verdadeiro
+fim
+
+função consulta recebendo sql
+    devolva sql
+fim
+
+função transacao
+    devolva verdadeiro
+fim
+
+função migrar
+    devolva verdadeiro
+fim

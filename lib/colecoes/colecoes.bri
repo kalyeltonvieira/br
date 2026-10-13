@@ -1,0 +1,9 @@
+contrato colecoes
+    função nome
+    função descricao
+    função versao
+    função tamanho recebendo dados
+    função vazia recebendo dados
+    função primeiro recebendo dados
+    função ordenar recebendo dados
+fim

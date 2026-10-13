@@ -1,0 +1,38 @@
+# Jogo module for simple game foundations
+
+explicacao
+    jogo: base para jogos simples.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "jogo"
+fim
+
+função descricao
+    devolva "Base para jogos simples."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função iniciar
+    devolva verdadeiro
+fim
+
+função atualizar
+    devolva verdadeiro
+fim
+
+função desenhar
+    devolva verdadeiro
+fim
+
+função terminar
+    devolva verdadeiro
+fim
+
+função fechar
+    devolva verdadeiro
+fim

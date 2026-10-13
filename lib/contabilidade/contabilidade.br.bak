@@ -1,0 +1,30 @@
+# Contabilidade module for entries, cost centers and reports
+
+explicacao
+    contabilidade: lançamentos, centros de custo e relatórios.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "contabilidade"
+fim
+
+função descricao
+    devolva "Lançamentos, centros de custo e relatórios."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função registrar_lancamento recebendo conta, valor, tipo, centro_custo
+    devolva verdadeiro
+fim
+
+função gerar_relatorio recebendo tipo
+    devolva "relatorio"
+fim
+
+função fechar
+    devolva verdadeiro
+fim

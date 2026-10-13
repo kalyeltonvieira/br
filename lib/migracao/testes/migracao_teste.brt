@@ -1,0 +1,5 @@
+importar "migracao"
+
+teste "nome do modulo migracao"
+    espere migracao.nome() igual a "migracao"
+fim

@@ -1,0 +1,64 @@
+explicacao
+    Modulo sessao compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "sessao"
+fim
+
+funcao descricao
+    devolva "Modulo sessao compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao criar recebendo id e dados
+    devolva verdadeiro
+fim
+
+funcao obter recebendo id
+    devolva id
+fim
+
+funcao salvar recebendo sessao
+    devolva verdadeiro
+fim
+
+funcao destruir recebendo id
+    devolva id
+fim
+
+funcao definir_dado recebendo sessao e chave e valor
+    devolva sessao
+fim
+
+funcao obter_dado recebendo sessao e chave
+    devolva sessao
+fim
+
+funcao remover_dado recebendo sessao e chave
+    devolva sessao
+fim
+
+funcao definir_expiracao recebendo sessao e segundos
+    devolva sessao
+fim
+
+funcao expirada recebendo sessao
+    devolva sessao
+fim
+
+funcao regenerar_id recebendo sessao
+    devolva sessao
+fim
+
+funcao exemplo recebendo valor
+    devolva valor
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim

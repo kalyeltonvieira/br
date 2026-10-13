@@ -1,0 +1,5 @@
+importar "rede"
+
+teste "nome do modulo rede"
+    espere rede.nome() igual a "rede"
+fim

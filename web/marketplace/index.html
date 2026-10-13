@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BR Package Marketplace</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <h1>📦 BR Marketplace</h1>
+                <p>Marketplace de Pacotes da Linguagem BR</p>
+            </div>
+            <nav class="nav">
+                <a href="#" class="active">Pacotes</a>
+                <a href="#">Comunidade</a>
+                <a href="#">Documentação</a>
+                <a href="#">Publicar</a>
+            </nav>
+        </header>
+
+        <main>
+            <div class="search-section">
+                <input type="text" id="search-input" placeholder="Buscar pacotes..." class="search-input">
+                <select id="category-filter" class="filter-select">
+                    <option value="">Todas Categorias</option>
+                    <option value="web">Web</option>
+                    <option value="dados">Dados</option>
+                    <option value="gui">GUI</option>
+                    <option value="ia">IA/ML</option>
+                    <option value="rede">Rede</option>
+                    <option value="utilitarios">Utilitários</option>
+                </select>
+                <select id="sort-select" class="filter-select">
+                    <option value="popular">Mais Populares</option>
+                    <option value="recentes">Mais Recentes</option>
+                    <option value="nome">Nome (A-Z)</option>
+                    <option value="downloads">Mais Downloads</option>
+                </select>
+            </div>
+
+            <div class="packages-grid" id="packages-grid">
+                <!-- Pacotes serão carregados via JavaScript -->
+            </div>
+
+            <div class="sidebar">
+                <div class="sidebar-section">
+                    <h3>Categorias</h3>
+                    <ul class="category-list">
+                        <li><a href="#" data-category="web">🌐 Web</a></li>
+                        <li><a href="#" data-category="dados">📊 Dados</a></li>
+                        <li><a href="#" data-category="gui">🖼️ GUI</a></li>
+                        <li><a href="#" data-category="ia">🤖 IA/ML</a></li>
+                        <li><a href="#" data-category="rede">🔗 Rede</a></li>
+                        <li><a href="#" data-category="utilitarios">🔧 Utilitários</a></li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3>Pacotes Destaque</h3>
+                    <ul class="featured-list">
+                        <li><a href="#">br-web</a></li>
+                        <li><a href="#">br-sqlite</a></li>
+                        <li><a href="#">br-gui</a></li>
+                        <li><a href="#">br-ml</a></li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3>Estatísticas</h3>
+                    <div class="stats">
+                        <div class="stat">
+                            <span class="stat-number">1,234</span>
+                            <span class="stat-label">Pacotes</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">56,789</span>
+                            <span class="stat-label">Downloads</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">892</span>
+                            <span class="stat-label">Contribuidores</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>BR</h4>
+                    <ul>
+                        <li><a href="#">Sobre</a></li>
+                        <li><a href="#">Documentação</a></li>
+                        <li><a href="#">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Comunidade</h4>
+                    <ul>
+                        <li><a href="#">Fórum</a></li>
+                        <li><a href="#">Discord</a></li>
+                        <li><a href="#">Twitter</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Recursos</h4>
+                    <ul>
+                        <li><a href="#">Guia de Publicação</a></li>
+                        <li><a href="#">API</a></li>
+                        <li><a href="#">Termos de Uso</a></li>
+                    </ul>
+                </div>
+            </div>
+            <p class="copyright">© 2026 Linguagem BR. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+
+    <!-- Modal de Pacote -->
+    <div id="package-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="package-details"></div>
+        </div>
+    </div>
+
+    <script src="marketplace.js"></script>
+</body>
+</html>

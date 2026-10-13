@@ -1,0 +1,43 @@
+# Exemplo: Classes e Herança em BR
+
+# Classe base
+classe Animal
+    nome: texto
+    idade: inteiro
+fim
+
+# Classe que herda de Animal
+classe Cachorro herda Animal
+    raca: texto
+    
+    função latir recebendo intensidade
+        mostre "${isto.nome} (${isto.raca}) está latindo com intensidade ${intensidade}!"
+    fim
+    
+    função apresentar
+        mostre "Eu sou ${isto.nome}, tenho ${isto.idade} anos e sou um ${isto.raca}"
+    fim
+fim
+
+# Classe que herda de Animal
+classe Gato herda Animal
+    cor: texto
+    
+    função miar
+        mostre "${isto.nome} está miando..."
+    fim
+fim
+
+# Instanciar objetos
+cachorro é Cachorro("Rex", 5, "Labrador")
+gato é Gato("Mimi", 3, "Branco")
+
+# Chamar métodos
+cachorro.apresentar()
+cachorro.latir(10)
+gato.apresentar()
+gato.miar()
+
+# Acessar propriedades
+mostre "Nome do cachorro: ${cachorro.nome}"
+mostre "Idade do gato: ${gato.idade}"

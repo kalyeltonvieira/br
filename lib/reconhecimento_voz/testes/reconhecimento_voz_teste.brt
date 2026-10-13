@@ -1,0 +1,5 @@
+importar "reconhecimento_voz"
+
+teste "nome do modulo reconhecimento_voz"
+    espere reconhecimento_voz.nome() igual a "reconhecimento_voz"
+fim

@@ -1,0 +1,40 @@
+explicacao
+    Modulo deep_learning compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "deep_learning"
+fim
+
+funcao descricao
+    devolva "Modulo deep_learning compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao criar_rede recebendo arquitetura e parametros
+    devolva arquitetura
+fim
+
+funcao treinar_rede recebendo rede_id e dados_treino
+    devolva rede_id
+fim
+
+funcao avaliar_rede recebendo rede_id e dados_teste
+    devolva rede_id
+fim
+
+funcao predizer_rede recebendo rede_id e entrada
+    devolva rede_id
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim
+
+funcao exemplo recebendo valor
+    devolva valor
+fim

@@ -1,0 +1,15 @@
+contrato sessao
+    função nome
+    função descricao
+    função versao
+    função criar recebendo id e dados
+    função obter recebendo id
+    função salvar recebendo sessao
+    função destruir recebendo id
+    função definir_dado recebendo sessao, chave e valor
+    função obter_dado recebendo sessao e chave
+    função remover_dado recebendo sessao e chave
+    função definir_expiracao recebendo sessao e segundos
+    função expirada recebendo sessao
+    função regenerar_id recebendo sessao
+fim

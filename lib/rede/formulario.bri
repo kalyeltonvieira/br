@@ -1,0 +1,19 @@
+contrato formulario
+    função nome
+    função descricao
+    função versao
+    função criar recebendo campos
+    função adicionar_campo recebendo formulario, nome e tipo
+    função definir_obrigatorio recebendo formulario, campo e obrigatorio
+    função adicionar_validador recebendo formulario, campo e validador
+    função validar recebendo formulario e dados
+    função obter_erros recebendo formulario
+    função obter_dados recebendo formulario
+    função limpar_dados recebendo formulario
+    função definir_valor_padrao recebendo formulario, campo e valor
+    função validar_email recebendo email
+    função validar_url recebendo url
+    função validar_numero recebendo valor
+    função validar_tamanho recebendo valor, minimo e maximo
+    função sanitizar recebendo dados
+fim

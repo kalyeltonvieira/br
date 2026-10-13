@@ -1,0 +1,5 @@
+importar "regex"
+
+teste "nome do modulo regex"
+    espere regex.nome() igual a "regex"
+fim

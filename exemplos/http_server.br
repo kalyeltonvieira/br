@@ -1,0 +1,32 @@
+# Exemplo: HTTP Server em BR
+
+# ==================== SERVIDOR HTTP ====================
+
+# Iniciar servidor na porta 8080
+servidor é servico_http(8080)
+
+# Definir rota GET
+servidor.obter("/", recebendo requisicao
+    resposta é "Bem-vindo ao servidor BR!"
+    devolva resposta
+fim)
+
+# Rota com parâmetros
+servidor.obter("/usuario/:id", recebendo requisicao
+    id é requisicao.parametros["id"]
+    resposta é "Usuário ID: ${id}"
+    devolva resposta
+fim)
+
+# Rota POST
+servidor.postar("/api/dados", recebendo requisicao
+    dados é requisicao.corpo
+    resposta é "Dados recebidos: ${dados}"
+    devolva resposta
+fim)
+
+# Iniciar servidor
+mostre "Servidor rodando em http://localhost:8080"
+servidor.inicie()
+
+# O servidor fica rodando...

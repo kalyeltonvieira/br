@@ -1,0 +1,32 @@
+explicacao
+    Compressão: compactar e descompactar ZIP, GZIP e TAR.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "compressao"
+fim
+
+função descricao
+    devolva "Compressão: compactar e descompactar ZIP, GZIP e TAR"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função zip recebendo caminho
+    devolva caminho
+fim
+
+função unzip recebendo caminho
+    devolva caminho
+fim
+
+função gzip recebendo caminho
+    devolva caminho
+fim
+
+função tar recebendo caminho
+    devolva caminho
+fim

@@ -1,0 +1,210 @@
+explicacao
+    Cores: manipulação de cores RGB, HSL, HEX, nomes de cores.
+    Conversão entre formatos, blending, gradientes,
+    paletas e harmonia de cores.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome devolva "cores" fim
+função descricao devolva "Cores: RGB, HSL, HEX, paletas, gradientes e harmonia" fim
+função versao devolva "1.0.0" fim
+
+função de_hex recebendo hex
+    cor_limpa é "" + hex
+    se comeca_com(cor_limpa, "#") então cor_limpa é cor_limpa[1:] fim
+    se tamanho(cor_limpa) igual 3 então
+        cor_limpa é cor_limpa[0] + cor_limpa[0] + cor_limpa[1] + cor_limpa[1] + cor_limpa[2] + cor_limpa[2]
+    fim
+    se tamanho(cor_limpa) diferente 6 então devolva registro r: 0 g: 0 b: 0 fim
+    r_hex é "0x" + cor_limpa[0:2]; g_hex é "0x" + cor_limpa[2:4]; b_hex é "0x" + cor_limpa[4:6]
+    devolva registro r: r_hex como inteiro g: g_hex como inteiro b: b_hex como inteiro formato: "rgb" fim
+fim
+
+função para_hex recebendo r, g, b
+    hex_str é "#"
+    hex_chars_cores é "0123456789ABCDEF"
+    para cada val in [r, g, b]
+        val_clamp é _clamp(val, 0, 255)
+        hex_str é hex_str + hex_chars_cores[val_clamp / 16] + hex_chars_cores[val_clamp % 16]
+    fim
+    devolva hex_str
+fim
+
+função _clamp recebendo valor, min_val, max_val
+    se valor < min_val então devolva min_val fim
+    se valor > max_val então devolva max_val fim
+    devolva valor
+fim
+
+função para_hsl recebendo r, g, b
+    rn é r / 255; gn é g / 255; bn é b / 255
+    max_val é maximo3(rn, gn, bn); min_val é minimo3(rn, gn, bn)
+    diff é max_val - min_val
+    h_cor é 0; s_cor é 0; l_cor é (max_val + min_val) / 2
+    
+    se diff diferente 0 então
+        se l_cor <= 0.5 então s_cor é diff / (max_val + min_val)
+        senao s_cor é diff / (2 - max_val - min_val) fim
+        
+        se max_val igual rn então
+            h_cor é ((gn - bn) / diff + 6) % 6 * 60
+        senao se max_val igual gn então
+            h_cor é ((bn - rn) / diff + 2) * 60
+        senao
+            h_cor é ((rn - gn) / diff + 4) * 60
+        fim
+    fim
+    
+    devolva registro h: h_cor s: arredondar(s_cor * 100) l: arredondar(l_cor * 100) fim
+fim
+
+função maximo3 recebendo a, b, c
+    max_val3 é a se a > b senao b
+    devolva max_val3 se max_val3 > c senao c
+fim
+
+função minimo3 recebendo a, b, c
+    min_val3 é a se a < b senao b
+    devolva min_val3 se min_val3 < c senao c
+fim
+
+função de_hsl recebendo h, s, l
+    s_n é s / 100; l_n é l / 100
+    c_cor é (1 - abs(2 * l_n - 1)) * s_n
+    x_cor é c_cor * (1 - abs((h / 60) % 2 - 1))
+    m_cor é l_n - c_cor / 2
+    r_cor é 0; g_cor é 0; b_cor é 0
+    
+    se h < 60 então r_cor é c_cor; g_cor é x_cor
+    senao se h < 120 então r_cor é x_cor; g_cor é c_cor
+    senao se h < 180 então g_cor é c_cor; b_cor é x_cor
+    senao se h < 240 então g_cor é x_cor; b_cor é c_cor
+    senao se h < 300 então r_cor é x_cor; b_cor é c_cor
+    senao r_cor é c_cor; b_cor é x_cor
+    fim
+    
+    devolva registro r: arredondar((r_cor + m_cor) * 255) g: arredondar((g_cor + m_cor) * 255) b: arredondar((b_cor + m_cor) * 255) fim
+fim
+
+função nome_para_rgb recebendo nome_cor
+    cores_nomes é registro
+        vermelho: [255, 0, 0] verde: [0, 128, 0] azul: [0, 0, 255]
+        amarelo: [255, 255, 0] roxo: [128, 0, 128] laranja: [255, 165, 0]
+        rosa: [255, 192, 203] marrom: [165, 42, 42] preto: [0, 0, 0]
+        branco: [255, 255, 255] cinza: [128, 128, 128] prata: [192, 192, 192]
+        ouro: [255, 215, 0] turquesa: [64, 224, 208] violeta: [238, 130, 238]
+        indigo: [75, 0, 130] cyan: [0, 255, 255] magenta: [255, 0, 255]
+        bege: [245, 245, 220] coral: [255, 127, 80] salmao: [250, 128, 114]
+        lima: [0, 255, 0] oliva: [128, 128, 0] azul_marinho: [0, 0, 128]
+        teal: [0, 128, 128] prata_escuro: [169, 169, 169]
+    fim
+    nome_minusculo é minusculo(nome_cor)
+    se nome_minusculo em cores_nomes então
+        vals é cores_nomes[nome_minusculo]
+        devolva registro r: vals[0] g: vals[1] b: vals[2] fim
+    fim
+    devolva registro r: 0 g: 0 b: 0 fim
+fim
+
+função mesclar recebendo cor1, cor2 e peso
+    se peso nulo então peso é 0.5 fim
+    r_m é arredondar(cor1.r * (1 - peso) + cor2.r * peso)
+    g_m é arredondar(cor1.g * (1 - peso) + cor2.g * peso)
+    b_m é arredondar(cor1.b * (1 - peso) + cor2.b * peso)
+    devolva registro r: _clamp(r_m, 0, 255) g: _clamp(g_m, 0, 255) b: _clamp(b_m, 0, 255) fim
+fim
+
+função escurecer recebendo cor, quantidade
+    se quantidade nulo então quantidade é 0.2 fim
+    devolva mesclar(cor, registro r: 0 g: 0 b: 0 fim, quantidade)
+fim
+
+função clarear recebendo cor, quantidade
+    se quantidade nulo então quantidade é 0.2 fim
+    devolva mesclar(cor, registro r: 255 g: 255 b: 255 fim, quantidade)
+fim
+
+função complementar recebendo cor
+    devolva registro r: 255 - cor.r g: 255 - cor.g b: 255 - cor.b fim
+fim
+
+função analoga recebendo cor
+    hsl_val é para_hsl(cor.r, cor.g, cor.b)
+    h_base é hsl_val.h
+    cor1_analoga é de_hsl((h_base - 30 + 360) % 360, hsl_val.s, hsl_val.l)
+    cor2_analoga é de_hsl((h_base + 30) % 360, hsl_val.s, hsl_val.l)
+    devolva [cor1_analoga, cor, cor2_analoga]
+fim
+
+função triade recebendo cor
+    hsl_val is para_hsl(cor.r, cor.g, cor.b)
+    h_base é hsl_val.h
+    cor1_triade é de_hsl((h_base + 120) % 360, hsl_val.s, hsl_val.l)
+    cor2_triade é de_hsl((h_base + 240) % 360, hsl_val.s, hsl_val.l)
+    devolva [cor, cor1_triade, cor2_triade]
+fim
+
+função gradiente recebendo cor_inicio, cor_fim e passos
+    resultado é []
+    i é 0
+    enquanto i <= passos
+        peso_grad é i / passos
+        adicione mesclar(cor_inicio, cor_fim, peso_grad) a resultado
+        i é i + 1
+    fim
+    devolva resultado
+fim
+
+função luminancia recebendo cor
+    devolva 0.299 * cor.r + 0.587 * cor.g + 0.114 * cor.b
+fim
+
+função contraste recebendo cor1_cont, cor2_cont
+    l1 é (luminancia(cor1_cont) + 0.05) / 255
+    l2 é (luminancia(cor2_cont) + 0.05) / 255
+    se l1 > l2 então devolva l1 / l2 senao devolva l2 / l1 fim
+fim
+
+teste "hex para rgb"
+    cor_rgb é de_hex("#FF0000")
+    esporte cor_rgb.r igual a 255
+    esporte cor_rgb.g igual a 0
+    esporte cor_rgb.b igual a 0
+fim
+
+teste "rgb para hex"
+    hex_cor é para_hex(255, 0, 0)
+    esporte hex_cor igual a "#FF0000"
+fim
+
+teste "nome para rgb"
+    cor_nome é nome_para_rgb("vermelho")
+    esporte cor_nome.r igual a 255
+fim
+
+teste "mesclar cores"
+    cor_a é registro r: 255 g: 0 b: 0 fim
+    cor_b é registro r: 0 g: 0 b: 255 fim
+    mesclada é mesclar(cor_a, cor_b, 0.5)
+    esporte mesclada.r igual a 128 ou mesclada.r igual a 127
+    esporte mesclada.b igual a 128 ou mesclada.b igual a 127
+fim
+
+teste "complementar"
+    cor_c é registro r: 255 g: 0 b: 0 fim
+    complementar_cor é complementar(cor_c)
+    esporte complementar_cor.g igual a 255
+fim
+
+teste "gradiente"
+    inicio_g é registro r: 255 g: 0 b: 0 fim
+    fim_g é registro r: 0 g: 0 b: 255 fim
+    grad é gradiente(inicio_g, fim_g, 3)
+    esporte tamanho(grad) igual a 4
+fim
+
+teste "luminancia"
+    preto_lum é luminancia(registro r: 0 g: 0 b: 0 fim)
+    branco_lum é luminancia(registro r: 255 g: 255 b: 255 fim)
+    esporte branco_lum > preto_lum
+fim

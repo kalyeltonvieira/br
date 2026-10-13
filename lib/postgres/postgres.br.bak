@@ -1,0 +1,38 @@
+# PostgreSQL module for integration with PostgreSQL database
+
+explicacao
+    PostgreSQL: integração com banco de dados PostgreSQL.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "postgres"
+fim
+
+função descricao
+    devolva "Integração com PostgreSQL."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função conectar recebendo conexao_string
+    devolva verdadeiro
+fim
+
+função consulta recebendo sql
+    devolva sql
+fim
+
+função transacao
+    devolva verdadeiro
+fim
+
+função migrar
+    devolva verdadeiro
+fim
+
+função fechar
+    devolva verdadeiro
+fim

@@ -1,0 +1,13 @@
+mostre "Olá mundo"
+
+x = 10
+y = z + 1
+
+função soma(a, b) {
+    devolva a + b
+    mostre "isso não roda"
+}
+
+n = 10 / 0
+
+devolva 5

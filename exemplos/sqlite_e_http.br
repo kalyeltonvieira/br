@@ -1,0 +1,73 @@
+# Exemplo: SQLite Real + HTTP Server Completo em BR
+
+# ==================== SQLITE REAL ====================
+
+# Criar banco de dados em arquivo
+mostre "=== TESTE SQLITE REAL ==="
+
+# Criar tabela
+resultado é criar_tabela("usuarios", "id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, idade INTEGER, email TEXT", "teste.db")
+mostre resultado
+
+# Inserir registros via SQL direto
+resultado é sqlite_executar("INSERT INTO usuarios (nome, idade, email) VALUES ('Maria', 30, 'maria@exemplo.com')", "teste.db")
+mostre resultado
+
+resultado é sqlite_executar("INSERT INTO usuarios (nome, idade, email) VALUES ('Joao', 25, 'joao@exemplo.com')", "teste.db")
+mostre resultado
+
+# Buscar registros
+mostre "--- Buscar todos ---"
+resultado é buscar_registros("usuarios", "", "teste.db")
+mostre resultado
+
+# Buscar com condição
+mostre "--- Buscar com condição ---"
+resultado é buscar_registros("usuarios", "idade > 26", "teste.db")
+mostre resultado
+
+# Atualizar registro
+mostre "--- Atualizar ---"
+resultado é sqlite_executar("UPDATE usuarios SET idade = 31 WHERE nome = 'Maria'", "teste.db")
+mostre resultado
+
+# Consultar com SQL em português
+mostre "--- Query em português ---"
+resultado é sqlite_executar("selecione nome e idade de usuarios onde idade > 20", "teste.db")
+mostre resultado
+
+# Listar tabelas
+mostre "--- Listar tabelas ---"
+resultado é listar_tabelas("teste.db")
+mostre resultado
+
+# Descrever tabela
+mostre "--- Descrever tabela ---"
+resultado é descrever_tabela("usuarios", "teste.db")
+mostre resultado
+
+# Fechar banco
+fechar_banco("teste.db")
+
+# ==================== HTTP SERVER ====================
+
+mostre ""
+mostre "=== TESTE HTTP SERVER ==="
+
+# Criar servidor na porta 8080
+servidor é servico_http(8080)
+mostre "Servidor criado com ID: ${servidor}"
+
+# Iniciar servidor
+servidor_iniciar(servidor)
+
+# Verificar se está rodando
+rodando é servidor_rodando(servidor)
+mostre "Servidor rodando: ${rodando}"
+
+# Parar servidor
+servidor_parar(servidor)
+mostre "Servidor parado"
+
+mostre ""
+mostre "=== TESTES CONCLUÍDOS COM SUCESSO ==="

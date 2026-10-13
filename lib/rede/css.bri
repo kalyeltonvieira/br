@@ -1,0 +1,15 @@
+contrato css
+    função nome
+    função descricao
+    função versao
+    função criar_regra recebendo seletor e propriedades
+    função adicionar_propriedade recebendo regra, propriedade e valor
+    função criar_estilo recebendo nome e regras
+    função renderizar recebendo estilo
+    função criar_media_query recebendo condicao e regras
+    função criar_animacao recebendo nome e quadros
+    função criar_variavel recebendo nome e valor
+    função minificar recebendo css
+    função prefixar recebendo css e prefixos
+    função validar recebendo css
+fim

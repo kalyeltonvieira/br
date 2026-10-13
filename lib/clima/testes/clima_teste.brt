@@ -1,0 +1,5 @@
+importar "clima"
+
+teste "nome do modulo clima"
+    espere clima.nome() igual a "clima"
+fim

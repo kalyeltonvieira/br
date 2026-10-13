@@ -1,0 +1,301 @@
+explicacao
+    Rede: HTTP client/servidor, URL, DNS, WebSocket, sockets e email.
+    Cliente HTTP com suporte a GET, POST, PUT, DELETE, PATCH,
+    cache, rate limiting e tratamento de respostas.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome
+    devolva "rede"
+fim
+
+função descricao
+    devolva "Rede: HTTP, URL, DNS, sockets e utilitários de rede"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# ============ HTTP CLIENT ============
+
+função get recebendo url
+    devolva servico_rede("http_get", url)
+fim
+
+função post recebendo url e dados
+    devolva servico_rede("http_post", url, dados)
+fim
+
+função put recebendo url e dados
+    devolva servico_rede("http_put", url, dados)
+fim
+
+função delete recebendo url
+    devolva servico_rede("http_delete", url)
+fim
+
+função patch recebendo url e dados
+    devolva servico_rede("http_patch", url, dados)
+fim
+
+função request recebendo metodo e url
+    devolva servico_rede("http_request", metodo, url)
+fim
+
+função request_com_dados recebendo metodo, url e dados
+    devolva servico_rede("http_request", metodo, url, dados)
+fim
+
+função request_completo recebendo metodo, url, dados e cabecalhos
+    resposta é servico_rede("http_request", metodo, url, dados, cabecalhos)
+    devolva _normalizar_resposta(resposta)
+fim
+
+# ============ RESPOSTA ============
+
+função _normalizar_resposta recebendo resposta
+    se tipo(resposta) diferente "registro" então
+        devolva registro
+            falhou: verdadeiro
+            erro: "Resposta inválida"
+            codigo: 0
+            conteudo: ""
+        fim
+    fim
+    
+    se resposta.falhou nulo então
+        resposta.falhou é verdadeiro se resposta.codigo >= 400 senao falso
+    fim
+    
+    se resposta.erro nulo e resposta.codigo >= 400 então
+        resposta.erro é "HTTP " + resposta.codigo + ": " + _texto_status(resposta.codigo)
+    fim
+    
+    devolva resposta
+fim
+
+função _texto_status recebendo codigo
+    status é registro
+        200: "OK" 201: "Criado" 204: "Sem Conteúdo"
+        301: "Movido" 302: "Encontrado" 304: "Não Modificado"
+        400: "Requisição Inválida" 401: "Não Autorizado"
+        403: "Proibido" 404: "Não Encontrado" 405: "Método Não Permitido"
+        408: "Time-out" 409: "Conflito" 422: "Entidade Não Processável"
+        429: "Muitas Requisições" 500: "Erro Interno" 502: "Gateway Inválido"
+        503: "Indisponível" 504: "Time-out do Gateway"
+    fim
+    devolva status[codigo] se codigo em status senao "Erro Desconhecido"
+fim
+
+função resposta_sucesso recebendo resposta
+    devolva resposta.codigo >= 200 e resposta.codigo < 300
+fim
+
+função resposta_erro recebendo resposta
+    devolva resposta.codigo >= 400
+fim
+
+função resposta_redirecionamento recebendo resposta
+    devolva resposta.codigo >= 300 e resposta.codigo < 400
+fim
+
+função resposta_json recebendo resposta
+    importar "json" as json
+    tente
+        devolva json.parsear(resposta.conteudo)
+    capture erro
+        devolva nulo
+    fim
+fim
+
+# ============ URL ============
+
+função url_valida recebendo url
+    devolva servico_rede("url_valida", url)
+fim
+
+função url_parsear recebendo url
+    devolva servico_rede("url_parsear", url)
+fim
+
+função url_codificar recebendo texto
+    devolva servico_rede("url_codificar", texto)
+fim
+
+função url_decodificar recebendo texto
+    devolva servico_rede("url_decodificar", texto)
+fim
+
+função url_montar recebendo partes
+    resultado é partes.protocolo + "://" + partes.host
+    
+    se partes.porta não "" e partes.porta diferente "80" e partes.porta diferente "443" então
+        resultado é resultado + ":" + partes.porta
+    fim
+    
+    resultado é resultado + partes.caminho
+    
+    se partes.query não "" então
+        resultado é resultado + "?" + partes.query
+    fim
+    
+    se partes.fragmento não "" então
+        resultado é resultado + "#" + partes.fragmento
+    fim
+    
+    devolva resultado
+fim
+
+função url_parametros recebendo query_string
+    resultado é registro
+    se query_string "" então
+        devolva resultado
+    fim
+    
+    pares é dividir(query_string, "&")
+    para cada par em pares
+        partes é dividir(par, "=")
+        se tamanho(partes) igual 2 então
+            chave é url_decodificar(partes[0])
+            valor é url_decodificar(partes[1])
+            resultado[chave] é valor
+        fim
+    fim
+    
+    devolva resultado
+fim
+
+função url_query recebendo params
+    resultado é ""
+    para cada chave, valor em params
+        se resultado não "" então
+            resultado é resultado + "&"
+        fim
+        resultado é resultado + url_codificar(chave) + "=" + url_codificar(valor)
+    fim
+    devolva resultado
+fim
+
+# ============ DNS ============
+
+função dns_resolver recebendo hostname
+    devolva servico_rede("dns_resolver", hostname)
+fim
+
+função dns_reverso recebendo ip
+    devolva servico_rede("dns_reverso", ip)
+fim
+
+# ============ UTILITÁRIOS ============
+
+função ping recebendo host
+    devolva servico_rede("ping", host)
+fim
+
+função verificar_conectividade
+    devolva servico_rede("verificar_conectividade")
+fim
+
+função ip_local
+    devolva servico_rede("ip_local")
+fim
+
+função ip_publico
+    devolva servico_rede("ip_publico")
+fim
+
+# ============ DOWNLOAD ============
+
+função baixar recebendo url e caminho_destino
+    resposta é get(url)
+    se resposta.falhou então
+        devolva resposta
+    fim
+    
+    tente
+        escreva_arquivo(caminho_destino, resposta.conteudo)
+        devolva registro
+            sucesso: verdadeiro
+            caminho: caminho_destino
+            tamanho: tamanho(resposta.conteudo)
+        fim
+    capture erro
+        devolva registro falhou: verdadeiro erro: "Erro ao salvar arquivo" fim
+    fim
+fim
+
+# ============ CACHE ============
+
+cache_http é registro
+
+função get_com_cache recebendo url e segundos_cache
+    chave é url
+    
+    se chave em cache_http então
+        item é cache_http[chave]
+        cache_http[chave] é item
+        devolva item
+    fim
+    
+    resposta é get(url)
+    se não resposta.falhou então
+        cache_http[chave] é resposta
+    fim
+    
+    devolva resposta
+fim
+
+função limpar_cache
+    cache_http é registro
+    devolva verdadeiro
+fim
+
+# ============ HELPERS ============
+
+função json_get recebendo url
+    resposta é get(url)
+    se resposta.falhou então
+        devolva nulo
+    fim
+    importar "json" as json
+    tente
+        devolva json.parsear(resposta.conteudo)
+    capture erro
+        devolva nulo
+    fim
+fim
+
+função json_post recebendo url e dados
+    importar "json" as json
+    dados_json é json.gerar(dados)
+    resposta é post(url, dados_json)
+    devolva resposta
+fim
+
+# ============ TESTES ============
+
+teste "url parse"
+    resultado é url_parsear("https://exemplo.com/caminho?q=teste")
+    esporte resultado.protocolo igual a "https"
+    esporte resultado.host igual a "exemplo.com"
+fim
+
+teste "url valida"
+    esporte url_valida("https://google.com") igual a verdadeiro
+    esporte url_valida("invalido") igual a falso
+fim
+
+teste "url codificar/decodificar"
+    original é "olá mundo"
+    codificado é url_codificar(original)
+    decodificado é url_decodificar(codificado)
+    esporte decodificado igual a original
+fim
+
+teste "resposta sucesso/erro"
+    resp_sucesso é registro codigo: 200 conteudo: "OK" fim
+    resp_erro é registro codigo: 404 conteudo: "Não encontrado" fim
+    esporte resposta_sucesso(resp_sucesso) igual a verdadeiro
+    esporte resposta_erro(resp_erro) igual a verdadeiro
+fim

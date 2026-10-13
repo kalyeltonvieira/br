@@ -1,0 +1,12 @@
+contrato http_servidor
+    função nome
+    função descricao
+    função versao
+    função criar recebendo porta e callback
+    função iniciar recebendo servidor
+    função parar recebendo servidor
+    função adicionar_rota recebendo servidor, metodo, caminho e handler
+    função adicionar_middleware recebendo servidor e middleware
+    função definir_timeout recebendo servidor e segundos
+    função definir_max_conexoes recebendo servidor e maximo
+fim

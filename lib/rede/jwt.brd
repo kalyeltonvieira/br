@@ -1,0 +1,41 @@
+# Documentação BRD: jwt
+
+## Nome
+
+JWT
+
+## Descrição
+
+Criação e validação de JSON Web Tokens. Permite criar, assinar e validar tokens JWT.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* criar: Cria um token JWT com o payload especificado.
+* validar: Valida se um token JWT é válido.
+* decodificar: Decodifica o payload de um token JWT.
+* definir_expiracao: Define o tempo de expiração do token.
+* definir_issuer: Define o emissor do token.
+* definir_audience: Define a audiência do token.
+* definir_subject: Define o sujeito do token.
+* verificar_expiracao: Verifica se o token está expirado.
+* verificar_issuer: Verifica se o emissor do token é válido.
+* verificar_audience: Verifica se a audiência do token é válida.
+* criar_refresh_token: Cria um refresh token com expiração maior.
+* refrescar: Gera um novo token de acesso usando o refresh token.
+
+## Exemplo
+
+```br
+usar rede.jwt
+
+payload é registro
+    usuario_id: 123
+    nome: "João"
+fim
+
+payload é definir_expiracao payload, 3600
+token é criar payload, "segredo_secreto"
+```

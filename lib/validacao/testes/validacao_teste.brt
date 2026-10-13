@@ -1,0 +1,5 @@
+importar "validacao"
+
+teste "nome do modulo validacao"
+    espere validacao.nome() igual a "validacao"
+fim

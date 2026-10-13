@@ -1,0 +1,5 @@
+importar "path"
+
+teste "nome do modulo path"
+    espere path.nome() igual a "path"
+fim

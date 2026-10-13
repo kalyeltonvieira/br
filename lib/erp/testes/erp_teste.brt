@@ -1,0 +1,5 @@
+importar "erp"
+
+teste "nome do modulo erp"
+    espere erp.nome() igual a "erp"
+fim

@@ -1,0 +1,9 @@
+contrato matematica
+    função nome
+    função descricao
+    função versao
+    função somar recebendo a e b
+    função subtrair recebendo a e b
+    função multiplicar recebendo a e b
+    função dividir recebendo a e b
+fim

@@ -1,0 +1,36 @@
+explicacao
+    Modulo classificacao compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "classificacao"
+fim
+
+funcao descricao
+    devolva "Modulo classificacao compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao treinar_modelo recebendo tipo e dados_treino
+    devolva tipo
+fim
+
+funcao classificar_recebendo
+    devolva verdadeiro
+fim
+
+funcao avaliar_recebendo
+    devolva verdadeiro
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim
+
+funcao exemplo recebendo valor
+    devolva valor
+fim

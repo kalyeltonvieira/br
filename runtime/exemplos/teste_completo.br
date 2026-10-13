@@ -1,0 +1,71 @@
+# Teste Completo do Runtime Nativo BR
+# Este programa testa todas as funcionalidades da linguagem
+
+# =========== Variáveis e Tipos ===========
+nome é "Mundo BR"
+versao é 2.0
+ano é 2026
+ativo é verdadeiro
+
+mostre "Olá, " + nome + "!"
+mostre "Versão: " + versao
+mostre "Ano: " + ano
+mostre "Ativo: " + ativo
+
+# =========== Operações Matemáticas ===========
+soma é 10 + 5
+subtracao é 20 - 8
+multiplicacao é 6 * 7
+divisao é 100 / 4
+
+mostre "10 + 5 = " + soma
+mostre "20 - 8 = " + subtracao
+mostre "6 * 7 = " + multiplicacao
+mostre "100 / 4 = " + divisao
+
+# =========== Funções ===========
+função saudacao recebendo nome
+    mostre "Olá, " + nome + "!"
+fim
+
+função somar recebendo a e b
+    devolva a + b
+fim
+
+saudacao "Teste"
+resultado é somar 30 e 40
+mostre "30 + 40 = " + resultado
+
+# =========== Condicionais ===========
+idade é 18
+se idade >= 18 então
+    mostre "Maior de idade"
+senão
+    mostre "Menor de idade"
+fim
+
+# =========== Laços ===========
+mostre "Contando de 1 até 5:"
+conte de 1 até 5 como i
+    mostre "  Número: " + i
+fim
+
+mostre "Repetindo 3 vezes:"
+repita 3 vezes
+    mostre "  BR Nativo!"
+fim
+
+# =========== Listas e Registros ===========
+frutas é lista
+    "Maçã"
+    "Banana"
+    "Laranja"
+fim
+
+mostre "Lista de frutas: " + frutas
+mostre "Tamanho da lista: " + frutas.tamanho
+
+# =========== Teste Completo ===========
+mostre ""
+mostre "=== TESTE CONCLUÍDO COM SUCESSO! ==="
+mostre "Runtime Nativo BR funcionando!"

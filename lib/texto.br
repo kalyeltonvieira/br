@@ -1,0 +1,171 @@
+# Biblioteca de Texto - BR
+# Manipulação de strings e texto
+
+# ==================== OPERAÇÕES BÁSICAS ====================
+
+função maiusculo recebendo texto
+    devolva texto.maior()
+fim
+
+função minusculo recebendo texto
+    devolva texto.menor()
+fim
+
+função capitalizar recebendo texto
+    devolva texto.capitalizar()
+fim
+
+função inverter recebendo texto
+    devolva texto.inverter()
+fim
+
+# ==================== BUSCA E SUBSTITUIÇÃO ====================
+
+função contem recebendo texto e procurado
+    devolva texto.contem(procurado)
+fim
+
+função comeca_com recebendo texto e prefixo
+    devolva texto.comeca_com(prefixo)
+fim
+
+função termina_com recebendo texto e sufixo
+    devolva texto.termina_com(sufixo)
+fim
+
+função buscar recebendo texto e procurado
+    devolva texto.buscar(procurado)
+fim
+
+função buscar_todos recebendo texto e procurado
+    # Simplificado - retorna primeira ocorrência
+    devolva [texto.buscar(procurado)]
+fim
+
+função substituir recebendo texto e antigo e novo
+    devolva texto.substituir(antigo, novo)
+fim
+
+função substituir_todos recebendo texto e antigo e novo
+    devolva texto.substituir(antigo, novo)
+fim
+
+# ==================== DIVISÃO E JUNÇÃO ====================
+
+função dividir recebendo texto e separador
+    partes é []
+    parte_atual é ""
+    i é 0
+    enquanto i < texto.tamanho()
+        caractere é texto[i]
+        se caractere == separador
+            partes.adicionar(parte_atual)
+            parte_atual é ""
+        senao
+            parte_atual é parte_atual + caractere
+        fim
+        i é i + 1
+    fim
+    partes.adicionar(parte_atual)
+    devolva partes
+fim
+
+função juntar recebendo lista e separador
+    resultado é ""
+    i é 0
+    enquanto i < lista.tamanho()
+        se i > 0
+            resultado é resultado + separador
+        fim
+        resultado é resultado + lista[i]
+        i é i + 1
+    fim
+    devolva resultado
+fim
+
+# ==================== REMOÇÃO ====================
+
+função remover_espacos recebendo texto
+    devolva texto.sem_espacos()
+fim
+
+função remover_inicio recebendo texto e removido
+    # Simplificado
+    devolva texto
+fim
+
+função remover_fim recebendo texto e removido
+    # Simplificado
+    devolva texto
+fim
+
+# ==================== VALIDAÇÃO ====================
+
+função eh_vazio recebendo texto
+    devolva texto == ""
+fim
+
+função eh_numero recebendo texto
+    para cada caractere em texto
+        se caractere < '0' ou caractere > '9'
+            devolva falso
+        fim
+    fim
+    devolva texto.tamanho() > 0
+fim
+
+função eh_letra recebendo texto
+    para cada caractere em texto
+        codigo é caractere.codigo()
+        se (codigo < 65 ou codigo > 90) e (codigo < 97 ou codigo > 122)
+            devolva falso
+        fim
+    fim
+    devolva texto.tamanho() > 0
+fim
+
+função eh_alfanumerico recebendo texto
+    para cada caractere em texto
+        codigo é caractere.codigo()
+        se nao ((codigo >= 65 e codigo <= 90) ou (codigo >= 97 e codigo <= 122) ou (codigo >= 48 e codigo <= 57))
+            devolva falso
+        fim
+    fim
+    devolva texto.tamanho() > 0
+fim
+
+# ==================== FORMATAÇÃO ====================
+
+função preencher_esquerda recebendo texto e tamanho e caractere
+    while texto.tamanho() < tamanho
+        texto é caractere + texto
+    fim
+    devolva texto
+fim
+
+função preencher_direita recebendo texto e tamanho e caractere
+    while texto.tamanho() < tamanho
+        texto é texto + caractere
+    fim
+    devolva texto
+fim
+
+função recortar recebendo texto e inicio e fim
+    devolva texto[inicio:fim]
+fim
+
+# ==================== CONTAGEM ====================
+
+função tamanho recebendo texto
+    devolva texto.tamanho()
+fim
+
+função contar recebendo texto e procurado
+    contador é 0
+    posicao é texto.buscar(procurado)
+    enquanto posicao != -1
+        contador é contador + 1
+        posicao é texto.buscar(procurado, posicao + 1)
+    fim
+    devolva contador
+fim

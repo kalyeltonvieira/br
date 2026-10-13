@@ -1,0 +1,9 @@
+contrato serializacao
+    função nome
+    função descricao
+    função versao
+    função para_texto recebendo dados
+    função de_texto recebendo dados
+    função para_binario recebendo dados
+    função clonar recebendo dados
+fim

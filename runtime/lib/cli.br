@@ -1,0 +1,284 @@
+explicacao
+    CLI: framework para construção de interfaces de linha de comando.
+    Parsing de argumentos, flags, subcomandos, ajuda automática,
+    tabelas formatadas, prompts interativos e progresso.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome devolva "cli" fim
+função descricao devolva "CLI: construção de interfaces de linha de comando" fim
+função versao devolva "1.0.0" fim
+
+constante COR_VERMELHO é "\033[31m"
+constante COR_VERDE é "\033[32m"
+constante COR_AMARELO é "\033[33m"
+constante COR_AZUL é "\033[34m"
+constante COR_RESET é "\033[0m"
+
+# ============ PARSING DE ARGUMENTOS ============
+
+função parsear_argumentos
+    args_brutos é argumentos
+    resultado é registro
+        comandos: []
+        flags: registro
+        opcoes: registro
+        _raw: args_brutos
+    fim
+    
+    i é 0
+    enquanto i < tamanho(args_brutos)
+        arg é args_brutos[i]
+        
+        se comeca_com(arg, "--") então
+            nome_flag é arg[2:]
+            se contem(nome_flag, "=") então
+                partes_flag é dividir(nome_flag, "=")
+                resultado.opcoes[partes_flag[0]] é partes_flag[1]
+            senao
+                resultado.flags[nome_flag] é verdadeiro
+            fim
+        senao se comeca_com(arg, "-") então
+            nome_curto é arg[1:]
+            se i + 1 < tamanho(args_brutos) e não comeca_com(args_brutos[i+1], "-") então
+                resultado.opcoes[nome_curto] é args_brutos[i+1]
+                i é i + 1
+            senao
+                resultado.flags[nome_curto] é verdadeiro
+            fim
+        senao
+            adicione arg a resultado.comandos
+        fim
+        
+        i é i + 1
+    fim
+    
+    devolva resultado
+fim
+
+função tem_flag recebendo args_parseados e nome
+    devolva args_parseados.flags[nome] igual verdadeiro
+fim
+
+função obter_opcao recebendo args_parseados, nome e padrao
+    se args_parseados.opcoes[nome] não nulo então
+        devolva args_parseados.opcoes[nome]
+    fim
+    devolva padrao
+fim
+
+função primeiro_comando recebendo args_parseados
+    se tamanho(args_parseados.comandos) > 0 então
+        devolva args_parseados.comandos[0]
+    fim
+    devolva ""
+fim
+
+# ============ FORMATAÇÃO ============
+
+função tabela recebendo cabecalhos e linhas
+    larguras é []
+    para cada cabecalho em cabecalhos
+        adicione tamanho(cabecalho) a larguras
+    fim
+    
+    para cada linha em linhas
+        j é 0
+        enquanto j < tamanho(linha)
+            if j >= tamanho(larguras) então
+                pare
+            fim
+            tam_celula é tamanho("" + linha[j])
+            se tam_celula > larguras[j] então
+                larguras[j] é tam_celula
+            fim
+            j é j + 1
+        fim
+    fim
+    
+    resultado é ""
+    
+    # Linha do cabeçalho
+    i é 0
+    enquanto i < tamanho(cabecalhos)
+        se i > 0 então resultado é resultado + " | " fim
+        cab é cabecalhos[i]
+        resultado é resultado + cab + repetir_espaco(larguras[i] - tamanho(cab))
+        i é i + 1
+    fim
+    resultado é resultado + "\n"
+    
+    # Separador
+    i é 0
+    enquanto i < tamanho(cabecalhos)
+        se i > 0 então resultado é resultado + "-+-" fim
+        resultado é resultado + repetir_caractere(larguras[i], "-")
+        i é i + 1
+    fim
+    resultado é resultado + "\n"
+    
+    # Linhas de dados
+    para cada linha em linhas
+        i é 0
+        enquanto i < tamanho(cabecalhos)
+            se i > 0 então resultado é resultado + " | " fim
+            valor_str é "" + linha[i] se i < tamanho(linha) senao ""
+            resultado é resultado + valor_str + repetir_espaco(larguras[i] - tamanho(valor_str))
+            i é i + 1
+        fim
+        resultado é resultado + "\n"
+    fim
+    
+    devolva resultado
+fim
+
+função repetir_espaco recebendo n
+    resultado é ""
+    se n > 0 então repita n vezes resultado é resultado + " " fim fim
+    devolva resultado
+fim
+
+função repetir_caractere recebendo n e c
+    resultado é ""
+    se n > 0 então repita n vezes resultado é resultado + c fim fim
+    devolva resultado
+fim
+
+função colorido recebendo texto e cor
+    devolva cor + texto + COR_RESET
+fim
+
+função vermelho recebendo texto devolva colorido(texto, COR_VERMELHO) fim
+função verde recebendo texto devolva colorido(texto, COR_VERDE) fim
+função amarelo recebendo texto devolva colorido(texto, COR_AMARELO) fim
+função azul recebendo texto devolva colorido(texto, COR_AZUL) fim
+
+função negrito recebendo texto
+    devolva "\033[1m" + texto + "\033[22m"
+fim
+
+função sublinhado recebendo texto
+    devolva "\033[4m" + texto + "\033[24m"
+fim
+
+# ============ PROMPT ============
+
+função perguntar recebendo mensagem e padrao
+    mostre mensagem + ": "
+    # Na VM real, leria do stdin
+    resposta é padrao se padrao nulo senao ""
+    se resposta "" e padrao não nulo então
+        resposta é padrao
+    fim
+    devolva resposta
+fim
+
+função confirmar recebendo mensagem e padrao
+    sugestao é "s/N" se padrao não verdadeiro senao "S/n"
+    mostre mensagem + " [" + sugestao + "]: "
+    resposta é padrao
+    devolva resposta igual verdadeiro ou resposta igual "s" ou resposta igual "S" ou resposta igual "sim"
+fim
+
+função escolher recebendo mensagem e opcoes
+    mostre mensagem + ":"
+    i é 0
+    enquanto i < tamanho(opcoes)
+        mostre "  " + (i + 1) + ". " + opcoes[i]
+        i é i + 1
+    fim
+    mostre "Escolha (1-" + tamanho(opcoes) + "): "
+    devolva 0
+fim
+
+função esperar_tecla recebendo mensagem
+    se mensagem nulo então mensagem é "Pressione qualquer tecla para continuar..." fim
+    mostre mensagem
+    devolva verdadeiro
+fim
+
+# ============ PROGRESSO ============
+
+função barra_progresso recebendo atual, total e largura
+    se largura nulo então largura é 40 fim
+    progresso é atual * largura / total
+    barra é "["
+    i é 0
+    enquanto i < largura
+        se i < progresso então barra é barra + "=" senao barra é barra + " " fim
+        i é i + 1
+    fim
+    porcentagem é atual * 100 / total
+    barra é barra + "] " + porcentagem + "%"
+    devolva barra
+fim
+
+função spinner
+    simbolos é ["|", "/", "-", "\\"]
+    # Retorna próximo símbolo do spinner (para animação)
+    devolva simbolos[0]
+fim
+
+# ============ AJUDA ============
+
+função gerar_ajuda recebendo nome_programa, descricao, subcomandos e opcoes
+    resultado é ""
+    resultado é resultado + "Uso: " + nome_programa + " [opções] <comando>\n"
+    se descricao não "" então
+        resultado é resultado + "\n" + descricao + "\n"
+    fim
+    
+    se tamanho(opcoes) > 0 então
+        resultado é resultado + "\nOpções:\n"
+        para cada opcao em opcoes
+            flags_valor é opcao.flags
+            desc_opcao é opcao.descricao
+            resultado é resultado + "  " + flags_valor + "  " + desc_opcao + "\n"
+        fim
+    fim
+    
+    se tamanho(subcomandos) > 0 então
+        resultado é resultado + "\nComandos:\n"
+        para cada cmd em subcomandos
+            nome_cmd é cmd.nome
+            desc_cmd é cmd.descricao
+            resultado é resultado + "  " + nome_cmd + "  " + desc_cmd + "\n"
+        fim
+    fim
+    
+    devolva resultado
+fim
+
+# ============ TESTES ============
+
+teste "parsear argumentos simples"
+    args é ["build", "--verbose", "--output", "dist"]
+    resultado é parsear_argumentos(args)
+    esporte tamanho(resultado.comandos) igual a 1
+    esporte resultado.comandos[0] igual a "build"
+    esporte resultado.flags.verbose igual a verdadeiro
+    esporte resultado.opcoes.output igual a "dist"
+fim
+
+teste "tabela formatada"
+    cab é ["Nome", "Idade"]
+    dados é [["Ana", "30"], ["João", "25"]]
+    resultado é tabela(cab, dados)
+    esporte contem(resultado, "Nome")
+    esporte contem(resultado, "Ana")
+    esporte contem(resultado, "30")
+fim
+
+teste "barra de progresso"
+    barra é barra_progresso(5, 10, 20)
+    esporte contem(barra, "50%")
+    esporte contem(barra, "[")
+    esporte contem(barra, "]")
+fim
+
+teste "cores e formatação"
+    texto_verde é verde("OK")
+    texto_negrito é negrito("Importante")
+    esporte contem(texto_verde, "OK")
+    esporte contem(texto_negrito, "Importante")
+fim

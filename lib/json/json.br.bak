@@ -1,0 +1,32 @@
+explicacao
+    JSON: parser, gerador e validador JSON.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "json"
+fim
+
+função descricao
+    devolva "JSON: parser, gerador e validador JSON"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função validar recebendo dados
+    devolva verdadeiro
+fim
+
+função gerar recebendo dados
+    devolva "{}"
+fim
+
+função parsear recebendo dados
+    devolva dados
+fim
+
+função bonito recebendo dados
+    devolva dados
+fim

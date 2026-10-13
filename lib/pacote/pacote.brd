@@ -1,0 +1,19 @@
+# Documentação BRD: pacote
+
+## Nome
+
+Pacotes
+
+## Descrição
+
+instalação, remoção, atualização, manifesto, versões e dependências.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* instalar: Instala pacote.
+* remover: Remove pacote.
+* atualizar: Atualiza pacote.
+* versao: Consulta versão.

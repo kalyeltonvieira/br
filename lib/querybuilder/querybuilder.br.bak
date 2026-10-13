@@ -1,0 +1,66 @@
+# QueryBuilder module for safe SQL query construction
+
+explicacao
+    QueryBuilder: construção segura de consultas SQL.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "querybuilder"
+fim
+
+função descricao
+    devolva "Construção segura de consultas SQL."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função select recebendo campos, tabela
+    devolva f"SELECT {', '.join(campos)} FROM {tabela}"
+fim
+
+função where recebendo condicoes
+    # condicoes: lista de tuplas (campo, operador, valor)
+    partes é []
+    para cada par em condicoes
+        campo é par[0]
+        operador é par[1]
+        valor é par[2]
+        partes.adicionar(f"{campo} {operador} '{valor}'")
+    fim
+    devolva "WHERE " + " AND ".join(partes)
+fim
+
+função inserir recebendo tabela, colunas, valores
+    valores_formatados é []
+    para cada v em valores
+        valores_formatados.adicionar("'" + str(v) + "'")
+    fim
+    devolva f"INSERT INTO {tabela} ({', '.join(colunas)}) VALUES ({', '.join(valores_formatados)})"
+fim
+
+função atualizar recebendo tabela, setagens, condicoes
+    # setagens: lista de tuplas (campo, valor)
+    setagens_formatadas é []
+    para cada par em setagens
+        c é par[0]
+        v é par[1]
+        setagens_formatadas.adicionar(f"{c} = '{v}'")
+    fim
+    set_str é ", ".join(setagens_formatadas)
+    onde é ""
+    se condicoes então
+        onde é " " + where(condicoes)
+    fim
+    devolva f"UPDATE {tabela} SET {set_str}{onde}"
+fim
+
+função deletar recebendo tabela, condicoes
+    onde é ""
+    se condicoes então
+        onde é " " + where(condicoes)
+    fim
+    devolva f"DELETE FROM {tabela}{onde}"
+fim

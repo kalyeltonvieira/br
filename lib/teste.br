@@ -1,0 +1,102 @@
+# Biblioteca de Teste - BR
+# Framework de testes unitários
+
+# ==================== ASSERTS ====================
+
+função assert_igual recebendo esperado e atual
+    se esperado != atual
+        lance "Assert falhou: esperado '" + esperado + "' mas recebeu '" + atual + "'"
+    fim
+    devolva verdadeiro
+fim
+
+função assert_diferente recebendo esperado e atual
+    se esperado == atual
+        lance "Assert falhou: valores deveriam ser diferentes"
+    fim
+    devolva verdadeiro
+fim
+
+função assert_verdadeiro recebendo valor
+    se nao valor
+        lance "Assert falhou: esperado verdadeiro"
+    fim
+    devolva verdadeiro
+fim
+
+função assert_falso recebendo valor
+    se valor
+        lance "Assert falhou: esperado falso"
+    fim
+    devolva verdadeiro
+fim
+
+função assert_nulo recebendo valor
+    se valor != nulo
+        lance "Assert falhou: esperado nulo"
+    fim
+    devolva verdadeiro
+fim
+
+função assert_nao_nulo recebendo valor
+    se valor == nulo
+        lance "Assert falhou: esperado não nulo"
+    fim
+    devolva verdadeiro
+fim
+
+# ==================== TESTES ====================
+
+função teste recebendo nome e funcao
+    mostre "Executando teste: " + nome
+    tente
+        funcao()
+        mostre cor_verde("  ✓ PASSOU")
+        devolva verdadeiro
+    capture erro
+        mostre cor_vermelho("  ✗ FALHOU: " + erro)
+        devolva falso
+    fim
+fim
+
+função suite recebendo nome e testes
+    mostre ""
+    mostre "=== Suite de Testes: " + nome + " ==="
+    mostre ""
+    
+    passou é 0
+    falhou é 0
+    
+    para cada teste_nome, teste_funcao em testes
+        resultado é teste(teste_nome, teste_funcao)
+        se resultado
+            passou é passou + 1
+        senao
+            falhou é falhou + 1
+        fim
+    fim
+    
+    mostre ""
+    mostre "=== Resultado ==="
+    mostre "Passou: " + passou
+    mostre "Falhou: " + falhou
+    mostre "Total: " + (passou + falhou)
+    
+    se falhou == 0
+        mostre cor_verde_negrito("✓ TODOS OS TESTES PASSARAM!")
+    senao
+        mostre cor_vermelho_negrito("✗ ALGUNS TESTES FALHARAM")
+    fim
+fim
+
+# ==================== MOCKS ====================
+
+função mock recebendo nome e valor
+    # Simplificado - retorna o valor
+    devolva valor
+fim
+
+função spy recebendo funcao
+    # Simplificado - retorna a função
+    devolva funcao
+fim

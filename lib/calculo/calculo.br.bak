@@ -1,0 +1,38 @@
+# Calculo module for limits, derivatives, integrals and series
+
+explicacao
+    calculo: limites, derivadas, integrais e séries.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "calculo"
+fim
+
+função descricao
+    devolva "Limites, derivadas, integrais e séries."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função limite recebendo expressao, ponto
+    devolva 0.0
+fim
+
+função derivada recebendo funcao, variavel
+    devolva "derivada"
+fim
+
+função integral recebendo funcao, intervalo
+    devolva "integral"
+fim
+
+função soma_serie recebendo termo, n
+    devolva 0.0
+fim
+
+função fechar
+    devolva verdadeiro
+fim

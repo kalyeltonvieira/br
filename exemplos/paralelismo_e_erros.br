@@ -1,0 +1,122 @@
+# Exemplo: Paralelismo e Tratamento de Erros
+
+# ==================== PARALELISMO ====================
+mostre "Iniciando processos paralelos..."
+
+execute em paralelo
+    # Processo 1
+    mostre "Processo 1: Calculando..."
+    i é 0
+    enquanto i < 3
+        mostre "  Processo 1 - Iteração ${i}"
+        i é i + 1
+    fim
+    
+    # Processo 2
+    mostre "Processo 2: Processando..."
+    j é 0
+    enquanto j < 3
+        mostre "  Processo 2 - Iteração ${j}"
+        j é j + 1
+    fim
+    
+    # Processo 3
+    mostre "Processo 3: Finalizando..."
+    k é 0
+    enquanto k < 3
+        mostre "  Processo 3 - Iteração ${k}"
+        k é k + 1
+    fim
+fim
+
+mostre "Todos os processos concluídos!"
+
+# ==================== TRATAMENTO DE ERROS ====================
+mostre ""
+mostre "=== Testando tratamento de erros ==="
+
+# Erro 1: Divisão por zero
+tente
+    resultado é 100 / 0
+    mostre "Resultado: ${resultado}"
+capture erro
+    mostre "Erro capturado (divisão por zero): ${erro}"
+fim
+
+# Erro 2: Acesso a índice inválido
+tente
+    lista é [1, 2, 3]
+    elemento é lista.obter(10)
+    mostre "Elemento: ${elemento}"
+capture erro
+    mostre "Erro capturado (índice inválido): ${erro}"
+fim
+
+# Erro 3: Variável não declarada
+tente
+    valor é variavel_inexistente
+    mostre "Valor: ${valor}"
+capture erro
+    mostre "Erro capturado (variável não declarada): ${erro}"
+fim
+
+# ==================== MÚLTIPLAS TENTATIVAS ====================
+mostre ""
+mostre "=== Múltiplas tentativas ==="
+
+tentativas é 0
+sucesso é falso
+
+tente
+    enquanto tentativas < 3 e nao sucesso
+        tentativas é tentativas + 1
+        mostre "Tentativa ${tentativas}..."
+        
+        # Simular falha nas primeiras 2 tentativas
+        se tentativas < 3
+            lance "Falha simulada"
+        fim
+        
+        sucesso é verdadeiro
+    fim
+capture erro
+    mostre "Tentativa ${tentativas} falhou: ${erro}"
+    se tentativas >= 3
+        mostre "Máximo de tentativas atingido!"
+    fim
+fim
+
+se sucesso
+    mostre "Operação concluída com sucesso na tentativa ${tentativas}!"
+fim
+
+# ==================== VALIDAÇÃO DE DADOS ====================
+mostre ""
+mostre "=== Validação de dados ==="
+
+função validar_idade recebendo idade
+    tente
+        se idade < 0
+            lance "Idade não pode ser negativa"
+        fim
+        se idade > 150
+            lance "Idade não pode ser maior que 150"
+        fim
+        devolva verdadeiro
+    capture erro
+        mostre "Erro de validação: ${erro}"
+        devolva falso
+    fim
+fim
+
+validador1 é validar_idade(25)
+mostre "Idade 25 válida? ${validador1}"
+
+validador2 é validar_idade(-5)
+mostre "Idade -5 válida? ${validador2}"
+
+validador3 é validar_idade(200)
+mostre "Idade 200 válida? ${validador3}"
+
+mostre ""
+mostre "Exemplo concluído!"

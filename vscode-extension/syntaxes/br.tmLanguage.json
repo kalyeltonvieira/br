@@ -1,0 +1,49 @@
+{
+  "scopeName": "source.br",
+  "patterns": [
+    {
+      "match": "#.*$",
+      "name": "comment.line.hash.br"
+    },
+    {
+      "match": "\\b(função|se|senão|enquanto|para|cada|em|tente|capture|execute|paralelo|devolva|mostre|espere|salve|remova|busque|acesse|constante|explicacao|objetivo|teste|fim)\\b",
+      "name": "keyword.control.br"
+    },
+    {
+      "match": "\\b(lista|registro|texto|inteiro|decimal|booleano)\\b",
+      "name": "storage.type.br"
+    },
+    {
+      "match": "\\b(verdadeiro|falso|nulo)\\b",
+      "name": "constant.language.br"
+    },
+    {
+      "match": "\\b(é|recebendo|e|então)\\b",
+      "name": "keyword.operator.br"
+    },
+    {
+      "match": "(\\+|\\-|\\*|\\/|==|!=|<=|>=|<|>|=)",
+      "name": "keyword.operator.arithmetic.br"
+    },
+    {
+      "match": "(:|,|\\(|\\)|\\[|\\])",
+      "name": "punctuation.br"
+    },
+    {
+      "match": "\".*?\"",
+      "name": "string.quoted.double.br"
+    },
+    {
+      "match": "'.*?'",
+      "name": "string.quoted.single.br"
+    },
+    {
+      "match": "\\b\\d+\\.?\\d*\\b",
+      "name": "constant.numeric.br"
+    },
+    {
+      "match": "\\b[a-zA-Z_][a-zA-Z0-9_]*\\b",
+      "name": "entity.name.function.br"
+    }
+  ]
+}

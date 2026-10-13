@@ -1,0 +1,5 @@
+importar "estoque"
+
+teste "nome do modulo estoque"
+    espere estoque.nome() igual a "estoque"
+fim

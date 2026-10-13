@@ -1,0 +1,5 @@
+importar "template"
+
+teste "nome do modulo template"
+    espere template.nome() igual a "template"
+fim

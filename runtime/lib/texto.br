@@ -1,0 +1,921 @@
+explicacao
+    Texto: manipulação completa de strings, encoding, acentos, busca,
+    substituição, validação, slug, formatação e muito mais.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome
+    devolva "texto"
+fim
+
+função descricao
+    devolva "Manipulação completa de strings para a linguagem BR"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# ============ VALIDAÇÃO ============
+
+função vazia recebendo valor
+    devolva valor igual "" ou valor igual nulo
+fim
+
+função vazio recebendo valor
+    devolva vazia(valor)
+fim
+
+função contem recebendo texto e busca
+    se vazia(texto) ou vazia(busca) então
+        devolva falso
+    fim
+    
+    i é 0
+    tamanho_texto é tamanho(texto)
+    tamanho_busca é tamanho(busca)
+    
+    se tamanho_busca > tamanho_texto então
+        devolva falso
+    fim
+    
+    enquanto i <= tamanho_texto - tamanho_busca
+        j é 0
+        enquanto j < tamanho_busca
+            se texto[i + j] diferente busca[j] então
+                pare
+            fim
+            j é j + 1
+        fim
+        
+        se j igual tamanho_busca então
+            devolva verdadeiro
+        fim
+        
+        i é i + 1
+    fim
+    
+    devolva falso
+fim
+
+função comeca_com recebendo texto e prefixo
+    se vazia(texto) ou vazia(prefixo) então
+        devolva falso
+    fim
+    
+    se tamanho(prefixo) > tamanho(texto) então
+        devolva falso
+    fim
+    
+    i é 0
+    enquanto i < tamanho(prefixo)
+        se texto[i] diferente prefixo[i] então
+            devolva falso
+        fim
+        i é i + 1
+    fim
+    
+    devolva verdadeiro
+fim
+
+função termina_com recebendo texto e sufixo
+    se vazia(texto) ou vazia(sufixo) então
+        devolva falso
+    fim
+    
+    se tamanho(sufixo) > tamanho(texto) então
+        devolva falso
+    fim
+    
+    inicio é tamanho(texto) - tamanho(sufixo)
+    
+    i é 0
+    enquanto i < tamanho(sufixo)
+        se texto[inicio + i] diferente sufixo[i] então
+            devolva falso
+        fim
+        i é i + 1
+    fim
+    
+    devolva verdadeiro
+fim
+
+função esta_entre recebendo texto, inicio_marcador e fim_marcador
+    pos_inicio é encontrar(texto, inicio_marcador)
+    se pos_inicio < 0 então
+        devolva ""
+    fim
+    
+    pos_inicio é pos_inicio + tamanho(inicio_marcador)
+    pos_fim é encontrar(texto, fim_marcador, pos_inicio)
+    se pos_fim < 0 então
+        devolva ""
+    fim
+    
+    devolva texto[pos_inicio:pos_fim]
+fim
+
+# ============ TRANSFORMAÇÃO ============
+
+função maiusculo recebendo texto
+    resultado é ""
+    i é 0
+    enquanto i < tamanho(texto)
+        c é texto[i]
+        cod é codigo_caractere(c)
+        se cod >= 97 e cod <= 122 então
+            resultado é resultado + caractere_codigo(cod - 32)
+        senao
+            resultado é resultado + c
+        fim
+        i é i + 1
+    fim
+    devolva resultado
+fim
+
+função minusculo recebendo texto
+    resultado é ""
+    i é 0
+    enquanto i < tamanho(texto)
+        c é texto[i]
+        cod é codigo_caractere(c)
+        se cod >= 65 e cod <= 90 então
+            resultado é resultado + caractere_codigo(cod + 32)
+        senao
+            resultado é resultado + c
+        fim
+        i é i + 1
+    fim
+    devolva resultado
+fim
+
+função capitalizar recebendo texto
+    se vazia(texto) então
+        devolva ""
+    fim
+    devolva maiusculo(texto[0]) + texto[1:]
+fim
+
+função titulo recebendo texto
+    se vazia(texto) então
+        devolva ""
+    fim
+    
+    resultado é ""
+    nova_palavra é verdadeiro
+    i é 0
+    
+    enquanto i < tamanho(texto)
+        c é texto[i]
+        se c igual " " então
+            resultado é resultado + " "
+            nova_palavra é verdadeiro
+        senao
+            se nova_palavra então
+                resultado é resultado + maiusculo(c)
+                nova_palavra é falso
+            senao
+                resultado é resultado + c
+            fim
+        fim
+        i é i + 1
+    fim
+    
+    devolva resultado
+fim
+
+função inverter recebendo texto
+    resultado é ""
+    i é tamanho(texto) - 1
+    enquanto i >= 0
+        resultado é resultado + texto[i]
+        i é i - 1
+    fim
+    devolva resultado
+fim
+
+função repetir recebendo texto e vezes
+    resultado é ""
+    i é 0
+    enquanto i < vezes
+        resultado é resultado + texto
+        i é i + 1
+    fim
+    devolva resultado
+fim
+
+função reverter_palavras recebendo texto
+    palavras é dividir(texto, " ")
+    resultado é ""
+    i é tamanho(palavras) - 1
+    
+    enquanto i >= 0
+        se resultado não "" então
+            resultado é resultado + " "
+        fim
+        resultado é resultado + palavras[i]
+        i é i - 1
+    fim
+    
+    devolva resultado
+fim
+
+# ============ LIMPEZA ============
+
+função aparar recebendo texto
+    resultado é aparar_inicio(texto)
+    devolva aparar_fim(resultado)
+fim
+
+função aparar_inicio recebendo texto
+    i é 0
+    enquanto i < tamanho(texto) e (texto[i] igual " " ou texto[i] igual "\t" ou texto[i] igual "\n" ou texto[i] igual "\r")
+        i é i + 1
+    fim
+    devolva texto[i:]
+fim
+
+função aparar_fim recebendo texto
+    i é tamanho(texto) - 1
+    enquanto i >= 0 e (texto[i] igual " " ou texto[i] igual "\t" ou texto[i] igual "\n" ou texto[i] igual "\r")
+        i é i - 1
+    fim
+    devolva texto[0:i+1]
+fim
+
+função remover_espacos recebendo texto
+    resultado é ""
+    i é 0
+    enquanto i < tamanho(texto)
+        se texto[i] diferente " " então
+            resultado é resultado + texto[i]
+        fim
+        i é i + 1
+    fim
+    devolva resultado
+fim
+
+função normalizar_espacos recebendo texto
+    resultado é ""
+    ultimo_foi_espaco é falso
+    i é 0
+    
+    enquanto i < tamanho(texto)
+        c é texto[i]
+        se c igual " " ou c igual "\t" ou c igual "\n" ou c igual "\r" então
+            se não ultimo_foi_espaco então
+                resultado é resultado + " "
+                ultimo_foi_espaco é verdadeiro
+            fim
+        senao
+            resultado é resultado + c
+            ultimo_foi_espaco é falso
+        fim
+        i é i + 1
+    fim
+    
+    devolva resultado
+fim
+
+função remover_acentos recebendo texto
+    resultado é texto
+    resultado é substituir(resultado, "á", "a")
+    resultado é substituir(resultado, "à", "a")
+    resultado é substituir(resultado, "ã", "a")
+    resultado é substituir(resultado, "â", "a")
+    resultado é substituir(resultado, "ä", "a")
+    resultado é substituir(resultado, "é", "e")
+    resultado é substituir(resultado, "è", "e")
+    resultado é substituir(resultado, "ê", "e")
+    resultado é substituir(resultado, "ë", "e")
+    resultado é substituir(resultado, "í", "i")
+    resultado é substituir(resultado, "ì", "i")
+    resultado é substituir(resultado, "î", "i")
+    resultado é substituir(resultado, "ï", "i")
+    resultado é substituir(resultado, "ó", "o")
+    resultado é substituir(resultado, "ò", "o")
+    resultado é substituir(resultado, "õ", "o")
+    resultado é substituir(resultado, "ô", "o")
+    resultado é substituir(resultado, "ö", "o")
+    resultado é substituir(resultado, "ú", "u")
+    resultado é substituir(resultado, "ù", "u")
+    resultado é substituir(resultado, "û", "u")
+    resultado é substituir(resultado, "ü", "u")
+    resultado é substituir(resultado, "ç", "c")
+    resultado é substituir(resultado, "ñ", "n")
+    resultado é substituir(resultado, "Á", "A")
+    resultado é substituir(resultado, "À", "A")
+    resultado é substituir(resultado, "Ã", "A")
+    resultado é substituir(resultado, "Â", "A")
+    resultado é substituir(resultado, "Ä", "A")
+    resultado é substituir(resultado, "É", "E")
+    resultado é substituir(resultado, "È", "E")
+    resultado é substituir(resultado, "Ê", "E")
+    resultado é substituir(resultado, "Ë", "E")
+    resultado é substituir(resultado, "Í", "I")
+    resultado é substituir(resultado, "Ì", "I")
+    resultado é substituir(resultado, "Î", "I")
+    resultado é substituir(resultado, "Ï", "I")
+    resultado é substituir(resultado, "Ó", "O")
+    resultado é substituir(resultado, "Ò", "O")
+    resultado é substituir(resultado, "Õ", "O")
+    resultado é substituir(resultado, "Ô", "O")
+    resultado é substituir(resultado, "Ö", "O")
+    resultado é substituir(resultado, "Ú", "U")
+    resultado é substituir(resultado, "Ù", "U")
+    resultado é substituir(resultado, "Û", "U")
+    resultado é substituir(resultado, "Ü", "U")
+    resultado é substituir(resultado, "Ç", "C")
+    resultado é substituir(resultado, "Ñ", "N")
+    devolva resultado
+fim
+
+função slug recebendo texto
+    resultado é minusculo(texto)
+    resultado é remover_acentos(resultado)
+    resultado é substituir(resultado, " ", "-")
+    resultado é substituir(resultado, "_", "-")
+    
+    # Remove caracteres não alfanuméricos
+    limpo é ""
+    i é 0
+    enquanto i < tamanho(resultado)
+        cod é codigo_caractere(resultado[i])
+        se (cod >= 97 e cod <= 122) ou (cod >= 48 e cod <= 57) ou resultado[i] igual "-" então
+            limpo é limpo + resultado[i]
+        fim
+        i é i + 1
+    fim
+    
+    # Remove hífens duplicados
+    enquanto contem(limpo, "--")
+        limpo é substituir(limpo, "--", "-")
+    fim
+    
+    devolva aparar(limpo)
+fim
+
+# ============ SUBSTITUIÇÃO ============
+
+função substituir recebendo texto, antigo e novo
+    se vazia(texto) ou vazia(antigo) então
+        devolva texto
+    fim
+    
+    resultado é ""
+    i é 0
+    tamanho_texto é tamanho(texto)
+    tamanho_antigo é tamanho(antigo)
+    
+    enquanto i < tamanho_texto
+        se i + tamanho_antigo <= tamanho_texto então
+            pedaco é texto[i:i + tamanho_antigo]
+            
+            se pedaco igual antigo então
+                resultado é resultado + novo
+                i é i + tamanho_antigo
+                continue
+            fim
+        fim
+        
+        resultado é resultado + texto[i]
+        i é i + 1
+    fim
+    
+    devolva resultado
+fim
+
+função substituir_primeiro recebendo texto, antigo e novo
+    resultado é ""
+    i é 0
+    tamanho_texto é tamanho(texto)
+    tamanho_antigo é tamanho(antigo)
+    substituiu é falso
+    
+    enquanto i < tamanho_texto
+        se não substituiu e i + tamanho_antigo <= tamanho_texto então
+            pedaco é texto[i:i + tamanho_antigo]
+            
+            se pedaco igual antigo então
+                resultado é resultado + novo
+                i é i + tamanho_antigo
+                substituiu é verdadeiro
+                continue
+            fim
+        fim
+        
+        resultado é resultado + texto[i]
+        i é i + 1
+    fim
+    
+    devolva resultado
+fim
+
+# ============ DIVISÃO E JUNÇÃO ============
+
+função dividir recebendo texto e separador
+    se vazia(texto) então
+        devolva []
+    fim
+    
+    resultado é []
+    atual é ""
+    i é 0
+    tamanho_texto é tamanho(texto)
+    
+    se vazia(separador) então
+        enquanto i < tamanho_texto
+            adicione texto[i] a resultado
+            i é i + 1
+        fim
+        devolva resultado
+    fim
+    
+    tamanho_sep é tamanho(separador)
+    
+    enquanto i < tamanho_texto
+        se i + tamanho_sep <= tamanho_texto então
+            pedaco é texto[i:i + tamanho_sep]
+            
+            se pedaco igual separador então
+                adicione atual a resultado
+                atual é ""
+                i é i + tamanho_sep
+                continue
+            fim
+        fim
+        
+        atual é atual + texto[i]
+        i é i + 1
+    fim
+    
+    adicione atual a resultado
+    devolva resultado
+fim
+
+função dividir_linhas recebendo texto
+    devolva dividir(texto, "\n")
+fim
+
+função unir recebendo lista e separador
+    se tamanho(lista) igual 0 então
+        devolva ""
+    fim
+    
+    resultado é lista[0]
+    i é 1
+    
+    enquanto i < tamanho(lista)
+        resultado é resultado + separador + lista[i]
+        i é i + 1
+    fim
+    
+    devolva resultado
+fim
+
+# ============ FORMATAÇÃO ============
+
+função preencher_direita recebendo texto, tamanho_desejado e caractere
+    se vazia(caractere) então
+        caractere é " "
+    fim
+    
+    faltam é tamanho_desejado - tamanho(texto)
+    se faltam <= 0 então
+        devolva texto
+    fim
+    
+    i é 0
+    enquanto i < faltam
+        texto é texto + caractere
+        i é i + 1
+    fim
+    
+    devolva texto
+fim
+
+função preencher_esquerda recebendo texto, tamanho_desejado e caractere
+    se vazia(caractere) então
+        caractere é " "
+    fim
+    
+    faltam é tamanho_desejado - tamanho(texto)
+    se faltam <= 0 então
+        devolva texto
+    fim
+    
+    prefixo é ""
+    i é 0
+    enquanto i < faltam
+        prefixo é prefixo + caractere
+        i é i + 1
+    fim
+    
+    devolva prefixo + texto
+fim
+
+função centralizar recebendo texto, largura e caractere
+    se vazia(caractere) então
+        caractere é " "
+    fim
+    
+    faltam é largura - tamanho(texto)
+    se faltam <= 0 então
+        devolva texto
+    fim
+    
+    esquerda é faltam / 2
+    direita é faltam - esquerda
+    
+    resultado é ""
+    i é 0
+    enquanto i < esquerda
+        resultado é resultado + caractere
+        i é i + 1
+    fim
+    resultado é resultado + texto
+    i é 0
+    enquanto i < direita
+        resultado é resultado + caractere
+        i é i + 1
+    fim
+    
+    devolva resultado
+fim
+
+função quebrar_linhas recebendo texto e largura_maxima
+    palavras é dividir(texto, " ")
+    resultado é ""
+    linha_atual é ""
+    
+    para cada palavra em palavras
+        teste é linha_atual
+        se teste não "" então
+            teste é teste + " "
+        fim
+        teste é teste + palavra
+        
+        se tamanho(teste) > largura_maxima e linha_atual não "" então
+            se resultado não "" então
+                resultado é resultado + "\n"
+            fim
+            resultado é resultado + linha_atual
+            linha_atual é palavra
+        senao
+            linha_atual é teste
+        fim
+    fim
+    
+    se linha_atual não "" então
+        se resultado não "" então
+            resultado é resultado + "\n"
+        fim
+        resultado é resultado + linha_atual
+    fim
+    
+    devolva resultado
+fim
+
+função tabular recebendo linhas, separador_coluna e larguras
+    resultado é ""
+    
+    para cada linha em linhas
+        se resultado não "" então
+            resultado é resultado + "\n"
+        fim
+        
+        i é 0
+        para cada celula em linha
+            se i > 0 então
+                resultado é resultado + separador_coluna
+            fim
+            
+            largura é larguras[i] se i < tamanho(larguras) senao tamanho(celula) + 2
+            resultado é resultado + preencher_direita(celula, largura, " ")
+            i é i + 1
+        fim
+    fim
+    
+    devolva resultado
+fim
+
+# ============ CONTAGEM ============
+
+função contar recebendo texto e subtexto
+    se vazia(texto) ou vazia(subtexto) então
+        devolva 0
+    fim
+    
+    contador é 0
+    i é 0
+    tamanho_sub é tamanho(subtexto)
+    tamanho_texto é tamanho(texto)
+    
+    enquanto i <= tamanho_texto - tamanho_sub
+        j é 0
+        enquanto j < tamanho_sub
+            se texto[i + j] diferente subtexto[j] então
+                pare
+            fim
+            j é j + 1
+        fim
+        
+        se j igual tamanho_sub então
+            contador é contador + 1
+            i é i + tamanho_sub
+        senao
+            i é i + 1
+        fim
+    fim
+    
+    devolva contador
+fim
+
+função comprimento recebendo texto
+    devolva tamanho(texto)
+fim
+
+# ============ BUSCA ============
+
+função encontrar recebendo texto, busca e inicio
+    se vazia(texto) ou vazia(busca) então
+        devolva -1
+    fim
+    
+    se inicio < 0 então
+        inicio é 0
+    fim
+    
+    tamanho_texto é tamanho(texto)
+    tamanho_busca é tamanho(busca)
+    
+    i é inicio
+    enquanto i <= tamanho_texto - tamanho_busca
+        j é 0
+        enquanto j < tamanho_busca
+            se texto[i + j] diferente busca[j] então
+                pare
+            fim
+            j é j + 1
+        fim
+        
+        se j igual tamanho_busca então
+            devolva i
+        fim
+        
+        i é i + 1
+    fim
+    
+    devolva -1
+fim
+
+função encontrar_ultimo recebendo texto e busca
+    pos é -1
+    atual é encontrar(texto, busca)
+    
+    enquanto atual >= 0
+        pos é atual
+        atual é encontrar(texto, busca, atual + 1)
+    fim
+    
+    devolva pos
+fim
+
+função encontrar_todos recebendo texto e busca
+    resultado é []
+    pos é 0
+    
+    enquanto verdadeiro
+        pos é encontrar(texto, busca, pos)
+        se pos < 0 então
+            pare
+        fim
+        adicione pos a resultado
+        pos é pos + 1
+    fim
+    
+    devolva resultado
+fim
+
+# ============ EXTRAÇÃO ============
+
+função extrair_entre recebendo texto, inicio_marcador e fim_marcador
+    pos_inicio é encontrar(texto, inicio_marcador)
+    se pos_inicio < 0 então
+        devolva ""
+    fim
+    
+    pos_inicio é pos_inicio + tamanho(inicio_marcador)
+    pos_fim é encontrar(texto, fim_marcador, pos_inicio)
+    se pos_fim < 0 então
+        devolva ""
+    fim
+    
+    devolva texto[pos_inicio:pos_fim]
+fim
+
+função extrair_linha recebendo texto e numero_linha
+    linhas é dividir(texto, "\n")
+    se numero_linha >= 0 e numero_linha < tamanho(linhas) então
+        devolva linhas[numero_linha]
+    fim
+    devolva ""
+fim
+
+# ============ TRUNCAMENTO ============
+
+função truncar recebendo texto, tamanho_maximo e sufixo
+    se vazia(sufixo) então
+        sufixo é "..."
+    fim
+    
+    se tamanho(texto) <= tamanho_maximo então
+        devolva texto
+    fim
+    
+    devolva texto[0:tamanho_maximo - tamanho(sufixo)] + sufixo
+fim
+
+função primeiros recebendo texto e n
+    se n >= tamanho(texto) então
+        devolva texto
+    fim
+    devolva texto[0:n]
+fim
+
+função ultimos recebendo texto e n
+    se n >= tamanho(texto) então
+        devolva texto
+    fim
+    devolva texto[tamanho(texto) - n:]
+fim
+
+# ============ TRANSFORMAÇÃO DE CARACTERES ============
+
+função codigo_caractere recebendo c
+    se vazia(c) então
+        devolva -1
+    fim
+    devolva c[0] como inteiro
+fim
+
+função caractere_codigo recebendo cod
+    # Converte código numérico para caractere
+    # Simulado - na VM real, usaria serviço nativo
+    mapa_caractere é registro
+        65: "A" 66: "B" 67: "C" 68: "D" 69: "E"
+        70: "F" 71: "G" 72: "H" 73: "I" 74: "J"
+        75: "K" 76: "L" 77: "M" 78: "N" 79: "O"
+        80: "P" 81: "Q" 82: "R" 83: "S" 84: "T"
+        85: "U" 86: "V" 87: "W" 88: "X" 89: "Y" 90: "Z"
+        97: "a" 98: "b" 99: "c" 100: "d" 101: "e"
+        102: "f" 103: "g" 104: "h" 105: "i" 106: "j"
+        107: "k" 108: "l" 109: "m" 110: "n" 111: "o"
+        112: "p" 113: "q" 114: "r" 115: "s" 116: "t"
+        117: "u" 118: "v" 119: "w" 120: "x" 121: "y" 122: "z"
+        48: "0" 49: "1" 50: "2" 51: "3" 52: "4"
+        53: "5" 54: "6" 55: "7" 56: "8" 57: "9"
+        32: " "
+    fim
+    
+    devolva mapa_caractere[cod] se cod em mapa_caractere senao "?"
+fim
+
+# ============ CODIFICAÇÃO ============
+
+função base64_encode recebendo texto
+    chars é "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+    resultado é ""
+    
+    i é 0
+    enquanto i < tamanho(texto)
+        b1 é codigo_caractere(texto[i])
+        b2 é codigo_caractere(texto[i+1]) se i+1 < tamanho(texto) senao 0
+        b3 é codigo_caractere(texto[i+2]) se i+2 < tamanho(texto) senao 0
+        
+        resultado é resultado + chars[b1 >> 2]
+        resultado é resultado + chars[((b1 & 3) << 4) | (b2 >> 4)]
+        
+        se i+1 < tamanho(texto) então
+            resultado é resultado + chars[((b2 & 15) << 2) | (b3 >> 6)]
+        senao
+            resultado é resultado + "="
+        fim
+        
+        se i+2 < tamanho(texto) então
+            resultado é resultado + chars[b3 & 63]
+        senao
+            resultado é resultado + "="
+        fim
+        
+        i é i + 3
+    fim
+    
+    devolva resultado
+fim
+
+função ocorrencias recebendo texto, subtexto
+    devolva contar(texto, subtexto)
+fim
+
+função eh_digito recebendo c
+    cod é codigo_caractere(c)
+    devolva cod >= 48 e cod <= 57
+fim
+
+função eh_letra recebendo c
+    cod é codigo_caractere(c)
+    devolva (cod >= 65 e cod <= 90) ou (cod >= 97 e cod <= 122)
+fim
+
+função eh_maiusculo recebendo c
+    cod é codigo_caractere(c)
+    devolva cod >= 65 e cod <= 90
+fim
+
+função eh_minusculo recebendo c
+    cod é codigo_caractere(c)
+    devolva cod >= 97 e cod <= 122
+fim
+
+função eh_espaco recebendo c
+    devolva c igual " " ou c igual "\t" ou c igual "\n" ou c igual "\r"
+fim
+
+função eh_alfanumerico recebendo c
+    devolva eh_letra(c) ou eh_digito(c)
+fim
+
+função primeiras_palavras recebendo texto, n
+    palavras é dividir(texto, " ")
+    se tamanho(palavras) <= n então
+        devolva texto
+    fim
+    
+    resultado é ""
+    i é 0
+    enquanto i < n
+        se resultado não "" então
+            resultado é resultado + " "
+        fim
+        resultado é resultado + palavras[i]
+        i é i + 1
+    fim
+    
+    devolva resultado + "..."
+fim
+
+# ============ TESTES ============
+
+teste "maiusculo funciona"
+    resultado é maiusculo("hello world")
+    espere resultado igual a "HELLO WORLD"
+fim
+
+teste "minusculo funciona"
+    resultado é minusculo("HELLO WORLD")
+    espere resultado igual a "hello world"
+fim
+
+teste "slug funciona"
+    resultado é slug("Olá Mundo BR!")
+    espere resultado igual a "ola-mundo-br"
+fim
+
+teste "contem funciona"
+    resultado é contem("linguagem BR", "BR")
+    espere resultado igual a verdadeiro
+    resultado é contem("linguagem BR", "Python")
+    espere resultado igual a falso
+fim
+
+teste "dividir funciona"
+    resultado é dividir("a,b,c", ",")
+    espere tamanho(resultado) igual a 3
+    espere resultado[0] igual a "a"
+fim
+
+teste "unir funciona"
+    resultado é unir(["a", "b", "c"], ",")
+    espere resultado igual a "a,b,c"
+fim
+
+teste "aparar funciona"
+    resultado é aparar("  texto  ")
+    espere resultado igual a "texto"
+fim
+
+teste "substituir funciona"
+    resultado é substituir("olá mundo", "mundo", "BR")
+    espere resultado igual a "olá BR"
+fim
+
+teste "inverter funciona"
+    resultado é inverter("abc")
+    espere resultado igual a "cba"
+fim
+
+teste "remover_acentos funciona"
+    resultado é remover_acentos("coração")
+    espere resultado igual a "coracao"
+fim

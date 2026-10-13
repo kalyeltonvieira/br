@@ -1,0 +1,32 @@
+explicacao
+    Modulo http_servidor compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "http_servidor"
+fim
+
+funcao descricao
+    devolva "Modulo http_servidor compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao exemplo
+    devolva verdadeiro
+fim
+
+funcao iniciar_servidor recebendo porta
+    devolva porta
+fim
+
+funcao parar_servidor
+    devolva verdadeiro
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim

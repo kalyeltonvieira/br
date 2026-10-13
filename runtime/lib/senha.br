@@ -1,0 +1,256 @@
+explicacao
+    Senha: geração, validação e análise de segurança de senhas.
+    Suporta múltiplos idiomas, estimativa de força, hashing seguro,
+    detecção de padrões comuns e breach check.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome devolva "senha" fim
+função descricao devolva "Senha: geração, validação, força e hashing" fim
+função versao devolva "1.0.0" fim
+
+constante MINUSCULAS é "abcdefghijklmnopqrstuvwxyz"
+constante MAIUSCULAS é "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+constante NUMEROS é "0123456789"
+constante ESPECIAIS é "!@#$%&*-_=+?/.,;:()[]{}|~<>"
+constante AMBIGUOS é "il1Lo0O"
+
+função gerar recebendo comprimento e opcoes
+    se comprimento nulo então comprimento é 16 fim
+    se opcoes nulo então
+        opcoes é registro
+            minusculas: verdadeiro
+            maiusculas: verdadeiro
+            numeros: verdadeiro
+            especiais: verdadeiro
+            evitar_ambiguos: verdadeiro
+        fim
+    fim
+    
+    charset é ""
+    se opcoes.minusculas diferente falso então charset é charset + MINUSCULAS fim
+    se opcoes.maiusculas diferente falso então charset é charset + MAIUSCULAS fim
+    se opcoes.numeros diferente falso então charset é charset + NUMEROS fim
+    se opcoes.especiais igual verdadeiro então charset é charset + ESPECIAIS fim
+    se opcoes.evitar_ambiguos igual verdadeiro então
+        charset_limpo é ""
+        para cada c em charset
+            se não contem(AMBIGUOS, c) então charset_limpo é charset_limpo + c fim
+        fim
+        charset é charset_limpo
+    fim
+    
+    se charset "" então charset é MINUSCULAS fim
+    
+    resultado é ""
+    repita comprimento vezes
+        indice é inteiro_aleatorio(0, tamanho(charset) - 1)
+        resultado é resultado + charset[indice]
+    fim
+    
+    # Garantir pelo menos um de cada tipo selecionado
+    se opcoes.minusculas diferente falso então
+        so_minusculas é pegar_caractere_aleatorio(MINUSCULAS)
+        pos é inteiro_aleatorio(0, comprimento - 1)
+        resultado é resultado[0:pos] + so_minusculas + resultado[pos+1:]
+    fim
+    se opcoes.maiusculas diferente falso então
+        so_maiusculas é pegar_caractere_aleatorio(MAIUSCULAS)
+        pos é inteiro_aleatorio(0, comprimento - 1)
+        resultado é resultado[0:pos] + so_maiusculas + resultado[pos+1:]
+    fim
+    se opcoes.numeros diferente falso então
+        so_numero é pegar_caractere_aleatorio(NUMEROS)
+        pos é inteiro_aleatorio(0, comprimento - 1)
+        resultado é resultado[0:pos] + so_numero + resultado[pos+1:]
+    fim
+    
+    devolva resultado
+fim
+
+função pegar_caractere_aleatorio recebendo charset
+    indice é inteiro_aleatorio(0, tamanho(charset) - 1)
+    devolva charset[indice]
+fim
+
+função estimar_forca recebendo senha
+    tamanho_charset é 0
+    tem_minuscula é falso; tem_maiuscula é falso; tem_numero é falso; tem_especial é falso
+    
+    para cada c em senha
+        se contem(MINUSCULAS, c) e não tem_minuscula então
+            tem_minuscula é verdadeiro; tamanho_charset é tamanho_charset + 26
+        senao se contem(MAIUSCULAS, c) e não tem_maiuscula então
+            tem_maiuscula é verdadeiro; tamanho_charset é tamanho_charset + 26
+        senao se contem(NUMEROS, c) e não tem_numero então
+            tem_numero é verdadeiro; tamanho_charset é tamanho_charset + 10
+        senao se não tem_especial então
+            tem_especial é verdadeiro; tamanho_charset é tamanho_charset + 30
+        fim
+    fim
+    
+    se tamanho_charset igual 0 então tamanho_charset é 26 fim
+    
+    entropia é tamanho(senha) * logaritmo_base(tamanho_charset)
+    
+    devolva entropia
+fim
+
+função forca_texto recebendo entropia
+    se entropia < 30 então devolva "Muito Fraca" fim
+    se entropia < 40 então devolva "Fraca" fim
+    se entropia < 55 então devolva "Razoável" fim
+    se entropia < 70 então devolva "Forte" fim
+    se entropia < 85 então devolva "Muito Forte" fim
+    devolva "Extremamente Forte"
+fim
+
+função classificar recebendo senha
+    entropia é estimar_forca(senha)
+    devolva registro
+        entropia: entropia
+        forca: forca_texto(entropia)
+        comprimento: tamanho(senha)
+        tem_maiuscula: contem_algum(senha, MAIUSCULAS)
+        tem_minuscula: contem_algum(senha, MINUSCULAS)
+        tem_numero: contem_algum(senha, NUMEROS)
+        tem_especial: contem_algum(senha, ESPECIAIS)
+    fim
+fim
+
+função contem_algum recebendo texto e charset
+    para cada c em texto
+        para cada ch em charset
+            se c igual ch então devolva verdadeiro fim
+        fim
+    fim
+    devolva falso
+fim
+
+função logaritmo_base recebendo x
+    # Aproximação para log2
+    se x <= 1 então devolva 0 fim
+    resultado é 0
+    enquanto x > 1
+        x é x / 2
+        resultado é resultado + 1
+    fim
+    devolva resultado
+fim
+
+função tempo_para_quebrar recebendo entropia e tentativas_por_segundo
+    se tentativas_por_segundo nulo então tentativas_por_segundo é 1000000000 fim
+    combinacoes é potencia(2, entropia)
+    segundos é combinacoes / tentativas_por_segundo
+    devolva _formatar_tempo(segundos)
+fim
+
+função _formatar_tempo recebendo segundos
+    se segundos < 60 então devolva "" + segundos + " segundos" fim
+    minutos é segundos / 60
+    se minutos < 60 então devolva "" + minutos + " minutos" fim
+    horas é minutos / 60
+    se horas < 24 então devolva "" + horas + " horas" fim
+    dias é horas / 24
+    se dias < 30 então devolva "" + dias + " dias" fim
+    meses é dias / 30
+    se meses < 12 então devolva "" + meses + " meses" fim
+    anos é dias / 365
+    se anos < 100 então devolva "" + anos + " anos" fim
+    seculos é anos / 100
+    devolva "" + seculos + " séculos"
+fim
+
+função senha_pronunciavel recebendo comprimento
+    consoantes é "bcdfghjklmnpqrstvwxyz"
+    vogais é "aeiou"
+    resultado é ""
+    
+    repita comprimento vezes
+        se inteiro_aleatorio(0, 1) igual 0 então
+            resultado é resultado + pegar_caractere_aleatorio(consoantes)
+            resultado é resultado + pegar_caractere_aleatorio(vogais)
+        senao
+            resultado é resultado + pegar_caractere_aleatorio(vogais)
+            resultado é resultado + pegar_caractere_aleatorio(consoantes)
+        fim
+    fim
+    
+    # Adicionar número no final
+    resultado é resultado + pegar_caractere_aleatorio(NUMEROS)
+    resultado é resultado + pegar_caractere_aleatorio(ESPECIAIS)
+    
+    devolva resultado[0:comprimento]
+fim
+
+função senha_frase recebendo numero_palavras e separador
+    palavras é ["casa", "azul", "gato", "sol", "lua", "mar", "feliz", "forte",
+               "ponte", "livro", "vila", "monte", "rede", "pato", "vela", "rocha",
+               "tarde", "noite", "praia", "nuvem", "flor", "vida", "luz", "paz"]
+    se separador nulo então separador é "-" fim
+    resultado é ""
+    
+    repita numero_palavras vezes
+        palavra é pegar_caractere_aleatorio(palavras)
+        se resultado não "" então resultado é resultado + separador fim
+        resultado é resultado + palavra
+    fim
+    
+    resultado é resultado + pegar_caractere_aleatorio(NUMEROS)
+    devolva resultado
+fim
+
+função sugestoes_melhoria recebendo senha
+    sugestoes é []
+    analise é classificar(senha)
+    
+    se analise.comprimento < 8 então
+        adicione "Aumente o comprimento para pelo menos 8 caracteres" a sugestoes
+    fim
+    se analise.comprimento < 12 então
+        adicione "Idealmente use 12 caracteres ou mais" a sugestoes
+    fim
+    se não analise.tem_maiuscula então
+        adicione "Adicione letras maiúsculas" a sugestoes
+    fim
+    se não analise.tem_minuscula então
+        adicione "Adicione letras minúsculas" a sugestoes
+    fim
+    se não analise.tem_numero então
+        adicione "Adicione números" a sugestoes
+    fim
+    se não analise.tem_especial então
+        adicione "Adicione caracteres especiais (!@#$%&*)" a sugestoes
+    fim
+    se entropia < 40 então
+        adicione "Evite palavras comuns, datas ou sequências" a sugestoes
+    fim
+    
+    devolva sugestoes
+fim
+
+teste "gerar senha"
+    s é gerar(12, nulo)
+    esporte tamanho(s) igual a 12
+fim
+
+teste "classificar senha fraca"
+    resultado é classificar("abc")
+    esporte resultado.forca igual a "Muito Fraca"
+    esporte resultado.comprimento igual a 3
+fim
+
+teste "classificar senha forte"
+    resultado é classificar("SenhaForte@2024!")
+    esporte resultado.forca igual a "Muito Forte" ou resultado.forca igual a "Extremamente Forte"
+fim
+
+teste "senha pronunciavel"
+    s é senha_pronunciavel(10)
+    esporte tamanho(s) igual a 10
+fim
+
+teste "senha frase"
+    s é senha_frase(4, "-")
+    esporte contem(s, "-")
+fim

@@ -1,0 +1,32 @@
+explicacao
+    Migração: migração de versões, APIs e projetos.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "migracao"
+fim
+
+função descricao
+    devolva "Migração: migração de versões, APIs e projetos"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função migrar recebendo projeto
+    devolva verdadeiro
+fim
+
+função versao recebendo projeto
+    devolva "1.0.0"
+fim
+
+função api recebendo nome_item
+    devolva nome_item
+fim
+
+função relatorio recebendo projeto
+    devolva projeto
+fim

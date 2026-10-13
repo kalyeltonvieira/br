@@ -1,0 +1,19 @@
+# Documentação BRD: compressao
+
+## Nome
+
+Compressão
+
+## Descrição
+
+compactar e descompactar ZIP, GZIP e TAR.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* zip: Compacta ZIP.
+* unzip: Descompacta ZIP.
+* gzip: Compacta GZIP.
+* tar: Cria TAR.

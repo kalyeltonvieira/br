@@ -1,0 +1,5 @@
+importar "config"
+
+teste "nome do modulo config"
+    espere config.nome() igual a "config"
+fim

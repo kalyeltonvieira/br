@@ -1,0 +1,9 @@
+contrato token
+    função nome
+    função descricao
+    função versao
+    função gerar
+    função validar recebendo valor
+    função expirar recebendo valor
+    função renovar recebendo valor
+fim

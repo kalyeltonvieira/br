@@ -1,0 +1,19 @@
+# Documentação BRD: rede
+
+## Nome
+
+Rede
+
+## Descrição
+
+HTTP, URL, download, sockets, WebSocket e email.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* get: Executa requisição GET.
+* post: Executa requisição POST.
+* baixar: Baixa conteúdo para arquivo.
+* url_valida: Valida URL.

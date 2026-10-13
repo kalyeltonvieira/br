@@ -1,0 +1,498 @@
+explicacao
+    JSON: parser, gerador e validador JSON completos.
+    Suporta objetos aninhados, arrays, unicode e pretty-print.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome
+    devolva "json"
+fim
+
+função descricao
+    devolva "JSON: parser, gerador e validador JSON completos"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# ============ PARSER ============
+
+função parsear recebendo texto
+    se texto igual nulo ou texto igual "" então
+        devolva nulo
+    fim
+    
+    texto é aparar(texto)
+    
+    se comeca_com(texto, "{") então
+        devolva _parsear_objeto(texto, 0)[0]
+    senao se comeca_com(texto, "[") então
+        devolva _parsear_array(texto, 0)[0]
+    senao se comeca_com(texto, "\"") então
+        interno é texto[1:tamanho(texto)-1]
+        devolva _unescape_string(interno)
+    senao se texto igual "true" ou texto igual "verdadeiro" então
+        devolva verdadeiro
+    senao se texto igual "false" ou texto igual "falso" então
+        devolva falso
+    senao se texto igual "null" ou texto igual "nulo" então
+        devolva nulo
+    senao
+        devolva _parsear_numero(texto)
+    fim
+fim
+
+função _pular_espacos recebendo texto, i
+    enquanto i < tamanho(texto) e (texto[i] igual " " ou texto[i] igual "\t" ou texto[i] igual "\n" ou texto[i] igual "\r")
+        i é i + 1
+    fim
+    devolva i
+fim
+
+função _esperar_caractere recebendo texto, i, esperado
+    i é _pular_espacos(texto, i)
+    se i >= tamanho(texto) ou texto[i] diferente esperado então
+        devolva -1
+    fim
+    devolva i + 1
+fim
+
+função _parsear_objeto recebendo texto, i
+    resultado é registro
+    i é _esperar_caractere(texto, i, "{")
+    se i < 0 então
+        devolva [nulo, i]
+    fim
+    
+    i é _pular_espacos(texto, i)
+    se i < tamanho(texto) e texto[i] igual "}" então
+        devolva [resultado, i + 1]
+    fim
+    
+    enquanto i < tamanho(texto)
+        i é _pular_espacos(texto, i)
+        se i >= tamanho(texto) então
+            pare
+        fim
+        
+        # Chave
+        se texto[i] diferente "\"" então
+            devolva [nulo, i]
+        fim
+        parsed_chave é _parsear_string(texto, i)
+        chave é parsed_chave[0]
+        i é parsed_chave[1]
+        
+        i é _pular_espacos(texto, i)
+        se i >= tamanho(texto) ou texto[i] diferente ":" então
+            devolva [nulo, i]
+        fim
+        i é i + 1
+        
+        i é _pular_espacos(texto, i)
+        parsed_valor é _parsear_valor(texto, i)
+        resultado[chave] é parsed_valor[0]
+        i é parsed_valor[1]
+        
+        i é _pular_espacos(texto, i)
+        se i < tamanho(texto) e texto[i] igual "," então
+            i é i + 1
+            continue
+        senao se i < tamanho(texto) e texto[i] igual "}" então
+            i é i + 1
+            pare
+        senao
+            pare
+        fim
+    fim
+    
+    devolva [resultado, i]
+fim
+
+função _parsear_array recebendo texto, i
+    resultado é []
+    i é _esperar_caractere(texto, i, "[")
+    se i < 0 então
+        devolva [nulo, i]
+    fim
+    
+    i é _pular_espacos(texto, i)
+    se i < tamanho(texto) e texto[i] igual "]" então
+        devolva [resultado, i + 1]
+    fim
+    
+    enquanto i < tamanho(texto)
+        parsed_valor é _parsear_valor(texto, i)
+        adicione parsed_valor[0] a resultado
+        i é parsed_valor[1]
+        
+        i é _pular_espacos(texto, i)
+        se i < tamanho(texto) e texto[i] igual "," então
+            i é i + 1
+            continue
+        senao se i < tamanho(texto) e texto[i] igual "]" então
+            i é i + 1
+            pare
+        senao
+            pare
+        fim
+    fim
+    
+    devolva [resultado, i]
+fim
+
+função _parsear_string recebendo texto, i
+    se i >= tamanho(texto) ou texto[i] diferente "\"" então
+        devolva ["", i]
+    fim
+    i é i + 1
+    
+    resultado é ""
+    enquanto i < tamanho(texto) e texto[i] diferente "\""
+        se texto[i] igual "\\" então
+            i é i + 1
+            se i >= tamanho(texto) então
+                pare
+            fim
+            se texto[i] igual "\"" então resultado é resultado + "\""
+            senao se texto[i] igual "\\" então resultado é resultado + "\\"
+            senao se texto[i] igual "/" então resultado é resultado + "/"
+            senao se texto[i] igual "n" então resultado é resultado + "\n"
+            senao se texto[i] igual "r" então resultado é resultado + "\r"
+            senao se texto[i] igual "t" então resultado é resultado + "\t"
+            senao se texto[i] igual "b" então resultado é resultado + "\b"
+            senao se texto[i] igual "f" então resultado é resultado + "\f"
+            senao se texto[i] igual "u" então
+                hex é texto[i+1:i+5]
+                i é i + 4
+                resultado é resultado + "u" + hex  # Simplificado
+            senao
+                resultado é resultado + texto[i]
+            fim
+        senao
+            resultado é resultado + texto[i]
+        fim
+        i é i + 1
+    fim
+    
+    se i < tamanho(texto) então
+        i é i + 1  # Consome aspa final
+    fim
+    
+    devolva [resultado, i]
+fim
+
+função _parsear_numero recebendo texto
+    tente
+        se contem(texto, ".") então
+            devolva texto como decimal
+        senao
+            devolva texto como inteiro
+        fim
+    capture erro
+        devolva 0
+    fim
+fim
+
+função _parsear_valor recebendo texto, i
+    i é _pular_espacos(texto, i)
+    se i >= tamanho(texto) então
+        devolva [nulo, i]
+    fim
+    
+    c é texto[i]
+    
+    se c igual "{" então
+        devolva _parsear_objeto(texto, i)
+    senao se c igual "[" então
+        devolva _parsear_array(texto, i)
+    senao se c igual "\"" então
+        devolva _parsear_string(texto, i)
+    senao se _comeca_com_literal(texto, i, "true") ou _comeca_com_literal(texto, i, "verdadeiro") então
+        devolva [verdadeiro, i + 4]
+    senao se _comeca_com_literal(texto, i, "false") ou _comeca_com_literal(texto, i, "falso") então
+        devolva [falso, i + 5]
+    senao se _comeca_com_literal(texto, i, "null") ou _comeca_com_literal(texto, i, "nulo") então
+        devolva [nulo, i + 4]
+    senao
+        # Número
+        j é i
+        enquanto j < tamanho(texto) e (texto[j] >= "0" e texto[j] <= "9" ou texto[j] igual "-" ou texto[j] igual "." ou texto[j] igual "+" ou texto[j] igual "e" ou texto[j] igual "E")
+            j é j + 1
+        fim
+        num_texto é texto[i:j]
+        devolva [_parsear_numero(num_texto), j]
+    fim
+fim
+
+função _comeca_com_literal recebendo texto, i, literal
+    se i + tamanho(literal) > tamanho(texto) então
+        devolva falso
+    fim
+    próximo é i + tamanho(literal)
+    devolva texto[i:próximo] igual literal e (próximo >= tamanho(texto) ou não (texto[próximo] >= "a" e texto[próximo] <= "z") e não (texto[próximo] >= "A" e texto[próximo] <= "Z"))
+fim
+
+função _unescape_string recebendo texto
+    # Já foi parseado pelo _parsear_string
+    devolva texto
+fim
+
+# ============ GERADOR ============
+
+função gerar recebendo dados
+    devolva _gerar_valor(dados, 0)
+fim
+
+função _gerar_valor recebendo valor, profundidade
+    se valor igual nulo então
+        devolva "null"
+    senao se tipo(valor) igual "booleano" então
+        se valor então
+            devolva "true"
+        senao
+            devolva "false"
+        fim
+    senao se tipo(valor) igual "inteiro" então
+        devolva "" + valor
+    senao se tipo(valor) igual "decimal" então
+        devolva "" + valor
+    senao se tipo(valor) igual "texto" então
+        devolva "\"" + _escape_string(valor) + "\""
+    senao se tipo(valor) igual "lista" então
+        devolva _gerar_array(valor, profundidade)
+    senao se tipo(valor) igual "registro" então
+        devolva _gerar_objeto(valor, profundidade)
+    fim
+    devolva "null"
+fim
+
+função _gerar_objeto recebendo obj, profundidade
+    indentacao é ""
+    i é 0
+    enquanto i < profundidade + 1
+        indentacao é indentacao + "    "
+        i é i + 1
+    fim
+    
+    chaves é []
+    para cada chave, valor em obj
+        adicione chave a chaves
+    fim
+    
+    resultado é "{"
+    primeira é verdadeiro
+    
+    para cada chave em chaves
+        se não primeira então
+            resultado é resultado + ","
+        senao
+            primeira é falso
+        fim
+        resultado é resultado + "\n" + indentacao + "\"" + _escape_string(chave) + "\": " + _gerar_valor(obj[chave], profundidade + 1)
+    fim
+    
+    se não primeira então
+        indentacao_pai é ""
+        i é 0
+        enquanto i < profundidade
+            indentacao_pai é indentacao_pai + "    "
+            i é i + 1
+        fim
+        resultado é resultado + "\n" + indentacao_pai
+    fim
+    
+    devolva resultado + "}"
+fim
+
+função _gerar_array recebendo arr, profundidade
+    indentacao é ""
+    i é 0
+    enquanto i < profundidade + 1
+        indentacao é indentacao + "    "
+        i é i + 1
+    fim
+    
+    resultado é "["
+    primeira é verdadeiro
+    
+    para cada item em arr
+        se não primeira então
+            resultado é resultado + ","
+        senao
+            primeira é falso
+        fim
+        resultado é resultado + "\n" + indentacao + _gerar_valor(item, profundidade + 1)
+    fim
+    
+    se não primeira então
+        indentacao_pai é ""
+        i é 0
+        enquanto i < profundidade
+            indentacao_pai é indentacao_pai + "    "
+            i é i + 1
+        fim
+        resultado é resultado + "\n" + indentacao_pai
+    fim
+    
+    devolva resultado + "]"
+fim
+
+função _escape_string recebendo texto
+    resultado é ""
+    i é 0
+    enquanto i < tamanho(texto)
+        c é texto[i]
+        se c igual "\"" então resultado é resultado + "\\\""
+        senao se c igual "\\" então resultado é resultado + "\\\\"
+        senao se c igual "\n" então resultado é resultado + "\\n"
+        senao se c igual "\r" então resultado é resultado + "\\r"
+        senao se c igual "\t" então resultado é resultado + "\\t"
+        senao
+            resultado é resultado + c
+        fim
+        i é i + 1
+    fim
+    devolva resultado
+fim
+
+# ============ BONITO (PRETTY PRINT) ============
+
+função bonito recebendo dados
+    devolva _gerar_valor(dados, 0)
+fim
+
+função minificar recebendo dados
+    dados_parseados é dados
+    se tipo(dados) igual "texto" então
+        dados_parseados é parsear(dados)
+    fim
+    devolva _minificar_valor(dados_parseados)
+fim
+
+função _minificar_valor recebendo valor
+    se valor igual nulo então
+        devolva "null"
+    senao se tipo(valor) igual "booleano" então
+        se valor então devolva "true" senao devolva "false"
+    senao se tipo(valor) igual "inteiro" ou tipo(valor) igual "decimal" então
+        devolva "" + valor
+    senao se tipo(valor) igual "texto" então
+        devolva "\"" + _escape_string(valor) + "\""
+    senao se tipo(valor) igual "lista" então
+        return _minificar_array(valor)
+    senao se tipo(valor) igual "registro" então
+        return _minificar_objeto(valor)
+    fim
+    devolva "null"
+fim
+
+função _minificar_objeto recebendo obj
+    chaves é []
+    para cada chave, valor em obj
+        adicione chave a chaves
+    fim
+    
+    resultado é "{"
+    primeira é verdadeiro
+    para cada chave em chaves
+        se não primeira então
+            resultado é resultado + ","
+        senao
+            primeira é falso
+        fim
+        resultado é resultado + "\"" + _escape_string(chave) + "\":" + _minificar_valor(obj[chave])
+    fim
+    devolva resultado + "}"
+fim
+
+função _minificar_array recebendo arr
+    resultado é "["
+    primeira é verdadeiro
+    para cada item em arr
+        se não primeira então
+            resultado é resultado + ","
+        senao
+            primeira é falso
+        fim
+        resultado é resultado + _minificar_valor(item)
+    fim
+    devolva resultado + "]"
+fim
+
+# ============ VALIDAÇÃO ============
+
+função validar recebendo texto
+    tente
+        resultado é parsear(texto)
+        devolva verdadeiro
+    capture erro
+        devolva falso
+    fim
+fim
+
+função eh_valido recebendo texto
+    devolva validar(texto)
+fim
+
+função carregar_arquivo recebendo caminho
+    tente
+        conteudo é leia_arquivo(caminho)
+        devolva parsear(conteudo)
+    capture erro
+        devolva nulo
+    fim
+fim
+
+função salvar_arquivo recebendo caminho e dados
+    tente
+        texto_json é _gerar_valor(dados, 0)
+        escreva_arquivo(caminho, texto_json)
+        devolva verdadeiro
+    capture erro
+        devolva falso
+    fim
+fim
+
+# ============ TESTES ============
+
+teste "json parse objeto simples"
+    resultado é parsear('{"nome":"João","idade":30}')
+    esporte resultado.nome igual a "João"
+    esporte resultado.idade igual a 30
+fim
+
+teste "json parse array"
+    resultado é parsear('[1,2,3]')
+    esporte tamanho(resultado) igual a 3
+    esporte resultado[0] igual a 1
+fim
+
+teste "json parse aninhado"
+    resultado é parsear('{"pessoa":{"nome":"Ana","endereco":{"cidade":"SP"}}}')
+    esporte resultado.pessoa.endereco.cidade igual a "SP"
+fim
+
+teste "json gerar"
+    dados é registro nome: "Maria" idade: 25 fim
+    resultado é gerar(dados)
+    esporte contem(resultado, "Maria")
+    esporte contem(resultado, "25")
+fim
+
+teste "json validar"
+    esporte validar('{"valido":true}') igual a verdadeiro
+    esporte validar("{invalido}") igual a falso
+fim
+
+teste "json parse booleanos"
+    resultado é parsear('{"ativo":true,"admin":false}')
+    esporte resultado.ativo igual a verdadeiro
+    esporte resultado.admin igual a falso
+fim
+
+teste "json parse nulo"
+    resultado é parsear('{"valor":null}')
+    esporte resultado.valor igual a nulo
+fim

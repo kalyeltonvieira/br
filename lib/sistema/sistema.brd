@@ -1,0 +1,20 @@
+# Documentação BRD: sistema
+
+## Nome
+
+Sistema operacional
+
+## Descrição
+
+argumentos, variáveis de ambiente, processos e comandos.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* plataforma: Nome da plataforma padrão da instalação atual.
+* argumentos: Representação textual dos argumentos do processo.
+* ambiente: Busca uma variável de ambiente.
+* executar: Executa um comando do sistema e retorna o codigo de saida.
+* executar_detalhado: Executa um comando e retorna codigo, saida e erro.

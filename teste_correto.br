@@ -1,0 +1,26 @@
+# Teste correto de sintaxe
+
+mostre "Testando sintaxe básica..."
+
+# Função simples
+função dobrar recebendo numero
+    devolva numero * 2
+fim
+
+resultado é dobrar 10
+mostre "dobrar(10) = " + resultado
+
+# Teste de controle de fluxo
+função verificar_idade recebendo idade
+    se idade >= 18 então
+        devolva "Maior de idade"
+    senão
+        devolva "Menor de idade"
+    fim
+fim
+
+mensagem é verificar_idade 25
+mostre "Idade 25: " + mensagem
+
+mensagem2 é verificar_idade 15
+mostre "Idade 15: " + mensagem2

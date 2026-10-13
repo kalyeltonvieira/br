@@ -1,0 +1,19 @@
+# Documentação BRD: path
+
+## Nome
+
+Path
+
+## Descrição
+
+manipulação de caminhos, diretórios e extensões.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* juntar: Junta partes de caminho.
+* diretorio: Obtém diretório de um caminho.
+* extensao: Obtém extensão de arquivo.
+* normalizar: Normaliza separadores de caminho.

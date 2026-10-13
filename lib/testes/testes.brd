@@ -1,0 +1,19 @@
+# Documentação BRD: testes
+
+## Nome
+
+Testes
+
+## Descrição
+
+testes unitários, assertivas, mocks e cobertura.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* igual: Assertiva de igualdade.
+* eh_verdadeiro: Assertiva verdadeira.
+* eh_falso: Assertiva falsa.
+* mock: Cria mock nomeado.

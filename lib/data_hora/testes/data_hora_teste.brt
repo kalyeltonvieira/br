@@ -1,0 +1,5 @@
+importar "data_hora"
+
+teste "nome do modulo data_hora"
+    espere data_hora.nome() igual a "data_hora"
+fim

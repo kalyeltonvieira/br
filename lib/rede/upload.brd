@@ -1,0 +1,41 @@
+# Documentação BRD: upload
+
+## Nome
+
+Upload
+
+## Descrição
+
+Envio e recebimento de arquivos. Permite enviar e receber arquivos via HTTP.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* enviar: Envia um arquivo para uma URL.
+* receber: Recebe um arquivo enviado via HTTP.
+* salvar: Salva um arquivo recebido no disco.
+* validar: Valida se o arquivo é de um tipo permitido.
+* validar_tamanho: Valida se o arquivo não excede o tamanho máximo.
+* definir_max_tamanho: Define o tamanho máximo de arquivo.
+* definir_tipos_permitidos: Define os tipos de arquivo permitidos.
+* definir_diretorio: Define o diretório onde os arquivos serão salvos.
+* definir_nome_personalizado: Define uma função para gerar nomes personalizados.
+* criar_progresso: Cria um objeto para acompanhar o progresso do upload.
+* atualizar_progresso: Atualiza o progresso do upload.
+* cancelar: Cancela um upload em andamento.
+* pausar: Pausa um upload em andamento.
+* retomar: Retoma um upload pausado.
+* obter_info: Obtém informações sobre um arquivo.
+
+## Exemplo
+
+```br
+usar rede.upload
+
+resultado é enviar "https://exemplo.com/upload", arquivo, registro
+    max_tamanho: 10485760
+    tipos: lista "jpg", "png"
+fim
+```

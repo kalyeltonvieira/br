@@ -1,0 +1,102 @@
+# Biblioteca de Cores - BR
+# Manipulação de cores e estilos
+
+# ==================== CORES BÁSICAS ====================
+
+função cor_vermelho recebendo texto
+    devolva "\033[31m" + texto + "\033[0m"
+fim
+
+função cor_verde recebendo texto
+    devolva "\033[32m" + texto + "\033[0m"
+fim
+
+função cor_amarelo recebendo texto
+    devolva "\033[33m" + texto + "\033[0m"
+fim
+
+função cor_azul recebendo texto
+    devolva "\033[34m" + texto + "\033[0m"
+fim
+
+função cor_roxo recebendo texto
+    devolva "\033[35m" + texto + "\033[0m"
+fim
+
+função cor_ciano recebendo texto
+    devolva "\033[36m" + texto + "\033[0m"
+fim
+
+função cor_branco recebendo texto
+    devolva "\033[37m" + texto + "\033[0m"
+fim
+
+função cor_preto recebendo texto
+    devolva "\033[30m" + texto + "\033[0m"
+fim
+
+# ==================== ESTILOS ====================
+
+função negrito recebendo texto
+    devolva "\033[1m" + texto + "\033[0m"
+fim
+
+função italico recebendo texto
+    devolva "\033[3m" + texto + "\033[0m"
+fim
+
+função sublinhado recebendo texto
+    devolva "\033[4m" + texto + "\033[0m"
+fim
+
+função piscar recebendo texto
+    devolva "\033[5m" + texto + "\033[0m"
+fim
+
+# ==================== CORES DE FUNDO ====================
+
+função fundo_vermelho recebendo texto
+    devolva "\033[41m" + texto + "\033[0m"
+fim
+
+função fundo_verde recebendo texto
+    devolva "\033[42m" + texto + "\033[0m"
+fim
+
+função fundo_amarelo recebendo texto
+    devolva "\033[43m" + texto + "\033[0m"
+fim
+
+função fundo_azul recebendo texto
+    devolva "\033[44m" + texto + "\033[0m"
+fim
+
+# ==================== COMBINAÇÕES ====================
+
+função verde_negrito recebendo texto
+    devolva negrito(cor_verde(texto))
+fim
+
+função vermelho_negrito recebendo texto
+    devolva negrito(cor_vermelho(texto))
+fim
+
+função azul_negrito recebendo texto
+    devolva negrito(cor_azul(texto))
+fim
+
+função amarelo_negrito recebendo texto
+    devolva negrito(cor_amarelo(texto))
+fim
+
+# ==================== UTILITÁRIOS ====================
+
+função limpar_cor recebendo texto
+    devolva "\033[0m" + texto
+fim
+
+função cor_aleatoria recebendo texto
+    cores é [cor_vermelho, cor_verde, cor_amarelo, cor_azul, cor_roxo, cor_ciano]
+    indice é arredondar(aleatorio_entre(0, cores.tamanho() - 1))
+    devolva cores[indice](texto)
+fim

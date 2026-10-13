@@ -1,0 +1,9 @@
+contrato concorrencia
+    função nome
+    função descricao
+    função versao
+    função tarefa recebendo nome_item
+    função aguardar recebendo valor
+    função promessa recebendo valor
+    função em_paralelo recebendo valor
+fim

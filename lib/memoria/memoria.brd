@@ -1,0 +1,19 @@
+# Documentação BRD: memoria
+
+## Nome
+
+Memória
+
+## Descrição
+
+monitorar uso de memória, referências e coleta de lixo.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* uso: Mede uso de memória.
+* coletar: Solicita coleta de lixo.
+* referencias: Conta referências.
+* limite: Consulta limite de memória.

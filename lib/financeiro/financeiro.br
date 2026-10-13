@@ -1,0 +1,34 @@
+# Financeiro module for accounts, cash, revenue, expenses and balance
+
+explicacao
+    financeiro: contas, caixa, receitas, despesas e saldo.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "financeiro"
+fim
+
+função descricao
+    devolva "Contas, caixa, receitas, despesas e saldo."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função registrar_receita recebendo conta, valor
+    devolva verdadeiro
+fim
+
+função registrar_despesa recebendo conta, valor
+    devolva verdadeiro
+fim
+
+função obter_saldo recebendo conta
+    devolva 0.0
+fim
+
+função fechar
+    devolva verdadeiro
+fim

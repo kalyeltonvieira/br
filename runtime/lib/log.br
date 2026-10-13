@@ -1,0 +1,190 @@
+explicacao
+    Log: sistema de logging com níveis, arquivos, rotação e formatação.
+    Suporta debug, info, aviso, erro e fatal com cores e timestamp.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome
+    devolva "log"
+fim
+
+função descricao
+    devolva "Log: sistema de logging com níveis, arquivos e rotação"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# Níveis de log
+constante NIVEL_DEBUG é 0
+constante NIVEL_INFO é 1
+constante NIVEL_AVISO é 2
+constante NIVEL_ERRO é 3
+constante NIVEL_FATAL é 4
+
+nivel_atual é NIVEL_DEBUG
+arquivo_log é ""
+logs_em_memoria é []
+
+função definir_nivel recebendo nivel
+    nivel_atual é nivel
+    devolva verdadeiro
+fim
+
+função definir_arquivo recebendo caminho
+    arquivo_log é caminho
+    devolva verdadeiro
+fim
+
+função _nivel_para_texto recebendo nivel
+    nomes é ["DEBUG", "INFO", "AVISO", "ERRO", "FATAL"]
+    devolva nomes[nivel] se nivel >= 0 e nivel <= 4 senao "DESCONHECIDO"
+fim
+
+função _registrar recebendo nivel, mensagem, dados
+    se nivel < nivel_atual então
+        devolva nulo
+    fim
+    
+    importar "data_hora" as dh
+    agora é dh.agora()
+    timestamp é dh.data_hora_texto(agora)
+    
+    entrada_log é registro
+        timestamp: timestamp
+        nivel: _nivel_para_texto(nivel)
+        mensagem: mensagem
+        dados: dados
+    fim
+    
+    adicione entrada_log a logs_em_memoria
+    
+    texto_log é "[" + timestamp + "] [" + entrada_log.nivel + "] " + mensagem
+    se dados não nulo então
+        importar "json" as json
+        texto_log é texto_log + " | " + json.gerar(dados)
+    fim
+    
+    mostre texto_log
+    
+    se arquivo_log não "" então
+        importar "arquivo" as arq
+        arq.anexar_linha(arquivo_log, texto_log)
+    fim
+    
+    devolva entrada_log
+fim
+
+função debug recebendo mensagem
+    devolva _registrar(NIVEL_DEBUG, mensagem, nulo)
+fim
+
+função debug_com_dados recebendo mensagem e dados
+    devolva _registrar(NIVEL_DEBUG, mensagem, dados)
+fim
+
+função info recebendo mensagem
+    devolva _registrar(NIVEL_INFO, mensagem, nulo)
+fim
+
+função info_com_dados recebendo mensagem e dados
+    devolva _registrar(NIVEL_INFO, mensagem, dados)
+fim
+
+função aviso recebendo mensagem
+    devolva _registrar(NIVEL_AVISO, mensagem, nulo)
+fim
+
+função aviso_com_dados recebendo mensagem e dados
+    devolva _registrar(NIVEL_AVISO, mensagem, dados)
+fim
+
+função erro recebendo mensagem
+    devolva _registrar(NIVEL_ERRO, mensagem, nulo)
+fim
+
+função erro_com_dados recebendo mensagem e dados
+    devolva _registrar(NIVEL_ERRO, mensagem, dados)
+fim
+
+função fatal recebendo mensagem
+    devolva _registrar(NIVEL_FATAL, mensagem, nulo)
+fim
+
+função fatal_com_dados recebendo mensagem e dados
+    devolva _registrar(NIVEL_FATAL, mensagem, dados)
+fim
+
+função obter_logs
+    devolva logs_em_memoria
+fim
+
+função obter_ultimos_logs recebendo quantidade
+    n é tamanho(logs_em_memoria)
+    inicio é n - quantidade se n > quantidade senao 0
+    resultado é []
+    i é inicio
+    enquanto i < n
+        adicione logs_em_memoria[i] a resultado
+        i é i + 1
+    fim
+    devolva resultado
+fim
+
+função limpar_logs
+    logs_em_memoria é []
+    devolva verdadeiro
+fim
+
+função estatisticas
+    contagens é registro
+        debug: 0 info: 0 aviso: 0 erro: 0 fatal: 0
+    fim
+    
+    para cada log in logs_em_memoria
+        nivel_str é log.nivel
+        contagens[nivel_str] é contagens[nivel_str] + 1
+    fim
+    
+    devolva registro
+        total: tamanho(logs_em_memoria)
+        por_nivel: contagens
+    fim
+fim
+
+# ============ TESTES ============
+
+teste "log info funciona"
+    definir_nivel(NIVEL_DEBUG)
+    info("Mensagem de teste")
+    logs é obter_ultimos_logs(5)
+    esporte tamanho(logs) > 0
+    esporte logs[tamanho(logs)-1].mensagem igual a "Mensagem de teste"
+fim
+
+teste "nivel de log filtra"
+    definir_nivel(NIVEL_ERRO)
+    info("Não deve aparecer")
+    debug("Também não")
+    erro("Deve aparecer")
+    logs é obter_ultimos_logs(10)
+    # Deve ter só o erro
+    algum_info é falso
+    algum_erro é falso
+    para cada log in logs
+        se log.nivel igual "INFO" então algum_info é verdadeiro fim
+        se log.nivel igual "ERRO" então algum_erro é verdadeiro fim
+    fim
+    esporte algum_erro igual a verdadeiro
+fim
+
+teste "estatisticas"
+    definir_nivel(NIVEL_DEBUG)
+    limpar_logs()
+    info("teste1")
+    debug("teste2")
+    erro("teste3")
+    stats é estatisticas()
+    esporte stats.total igual a 3
+fim

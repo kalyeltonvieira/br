@@ -1,0 +1,38 @@
+# Reconhecimento_voz module for audio, speech, transcription and commands
+
+explicacao
+    reconhecimento_voz: áudio, fala, transcrição e comandos.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "reconhecimento_voz"
+fim
+
+função descricao
+    devolva "Áudio, fala, transcrição e comandos."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# Simple transcription: return the input string in uppercase (simulating processing)
+função transcrever recebendo audio
+    devolva audio.toUpperCase()
+fim
+
+# Command detection: look for keywords "start" or "stop"
+função detectar_comando recebendo audio
+    se audio contém "start" então
+        devolva "iniciar"
+    senão se audio contém "stop" então
+        devolva "parar"
+    senão
+        devolva "nenhum"
+    fim
+fim
+
+função fechar
+    devolva verdadeiro
+fim

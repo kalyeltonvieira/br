@@ -1,0 +1,9 @@
+de "matematica" importe "somar"
+
+teste "soma simples"
+    espere 2 + 3 igual a 5
+fim
+
+teste "funcao importada"
+    espere somar(4, 6) igual a 10
+fim

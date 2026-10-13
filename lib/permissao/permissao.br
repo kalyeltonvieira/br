@@ -1,0 +1,32 @@
+explicacao
+    Permissão: controle de permissões e acesso.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "permissao"
+fim
+
+função descricao
+    devolva "Permissão: controle de permissões e acesso"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função permitir recebendo acao
+    devolva verdadeiro
+fim
+
+função negar recebendo acao
+    devolva falso
+fim
+
+função verificar recebendo acao
+    devolva verdadeiro
+fim
+
+função papel recebendo nome_item
+    devolva nome_item
+fim

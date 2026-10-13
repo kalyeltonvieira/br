@@ -1,0 +1,5 @@
+importar "machine_learning"
+
+teste "nome do modulo machine_learning"
+    espere machine_learning.nome() igual a "machine_learning"
+fim

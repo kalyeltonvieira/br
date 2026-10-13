@@ -1,0 +1,203 @@
+explicacao
+    Concorrência: funções para programação concorrente com
+    threads verdes, canais CSP, workers pool, execução paralela
+    de tarefas e coordenação entre processos leves.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome devolva "concorrencia" fim
+função descricao devolva "Concorrência: threads verdes, canais, workers e paralelismo" fim
+função versao devolva "1.0.0" fim
+
+função canal_novo recebendo capacidade
+    se capacidade nulo então capacidade é 0 fim
+    devolva servico_concorrencia("canal_novo", capacidade)
+fim
+
+função canal_enviar recebendo canal, valor
+    devolva servico_concorrencia("canal_enviar", canal, valor)
+fim
+
+função canal_receber recebendo canal
+    devolva servico_concorrencia("canal_receber", canal)
+fim
+
+função canal_fechar recebendo canal
+    devolva servico_concorrencia("canal_fechar", canal)
+fim
+
+função workers_pool recebendo funcao_trabalho, itens e num_workers
+    se num_workers nulo então num_workers é 4 fim
+    resultados é []
+    
+    para cada item in itens
+        resultado_item é funcao_trabalho(item)
+        adicione resultado_item a resultados
+    fim
+    
+    devolva resultados
+fim
+
+função worker_pool_assincrono recebendo funcao_trabalho, itens e num_workers
+    resultado_final é []
+    
+    tarefas_pool é []
+    para cada item in itens
+        tarefa_worker é crie tarefa
+            resultado_tarefa é funcao_trabalho(item)
+            devolva resultado_tarefa
+        fim
+        adicione tarefa_worker a tarefas_pool
+    fim
+    
+    para cada tarefa_env in tarefas_pool
+        resultado_item é aguarde tarefa_env
+        adicione resultado_item a resultado_final
+    fim
+    
+    devolva resultado_final
+fim
+
+função execucao_paralela recebendo funcoes
+    resultados_paralelo é []
+    erros_paralelo é []
+    
+    execute em paralelo
+        para cada func in funcoes
+            tente
+                resultado_paralelo é func()
+                adicione resultado_paralelo a resultados_paralelo
+            capture erro_paralelo
+                adicione registro erro: erro_paralelo.mensagem a erros_paralelo
+            fim
+        fim
+    fim
+    
+    devolva registro resultados: resultados_paralelo erros: erros_paralelo fim
+fim
+
+função mapa_paralelo recebendo lista, transformacao
+    resultados_mapa é []
+    para cada item in lista
+        resultado_mapa_item é transformacao(item)
+        adicione resultado_mapa_item a resultados_mapa
+    fim
+    devolva resultados_mapa
+fim
+
+função filtrar_paralelo recebendo lista, condicao
+    resultados_filtro := []
+    para cada item in lista
+        se condicao(item) então
+            adicione item a resultados_filtro
+        fim
+    fim
+    devolva resultados_filtro
+fim
+
+função promise_todas recebendo promessas
+    resultados_promise é []
+    para cada promessa in promessas
+        resultado_promise é aguarde promessa
+        adicione resultado_promise a resultados_promise
+    fim
+    devolva resultados_promise
+fim
+
+função promise_raca recebendo promessas
+    para cada promessa_raca in promessas
+        resultado_raca é aguarde promessa_raca
+        devolva resultado_raca
+    fim
+    devolva nulo
+fim
+
+função mutex_novo
+    devolva servico_concorrencia("mutex_novo")
+fim
+
+função mutex_bloquear recebendo mutex
+    devolva servico_concorrencia("mutex_bloquear", mutex)
+fim
+
+função mutex_liberar recebendo mutex
+    devolva servico_concorrencia("mutex_liberar", mutex)
+fim
+
+função semaforo_novo recebendo limite
+    se limite nulo então limite é 1 fim
+    devolva servico_concorrencia("semaforo_novo", limite)
+fim
+
+função semaforo_adquirir recebendo semaforo
+    devolva servico_concorrencia("semaforo_adquirir", semaforo)
+fim
+
+função semaforo_liberar recebendo semaforo
+    devolva servico_concorrencia("semaforo_liberar", semaforo)
+fim
+
+função barreira_nova recebendo numero_participantes
+    devolva servico_concorrencia("barreira_nova", numero_participantes)
+fim
+
+função barreira_esperar recebendo barreira
+    devolva servico_concorrencia("barreira_esperar", barreira)
+fim
+
+função pipeline_recebendo funcoes_pipeline e valor_inicial
+    valor_atual é valor_inicial
+    para cada func_p in funcoes_pipeline
+        valor_atual é func_p(valor_atual)
+    fim
+    devolva valor_atual
+fim
+
+função worker_pool_com_limite recebendo funcao_w, itens_w e limite
+    resultados_w é []
+    contador_w é 0
+    para cada item_w in itens_w
+        se contador_w >= limite então
+            pare
+        fim
+        resultado_w_item é funcao_w(item_w)
+        adicione resultado_w_item a resultados_w
+        contador_w é contador_w + 1
+    fim
+    devolva resultados_w
+fim
+
+teste "workers pool"
+    dados_teste é [1, 2, 3, 4, 5]
+    dobrar é funcao(x) devolva x * 2 fim
+    resultados_teste é workers_pool(dobrar, dados_teste, 3)
+    esporte tamanho(resultados_teste) igual a 5
+    esporte resultados_teste[0] igual a 2
+fim
+
+teste "pipeline"
+    add1 é funcao(x) devolva x + 1 fim
+    mult2 é funcao(x) devolva x * 2 fim
+    resultado_pipe é pipeline(add1, mult2, 5)
+    esporte resultado_pipe igual a 12
+fim
+
+teste "execucao paralela"
+    funcs é [funcao() devolva 1 fim, funcao() devolva 2 fim]
+    resultado_pe é execucao_paralela(funcs)
+    esporte tamanho(resultado_pe.resultados) igual a 2
+fim
+
+teste "mapa paralelo"
+    dados_mp é [1, 2, 3]
+    triplicar é funcao(x) devolva x * 3 fim
+    resultado_mp é mapa_paralelo(dados_mp, triplicar)
+    esporte resultado_mp[2] igual a 9
+fim
+
+teste "worker pool com limite"
+    dados_wl é [1, 2, 3, 4, 5]
+    quadrado é funcao(x) devolva x * x fim
+    resultado_wl é worker_pool_com_limite(quadrado, dados_wl, 3)
+    esporte tamanho(resultado_wl) igual a 3
+fim

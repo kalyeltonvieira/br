@@ -1,0 +1,19 @@
+# Documentação BRD: toml
+
+## Nome
+
+TOML
+
+## Descrição
+
+leitura, escrita e validação de arquivos TOML.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* ler: Lê conteúdo TOML.
+* escrever: Gera texto TOML.
+* validar: Valida sintaxe TOML.
+* secao: Consulta seção TOML.

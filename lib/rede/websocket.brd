@@ -1,0 +1,40 @@
+# Documentação BRD: websocket
+
+## Nome
+
+WebSocket
+
+## Descrição
+
+Comunicação em tempo real. Permite criar servidores e clientes WebSocket para comunicação bidirecional em tempo real.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* criar_servidor: Cria um servidor WebSocket.
+* iniciar_servidor: Inicia o servidor WebSocket.
+* parar_servidor: Para o servidor WebSocket.
+* criar_cliente: Cria um cliente WebSocket.
+* conectar: Conecta o cliente ao servidor.
+* desconectar: Desconecta o cliente.
+* enviar: Envia uma mensagem pelo WebSocket.
+* broadcast: Envia uma mensagem para todos os clientes conectados.
+* definir_callback: Define um callback para um evento.
+* adicionar_cliente: Adiciona um cliente ao servidor.
+* remover_cliente: Remove um cliente do servidor.
+* obter_clientes: Obtém todos os clientes conectados.
+* definir_ping_interval: Define o intervalo de ping.
+
+## Exemplo
+
+```br
+usar rede.websocket
+
+servidor é criar_servidor 8080, funcao(mensagem)
+    mostre "Mensagem recebida: " + mensagem
+fim
+
+iniciar_servidor servidor
+```

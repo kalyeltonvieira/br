@@ -1,0 +1,32 @@
+explicacao
+    Modulo tipo compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "tipo"
+fim
+
+funcao descricao
+    devolva "Modulo tipo compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao tipo_de
+    devolva verdadeiro
+fim
+
+funcao verificar_tipo
+    devolva verdadeiro
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim
+
+funcao exemplo recebendo valor
+    devolva valor
+fim

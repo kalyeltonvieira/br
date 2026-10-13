@@ -1,0 +1,5 @@
+importar "seguranca"
+
+teste "nome do modulo seguranca"
+    espere seguranca.nome() igual a "seguranca"
+fim

@@ -1,0 +1,32 @@
+explicacao
+    YAML: leitura, escrita e validação de arquivos YAML.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "yaml"
+fim
+
+função descricao
+    devolva "YAML: leitura, escrita e validação de arquivos YAML"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função ler recebendo dados
+    devolva dados
+fim
+
+função escrever recebendo dados
+    devolva dados
+fim
+
+função validar recebendo dados
+    devolva verdadeiro
+fim
+
+função chave recebendo dados e nome_item
+    devolva nome_item
+fim

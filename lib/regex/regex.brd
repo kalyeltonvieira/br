@@ -1,0 +1,23 @@
+# Documentação BRD: regex
+
+## Nome
+
+Regex
+
+## Descrição
+
+expressões regulares e busca avançada em texto.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* buscar: Busca padrão em texto.
+* todos: Retorna todas as ocorrencias do padrao.
+* contar: Conta ocorrencias do padrao.
+* substituir: Substitui padrões em texto.
+* validar: Valida texto por expressão regular.
+* grupos: Retorna grupos encontrados.
+* dividir: Divide texto usando expressao regular.
+* escapar: Escapa texto para uso literal em regex.

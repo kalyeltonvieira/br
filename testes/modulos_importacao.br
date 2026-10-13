@@ -1,0 +1,7 @@
+importar "matematica"
+importar "arquivo" como "arq"
+de "texto" importe "maiusculo" e "minusculo"
+
+mostre matematica.raiz_quadrada(16)
+mostre maiusculo("br")
+mostre minusculo("BR")

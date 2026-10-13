@@ -1,0 +1,87 @@
+# Teste completo dos novos recursos
+# 1. Conte de X até Y como Z
+teste "conte loop"
+    total é 0
+    conte de 1 até 5 como i
+        total é total + i
+    fim
+    espere total igual a 15
+fim
+
+# 2. Tarefa assíncrona
+tarefa calcular_dobro recebendo valor
+    devolva valor * 2
+fim
+
+teste "tarefa assincrona"
+    resultado é calcular_dobro 5
+    espere resultado igual a 10
+fim
+
+# 3. Classe com método
+classe Calculadora
+    resultado: inteiro
+fim
+
+teste "instanciacao classe"
+    calc é Calculadora(10)
+    espere calc.resultado igual a 10
+fim
+
+# 4. Herança (sintática)
+classe Animal
+    nome: texto
+fim
+
+classe Cachorro herda Animal
+    raca: texto
+fim
+
+teste "heranca simples"
+    cao é Cachorro("Rex", "Vira-lata")
+    espere cao.nome igual a "Rex"
+    espere cao.raca igual a "Vira-lata"
+fim
+
+# 5. IA pergunte (continua funcionando)
+teste "ia pergunte basica"
+    resposta é pergunte para ia "quem descobriu o brasil"
+    espere texto_contem(resposta e "Brasil") igual a verdadeiro
+fim
+
+# 6. Agente IA
+teste "criar agente ia"
+    analista é crie agente
+        especialidade: "financeiro"
+    fim
+    espere analista.especialidade igual a "financeiro"
+fim
+
+# 7. Execute em paralelo
+teste "paralelo basico"
+    execute em paralelo
+        a é 1 + 1
+    fim
+fim
+
+teste "while loop"
+    contador é 0
+    enquanto contador < 3
+        contador é contador + 1
+    fim
+    espere contador igual a 3
+fim
+
+teste "escolha caso"
+    status é "ativo"
+    resultado é ""
+    escolha status
+        caso "novo"
+            resultado é "cadastrar"
+        caso "ativo"
+            resultado é "processar"
+        padrao
+            resultado é "ignorar"
+    fim
+    espere resultado igual a "processar"
+fim

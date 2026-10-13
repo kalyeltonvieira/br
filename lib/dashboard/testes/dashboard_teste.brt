@@ -1,0 +1,5 @@
+importar "dashboard"
+
+teste "nome do modulo dashboard"
+    espere dashboard.nome() igual a "dashboard"
+fim

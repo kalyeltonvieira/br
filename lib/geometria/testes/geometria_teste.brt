@@ -1,0 +1,5 @@
+importar "geometria"
+
+teste "nome do modulo geometria"
+    espere geometria.nome() igual a "geometria"
+fim

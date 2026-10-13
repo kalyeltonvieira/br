@@ -1,0 +1,32 @@
+explicacao
+    Pacotes: instalação, remoção, atualização, manifesto, versões e dependências.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "pacote"
+fim
+
+função descricao
+    devolva "Pacotes: instalação, remoção, atualização, manifesto, versões e dependências"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função instalar recebendo nome_item
+    devolva verdadeiro
+fim
+
+função remover recebendo nome_item
+    devolva verdadeiro
+fim
+
+função atualizar recebendo nome_item
+    devolva verdadeiro
+fim
+
+função versao recebendo nome_item
+    devolva "1.0.0"
+fim

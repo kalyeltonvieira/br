@@ -1,0 +1,40 @@
+# Documentação BRD: css
+
+## Nome
+
+CSS
+
+## Descrição
+
+Geração e organização de estilos CSS. Permite criar, manipular e organizar estilos CSS.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* criar_regra: Cria uma regra CSS.
+* adicionar_propriedade: Adiciona uma propriedade à regra.
+* criar_estilo: Cria um estilo CSS.
+* renderizar: Renderiza o estilo como string CSS.
+* criar_media_query: Cria uma media query.
+* criar_animacao: Cria uma animação CSS.
+* criar_variavel: Cria uma variável CSS.
+* minificar: Minifica o CSS removendo espaços desnecessários.
+* prefixar: Adiciona prefixos de vendor ao CSS.
+* validar: Valida a sintaxe do CSS.
+
+## Exemplo
+
+```br
+usar rede.css
+
+regra é criar_regra ".container", registro
+    "width": "100%"
+    "padding": "20px"
+fim
+
+css é renderizar registro
+    regras: lista regra
+fim
+```

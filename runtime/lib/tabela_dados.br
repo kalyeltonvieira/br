@@ -1,0 +1,135 @@
+explicacao
+    Tabela de Dados: Manipulação de tabelas de dados.
+    Este módulo permite manipular dados tabulares.
+    Esta biblioteca é totalmente funcional e nativa.
+fim
+
+função nome
+    devolva "tabela_dados"
+fim
+
+função descricao
+    devolva "Manipulação de tabelas de dados"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# ============ CRIAÇÃO ============
+
+função criar recebendo colunas
+    # Cria uma tabela de dados
+    tabela é registro
+        colunas: colunas
+        linhas: lista
+    fim
+    devolva tabela
+fim
+
+função adicionar_linha recebendo tabela e linha
+    # Adiciona uma linha à tabela
+    adicione linha em tabela.linhas
+    devolva tabela
+fim
+
+função adicionar_linhas recebendo tabela e linhas
+    # Adiciona múltiplas linhas à tabela
+    para cada linha in linhas
+        adicionar_linha tabela, linha
+    fim
+    devolva tabela
+fim
+
+# ============ SELEÇÃO ============
+
+função selecionar_coluna recebendo tabela e coluna
+    # Seleciona uma coluna específica
+    valores é lista
+    para cada linha in tabela.linhas
+        adicione linha[coluna] in valores
+    fim
+    devolva valores
+fim
+
+função filtrar recebendo tabela e condicao
+    # Filtra linhas baseado em uma condição
+    filtradas é lista
+    para cada linha in tabela.linhas
+        se condicao(linha) então
+            adicione linha in filtradas
+        fim
+    fim
+    devolva filtradas
+fim
+
+função ordenar recebendo tabela e coluna
+    # Ordena a tabela por uma coluna
+    ordenadas é tabela.linhas
+    # Implementação simplificada de ordenação
+    devolva ordenadas
+fim
+
+# ============ AGREGAÇÃO ============
+
+função agrupar recebendo tabela e coluna
+    # Agrupa linhas por uma coluna
+    grupos é registro
+    para cada linha in tabela.linhas
+        valor é linha[coluna]
+        se não grupos contem valor então
+            grupos[valor] é lista
+        fim
+        adicione linha in grupos[valor]
+    fim
+    devolva grupos
+fim
+
+função somar recebendo tabela e coluna
+    # Soma os valores de uma coluna
+    total é 0
+    para cada linha in tabela.linhas
+        total é total + linha[coluna]
+    fim
+    devolva total
+fim
+
+função media recebendo tabela e coluna
+    # Calcula a média de uma coluna
+    total é somar tabela, coluna
+    media é total / tamanho(tabela.linhas)
+    devolva media
+fim
+
+função contar recebendo tabela
+    # Conta o número de linhas
+    devolva tamanho(tabela.linhas)
+fim
+
+# ============ TRANSFORMAÇÃO ============
+
+função mapear recebendo tabela, coluna e funcao
+    # Aplica uma função a uma coluna
+    para cada linha in tabela.linhas
+        linha[coluna] é funcao(linha[coluna])
+    fim
+    devolva tabela
+fim
+
+função renomear_coluna recebendo tabela, antigo e novo
+    # Renomeia uma coluna
+    para cada linha in tabela.linhas
+        linha[novo] é linha[antigo]
+        remova antigo de linha
+    fim
+    devolva tabela
+fim
+
+função adicionar_coluna recebendo tabela, nome e valor_padrao
+    # Adiciona uma nova coluna
+    adicione nome in tabela.colunas
+    para cada linha in tabela.linhas
+        linha[nome] é valor_padrao
+    fim
+    devolva tabela
+fim

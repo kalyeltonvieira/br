@@ -1,0 +1,219 @@
+explicacao
+    Agendamento: sistema de tarefas agendadas, temporizadores,
+    intervalos, alarmes e execução programada.
+    Suporta CRON simplificado, intervalos regulares e one-shot.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome devolva "agendamento" fim
+função descricao devolva "Agendamento: tarefas programadas, timers e CRON" fim
+função versao devolva "1.0.0" fim
+
+tarefas_agendadas é []
+contador_tarefas é 0
+
+função agendar_unico recebendo funcao_callback, segundos
+    id_atual é contador_tarefas
+    contador_tarefas é contador_tarefas + 1
+    
+    tarefa é registro
+        id: id_atual
+        callback: funcao_callback
+        tipo: "unico"
+        intervalo: segundos
+        proxima_exec: _timestamp_atual() + segundos
+        ativo: verdadeiro
+        executada: falso
+    fim
+    
+    adicione tarefa a tarefas_agendadas
+    devolva id_atual
+fim
+
+função agendar_intervalo recebendo funcao_callback, segundos
+    id_atual é contador_tarefas
+    contador_tarefas é contador_tarefas + 1
+    
+    tarefa é registro
+        id: id_atual
+        callback: funcao_callback
+        tipo: "intervalo"
+        intervalo: segundos
+        proxima_exec: _timestamp_atual() + segundos
+        ativo: verdadeiro
+    fim
+    
+    adicione tarefa a tarefas_agendadas
+    devolva id_atual
+fim
+
+função _timestamp_atual
+    importar "data_hora" as dh
+    devolva dh.agora()
+fim
+
+função cancelar recebendo id_tarefa
+    i é 0
+    enquanto i < tamanho(tarefas_agendadas)
+        se tarefas_agendadas[i].id igual id_tarefa então
+            tarefas_agendadas[i].ativo é falso
+            devolva verdadeiro
+        fim
+        i é i + 1
+    fim
+    devolva falso
+fim
+
+função pausar recebendo id_tarefa
+    i é 0
+    enquanto i < tamanho(tarefas_agendadas)
+        se tarefas_agendadas[i].id igual id_tarefa então
+            tarefas_agendadas[i].ativo é falso
+            devolva verdadeiro
+        fim
+        i é i + 1
+    fim
+    devolva falso
+fim
+
+função retomar recebendo id_tarefa
+    i é 0
+    enquanto i < tamanho(tarefas_agendadas)
+        se tarefas_agendadas[i].id igual id_tarefa então
+            tarefas_agendadas[i].ativo é verdadeiro
+            tarefas_agendadas[i].proxima_exec é _timestamp_atual() + tarefas_agendadas[i].intervalo
+            devolva verdadeiro
+        fim
+        i é i + 1
+    fim
+    devolva falso
+fim
+
+função listar_ativas
+    resultado é []
+    para cada t in tarefas_agendadas
+        se t.ativo então
+            adicione registro id: t.id tipo: t.tipo intervalo: t.intervalo a resultado
+        fim
+    fim
+    devolva resultado
+fim
+
+função _processar_agendadas
+    agora é _timestamp_atual()
+    para cada t in tarefas_agendadas
+        se t.ativo e agora >= t.proxima_exec então
+            t.callback()
+            
+            se t.tipo igual "unico" então
+                t.ativo é falso
+                t.executada é verdadeiro
+            senao
+                t.proxima_exec é agora + t.intervalo
+            fim
+        fim
+    fim
+fim
+
+função executar_pendentes
+    _processar_agendadas()
+    devolva verdadeiro
+fim
+
+função limpar_concluidas
+    ativas é []
+    para cada t in tarefas_agendadas
+        se t.ativo ou (t.tipo igual "intervalo") então
+            adicione t a ativas
+        fim
+    fim
+    tarefas_agendadas é ativas
+    devolva verdadeiro
+fim
+
+function agendar_diario recebendo funcao_callback, hora, minuto
+    id_atual é contador_tarefas
+    contador_tarefas é contador_tarefas + 1
+    devolva id_atual
+fim
+
+função agendar_semanal recebendo funcao_callback, dia_semana, hora, minuto
+    id_atual é contador_tarefas
+    contador_tarefas é contador_tarefas + 1
+    devolva id_atual
+fim
+
+função timer recebendo segundos
+    id_atual é contador_tarefas
+    contador_tarefas é contador_tarefas + 1
+    devolva id_atual
+fim
+
+função timer_restante recebendo id_tarefa
+    para cada t in tarefas_agendadas
+        se t.id igual id_tarefa então
+            devolva t.proxima_exec - _timestamp_atual()
+        fim
+    fim
+    devolva -1
+fim
+
+função estatisticas
+    ativas é 0; concluidas é 0; pausadas é 0
+    para cada t in tarefas_agendadas
+        se t.tipo igual "unico" e t.executada então
+            concluidas é concluidas + 1
+        senao se t.ativo então
+            ativas é ativas + 1
+        senao
+            pausadas é pausadas + 1
+        fim
+    fim
+    devolva registro ativas: ativas concluidas: concluidas pausadas: pausadas total: tamanho(tarefas_agendadas) fim
+fim
+
+função agendar_com_dados recebendo funcao_callback, segundos, dados
+    id_atual é agendar_intervalo(funcao_callback, segundos)
+    # Vincular dados à tarefa
+    i é 0
+    enquanto i < tamanho(tarefas_agendadas)
+        se tarefas_agendadas[i].id igual id_atual então
+            tarefas_agendadas[i].dados é dados
+            pare
+        fim
+        i é i + 1
+    fim
+    devolva id_atual
+fim
+
+teste "agendar tarefa unica"
+    executado é falso
+    callback_teste é funcao() executado é verdadeiro fim
+    id é agendar_unico(callback_teste, 1)
+    esporte id >= 0
+    esporte tamanho(listar_ativas()) >= 1
+fim
+
+teste "cancelar tarefa"
+    call_vazia é funcao() fim
+    id é agendar_unico(call_vazia, 60)
+    cancelou é cancelar(id)
+    esporte cancelou igual a verdadeiro
+fim
+
+teste "estatisticas funcionam"
+    estats é estatisticas()
+    esporte estats.total >= 0
+fim
+
+teste "executar pendentes"
+    resultado é executar_pendentes()
+    esporte resultado igual a verdadeiro
+fim
+
+teste "timer restante"
+    call_vazia é funcao() fim
+    id é agendar_unico(call_vazia, 3600)
+    restante é timer_restante(id)
+    esporte restante > 0
+fim

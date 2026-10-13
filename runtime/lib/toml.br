@@ -1,0 +1,139 @@
+explicacao
+    TOML: parser e gerador para arquivos de configuração TOML.
+    Suporta tabelas, arrays, tipos básicos e comentários.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome devolva "toml" fim
+função descricao devolva "TOML: parser e gerador para configurações" fim
+função versao devolva "1.0.0" fim
+
+função parsear recebendo texto
+    resultado é registro
+    linha_atual é 0
+    chave_secao_atual é ""
+    linhas é dividir_linhas(texto)
+    
+    para cada linha_bruta em linhas
+        linha_atual é linha_atual + 1
+        linha é aparar(linha_bruta)
+        se linha "" ou comeca_com(linha, "#") ou comeca_com(linha, "//") então
+            continue
+        fim
+        
+        se comeca_com(linha, "[") então
+            fim_secao é encontrar(linha, "]")
+            se fim_secao > 0 então
+                chave_secao_atual é aparar(linha[1:fim_secao])
+            fim
+            continue
+        fim
+        
+        pos_igual é encontrar(linha, "=")
+        se pos_igual < 0 então
+            continue
+        fim
+        
+        nome_chave é aparar(linha[0:pos_igual])
+        valor_raw é aparar(linha[pos_igual+1:])
+        
+        destino é resultado
+        se chave_secao_atual não "" então
+            se não (chave_secao_atual em destino) então
+                destino[chave_secao_atual] é registro
+            fim
+            destino é destino[chave_secao_atual]
+        fim
+        
+        destino[nome_chave] é _parsear_valor_toml(valor_raw)
+    fim
+    
+    devolva resultado
+fim
+
+função _parsear_valor_toml recebendo texto
+    tente
+        se texto igual "true" então devolva verdadeiro fim
+        se texto igual "false" então devolva falso fim
+        se comeca_com(texto, "\"") e termina_com(texto, "\"") então
+            devolva texto[1:tamanho(texto)-1]
+        fim
+        se comeca_com(texto, "[") então
+            interno é texto[1:tamanho(texto)-1]
+            elementos é []
+            itens é dividir(interno, ",")
+            para cada item em itens
+                adicione _parsear_valor_toml(aparar(item)) a elementos
+            fim
+            devolva elementos
+        fim
+        se contem(texto, ".") então
+            devolva texto como decimal
+        senao
+            devolva texto como inteiro
+        fim
+    capture erro
+        devolva texto
+    fim
+fim
+
+função gerar recebendo dados
+    resultado é ""
+    _gerar_tabela(resultado, dados, "")
+    devolva resultado
+fim
+
+função _gerar_tabela recebendo saida, dados, prefixo
+    resultado é ""
+    para cada chave, valor em dados
+        se tipo(valor) igual "registro" então
+            se prefixo não "" então
+                resultado é resultado + "[" + prefixo + "." + chave + "]\n"
+            senao
+                resultado é resultado + "[" + chave + "]\n"
+            fim
+            _gerar_tabela(resultado, valor, chave)
+        senao
+            resultado é resultado + chave + " = " + _valor_para_toml(valor) + "\n"
+        fim
+    fim
+fim
+
+função _valor_para_toml recebendo valor
+    se valor igual nulo então devolva "" fim
+    se tipo(valor) igual "booleano" então
+        devolva "true" se valor senao "false"
+    senao se tipo(valor) igual "texto" então
+        devolva "\"" + valor + "\""
+    senao se tipo(valor) igual "lista" então
+        itens_str é ""
+        primeira é verdadeiro
+        para cada item em valor
+            se não primeira então itens_str é itens_str + ", " senao primeira é falso fim
+            itens_str é itens_str + _valor_para_toml(item)
+        fim
+        devolva "[" + itens_str + "]"
+    senao
+        devolva "" + valor
+    fim
+fim
+
+teste "toml parse simples"
+    toml_texto é "nome = \"BR\"\nversao = 1.0"
+    resultado é parsear(toml_texto)
+    esporte resultado.nome igual a "BR"
+    esporte resultado.versao igual a 1.0
+fim
+
+teste "toml tabela"
+    toml_texto é "[servidor]\nporta = 8080\nhost = \"localhost\""
+    resultado é parsear(toml_texto)
+    esporte resultado.servidor.porta igual a 8080
+    esporte resultado.servidor.host igual a "localhost"
+fim
+
+teste "toml array"
+    toml_texto é "nums = [1, 2, 3]"
+    resultado é parsear(toml_texto)
+    esporte tamanho(resultado.nums) igual a 3
+fim

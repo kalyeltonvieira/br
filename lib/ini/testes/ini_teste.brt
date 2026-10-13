@@ -1,0 +1,5 @@
+importar "ini"
+
+teste "nome do modulo ini"
+    espere ini.nome() igual a "ini"
+fim

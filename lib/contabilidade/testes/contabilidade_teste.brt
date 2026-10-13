@@ -1,0 +1,5 @@
+importar "contabilidade"
+
+teste "nome do modulo contabilidade"
+    espere contabilidade.nome() igual a "contabilidade"
+fim

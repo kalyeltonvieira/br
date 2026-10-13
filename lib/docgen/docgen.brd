@@ -1,0 +1,19 @@
+# Documentação BRD: docgen
+
+## Nome
+
+Docgen
+
+## Descrição
+
+geração automática de documentação.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* gerar: Gera documentação do projeto.
+* modulo: Documenta módulo.
+* html: Gera documentação HTML.
+* markdown: Gera documentação Markdown.

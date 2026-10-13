@@ -1,0 +1,5 @@
+importar "email"
+
+teste "nome do modulo email"
+    espere email.nome() igual a "email"
+fim

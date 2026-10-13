@@ -1,0 +1,34 @@
+# Algebra module for equations, matrices, vectors and polynomials
+
+explicacao
+    algebra: equações, matrizes, vetores e polinômios.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "algebra"
+fim
+
+função descricao
+    devolva "Equações, matrizes, vetores e polinômios."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função resolver_equacao recebendo equacao
+    devolva "solucao"
+fim
+
+função multiplicar_matrizes recebendo a, b
+    devolva "matriz_resultado"
+fim
+
+função calcular_determinante recebendo matriz
+    devolva 0
+fim
+
+função fechar
+    devolva verdadeiro
+fim

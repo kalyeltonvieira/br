@@ -1,0 +1,42 @@
+# Documentação BRD: graphql
+
+## Nome
+
+GraphQL
+
+## Descrição
+
+Criação e consumo de APIs GraphQL. Permite criar schemas GraphQL, queries, mutations e subscriptions.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* criar_schema: Cria um schema GraphQL.
+* adicionar_tipo: Adiciona um tipo ao schema.
+* adicionar_query: Adiciona uma query ao schema.
+* adicionar_mutation: Adiciona uma mutation ao schema.
+* adicionar_subscription: Adiciona uma subscription ao schema.
+* executar_query: Executa uma query GraphQL.
+* executar_mutation: Executa uma mutation GraphQL.
+* criar_cliente: Cria um cliente GraphQL.
+* definir_cabecalho: Define um cabeçalho para o cliente.
+* query: Faz uma query GraphQL.
+* mutation: Faz uma mutation GraphQL.
+* subscription: Cria uma subscription GraphQL.
+* validar_schema: Valida o schema GraphQL.
+* gerar_introspecao: Gera a introspecção do schema.
+
+## Exemplo
+
+```br
+usar rede.graphql
+
+schema é criar_schema "MinhaAPI", "type Query { ola: String }"
+adicionar_query schema, "ola", funcao()
+    devolva "Olá, mundo!"
+fim
+
+resultado é executar_query schema, "{ ola }"
+```

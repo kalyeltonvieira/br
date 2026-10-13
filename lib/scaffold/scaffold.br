@@ -1,0 +1,32 @@
+explicacao
+    Scaffold: criação automática de projetos e templates.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "scaffold"
+fim
+
+função descricao
+    devolva "Scaffold: criação automática de projetos e templates"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função projeto recebendo nome_item
+    devolva nome_item
+fim
+
+função arquivo recebendo nome_item
+    devolva nome_item
+fim
+
+função template recebendo nome_item
+    devolva nome_item
+fim
+
+função estrutura recebendo nome_item
+    devolva nome_item
+fim

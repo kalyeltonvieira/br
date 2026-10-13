@@ -1,0 +1,32 @@
+explicacao
+    Internacionalização: idiomas, tradução, moeda, números e localização.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "internacionalizacao"
+fim
+
+função descricao
+    devolva "Internacionalização: idiomas, tradução, moeda, números e localização"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função idioma
+    devolva "pt-BR"
+fim
+
+função traduzir recebendo valor
+    devolva valor
+fim
+
+função moeda recebendo valor
+    devolva "R$ " + valor
+fim
+
+função localizacao
+    devolva "Brasil"
+fim

@@ -1,0 +1,5 @@
+importar "interface"
+
+teste "nome do modulo interface"
+    espere interface.nome() igual a "interface"
+fim

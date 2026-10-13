@@ -1,0 +1,5 @@
+importar "xml"
+
+teste "nome do modulo xml"
+    espere xml.nome() igual a "xml"
+fim

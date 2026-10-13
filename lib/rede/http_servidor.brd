@@ -1,0 +1,34 @@
+# Documentação BRD: http_servidor
+
+## Nome
+
+HTTP Servidor
+
+## Descrição
+
+Criação de servidores HTTP para aplicações web. Permite criar servidores HTTP configuráveis com suporte a rotas, middleware e WebSocket.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* criar: Cria um servidor HTTP na porta especificada.
+* iniciar: Inicia o servidor HTTP.
+* parar: Para o servidor HTTP.
+* adicionar_rota: Adiciona uma rota ao servidor.
+* adicionar_middleware: Adiciona um middleware ao servidor.
+* definir_timeout: Define o timeout das requisições.
+* definir_max_conexoes: Define o número máximo de conexões simultâneas.
+
+## Exemplo
+
+```br
+usar rede.http_servidor
+
+servidor é criar 8080, funcao(req, res)
+    mostre "Requisição recebida"
+fim
+
+iniciar servidor
+```

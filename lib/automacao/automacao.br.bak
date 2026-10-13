@@ -1,0 +1,34 @@
+# Automacao module for system task automation
+
+explicacao
+    automacao: automação de tarefas do sistema.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "automacao"
+fim
+
+função descricao
+    devolva "Automação de tarefas do sistema."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função agendar recebendo tarefa, horario
+    devolva verdadeiro
+fim
+
+função executar recebendo comando
+    devolva verdadeiro
+fim
+
+função cancelar recebendo tarefa
+    devolva verdadeiro
+fim
+
+função fechar
+    devolva verdadeiro
+fim

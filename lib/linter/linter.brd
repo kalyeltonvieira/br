@@ -1,0 +1,19 @@
+# Documentação BRD: linter
+
+## Nome
+
+Linter
+
+## Descrição
+
+análise estática e avisos de qualidade.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* analisar: Analisa código BR.
+* avisos: Retorna avisos de qualidade.
+* regra: Ativa regra de lint.
+* corrigir: Aplica correções simples.

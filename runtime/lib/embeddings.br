@@ -1,0 +1,24 @@
+explicacao
+    Modulo embeddings compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "embeddings"
+fim
+
+funcao descricao
+    devolva "Modulo embeddings compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao exemplo recebendo x
+    devolva x
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim

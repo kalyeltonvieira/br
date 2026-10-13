@@ -1,0 +1,72 @@
+# Exemplo: Decorators em BR
+
+# ==================== DECORATOR SIMPLES ====================
+
+# Decorator que adiciona logging
+função logar_chamada recebendo funcao
+    devolva função interna recebendo *args
+        mostre "Chamando função: ${funcao.nome}"
+        resultado é funcao(*args)
+        mostre "Função finalizada: ${funcao.nome}"
+        devolva resultado
+    fim
+fim
+
+# Decorator que mede tempo
+função medir_tempo recebendo funcao
+    devolva função interna recebendo *args
+        inicio é tempo_atual()
+        resultado é funcao(*args)
+        fim é tempo_atual()
+        mostre "Tempo de execução: ${fim - inicio}ms"
+        devolva resultado
+    fim
+fim
+
+# ==================== USANDO DECORATORS ====================
+
+# Função simples
+função saudacao recebendo nome
+    devolva "Olá, ${nome}!"
+fim
+
+# Aplicando decorator
+@logar_chamada
+função soma recebendo a e b
+    devolva a + b
+fim
+
+# Múltiplos decorators
+@medir_tempo
+@logar_chamada
+função calcular_fatorial recebendo n
+    resultado é 1
+    i é 1
+    enquanto i <= n
+        resultado é resultado * i
+        i é i + 1
+    fim
+    devolva resultado
+fim
+
+# ==================== TESTANDO ====================
+
+mostre "=== Testando decorators ==="
+mostre ""
+
+mostre "1. Função sem decorator:"
+resultado1 é saudacao("Maria")
+mostre "Resultado: ${resultado1}"
+mostre ""
+
+mostre "2. Função com decorator de log:"
+resultado2 é soma(10, 20)
+mostre "Resultado: ${resultado2}"
+mostre ""
+
+mostre "3. Função com múltiplos decorators:"
+resultado3 é calcular_fatorial(5)
+mostre "Resultado: ${resultado3}"
+mostre ""
+
+mostre "=== Exemplo concluído! ==="

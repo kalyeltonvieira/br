@@ -1,0 +1,5 @@
+importar "serializacao"
+
+teste "nome do modulo serializacao"
+    espere serializacao.nome() igual a "serializacao"
+fim

@@ -1,0 +1,39 @@
+# Teste de bibliotecas BR
+
+mostre "Testando biblioteca matematica..."
+
+importar "matematica"
+
+resultado_soma é matematica.somar 5 e 3
+resultado_mult é matematica.multiplicar 4 e 6
+
+mostre "5 + 3 = " + resultado_soma
+mostre "4 × 6 = " + resultado_mult
+
+# Testar biblioteca texto
+mostre "Testando biblioteca texto..."
+importar "texto" as txt
+
+texto_teste é "linguagem BR"
+vazia é txt.vazio texto_teste
+slug é txt.slug texto_teste
+
+mostre "Texto vazio? " + vazia
+mostre "Slug: " + slug
+
+# Testar sistema
+mostre "Testando biblioteca sistema..."
+importar "sistema" as sis
+
+plataforma é sis.plataforma
+mostre "Plataforma: " + plataforma
+
+# Testar data_hora
+mostre "Testando biblioteca data_hora..."
+importar "data_hora" as dh
+
+agora é dh.agora
+hoje é dh.hoje
+
+mostre "Agora: " + agora
+mostre "Hoje: " + hoje

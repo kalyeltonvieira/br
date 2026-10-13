@@ -1,0 +1,67 @@
+# Deep_learning module for deep neural networks and layers
+
+explicacao
+    deep_learning: redes neurais profundas e camadas.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "deep_learning"
+fim
+
+função descricao
+    devolva "Redes neurais profundas e camadas."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# Simple single‑layer perceptron – weights stored as list, bias as number
+função criar_rede recebendo arquitetura, parametros
+    # arquitetura ignored, return a dummy weight vector and bias
+    devolva "{\"weights\":[1,1,1],\"bias\":0}" 
+fim
+
+função treinar_rede recebendo rede_id, dados_treino
+    # dados_treino: list of [features..., label]
+    # naive training: set bias to average label, keep weights = 1
+    variavel soma_label = 0
+    variavel n = 0
+    para cada exemplo em dados_treino
+        variavel label = exemplo[-1]
+        soma_label = soma_label + label
+        n = n + 1
+    fim
+    variavel bias = soma_label / n
+    devolva "{\"weights\":[1,1,1],\"bias\":" + bias + "}"
+fim
+
+função avaliar_rede recebendo rede_id, dados_teste
+    # return accuracy (fraction correct) assuming binary labels 0/1
+    variavel corretos = 0
+    variavel n = 0
+    para cada exemplo em dados_teste
+        variavel pred = 1  # with weights=1 bias=0, prediction always 1
+        variavel label = exemplo[-1]
+        se pred == label então
+            corretos = corretos + 1
+        fim
+        n = n + 1
+    fim
+    devolva corretos / n
+fim
+
+função predizer_rede recebendo rede_id, entrada
+    # entrada: list of features, simple linear sum + bias
+    variavel soma = 0
+    para cada v em entrada
+        soma = soma + v
+    fim
+    variavel bias = 0
+    devolva soma + bias
+fim
+
+função fechar
+    devolva verdadeiro
+fim

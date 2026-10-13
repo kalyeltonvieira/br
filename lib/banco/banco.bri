@@ -1,0 +1,9 @@
+contrato banco
+    função nome
+    função descricao
+    função versao
+    função conectar recebendo url
+    função consulta recebendo sql
+    função transacao
+    função migrar
+fim

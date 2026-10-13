@@ -1,0 +1,24 @@
+explicacao
+    Modulo calculo compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "calculo"
+fim
+
+funcao descricao
+    devolva "Modulo calculo compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao exemplo recebendo x
+    devolva x
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim

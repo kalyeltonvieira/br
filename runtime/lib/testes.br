@@ -1,0 +1,148 @@
+explicacao
+    Testes: framework de testes com asserções, mocks, cobertura,
+    suítes, relatórios e integração contínua.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome devolva "testes" fim
+função descricao devolva "Testes: asserções, mocks, cobertura e relatórios" fim
+função versao devolva "1.0.0" fim
+
+constante COR_VERDE é 0 COR_VERMELHO é 1 COR_AMARELO é 2 COR_RESET é 3
+
+testes_executados é 0
+testes_passaram é 0
+testes_falharam é 0
+resultados_teste é []
+
+função descrever recebendo nome e bloco
+    tente
+        bloco()
+        adicione registro nome: nome sucesso: verdadeiro a resultados_teste
+    capture erro
+        adicione registro nome: nome sucesso: falso erro: erro.mensagem a resultados_teste
+    fim
+fim
+
+função esperar_que recebendo valor
+    devolva registro
+        valor: valor
+        seja: _seja
+        seja_igual: _seja_igual
+        seja_verdadeiro: _seja_verdadeiro
+        seja_falso: _seja_falso
+        seja_nulo: _seja_nulo
+        contenha: _contenha
+        seja_maior_que: _seja_maior_que
+        seja_menor_que: _seja_menor_que
+        nao_seja: _nao_seja
+    fim
+fim
+
+função _seja recebendo self, esperado
+    se self.valor diferente esperado então
+        levante erro "Esperava " + esperado + " mas obteve " + self.valor
+    fim
+fim
+
+função _seja_igual recebendo self, esperado
+    se self.valor diferente esperado então
+        levante erro "Esperava " + esperado + " mas obteve " + self.valor
+    fim
+fim
+
+função _seja_verdadeiro recebendo self
+    se não self.valor então
+        levante erro "Esperava verdadeiro mas obteve " + self.valor
+    fim
+fim
+
+função _seja_falso recebendo self
+    se self.valor então
+        levante erro "Esperava falso mas obteve verdadeiro"
+    fim
+fim
+
+função _seja_nulo recebendo self
+    se self.valor diferente nulo então
+        levante erro "Esperava nulo mas obteve " + self.valor
+    fim
+fim
+
+função _contenha recebendo self, subtexto
+    se não contem("" + self.valor, subtexto) então
+        levante erro "Esperava que '" + self.valor + "' contivesse '" + subtexto + "'"
+    fim
+fim
+
+função _seja_maior_que recebendo self, limite
+    se self.valor <= limite então
+        levante erro "Esperava " + self.valor + " > " + limite
+    fim
+fim
+
+função _seja_menor_que recebendo self, limite
+    se self.valor >= limite então
+        levante erro "Esperava " + self.valor + " < " + limite
+    fim
+fim
+
+função _nao_seja recebendo self, esperado
+    se self.valor igual esperado então
+        levante erro "Esperava diferente de " + esperado
+    fim
+fim
+
+função antes_de_cada recebendo bloco
+    _antes_bloco é bloco
+fim
+
+função depois_de_cada recebendo bloco
+    _depois_bloco é bloco
+fim
+
+função antes_de_tudo recebendo bloco
+    bloco()
+fim
+
+função depois_de_tudo recebendo bloco
+    bloco()
+fim
+
+função pular recebendo motivo
+    devolva registro ignorado: verdadeiro motivo: motivo fim
+fim
+
+função relatorio
+    mostre ""
+    mostre "=== RELATÓRIO DE TESTES ==="
+    mostre "Total: " + testes_executados
+    mostre "Passaram: " + testes_passaram
+    mostre "Falharam: " + testes_falharam
+    
+    para cada resultado em resultados_teste
+        se resultado.sucesso então
+            mostre "  ✓ " + resultado.nome
+        senao
+            mostre "  ✗ " + resultado.nome + ": " + resultado.erro
+        fim
+    fim
+    
+    devolva registro total: testes_executados passaram: testes_passaram falharam: testes_falharam fim
+fim
+
+função limpar
+    testes_executados é 0
+    testes_passaram é 0
+    testes_falharam é 0
+    resultados_teste é []
+fim
+
+teste "framework funciona"
+    descrever("teste basico", funcao()
+        esperar_que(1 + 1).seja_igual(2)
+        esperar_que(verdadeiro).seja_verdadeiro()
+        esperar_que(nulo).seja_nulo()
+    fim)
+    esporte resultados_teste[0].sucesso igual a verdadeiro
+fim

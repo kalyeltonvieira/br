@@ -1,0 +1,22 @@
+contrato navegador
+    função nome
+    função descricao
+    função versao
+    função criar_navegador recebendo cabeca
+    função iniciar recebendo navegador
+    função parar recebendo navegador
+    função abrir_pagina recebendo navegador e url
+    função fechar_pagina recebendo navegador e pagina
+    função navegar recebendo pagina e url
+    função voltar recebendo pagina
+    função avancar recebendo pagina
+    função recarregar recebendo pagina
+    função clicar_elemento recebendo pagina e seletor
+    função digitar_texto recebendo pagina, seletor e texto
+    função obter_texto recebendo pagina e seletor
+    função obter_atributo recebendo pagina, seletor e atributo
+    função esperar_elemento recebendo pagina e seletor
+    função executar_script recebendo pagina e script
+    função tirar_screenshot recebendo pagina e caminho
+    função definir_tamanho recebendo pagina e largura e altura
+fim

@@ -1,0 +1,5 @@
+importar "sqlite"
+
+teste "nome do modulo sqlite"
+    espere sqlite.nome() igual a "sqlite"
+fim

@@ -1,0 +1,5 @@
+importar "internacionalizacao"
+
+teste "nome do modulo internacionalizacao"
+    espere internacionalizacao.nome() igual a "internacionalizacao"
+fim

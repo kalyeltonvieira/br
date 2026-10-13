@@ -1,0 +1,51 @@
+# Biblioteca JSON - BR
+# Manipulação de JSON
+
+# ==================== PARSING ====================
+
+função parse recebendo texto_json
+    devolva json_parse(texto_json)
+fim
+
+função stringify recebendo objeto
+    devolva json_gerar(objeto)
+fim
+
+# ==================== ACESSO ====================
+
+função obter recebendo json e caminho
+    # Exemplo: obter(dados, "usuario.nome")
+    partes é caminho.dividir(".")
+    atual é json
+    para cada parte em partes
+        atual é atual[parte]
+    fim
+    devolva atual
+fim
+
+função definir recebendo json e caminho e valor
+    # Simplificado
+    json[caminho] é valor
+    devolva json
+fim
+
+# ==================== VALIDAÇÃO ====================
+
+função eh_json_valido recebendo texto
+    tente
+        parse(texto)
+        devolva verdadeiro
+    capture erro
+        devolva falso
+    fim
+fim
+
+# ==================== UTILITÁRIOS ====================
+
+função json_para_texto recebendo objeto
+    devolva stringify(objeto)
+fim
+
+função texto_para_json recebendo texto
+    devolva parse(texto)
+fim

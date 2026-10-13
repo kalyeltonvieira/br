@@ -1,0 +1,416 @@
+explicacao
+    Data e Hora: manipulação completa de datas, horas, fuso horário,
+    formatação, cálculos de diferença e calendário.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome
+    devolva "data_hora"
+fim
+
+função descricao
+    devolva "Data e Hora: datas, horas, fusos, formatação e calendário"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# ============ OBTENÇÃO ============
+
+função agora
+    # Retorna timestamp atual (segundos desde epoch)
+    devolva _timestamp_atual()
+fim
+
+função _timestamp_atual
+    # Placeholder - na VM real, usaria serviço nativo
+    devolva 1767800000
+fim
+
+função hoje
+    partes é _decompor(_timestamp_atual())
+    devolva registro
+        ano: partes[0]
+        mes: partes[1]
+        dia: partes[2]
+    fim
+fim
+
+função agora_completo
+    ts é _timestamp_atual()
+    partes é _decompor(ts)
+    devolva registro
+        ano: partes[0]
+        mes: partes[1]
+        dia: partes[2]
+        hora: partes[3]
+        minuto: partes[4]
+        segundo: partes[5]
+        timestamp: ts
+    fim
+fim
+
+# ============ CRIAÇÃO ============
+
+função criar recebendo ano, mes, dia, hora, minuto e segundo
+    se hora nulo então hora é 0 fim
+    se minuto nulo então minuto é 0 fim
+    se segundo nulo então segundo é 0 fim
+    devolva _compor(ano, mes, dia, hora, minuto, segundo)
+fim
+
+função criar_data recebendo ano, mes e dia
+    devolva criar(ano, mes, dia, 0, 0, 0)
+fim
+
+função _dias_no_mes recebendo mes e ano
+    dias_meses é [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    se mes igual 2 e _eh_bissexto(ano) então
+        devolva 29
+    fim
+    devolva dias_meses[mes - 1]
+fim
+
+função _eh_bissexto recebendo ano
+    devolva (ano % 4 igual 0 e ano % 100 diferente 0) ou (ano % 400 igual 0)
+fim
+
+# ============ DECOMPOSIÇÃO ============
+
+função _decompor recebendo timestamp
+    # Algoritmo de conversão de timestamp para data (simplificado)
+    # Baseado no calendário gregoriano
+    segundos_por_dia é 86400
+    dias_desde_epoch é timestamp / segundos_por_dia
+    
+    # Ajustar para data
+    ano é 1970
+    dias_restantes é dias_desde_epoch
+    
+    enquanto verdadeiro
+        dias_no_ano é 366 se _eh_bissexto(ano) senao 365
+        se dias_restantes < dias_no_ano então
+            pare
+        fim
+        dias_restantes é dias_restantes - dias_no_ano
+        ano é ano + 1
+    fim
+    
+    mes é 1
+    enquanto verdadeiro
+        dias_mes é _dias_no_mes(mes, ano)
+        se dias_restantes < dias_mes então
+            pare
+        fim
+        dias_restantes é dias_restantes - dias_mes
+        mes é mes + 1
+    fim
+    
+    dia é dias_restantes + 1
+    
+    segundos_no_dia é timestamp % segundos_por_dia
+    hora é segundos_no_dia / 3600
+    minuto é (segundos_no_dia % 3600) / 60
+    segundo é segundos_no_dia % 60
+    
+    devolva [ano, mes, dia, hora, minuto, segundo]
+fim
+
+função _compor recebendo ano, mes, dia, hora, minuto, segundo
+    # Converte data para timestamp (simplificado)
+    segundos_por_dia é 86400
+    dias é 0
+    
+    ano_atual é 1970
+    enquanto ano_atual < ano
+        dias é dias + (366 se _eh_bissexto(ano_atual) senao 365)
+        ano_atual é ano_atual + 1
+    fim
+    
+    mes_atual é 1
+    enquanto mes_atual < mes
+        dias é dias + _dias_no_mes(mes_atual, ano)
+        mes_atual é mes_atual + 1
+    fim
+    
+    dias é dias + dia - 1
+    segundos é dias * segundos_por_dia + hora * 3600 + minuto * 60 + segundo
+    devolva segundos
+fim
+
+# ============ FORMATAÇÃO ============
+
+função formatar recebendo timestamp e formato
+    se formato nulo ou formato "" então
+        formato é "YYYY-MM-DD HH:mm:ss"
+    fim
+    
+    partes é _decompor(timestamp)
+    ano é partes[0]
+    mes é partes[1]
+    dia é partes[2]
+    hora é partes[3]
+    minuto é partes[4]
+    segundo é partes[5]
+    
+    resultado é formato
+    resultado é substituir(resultado, "YYYY", "" + ano)
+    resultado é substituir(resultado, "YY", "" + (ano % 100))
+    resultado é substituir(resultado, "MM", _zero_esquerda(mes, 2))
+    resultado é substituir(resultado, "DD", _zero_esquerda(dia, 2))
+    resultado é substituir(resultado, "HH", _zero_esquerda(hora, 2))
+    resultado é substituir(resultado, "mm", _zero_esquerda(minuto, 2))
+    resultado é substituir(resultado, "ss", _zero_esquerda(segundo, 2))
+    
+    devolva resultado
+fim
+
+função _zero_esquerda recebendo valor e digitos
+    resultado é "" + valor
+    enquanto tamanho(resultado) < digitos
+        resultado é "0" + resultado
+    fim
+    devolva resultado
+fim
+
+função data_texto recebendo timestamp
+    devolva formatar(timestamp, "YYYY-MM-DD")
+fim
+
+função hora_texto recebendo timestamp
+    devolva formatar(timestamp, "HH:mm:ss")
+fim
+
+função data_hora_texto recebendo timestamp
+    devolva formatar(timestamp, "YYYY-MM-DD HH:mm:ss")
+fim
+
+função data_extenso recebendo timestamp
+    partes é _decompor(timestamp)
+    nomes_meses é ["janeiro", "fevereiro", "março", "abril", "maio", "junho",
+                   "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"]
+    nomes_dias_semana é ["domingo", "segunda-feira", "terça-feira", "quarta-feira",
+                         "quinta-feira", "sexta-feira", "sábado"]
+    
+    dia_semana é _dia_da_semana(timestamp)
+    devolva nomes_dias_semana[dia_semana] + ", " + partes[2] + " de " + nomes_meses[partes[1] - 1] + " de " + partes[0]
+fim
+
+# ============ CÁLCULOS ============
+
+função _dia_da_semana recebendo timestamp
+    # Zeller's congruence simplificado
+    segundos_por_dia é 86400
+    dias_desde_epoch é timestamp / segundos_por_dia
+    # 1970-01-01 foi quinta-feira (4)
+    devolva (dias_desde_epoch + 4) % 7
+fim
+
+função diferenca recebendo ts1 e ts2
+    devolva ts2 - ts1
+fim
+
+função diferenca_dias recebendo ts1 e ts2
+    segundos_por_dia é 86400
+    devolva (ts2 - ts1) / segundos_por_dia
+fim
+
+função adicionar_dias recebendo timestamp e dias
+    devolva timestamp + dias * 86400
+fim
+
+função adicionar_horas recebendo timestamp e horas
+    devolva timestamp + horas * 3600
+fim
+
+função adicionar_minutos recebendo timestamp e minutos
+    devolva timestamp + minutos * 60
+fim
+
+função adicionar_meses recebendo timestamp e meses
+    partes é _decompor(timestamp)
+    ano é partes[0]
+    mes é partes[1]
+    dia é partes[2]
+    hora é partes[3]
+    minuto é partes[4]
+    segundo é partes[5]
+    
+    mes é mes + meses
+    enquanto mes > 12
+        mes é mes - 12
+        ano é ano + 1
+    fim
+    enquanto mes < 1
+        mes é mes + 12
+        ano é ano - 1
+    fim
+    
+    max_dia é _dias_no_mes(mes, ano)
+    se dia > max_dia então
+        dia é max_dia
+    fim
+    
+    devolva _compor(ano, mes, dia, hora, minuto, segundo)
+fim
+
+função adicionar_anos recebendo timestamp e anos
+    partes é _decompor(timestamp)
+    ano é partes[0] + anos
+    mes é partes[1]
+    dia é partes[2]
+    hora é partes[3]
+    minuto é partes[4]
+    segundo é partes[5]
+    
+    max_dia é _dias_no_mes(mes, ano)
+    se dia > max_dia então
+        dia é max_dia
+    fim
+    
+    devolva _compor(ano, mes, dia, hora, minuto, segundo)
+fim
+
+função inicio_do_dia recebendo timestamp
+    segundos_por_dia é 86400
+    devolva (timestamp / segundos_por_dia) * segundos_por_dia
+fim
+
+função fim_do_dia recebendo timestamp
+    devolva inicio_do_dia(timestamp) + 86399
+fim
+
+função inicio_do_mes recebendo timestamp
+    partes é _decompor(timestamp)
+    devolva _compor(partes[0], partes[1], 1, 0, 0, 0)
+fim
+
+função fim_do_mes recebendo timestamp
+    partes é _decompor(timestamp)
+    ultimo_dia é _dias_no_mes(partes[1], partes[0])
+    devolva _compor(partes[0], partes[1], ultimo_dia, 23, 59, 59)
+fim
+
+função inicio_do_ano recebendo timestamp
+    partes é _decompor(timestamp)
+    devolva _compor(partes[0], 1, 1, 0, 0, 0)
+fim
+
+função fim_do_ano recebendo timestamp
+    partes é _decompor(timestamp)
+    devolva _compor(partes[0], 12, 31, 23, 59, 59)
+fim
+
+# ============ COMPARAÇÃO ============
+
+função eh_antes recebendo ts1, ts2
+    devolva ts1 < ts2
+fim
+
+função eh_depois recebendo ts1, ts2
+    devolva ts1 > ts2
+fim
+
+função eh_hoje recebendo timestamp
+    devolva data_texto(timestamp) igual data_texto(agora())
+fim
+
+função eh_mesmo_dia recebendo ts1, ts2
+    devolva data_texto(ts1) igual data_texto(ts2)
+fim
+
+função eh_fim_de_semana recebendo timestamp
+    dia_semana é _dia_da_semana(timestamp)
+    devolva dia_semana igual 0 ou dia_semana igual 6
+fim
+
+# ============ COMPONENTES ============
+
+função ano recebendo timestamp
+    partes é _decompor(timestamp)
+    devolva partes[0]
+fim
+
+função mes recebendo timestamp
+    partes é _decompor(timestamp)
+    devolva partes[1]
+fim
+
+função dia recebendo timestamp
+    partes é _decompor(timestamp)
+    devolva partes[2]
+fim
+
+função hora recebendo timestamp
+    partes é _decompor(timestamp)
+    devolva partes[3]
+fim
+
+função minuto recebendo timestamp
+    partes é _decompor(timestamp)
+    devolva partes[4]
+fim
+
+função segundo recebendo timestamp
+    partes é _decompor(timestamp)
+    devolva partes[5]
+fim
+
+função dia_da_semana recebendo timestamp
+    dias_nome é ["domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado"]
+    devolva dias_nome[_dia_da_semana(timestamp)]
+fim
+
+função dias_no_mes recebendo timestamp
+    partes é _decompor(timestamp)
+    devolva _dias_no_mes(partes[1], partes[0])
+fim
+
+# ============ TESTES ============
+
+teste "criar data funciona"
+    ts é criar_data(2024, 12, 25)
+    resultado é data_texto(ts)
+    esporte resultado igual a "2024-12-25"
+fim
+
+teste "formatar data"
+    ts é criar(2024, 1, 15, 14, 30, 0)
+    resultado é formatar(ts, "DD/MM/YYYY")
+    esporte resultado igual a "15/01/2024"
+fim
+
+teste "adicionar dias"
+    ts é criar_data(2024, 1, 1)
+    futuro é adicionar_dias(ts, 10)
+    resultado é data_texto(futuro)
+    esporte resultado igual a "2024-01-11"
+fim
+
+teste "diferenca dias"
+    ts1 é criar_data(2024, 1, 1)
+    ts2 é criar_data(2024, 1, 11)
+    diff é diferenca_dias(ts1, ts2)
+    esporte diff igual a 10
+fim
+
+teste "inicio do mes"
+    ts é criar_data(2024, 3, 15)
+    inicio é inicio_do_mes(ts)
+    resultado é data_texto(inicio)
+    esporte resultado igual a "2024-03-01"
+fim
+
+teste "fim do mes"
+    ts é criar_data(2024, 2, 10)
+    fim é fim_do_mes(ts)
+    resultado é formatar(fim, "YYYY-MM-DD")
+    esporte contem(resultado, "28") ou contem(resultado, "29")
+fim
+
+teste "ano bissexto"
+    ts é criar_data(2024, 2, 1)
+    dias é dias_no_mes(ts)
+    esporte dias igual a 29
+fim

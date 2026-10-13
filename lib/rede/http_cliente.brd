@@ -1,0 +1,33 @@
+# Documentação BRD: http_cliente
+
+## Nome
+
+HTTP Cliente
+
+## Descrição
+
+Requisições HTTP GET, POST, PUT e DELETE. Permite fazer requisições HTTP para APIs e serviços web.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* get: Faz uma requisição GET.
+* post: Faz uma requisição POST.
+* put: Faz uma requisição PUT.
+* delete: Faz uma requisição DELETE.
+* patch: Faz uma requisição PATCH.
+* definir_timeout: Define o timeout das requisições.
+* definir_proxy: Define o proxy para as requisições.
+* definir_autenticacao: Define autenticação para as requisições.
+
+## Exemplo
+
+```br
+usar rede.http_cliente
+
+resposta é get "https://api.exemplo.com/dados"
+mostre resposta.status
+mostre resposta.corpo
+```

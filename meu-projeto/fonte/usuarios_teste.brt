@@ -1,0 +1,22 @@
+# Testes do Módulo de Usuários
+explicacao
+Testes oficiais para obter_nome_usuario.
+fim
+
+teste "validar busca de administrador"
+    nome_admin é obter_nome_usuario 1
+    espere nome_admin igual a "Administrador"
+fim
+
+teste "validar busca de visitante"
+    nome_visitante é obter_nome_usuario 2
+    espere nome_visitante igual a "Visitante"
+fim
+
+função obter_nome_usuario recebendo id
+    se id igual a 1 então
+        devolva "Administrador"
+    senão
+        devolva "Visitante"
+    fim
+fim

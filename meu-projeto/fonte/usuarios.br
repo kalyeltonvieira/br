@@ -1,0 +1,12 @@
+# Módulo de Usuários
+explicacao
+Este módulo contém funções auxiliares para gerenciar nomes de usuários.
+fim
+
+função obter_nome_usuario recebendo id
+    se id igual a 1 então
+        devolva "Administrador"
+    senão
+        devolva "Visitante"
+    fim
+fim

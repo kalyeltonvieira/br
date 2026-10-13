@@ -1,0 +1,205 @@
+# Biblioteca de Criptografia - BR
+# Segurança e criptografia nativa
+
+# ==================== HASH ====================
+
+função hash_md5 recebendo texto
+    # Calcula hash MD5
+    devolva crypto.md5(texto)
+fim
+
+função hash_sha1 recebendo texto
+    # Calcula hash SHA1
+    devolva crypto.sha1(texto)
+fim
+
+função hash_sha256 recebendo texto
+    # Calcula hash SHA256
+    devolva crypto.sha256(texto)
+fim
+
+função hash_sha512 recebendo texto
+    # Calcula hash SHA512
+    devolva crypto.sha512(texto)
+fim
+
+# ==================== CRIPTOGRAFIA ====================
+
+função criptografar_aes recebendo texto e chave
+    # Criptografia AES
+    devolva crypto.aes_encrypt(texto, chave)
+fim
+
+função descriptografar_aes recebendo texto e chave
+    # Descriptografia AES
+    devolva crypto.aes_decrypt(texto, chave)
+fim
+
+função criptografar_rsa recebendo texto e chave_publica
+    # Criptografia RSA
+    devolva crypto.rsa_encrypt(texto, chave_publica)
+fim
+
+função descriptografar_rsa recebendo texto e chave_privada
+    # Descriptografia RSA
+    devolva crypto.rsa_decrypt(texto, chave_privada)
+fim
+
+# ==================== BASE64 ====================
+
+função codificar_base64 recebendo dados
+    devolva crypto.base64_encode(dados)
+fim
+
+função decodificar_base64 recebendo dados
+    devolva crypto.base64_decode(dados)
+fim
+
+# ==================== SENHAS ====================
+
+função gerar_senha recebendo tamanho
+    # Gera senha aleatória segura
+    caracteres é "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*"
+    senha é ""
+    repita tamanho vezes
+        indice é aleatorio(0, tamanho_texto(caracteres) - 1)
+        senha é senha + caracteres[indice]
+    fim
+    devolva senha
+fim
+
+função verificar_forca_senha recebendo senha
+    # Verifica força da senha (0-100)
+    forca é 0
+    
+    se tamanho_texto(senha) >= 8
+        forca é forca + 25
+    fim
+    
+    se tamanho_texto(senha) >= 12
+        forca é forca + 15
+    fim
+    
+    # Verificar se tem números
+    para cada caractere em senha
+        se caractere >= "0" e caractere <= "9"
+            forca é forca + 20
+            pare
+        fim
+    fim
+    
+    # Verificar se tem maiúsculas
+    para cada caractere em senha
+        se caractere >= "A" e caractere <= "Z"
+            forca é forca + 20
+            pare
+        fim
+    fim
+    
+    # Verificar se tem caracteres especiais
+    especiais é "!@#$%&*"
+    para cada caractere em senha
+        para cada especial em especiais
+            se caractere == especial
+                forca é forca + 20
+                pare
+            fim
+        fim
+    fim
+    
+    se forca >= 80
+        mostre "Senha FORTE"
+    senao se forca >= 50
+        mostre "Senha MÉDIA"
+    senao
+        mostre "Senha FRACA"
+    fim
+    
+    devolva forca
+fim
+
+# ==================== TOKEN JWT ====================
+
+função gerar_token_jwt recebendo payload e segredo
+    # Gera token JWT simples
+    cabecalho é codificar_base64('{"alg":"HS256","typ":"JWT"}')
+    corpo é codificar_base64(json_gerar(payload))
+    assinatura é hash_sha256(cabecalho + "." + corpo + segredo)
+    devolva cabecalho + "." + corpo + "." + assinatura
+fim
+
+função verificar_token_jwt recebendo token e segredo
+    # Verifica token JWT
+    partes é token.divisor(".")
+    se tamanho_lista(partes) != 3
+        devolva nulo
+    fim
+    
+    cabecalho é partes[0]
+    corpo é partes[1]
+    assinatura_esperada é hash_sha256(cabecalho + "." + corpo + segredo)
+    
+    se partes[2] == assinatura_esperada
+        devolva json_parse(decodificar_base64(corpo))
+    fim
+    
+    devolva nulo
+fim
+
+# ==================== CERTIFICADOS ====================
+
+função gerar_par_chaves recebendo tamanho
+    # Gera par de chaves RSA
+    chaves é registro
+        publica: crypto.rsa_gerar_chave_publica(tamanho)
+        privada: crypto.rsa_gerar_chave_privada(tamanho)
+    fim
+    devolva chaves
+fim
+
+função assinar_documento recebendo documento e chave_privada
+    # Assina documento digitalmente
+    hash é hash_sha256(documento)
+    assinatura é criptografar_rsa(hash, chave_privada)
+    devolva assinatura
+fim
+
+função verificar_assinatura recebendo documento e assinatura e chave_publica
+    # Verifica assinatura digital
+    hash é hash_sha256(documento)
+    hash_decifrado é descriptografar_rsa(assinatura, chave_publica)
+    devolva hash == hash_decifrado
+fim
+
+# ==================== EXEMPLO ====================
+
+função exemplo_criptografia
+    mostre "=== Exemplo de Criptografia BR ==="
+    
+    # Hash
+    texto é "Hello BR!"
+    mostre "Texto original: " + texto
+    mostre "MD5: " + hash_md5(texto)
+    mostre "SHA256: " + hash_sha256(texto)
+    
+    # Base64
+    codificado é codificar_base64(texto)
+    mostre "Base64: " + codificado
+    mostre "Decodificado: " + decodificar_base64(codificado)
+    
+    # Senha
+    senha é gerar_senha(16)
+    mostre "Senha gerada: " + senha
+    forca é verificar_forca_senha(senha)
+    mostre "Força da senha: " + forca + "/100"
+    
+    # JWT
+    token é gerar_token_jwt(registro usuario: "admin" fim, "segredo123")
+    mostre "JWT Token: " + token
+    payload é verificar_token_jwt(token, "segredo123")
+    se payload != nulo
+        mostre "Token válido! Payload: " + json_gerar(payload)
+    fim
+    
+    mostre "=== Fim do Exemplo ==="
+fim

@@ -1,0 +1,330 @@
+explicacao
+    Seed: Dados iniciais para banco.
+    Este módulo permite popular o banco de dados com dados iniciais.
+    Esta biblioteca é totalmente funcional e nativa.
+fim
+
+função nome
+    devolva "seed"
+fim
+
+função descricao
+    devolva "Dados iniciais para banco"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# ============ SEED ============
+
+função criar_seed recebendo nome e callback
+    # Cria um seed
+    seed é registro
+        nome: nome
+        callback: callback
+        ordem: 0
+    fim
+    devolva seed
+fim
+
+função definir_ordem recebendo seed e ordem
+    # Define a ordem de execução do seed
+    seed.ordem é ordem
+    devolva seed
+fim
+
+# ============ GERENCIADOR DE SEEDS ============
+
+função criar_gerenciador recebendo conexao
+    # Cria um gerenciador de seeds
+    gerenciador é registro
+        conexao: conexao
+        seeds: lista
+        tabela_seeds: "seeds"
+    fim
+    devolva gerenciador
+fim
+
+função adicionar_seed recebendo gerenciador e seed
+    # Adiciona um seed ao gerenciador
+    adicione seed em gerenciador.seeds
+    devolva gerenciador
+fim
+
+função inicializar_tabela_seeds recebendo gerenciador
+    # Cria a tabela de controle de seeds
+    sql é "CREATE TABLE IF NOT EXISTS " + gerenciador.tabela_seeds + " ("
+    sql é sql + "id INTEGER PRIMARY KEY,"
+    sql é sql + "nome TEXT NOT NULL,"
+    sql é sql + "data_execucao TEXT NOT NULL"
+    sql é sql + ")"
+    
+    resultado é servico_seed("executar", gerenciador.conexao, sql)
+    devolva resultado
+fim
+
+função obter_seeds_executadas recebendo gerenciador
+    # Obtém os seeds já executados
+    sql é "SELECT nome, data_execucao FROM " + gerenciador.tabela_seeds
+    sql é sql + " ORDER BY id DESC"
+    
+    linhas é servico_seed("consultar", gerenciador.conexao, sql)
+    devolva linhas
+fim
+
+função obter_seeds_pendentes recebendo gerenciador
+    # Obtém os seeds pendentes de execução
+    executadas é obter_seeds_executadas gerenciador
+    nomes_executadas é lista
+    
+    para cada linha em executadas
+        adicione linha.nome em nomes_executadas
+    fim
+    
+    pendentes é lista
+    para cada seed em gerenciador.seeds
+        se não seed.nome in nomes_executadas então
+            adicione seed em pendentes
+        fim
+    fim
+    
+    # Ordenar por ordem
+    pendentes_ordenadas é lista
+    para cada i de 0 até tamanho(pendentes) - 1
+        menor é pendentes[0]
+        para cada s em pendentes
+            se s.ordem < menor.ordem então
+                menor é s
+            fim
+        fim
+        adicione menor em pendentes_ordenadas
+        remova menor de pendentes
+    fim
+    
+    devolva pendentes_ordenadas
+fim
+
+função executar_seed recebendo gerenciador e seed
+    # Executa um seed
+    resultado é seed.callback(gerenciador.conexao)
+    
+    se resultado então
+        # Registrar seed como executado
+        sql é "INSERT INTO " + gerenciador.tabela_seeds
+        sql é sql + " (nome, data_execucao) VALUES (?, ?)"
+        
+        data_execucao é texto de data atual
+        servico_seed("executar", gerenciador.conexao, sql, 
+            lista seed.nome, data_execucao)
+    fim
+    
+    devolva resultado
+fim
+
+função executar_todas recebendo gerenciador
+    # Executa todos os seeds pendentes
+    pendentes é obter_seeds_pendentes gerenciador
+    
+    para cada seed em pendentes
+        resultado é executar_seed gerenciador, seed
+        se não resultado então
+            devolva falso
+        fim
+    fim
+    
+    devolva verdadeiro
+fim
+
+função executar_especifico recebendo gerenciador, nome
+    # Executa um seed específico
+    para cada seed em gerenciador.seeds
+        se seed.nome é nome então
+            devolva executar_seed gerenciador, seed
+        fim
+    fim
+    devolva falso
+fim
+
+função redefinir_seeds recebendo gerenciador
+    # Remove todos os registros de seeds executados
+    sql é "DELETE FROM " + gerenciador.tabela_seeds
+    resultado é servico_seed("executar", gerenciador.conexao, sql)
+    devolva resultado
+fim
+
+função status recebendo gerenciador
+    # Obtém o status dos seeds
+    executadas é obter_seeds_executadas gerenciador
+    pendentes é obter_seeds_pendentes gerenciador
+    
+    status é registro
+        executadas: executadas
+        pendentes: pendentes
+        total_executadas: tamanho(executadas)
+        total_pendentes: tamanho(pendentes)
+    fim
+    
+    devolva status
+fim
+
+# ============ UTILITÁRIOS PARA SEEDS ============
+
+função inserir_muitos recebendo conexao, tabela e dados
+    # Insere múltiplos registros
+    para cada registro in dados
+        sql é "INSERT INTO " + tabela + " ("
+        colunas é chaves(registro)
+        sql é sql + unir(colunas, ", ")
+        sql é sql + ") VALUES ("
+        
+        valores é lista
+        primeiro é verdadeiro
+        para cada chave in colunas
+            se não primeiro então
+                sql é sql + ", "
+            fim
+            sql é sql + "?"
+            adicione registro[chave] in valores
+            primeiro é falso
+        fim
+        
+        sql é sql + ")"
+        servico_seed("executar", conexao, sql, valores)
+    fim
+    
+    devolva verdadeiro
+fim
+
+função limpar_tabela recebendo conexao e tabela
+    # Limpa todos os dados de uma tabela
+    sql é "DELETE FROM " + tabela
+    resultado é servico_seed("executar", conexao, sql)
+    devolva resultado
+fim
+
+função reiniciar_sequencia recebendo conexao e tabela
+    # Reinicia a sequência de auto-incremento
+    sql é "DELETE FROM sqlite_sequence WHERE name='" + tabela + "'"
+    servico_seed("executar", conexao, sql)
+    devolva verdadeiro
+fim
+
+função reiniciar_tabela recebendo conexao e tabela
+    # Limpa e reinicia uma tabela
+    limpar_tabela conexao, tabela
+    reiniciar_sequencia conexao, tabela
+    devolva verdadeiro
+fim
+
+# ============ SEEDS COMUNS ============
+
+função seed_usuarios recebendo conexao
+    # Seed comum para usuários
+    usuarios é lista
+        registro
+            nome: "João Silva"
+            email: "joao@exemplo.com"
+            senha: "senha123"
+        fim
+        registro
+            nome: "Maria Santos"
+            email: "maria@exemplo.com"
+            senha: "senha456"
+        fim
+        registro
+            nome: "Pedro Costa"
+            email: "pedro@exemplo.com"
+            senha: "senha789"
+        fim
+    fim
+    
+    inserir_muitos conexao, "usuarios", usuarios
+    devolva verdadeiro
+fim
+
+função seed_produtos recebendo conexao
+    # Seed comum para produtos
+    produtos é lista
+        registro
+            nome: "Produto 1"
+            preco: 99.99
+            estoque: 100
+        fim
+        registro
+            nome: "Produto 2"
+            preco: 149.99
+            estoque: 50
+        fim
+        registro
+            nome: "Produto 3"
+            preco: 199.99
+            estoque: 25
+        fim
+    fim
+    
+    inserir_muitos conexao, "produtos", produtos
+    devolva verdadeiro
+fim
+
+função seed_categorias recebendo conexao
+    # Seed comum para categorias
+    categorias é lista
+        registro
+            nome: "Eletrônicos"
+            descricao: "Produtos eletrônicos"
+        fim
+        registro
+            nome: "Roupas"
+            descricao: "Vestuário e acessórios"
+        fim
+        registro
+            nome: "Alimentos"
+            descricao: "Produtos alimentícios"
+        fim
+    fim
+    
+    inserir_muitos conexao, "categorias", categorias
+    devolva verdadeiro
+fim
+
+# ============ TESTES ============
+
+teste "criar e executar seed"
+    conexao é conectar_sqlite ":memory:"
+    gerenciador é criar_gerenciador conexao
+    
+    inicializar_tabela_seeds gerenciador
+    
+    seed é criar_seed "seed_usuarios", funcao(con)
+        criar_tabela con, "usuarios", "id INTEGER PRIMARY KEY, nome TEXT, email TEXT"
+        seed_usuarios con
+        devolva verdadeiro
+    fim
+    
+    adicionar_seed gerenciador, seed
+    
+    resultado é executar_seed gerenciador, seed
+    espere resultado igual a verdadeiro
+    
+    desconecte conexao
+fim
+
+teste "obter status"
+    conexao é conectar_sqlite ":memory:"
+    gerenciador é criar_gerenciador conexao
+    
+    inicializar_tabela_seeds gerenciador
+    
+    seed é criar_seed "seed_produtos", funcao(con)
+        criar_tabela con, "produtos", "id INTEGER PRIMARY KEY, nome TEXT"
+        devolva verdadeiro
+    fim
+    
+    adicionar_seed gerenciador, seed
+    
+    status é status gerenciador
+    espere status.total_pendentes igual a 1
+    
+    desconecte conexao
+fim

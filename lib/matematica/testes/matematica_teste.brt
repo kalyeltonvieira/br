@@ -1,0 +1,5 @@
+importar "matematica"
+
+teste "nome do modulo matematica"
+    espere matematica.nome() igual a "matematica"
+fim

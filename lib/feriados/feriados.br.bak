@@ -1,0 +1,34 @@
+# Feridos module for national, state, municipal and custom holidays
+
+explicacao
+    feriados: feriados nacionais, estaduais, municipais e personalizados.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "feriados"
+fim
+
+função descricao
+    devolva "Feriados nacionais, estaduais, municipais e personalizados."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função listar_feriados recebendo periodo
+    devolva []
+fim
+
+função adicionar_feriado recebendo data, descricao
+    devolva verdadeiro
+fim
+
+função remover_feriado recebendo data
+    devolva verdadeiro
+fim
+
+função fechar
+    devolva verdadeiro
+fim

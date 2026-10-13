@@ -1,0 +1,5 @@
+importar "depuracao"
+
+teste "nome do modulo depuracao"
+    espere depuracao.nome() igual a "depuracao"
+fim

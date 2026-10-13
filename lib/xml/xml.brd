@@ -1,0 +1,19 @@
+# Documentação BRD: xml
+
+## Nome
+
+XML
+
+## Descrição
+
+ler, gerar, validar e consultar arquivos XML.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* validar: Valida XML.
+* ler: Lê XML.
+* gerar: Gera XML.
+* consultar: Consulta nó XML.

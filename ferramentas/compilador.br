@@ -1,0 +1,742 @@
+# Compilador BR escrito em BR
+explicacao
+Compilador BR escrito em BR (Self-Hosting Bootstrap).
+fim
+
+função encontrar_constante recebendo estado e valor
+    tamanho é tamanho_lista estado.constantes
+    i é 0
+    resultado é -1
+    enquanto i < tamanho
+        item é obter_item estado.constantes e i
+        se item igual a valor então
+            tipo_item é tipo_de item
+            tipo_valor é tipo_de valor
+            se tipo_item igual a tipo_valor então
+                resultado é i
+                i é tamanho
+            fim
+        fim
+        i é i + 1
+    fim
+    devolva resultado
+fim
+
+função adicionar_constante recebendo estado e valor
+    idx é encontrar_constante estado e valor
+    se idx igual a -1 então
+        adicione_item estado.constantes e valor
+        tamanho é tamanho_lista estado.constantes
+        devolva tamanho - 1
+    fim
+    devolva idx
+fim
+
+função compilar_expressao recebendo estado e expr e insts
+    # Limpar espaços extras
+    expr é texto_substituir expr e "  " e " "
+    
+    # 1. Literais String com aspas
+    inicio_aspas é texto_contem_inicio expr e "\""
+    se inicio_aspas igual a verdadeiro então
+        val_sem_aspas é texto_substituir expr e "\"" e ""
+        c_idx é adicionar_constante estado e val_sem_aspas
+        inst_empilhar é lista
+            "EMPILHAR_CONST"
+            c_idx
+        fim
+        adicione_item insts e inst_empilhar
+        devolva nulo
+    fim
+    
+    # 2. Literais booleanos e nulo
+    se expr igual a "verdadeiro" então
+        c_idx é adicionar_constante estado e verdadeiro
+        inst_empilhar é lista
+            "EMPILHAR_CONST"
+            c_idx
+        fim
+        adicione_item insts e inst_empilhar
+        devolva nulo
+    fim
+    se expr igual a "falso" então
+        c_idx é adicionar_constante estado e falso
+        inst_empilhar é lista
+            "EMPILHAR_CONST"
+            c_idx
+        fim
+        adicione_item insts e inst_empilhar
+        devolva nulo
+    fim
+    se expr igual a "nulo" então
+        c_idx é adicionar_constante estado e nulo
+        inst_empilhar é lista
+            "EMPILHAR_CONST"
+            c_idx
+        fim
+        adicione_item insts e inst_empilhar
+        devolva nulo
+    fim
+    
+    # 3. Números inteiros
+    val_int é para_inteiro expr
+    temp_null é val_int igual a nulo
+    se temp_null igual a falso então
+        c_idx é adicionar_constante estado e val_int
+        inst_empilhar é lista
+            "EMPILHAR_CONST"
+            c_idx
+        fim
+        adicione_item insts e inst_empilhar
+        devolva nulo
+    fim
+    
+    # 4. Operador "igual a" (Comparação)
+    op_igual é texto_contem expr e estado.str_igual
+    se op_igual igual a verdadeiro então
+        partes é dividir_primeiro expr e estado.str_igual
+        esq é obter_item partes e 0
+        dir é obter_item partes e 1
+        compilar_expressao estado e esq e insts
+        compilar_expressao estado e dir e insts
+        adicione_item insts e ["IGUAL_A", nulo]
+        devolva nulo
+    fim
+    
+    # 5. Operador "maior que" (Comparação)
+    op_maior é texto_contem expr e estado.str_maior
+    se op_maior igual a verdadeiro então
+        partes é dividir_primeiro expr e estado.str_maior
+        esq é obter_item partes e 0
+        dir é obter_item partes e 1
+        compilar_expressao estado e esq e insts
+        compilar_expressao estado e dir e insts
+        adicione_item insts e ["MAIOR_QUE", nulo]
+        devolva nulo
+    fim
+
+    # Operador "menor que" (Comparação)
+    op_menor é texto_contem expr e estado.str_menor
+    se op_menor igual a verdadeiro então
+        partes é dividir_primeiro expr e estado.str_menor
+        esq é obter_item partes e 0
+        dir é obter_item partes e 1
+        compilar_expressao estado e esq e insts
+        compilar_expressao estado e dir e insts
+        adicione_item insts e ["MENOR_QUE", nulo]
+        devolva nulo
+    fim
+
+    # Operador "<" (Comparação)
+    op_menor_simbolo é texto_contem expr e estado.str_menor_simbolo
+    se op_menor_simbolo igual a verdadeiro então
+        partes é dividir_primeiro expr e estado.str_menor_simbolo
+        esq é obter_item partes e 0
+        dir é obter_item partes e 1
+        compilar_expressao estado e esq e insts
+        compilar_expressao estado e dir e insts
+        adicione_item insts e ["MENOR_QUE", nulo]
+        devolva nulo
+    fim
+
+    # Operador ">" (Comparação)
+    op_maior_simbolo é texto_contem expr e estado.str_maior_simbolo
+    se op_maior_simbolo igual a verdadeiro então
+        partes é dividir_primeiro expr e estado.str_maior_simbolo
+        esq é obter_item partes e 0
+        dir é obter_item partes e 1
+        compilar_expressao estado e esq e insts
+        compilar_expressao estado e dir e insts
+        adicione_item insts e ["MAIOR_QUE", nulo]
+        devolva nulo
+    fim
+
+    # 6. Operador "+" (Soma)
+    op_soma é texto_contem expr e estado.str_soma
+    se op_soma igual a verdadeiro então
+        partes é dividir_primeiro expr e estado.str_soma
+        esq é obter_item partes e 0
+        dir é obter_item partes e 1
+        compilar_expressao estado e esq e insts
+        compilar_expressao estado e dir e insts
+        adicione_item insts e ["SOMAR", nulo]
+        devolva nulo
+    fim
+    
+    # 7. Operador "-" (Subtração)
+    op_sub é texto_contem expr e estado.str_sub
+    se op_sub igual a verdadeiro então
+        partes é dividir_primeiro expr e estado.str_sub
+        esq é obter_item partes e 0
+        dir é obter_item partes e 1
+        compilar_expressao estado e esq e insts
+        compilar_expressao estado e dir e insts
+        adicione_item insts e ["SUBTRAIR", nulo]
+        devolva nulo
+
+        devolva nulo
+    fim
+
+    # 8. Acesso a propriedades estáticas (ex: partes.0 ou estado.linhas)
+    contem_ponto é texto_contem expr e "."
+    se contem_ponto igual a verdadeiro então
+        dec é para_decimal expr
+        se dec igual a nulo então
+            partes é dividir_primeiro expr e "."
+            obj_name é obter_item partes e 0
+            prop_name é obter_item partes e 1
+            adicione_item insts e ["OBTER_VAR", obj_name]
+            adicione_item insts e ["OBTER_PROPRIEDADE", prop_name]
+            devolva nulo
+        fim
+    fim
+
+    # 9. Chamadas de métodos de serviços e locais
+    se texto_contem_inicio expr e "leia_arquivo " então
+        args_raw é texto_substituir expr e "leia_arquivo " e ""
+        compilar_expressao estado e args_raw e insts
+        adicione_item insts e ["CHAMAR_SERVICO", "ARQUIVOS", "LER", 1]
+        devolva nulo
+    fim
+    se texto_contem_inicio expr e "escreva_arquivo_binario " então
+        args_raw é texto_substituir expr e "escreva_arquivo_binario " e ""
+        partes é dividir_primeiro args_raw e " e "
+        esq é obter_item partes e 0
+        dir é obter_item partes e 1
+        compilar_expressao estado e esq e insts
+        compilar_expressao estado e dir e insts
+        adicione_item insts e ["CHAMAR_SERVICO", "ARQUIVOS", "ESCREVER_BINARIO", 2]
+        devolva nulo
+    fim
+    se texto_contem_inicio expr e "texto_substituir " então
+        args_raw é texto_substituir expr e "texto_substituir " e ""
+        partes é dividir_por args_raw e " e "
+        p0 é obter_item partes e 0
+        p1 é obter_item partes e 1
+        p2 é obter_item partes e 2
+        compilar_expressao estado e p0 e insts
+        compilar_expressao estado e p1 e insts
+        compilar_expressao estado e p2 e insts
+        adicione_item insts e ["CHAMAR_SERVICO", "TEXTO", "SUBSTITUIR", 3]
+        devolva nulo
+    fim
+    se texto_contem_inicio expr e "dividir_por " então
+        args_raw é texto_substituir expr e "dividir_por " e ""
+        partes é dividir_primeiro args_raw e " e "
+        esq é obter_item partes e 0
+        dir é obter_item partes e 1
+        compilar_expressao estado e esq e insts
+        compilar_expressao estado e dir e insts
+        adicione_item insts e ["CHAMAR_SERVICO", "TEXTO", "DIVIDIR_POR", 2]
+        devolva nulo
+    fim
+    se texto_contem_inicio expr e "dividir_primeiro " então
+        args_raw é texto_substituir expr e "dividir_primeiro " e ""
+        partes é dividir_primeiro args_raw e " e "
+        esq é obter_item partes e 0
+        dir é obter_item partes e 1
+        compilar_expressao estado e esq e insts
+        compilar_expressao estado e dir e insts
+        adicione_item insts e ["CHAMAR_SERVICO", "TEXTO", "DIVIDIR_PRIMEIRO", 2]
+        devolva nulo
+    fim
+    se texto_contem_inicio expr e "dividida_texto " então
+        args_raw é texto_substituir expr e "dividida_texto " e ""
+        compilar_expressao estado e args_raw e insts
+        adicione_item insts e ["CHAMAR_SERVICO", "TEXTO", "DIVIDIR", 1]
+        devolva nulo
+    fim
+    se texto_contem_inicio expr e "adicione_item " então
+        args_raw é texto_substituir expr e "adicione_item " e ""
+        partes é dividir_primeiro args_raw e " e "
+        esq é obter_item partes e 0
+        dir é obter_item partes e 1
+        compilar_expressao estado e esq e insts
+        compilar_expressao estado e dir e insts
+        adicione_item insts e ["CHAMAR_SERVICO", "LISTA", "ADICIONAR", 2]
+        devolva nulo
+    fim
+    se texto_contem_inicio expr e "obter_item " então
+        args_raw é texto_substituir expr e "obter_item " e ""
+        partes é dividir_primeiro args_raw e " e "
+        esq é obter_item partes e 0
+        dir é obter_item partes e 1
+        compilar_expressao estado e esq e insts
+        compilar_expressao estado e dir e insts
+        adicione_item insts e ["CHAMAR_SERVICO", "LISTA", "OBTER", 2]
+        devolva nulo
+    fim
+    se texto_contem_inicio expr e "tamanho_lista " então
+        args_raw é texto_substituir expr e "tamanho_lista " e ""
+        compilar_expressao estado e args_raw e insts
+        adicione_item insts e ["CHAMAR_SERVICO", "LISTA", "TAMANHO", 1]
+        devolva nulo
+    fim
+    se texto_contem_inicio expr e "definir_propriedade " então
+        args_raw é texto_substituir expr e "definir_propriedade " e ""
+        partes é dividir_por args_raw e " e "
+        p0 é obter_item partes e 0
+        p1 é obter_item partes e 1
+        p2 é obter_item partes e 2
+        compilar_expressao estado e p0 e insts
+        compilar_expressao estado e p1 e insts
+        compilar_expressao estado e p2 e insts
+        adicione_item insts e ["CHAMAR_SERVICO", "REGISTRO", "DEFINIR", 3]
+        devolva nulo
+    fim
+    se texto_contem_inicio expr e "obter_propriedade " então
+        args_raw é texto_substituir expr e "obter_propriedade " e ""
+        partes é dividir_primeiro args_raw e " e "
+        esq é obter_item partes e 0
+        dir é obter_item partes e 1
+        compilar_expressao estado e esq e insts
+        compilar_expressao estado e dir e insts
+        adicione_item insts e ["CHAMAR_SERVICO", "REGISTRO", "OBTER", 2]
+        devolva nulo
+    fim
+    se texto_contem_inicio expr e "tipo_de " então
+        args_raw é texto_substituir expr e "tipo_de " e ""
+        compilar_expressao estado e args_raw e insts
+        adicione_item insts e ["CHAMAR_SERVICO", "SISTEMA", "TIPO", 1]
+        devolva nulo
+    fim
+    se texto_contem_inicio expr e "para_inteiro " então
+        args_raw é texto_substituir expr e "para_inteiro " e ""
+        compilar_expressao estado e args_raw e insts
+        adicione_item insts e ["CHAMAR_SERVICO", "SISTEMA", "INTEIRO", 1]
+        devolva nulo
+    fim
+    se texto_contem_inicio expr e "para_decimal " então
+        args_raw é texto_substituir expr e "para_decimal " e ""
+        compilar_expressao estado e args_raw e insts
+        adicione_item insts e ["CHAMAR_SERVICO", "SISTEMA", "DECIMAL", 1]
+        devolva nulo
+    fim
+    se expr igual a "argumentos_cli()" então
+        adicione_item insts e ["CHAMAR_SERVICO", "SISTEMA", "ARGUMENTOS", 0]
+        devolva nulo
+    fim
+    se texto_contem_inicio expr e "texto_contem_inicio " então
+        args_raw é texto_substituir expr e "texto_contem_inicio " e ""
+        partes é dividir_primeiro args_raw e " e "
+        esq é obter_item partes e 0
+        dir é obter_item partes e 1
+        compilar_expressao estado e esq e insts
+        compilar_expressao estado e dir e insts
+        adicione_item insts e ["CHAMAR_SERVICO", "TEXTO", "CONTEM_INICIO", 2]
+        devolva nulo
+    fim
+    se texto_contem_inicio expr e "texto_contem " então
+        args_raw é texto_substituir expr e "texto_contem " e ""
+        partes é dividir_primeiro args_raw e " e "
+        esq é obter_item partes e 0
+        dir é obter_item partes e 1
+        compilar_expressao estado e esq e insts
+        compilar_expressao estado e dir e insts
+        adicione_item insts e ["CHAMAR_SERVICO", "TEXTO", "CONTEM", 2]
+        devolva nulo
+    fim
+
+    # 10. Chamadas locais de funções compiladas
+    se texto_contem_inicio expr e "encontrar_constante " então
+        args_raw é texto_substituir expr e "encontrar_constante " e ""
+        partes é dividir_primeiro args_raw e " e "
+        esq é obter_item partes e 0
+        dir é obter_item partes e 1
+        compilar_expressao estado e esq e insts
+        compilar_expressao estado e dir e insts
+        adicione_item insts e ["CHAMAR_METODO", "encontrar_constante", 2]
+        devolva nulo
+    fim
+    se texto_contem_inicio expr e "adicionar_constante " então
+        args_raw é texto_substituir expr e "adicionar_constante " e ""
+        partes é dividir_primeiro args_raw e " e "
+        esq é obter_item partes e 0
+        dir é obter_item partes e 1
+        compilar_expressao estado e esq e insts
+        compilar_expressao estado e dir e insts
+        adicione_item insts e ["CHAMAR_METODO", "adicionar_constante", 2]
+        devolva nulo
+    fim
+    se texto_contem_inicio expr e "compilar_expressao " então
+        args_raw é texto_substituir expr e "compilar_expressao " e ""
+        partes é dividir_por args_raw e " e "
+        p0 é obter_item partes e 0
+        p1 é obter_item partes e 1
+        p2 é obter_item partes e 2
+        compilar_expressao estado e p0 e insts
+        compilar_expressao estado e p1 e insts
+        compilar_expressao estado e p2 e insts
+        adicione_item insts e ["CHAMAR_METODO", "compilar_expressao", 3]
+        devolva nulo
+    fim
+    se texto_contem_inicio expr e "compilar_bloco " então
+        args_raw é texto_substituir expr e "compilar_bloco " e ""
+        partes é dividir_primeiro args_raw e " e "
+        esq é obter_item partes e 0
+        dir é obter_item partes e 1
+        compilar_expressao estado e esq e insts
+        compilar_expressao estado e dir e insts
+        adicione_item insts e ["CHAMAR_METODO", "compilar_bloco", 2]
+        devolva nulo
+    fim
+    se expr igual a "compilar()" então
+        adicione_item insts e ["CHAMAR_METODO", "compilar", 0]
+        devolva nulo
+    fim
+
+    # 11. Referência de variável simples
+    adicione_item insts e ["OBTER_VAR", expr]
+    devolva nulo
+fim
+
+função compilar_bloco recebendo estado e parent_type
+    insts é lista
+    fim
+    
+    total_linhas é tamanho_lista estado.linhas
+    
+    enquanto estado.idx < total_linhas
+        linha é obter_item estado.linhas e estado.idx
+        
+        # Ignorar linhas vazias e comentários
+        se linha igual a nulo então
+            novo_idx é estado.idx + 1
+            definir_propriedade estado e "idx" e novo_idx
+            # Continue
+        fim
+        se linha igual a "" então
+            novo_idx é estado.idx + 1
+            definir_propriedade estado e "idx" e novo_idx
+            # Continue
+        fim
+        
+        inicio_comentario é texto_contem_inicio linha e "#"
+        se inicio_comentario igual a verdadeiro então
+            novo_idx é estado.idx + 1
+            definir_propriedade estado e "idx" e novo_idx
+            # Continue
+        fim
+        
+        # Processar fechamento de blocos
+        se linha igual a "fim" então
+            temp_null é parent_type igual a nulo
+            se temp_null igual a falso então
+                devolva insts
+            fim
+            novo_idx é estado.idx + 1
+            definir_propriedade estado e "idx" e novo_idx
+            # Continue
+        fim
+        
+        se linha igual a "senão" então
+            se parent_type igual a "se" então
+                devolva insts
+            fim
+            novo_idx é estado.idx + 1
+            definir_propriedade estado e "idx" e novo_idx
+            # Continue
+        fim
+        
+        # Consumir linha
+        novo_idx é estado.idx + 1
+            definir_propriedade estado e "idx" e novo_idx
+        
+        # 1. Bloco explicacao
+        se linha igual a "explicacao" então
+            doc_linhas é lista
+            fim
+            linha_doc é obter_item estado.linhas e estado.idx
+            temp_fim é linha_doc igual a "fim"
+            enquanto temp_fim igual a falso
+                adicione_item doc_linhas e linha_doc
+                novo_idx é estado.idx + 1
+            definir_propriedade estado e "idx" e novo_idx
+                linha_doc é obter_item estado.linhas e estado.idx
+                temp_fim é linha_doc igual a "fim"
+            fim
+            # Consumir o fim
+            novo_idx é estado.idx + 1
+            definir_propriedade estado e "idx" e novo_idx
+            
+            doc_texto é ""
+            para cada ld em doc_linhas
+                doc_texto é doc_texto + ld + "\n"
+            fim
+            adicione_item estado.documentacoes e doc_texto
+            # Continue
+        fim
+        
+        # 2. Bloco teste
+        se texto_contem_inicio linha e "teste " então
+            nome_teste é texto_substituir linha e "teste \"" e ""
+            nome_teste é texto_substituir nome_teste e "\"" e ""
+            
+            corpo_teste é compilar_bloco estado e "teste"
+            # Consumir o fim do teste
+            linha_fim é obter_item estado.linhas e estado.idx
+            se linha_fim igual a "fim" então
+                novo_idx é estado.idx + 1
+            definir_propriedade estado e "idx" e novo_idx
+            fim
+            
+            teste_reg é registro
+                nome: nome_teste
+                instrucoes: corpo_teste
+            fim
+            adicione_item estado.testes e teste_reg
+            # Continue
+        fim
+        
+        # 3. Bloco função
+        se texto_contem_inicio linha e "função " então
+            partes_func é dividir_por linha e " recebendo "
+            func_nome_raw é obter_item partes_func e 0
+            func_nome é texto_substituir func_nome_raw e "função " e ""
+            
+            params é lista
+            fim
+            tamanho_partes é tamanho_lista partes_func
+            se tamanho_partes igual a 2 então
+                params_raw é obter_item partes_func e 1
+                params é dividir_por params_raw e " e "
+            fim
+            
+            func_body é compilar_bloco estado e "funcao"
+            
+            # Consumir fim do bloco funcao
+            linha_fim é obter_item estado.linhas e estado.idx
+            se linha_fim igual a "fim" então
+                novo_idx é estado.idx + 1
+            definir_propriedade estado e "idx" e novo_idx
+            fim
+            
+            func_insts é lista
+            fim
+            
+            # Prepend param definitions in reverse order
+            tamanho_params é tamanho_lista params
+            se tamanho_params maior que 0 então
+                i é tamanho_params - 1
+                enquanto i maior que -1
+                    param é obter_item params e i
+                    inst_def é lista
+                        "DEFINIR_VAR"
+                        param
+                    fim
+                    adicione_item func_insts e inst_def
+                    i é i - 1
+                fim
+            fim
+            
+            # Append body instructions
+            para cada inst em func_body
+                adicione_item func_insts e inst
+            fim
+            
+            definir_propriedade estado.funcoes e func_nome e func_insts
+            # Continue
+        fim
+        
+        # 4. Bloco condicional se
+        se texto_contem_inicio linha e "se " então
+            rest é texto_substituir linha e "se " e ""
+            cond_str é texto_substituir rest e " então" e ""
+            
+            cond_insts é lista
+            fim
+            compilar_expressao estado e cond_str e cond_insts
+            
+            se_insts é compilar_bloco estado e "se"
+            
+            linha_atual é obter_item estado.linhas e estado.idx
+            senao_insts é lista
+            fim
+            se linha_atual igual a "senão" então
+                novo_idx é estado.idx + 1
+            definir_propriedade estado e "idx" e novo_idx
+                senao_insts é compilar_bloco estado e "senao"
+            fim
+            
+            linha_fim é obter_item estado.linhas e estado.idx
+            se linha_fim igual a "fim" então
+                novo_idx é estado.idx + 1
+            definir_propriedade estado e "idx" e novo_idx
+            fim
+            
+            se_dict é registro
+                condicao: cond_insts
+                se: se_insts
+                senao: senao_insts
+            fim
+            
+            adicione_item insts e ["CONDICIONAL_SE", se_dict]
+            # Continue
+        fim
+
+        # 5. Bloco loop para cada
+        se texto_contem_inicio linha e "para cada " então
+            rest é texto_substituir linha e "para cada " e ""
+            partes é dividir_primeiro rest e " em "
+            var_item é obter_item partes e 0
+            var_lista_expr é obter_item partes e 1
+            
+            lista_insts é lista
+            fim
+            compilar_expressao estado e var_lista_expr e lista_insts
+            
+            corpo_para é compilar_bloco estado e "para"
+            
+            linha_fim é obter_item estado.linhas e estado.idx
+            se linha_fim igual a "fim" então
+                novo_idx é estado.idx + 1
+            definir_propriedade estado e "idx" e novo_idx
+            fim
+            
+            para_dict é registro
+                var_item: var_item
+                lista_insts: lista_insts
+                corpo: corpo_para
+            fim
+            
+            adicione_item insts e ["PARA_CADA_BLOCO", para_dict]
+            # Continue
+        fim
+
+        # 6. Atribuições de variáveis ou criação de registros/listas
+        contem_atribuicao é texto_contem linha e " é "
+        se contem_atribuicao igual a verdadeiro então
+            partes é dividir_primeiro linha e " é "
+            var_nome é obter_item partes e 0
+            expr é obter_item partes e 1
+            
+            se expr igual a "lista" então
+                corpo_lista é compilar_bloco estado e "lista"
+                linha_fim é obter_item estado.linhas e estado.idx
+                se linha_fim igual a "fim" então
+                    novo_idx é estado.idx + 1
+            definir_propriedade estado e "idx" e novo_idx
+                fim
+                adicione_item insts e ["CRIAR_LISTA_BLOCO", var_nome, corpo_lista]
+                # Continue
+            fim
+            se expr igual a "registro" então
+                corpo_reg é compilar_bloco estado e "registro"
+                linha_fim é obter_item estado.linhas e estado.idx
+                se linha_fim igual a "fim" então
+                    novo_idx é estado.idx + 1
+            definir_propriedade estado e "idx" e novo_idx
+                fim
+                adicione_item insts e ["CRIAR_REGISTRO_BLOCO", var_nome, corpo_reg]
+                # Continue
+            fim
+            
+            compilar_expressao estado e expr e insts
+            adicione_item insts e ["DEFINIR_VAR", var_nome]
+            # Continue
+        fim
+        
+        # 7. Processar itens de lista e registro
+        se parent_type igual a "lista" então
+            compilar_expressao estado e linha e insts
+            adicione_item insts e ["LISTA_ELEMENTO", nulo]
+            # Continue
+        fim
+        se parent_type igual a "registro" então
+            partes_prop é dividir_primeiro linha e ":"
+            prop_nome é obter_item partes_prop e 0
+            prop_expr é obter_item partes_prop e 1
+            compilar_expressao estado e prop_expr e insts
+            adicione_item insts e ["REGISTRO_PROPRIEDADE", prop_nome]
+            # Continue
+        fim
+        
+        # 8. Declarações normais (devolva, mostre, espere ou chamadas)
+        se texto_contem_inicio linha e "devolva " então
+            expr é texto_substituir linha e "devolva " e ""
+            compilar_expressao estado e expr e insts
+            adicione_item insts e ["RETORNAR", nulo]
+            # Continue
+        fim
+        se texto_contem_inicio linha e "mostre " então
+            expr é texto_substituir linha e "mostre " e ""
+            compilar_expressao estado e expr e insts
+            adicione_item insts e ["CHAMAR_SERVICO", "SISTEMA", "MOSTRAR", 1]
+            # Continue
+        fim
+        se texto_contem_inicio linha e "espere " então
+            rest é texto_substituir linha e "espere " e ""
+            partes é dividir_primeiro rest e " igual a "
+            expr_val é obter_item partes e 0
+            expr_esp é obter_item partes e 1
+            compilar_expressao estado e expr_val e insts
+            compilar_expressao estado e expr_esp e insts
+            adicione_item insts e ["ESPERE_IGUAL", nulo]
+            # Continue
+        fim
+        
+        # Outras chamadas de funções isoladas
+        compilar_expressao estado e linha e insts
+    fim
+    
+    devolva insts
+fim
+
+função compilar
+    mostre "Iniciando compilador BR escrito em BR..."
+    
+    # 1. Determinar arquivos de entrada e saída via argumentos CLI
+    args é argumentos_cli()
+    tamanho_args é tamanho_lista args
+    
+    caminho_entrada é "meu-projeto/fonte/codigo_simples.br"
+    caminho_saida é "meu-projeto/fonte/codigo_simples.brc"
+    
+    se tamanho_args igual a 2 então
+        caminho_entrada é obter_item args e 0
+        caminho_saida é obter_item args e 1
+    fim
+    
+    # 2. Ler código fonte
+    codigo_fonte é leia_arquivo caminho_entrada
+    se codigo_fonte igual a nulo então
+        mostre "Erro: Não foi possível ler o arquivo de entrada"
+        devolva falso
+    fim
+    
+    # 3. Dividir em linhas
+    linhas é divida_texto codigo_fonte e "\n"
+    
+    # 4. Inicializar estado do compilador
+    estado é registro
+        "constantes": lista
+        "instrucoes": lista
+        "funcoes": registro
+        "linhas": linhas
+        "idx": 0
+        "str_igual": " é "
+        "str_maior": " > "
+        "str_menor": " < "
+        "str_mais": " + "
+        "str_menos": " - "
+        "str_vezes": " * "
+        "str_div": " / "
+    fim
+    
+    # 5. Compilar cada linha
+    bytecode é compilar_linhas estado
+    
+    # 6. Salvar bytecode em formato BRC1
+    resultado é salvar_bytecode_brc1 bytecode e caminho_saida
+    se resultado igual a verdadeiro então
+        mostre "Compilação concluída com sucesso!"
+        mostre "Bytecode salvo em: " + caminho_saida
+    senão
+        mostre "Erro ao salvar bytecode"
+    fim
+    
+    devolva verdadeiro
+fim
+
+# Chamar o compilador
+compilar

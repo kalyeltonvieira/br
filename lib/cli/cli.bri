@@ -1,0 +1,9 @@
+contrato cli
+    função nome
+    função descricao
+    função versao
+    função comando recebendo nome_item
+    função flag recebendo nome_item
+    função argumento recebendo nome_item
+    função executar_cli recebendo nome_item
+fim

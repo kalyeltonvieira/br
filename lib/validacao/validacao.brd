@@ -1,0 +1,19 @@
+# Documentação BRD: validacao
+
+## Nome
+
+Validação
+
+## Descrição
+
+validar CPF, CNPJ, email, telefone, CEP e cartão.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* cpf: Valida CPF.
+* cnpj: Valida CNPJ.
+* email: Valida email.
+* cep: Valida CEP.

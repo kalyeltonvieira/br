@@ -1,0 +1,9 @@
+contrato internacionalizacao
+    função nome
+    função descricao
+    função versao
+    função idioma
+    função traduzir recebendo valor
+    função moeda recebendo valor
+    função localizacao
+fim

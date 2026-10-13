@@ -1,0 +1,19 @@
+# Documentação BRD: config
+
+## Nome
+
+Configuração
+
+## Descrição
+
+carregar arquivos INI, ENV, YAML e TOML.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* ini: Carrega INI.
+* env: Carrega ENV.
+* yaml: Carrega YAML.
+* toml: Carrega TOML.

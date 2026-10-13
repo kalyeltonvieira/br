@@ -1,0 +1,5 @@
+importar "formatador"
+
+teste "nome do modulo formatador"
+    espere formatador.nome() igual a "formatador"
+fim

@@ -1,0 +1,375 @@
+explicacao
+    DataFrame: estrutura de dados tabular similar ao pandas/R.
+    Suporta filtros, agrupamentos, ordenação, joins, estatísticas
+    por coluna, CSV integrado e visualização em tabela.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome devolva "dataframe" fim
+função descricao devolva "DataFrame: tabela de dados com filtros, joins e análises" fim
+função versao devolva "1.0.0" fim
+
+função novo recebendo dados_e_colunas
+    se tipo(dados_e_colunas) igual "lista" e tamanho(dados_e_colunas) > 0 e tipo(dados_e_colunas[0]) igual "registro" então
+        return _de_registros(dados_e_colunas)
+    fim
+    devolva registro
+        colunas: []
+        linhas: []
+        nome: "DataFrame"
+    fim
+fim
+
+função _de_registros recebendo registros
+    se tamanho(registros) igual 0 então
+        devolva registro colunas: [] linhas: [] nome: "DataFrame" fim
+    fim
+    
+    colunas_detectadas é []
+    para cada chave, valor em registros[0]
+        adicione chave a colunas_detectadas
+    fim
+    
+    linhas_resultado é []
+    para cada reg in registros
+        linha_atual é []
+        para cada col in colunas_detectadas
+            adicione reg[col] a linha_atual
+        fim
+        adicione linha_atual a linhas_resultado
+    fim
+    
+    devolva registro
+        colunas: colunas_detectadas
+        linhas: linhas_resultado
+        nome: "DataFrame"
+    fim
+fim
+
+função linhas_df recebendo df
+    devolva df.linhas
+fim
+
+função colunas_df recebendo df
+    devolva df.colunas
+fim
+
+função forma recebendo df
+    devolva registro linhas: tamanho(df.linhas) colunas: tamanho(df.colunas) fim
+fim
+
+função cabecalho recebendo df e n
+    se n nulo então n é 5 fim
+    limite é n se n < tamanho(df.linhas) senao tamanho(df.linhas)
+    resultado é []
+    i é 0
+    enquanto i < limite
+        linha_obj é registro
+        j é 0
+        enquanto j < tamanho(df.colunas)
+            linha_obj[df.colunas[j]] é df.linhas[i][j]
+            j é j + 1
+        fim
+        adicione linha_obj a resultado
+        i é i + 1
+    fim
+    devolva resultado
+fim
+
+função cauda recebendo df e n
+    se n nulo então n é 5 fim
+    total é tamanho(df.linhas)
+    inicio é total - n se total > n senao 0
+    resultado é []
+    i é inicio
+    enquanto i < total
+        linha_obj é registro
+        j é 0
+        enquanto j < tamanho(df.colunas)
+            linha_obj[df.colunas[j]] é df.linhas[i][j]
+            j é j + 1
+        fim
+        adicione linha_obj a resultado
+        i é i + 1
+    fim
+    devolva resultado
+fim
+
+função coluna recebendo df e nome_coluna
+    indice_coluna é -1
+    i é 0
+    enquanto i < tamanho(df.colunas)
+        se df.colunas[i] igual nome_coluna então
+            indice_coluna é i
+            pare
+        fim
+        i é i + 1
+    fim
+    
+    se indice_coluna < 0 então devolva [] fim
+    
+    resultado é []
+    para cada linha in df.linhas
+        adicione linha[indice_coluna] a resultado
+    fim
+    devolva resultado
+fim
+
+função filtrar_df recebendo df, nome_coluna, operador e valor
+    indice_coluna é -1
+    i é 0
+    enquanto i < tamanho(df.colunas)
+        se df.colunas[i] igual nome_coluna então
+            indice_coluna é i
+            pare
+        fim
+        i é i + 1
+    fim
+    se indice_coluna < 0 então devolva df fim
+    
+    linhas_filtradas é []
+    para cada linha in df.linhas
+        incluir é falso
+        se operador igual "==" então incluir é linha[indice_coluna] igual valor
+        senao se operador igual "!=" então incluir é linha[indice_coluna] diferente valor
+        senao se operador igual ">" então incluir é linha[indice_coluna] > valor
+        senao se operador igual "<" então incluir é linha[indice_coluna] < valor
+        senao se operador igual ">=" então incluir é linha[indice_coluna] >= valor
+        senao se operador igual "<=" então incluir é linha[indice_coluna] <= valor
+        senao se operador igual "contem" então incluir é contem("" + linha[indice_coluna], valor)
+        fim
+        se incluir então adicione linha a linhas_filtradas fim
+    fim
+    
+    devolva registro
+        colunas: df.colunas
+        linhas: linhas_filtradas
+        nome: df.nome + "_filtrado"
+    fim
+fim
+
+função ordenar_df recebendo df, nome_coluna, crescente
+    se crescente nulo então crescente é verdadeiro fim
+    indice_coluna é -1
+    i é 0
+    enquanto i < tamanho(df.colunas)
+        se df.colunas[i] igual nome_coluna então
+            indice_coluna é i
+            pare
+        fim
+        i é i + 1
+    fim
+    se indice_coluna < 0 então devolva df fim
+    
+    linhas_ordenadas é []
+    para cada linha in df.linhas
+        adicione linha a linhas_ordenadas
+    fim
+    
+    n é tamanho(linhas_ordenadas)
+    i_ordenar é 0
+    enquanto i_ordenar < n - 1
+        j_ordenar é 0
+        enquanto j_ordenar < n - i_ordenar - 1
+            a_valor é linhas_ordenadas[j_ordenar][indice_coluna]
+            b_valor é linhas_ordenadas[j_ordenar + 1][indice_coluna]
+            trocar é (crescente e a_valor > b_valor) ou (não crescente e a_valor < b_valor)
+            se trocar então
+                temp_linha é linhas_ordenadas[j_ordenar]
+                linhas_ordenadas[j_ordenar] é linhas_ordenadas[j_ordenar + 1]
+                linhas_ordenadas[j_ordenar + 1] é temp_linha
+            fim
+            j_ordenar é j_ordenar + 1
+        fim
+        i_ordenar é i_ordenar + 1
+    fim
+    
+    devolva registro
+        colunas: df.colunas
+        linhas: linhas_ordenadas
+        nome: df.nome + "_ordenado"
+    fim
+fim
+
+função agrupar_df recebendo df, nome_coluna
+    indice_grupo é -1
+    i é 0
+    enquanto i < tamanho(df.colunas)
+        se df.colunas[i] igual nome_coluna então
+            indice_grupo é i
+            pare
+        fim
+        i é i + 1
+    fim
+    se indice_grupo < 0 então devolva registro fim
+    
+    grupos_df é registro
+    para cada linha in df.linhas
+        chave_grupo é "" + linha[indice_grupo]
+        se chave_grupo em grupos_df então
+            adicione linha a grupos_df[chave_grupo]
+        senao
+            grupos_df[chave_grupo] é [linha]
+        fim
+    fim
+    
+    resultado_grupos é registro
+    para cada chave_grupo, linhas_grupo in grupos_df
+        resultado_grupos[chave_grupo] é registro
+            colunas: df.colunas
+            linhas: linhas_grupo
+            nome: "grupo_" + chave_grupo
+        fim
+    fim
+    
+    devolva resultado_grupos
+fim
+
+função resumo_df recebendo df
+    se tamanho(df.linhas) igual 0 então devolva registro fim
+    resultado_resumo é registro
+    
+    para cada col in df.colunas
+        valores_col é coluna(df, col)
+        primeiro_valor é valores_col[0]
+        
+        se tipo(primeiro_valor) igual "inteiro" ou tipo(primeiro_valor) igual "decimal" então
+            soma_col é 0; min_col é primeiro_valor; max_col é primeiro_valor; count_col é 0
+            para cada v in valores_col
+                soma_col é soma_col + v
+                se v < min_col então min_col é v fim
+                se v > max_col então max_col é v fim
+                count_col é count_col + 1
+            fim
+            resultado_resumo[col] é registro
+                tipo: "numerico"
+                contagem: count_col
+                soma: soma_col
+                media: soma_col / count_col
+                minimo: min_col
+                maximo: max_col
+            fim
+        senao
+            valores_unicos é registro
+            para cada v in valores_col
+                chave_vu é "" + v
+                se chave_vu em valores_unicos então
+                    valores_unicos[chave_vu] é valores_unicos[chave_vu] + 1
+                senao
+                    valores_unicos[chave_vu] é 1
+                fim
+            fim
+            resultado_resumo[col] é registro
+                tipo: "categorico"
+                contagem: tamanho(valores_col)
+                unicos: tamanho(valores_unicos)
+                frequencias: valores_unicos
+            fim
+        fim
+    fim
+    
+    devolva resultado_resumo
+fim
+
+função to_csv recebendo df
+    importar "csv" as csv_mod
+    dados_csv é [df.colunas]
+    para cada linha in df.linhas
+        adicione linha a dados_csv
+    fim
+    devolva csv_mod.escrever(dados_csv)
+fim
+
+função to_json recebendo df
+    registros_json é cabecalho(df, tamanho(df.linhas))
+    importar "json" as json
+    devolva json.gerar(registros_json)
+fim
+
+função join_inner recebendo df1, df2 e coluna_chave
+    indice1 é -1; indice2 é -1
+    i é 0
+    enquanto i < tamanho(df1.colunas)
+        se df1.colunas[i] igual coluna_chave então indice1 é i; pare fim
+        i é i + 1
+    fim
+    i é 0
+    enquanto i < tamanho(df2.colunas)
+        se df2.colunas[i] igual coluna_chave então indice2 é i; pare fim
+        i é i + 1
+    fim
+    se indice1 < 0 ou indice2 < 0 então devolva df1 fim
+    
+    colunas_join é df1.colunas
+    para cada col in df2.colunas
+        se col diferente coluna_chave e não contem(colunas_join, col) então
+            adicione col a colunas_join
+        fim
+    fim
+    
+    linhas_join é []
+    para cada linha1 in df1.linhas
+        para cada linha2 in df2.linhas
+            se linha1[indice1] igual linha2[indice2] então
+                linha_joinada é []
+                para cada item in linha1
+                    adicione item a linha_joinada
+                fim
+                j é 0
+                enquanto j < tamanho(df2.colunas)
+                    se j diferente indice2 então
+                        adicione linha2[j] a linha_joinada
+                    fim
+                    j é j + 1
+                fim
+                adicione linha_joinada a linhas_join
+            fim
+        fim
+    fim
+    
+    devolva registro colunas: colunas_join linhas: linhas_join nome: "join" fim
+fim
+
+teste "criar dataframe de registros"
+    dados é [registro nome: "Ana" idade: 30 fim, registro nome: "João" idade: 25 fim]
+    df é novo(dados)
+    esporte tamanho(df.colunas) igual a 2
+    esporte tamanho(df.linhas) igual a 2
+fim
+
+teste "cabecalho"
+    dados é [registro a: 1 b: 2 fim, registro a: 3 b: 4 fim]
+    df é novo(dados)
+    cab é cabecalho(df, 1)
+    esporte tamanho(cab) igual a 1
+fim
+
+teste "coluna"
+    dados é [registro nome: "A" valor: 10 fim, registro nome: "B" valor: 20 fim]
+    df é novo(dados)
+    valores é coluna(df, "valor")
+    esporte valores[0] igual a 10
+    esporte valores[1] igual a 20
+fim
+
+teste "filtrar df"
+    dados é [registro nome: "A" idade: 20 fim, registro nome: "B" idade: 30 fim, registro nome: "C" idade: 25 fim]
+    df é novo(dados)
+    df_filtrado é filtrar_df(df, "idade", ">", 22)
+    esporte tamanho(df_filtrado.linhas) igual a 2
+fim
+
+teste "resumo"
+    dados é [registro nome: "A" idade: 20 fim, registro nome: "B" idade: 30 fim]
+    df é novo(dados)
+    resumo_valores é resumo_df(df)
+    esporte resumo_valores.idade.tipo igual a "numerico"
+    esporte resumo_valores.idade.soma igual a 50
+fim
+
+teste "ordenar df"
+    dados é [registro nome: "B" idade: 30 fim, registro nome: "A" idade: 20 fim]
+    df é novo(dados)
+    df_ordenado é ordenar_df(df, "nome", verdadeiro)
+    esporte df_ordenado.linhas[0][0] igual a "A"
+fim

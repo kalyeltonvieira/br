@@ -1,0 +1,13 @@
+contrato regex
+    função nome
+    função descricao
+    função versao
+    função buscar recebendo padrao_texto e valor
+    função todos recebendo padrao_texto e valor
+    função contar recebendo padrao_texto e valor
+    função substituir recebendo padrao_texto e novo e valor
+    função validar recebendo padrao_texto e valor
+    função grupos recebendo padrao_texto e valor
+    função dividir recebendo padrao_texto e valor
+    função escapar recebendo valor
+fim

@@ -1,0 +1,32 @@
+explicacao
+    Eventos: criar emissores, ouvintes e filas de eventos.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "eventos"
+fim
+
+função descricao
+    devolva "Eventos: criar emissores, ouvintes e filas de eventos"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função emissor recebendo nome_item
+    devolva nome_item
+fim
+
+função ouvir recebendo nome_item
+    devolva verdadeiro
+fim
+
+função emitir recebendo nome_item
+    devolva verdadeiro
+fim
+
+função fila
+    devolva "fila"
+fim

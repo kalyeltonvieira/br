@@ -1,0 +1,19 @@
+# Documentação BRD: performance
+
+## Nome
+
+Performance
+
+## Descrição
+
+profiler, benchmark, tempo de execução e memória.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* tempo: Mede tempo.
+* benchmark: Executa benchmark.
+* perfil: Executa profiling.
+* memoria: Mede memória.

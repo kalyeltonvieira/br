@@ -1,0 +1,524 @@
+explicacao
+    Validação: validação de dados como CPF, CNPJ, email, telefone,
+    CEP, URLs, cartão de crédito e muito mais.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome
+    devolva "validacao"
+fim
+
+função descricao
+    devolva "Validação de dados: CPF, CNPJ, email, CEP, telefone e mais"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# ============ CPF ============
+
+função cpf recebendo valor
+    digitos é _so_numeros(valor)
+    se tamanho(digitos) diferente 11 então
+        devolva falso
+    fim
+    
+    # Verificar se todos são iguais
+    todos_iguais é verdadeiro
+    i é 1
+    enquanto i < 11
+        se digitos[i] diferente digitos[0] então
+            todos_iguais é falso
+            pare
+        fim
+        i é i + 1
+    fim
+    
+    se todos_iguais então
+        devolva falso
+    fim
+    
+    # Primeiro dígito verificador
+    soma é 0
+    i é 0
+    enquanto i < 9
+        soma é soma + digitos[i] * (10 - i)
+        i é i + 1
+    fim
+    
+    resto é soma % 11
+    digito1 é 0 se resto < 2 senao 11 - resto
+    
+    se digito1 diferente digitos[9] então
+        devolva falso
+    fim
+    
+    # Segundo dígito verificador
+    soma é 0
+    i é 0
+    enquanto i < 10
+        soma é soma + digitos[i] * (11 - i)
+        i é i + 1
+    fim
+    
+    resto é soma % 11
+    digito2 é 0 se resto < 2 senao 11 - resto
+    
+    devolva digito2 igual digitos[10]
+fim
+
+função _so_numeros recebendo valor
+    resultado é []
+    i é 0
+    enquanto i < tamanho(valor)
+        c é valor[i]
+        cod é codigo_caractere(c)
+        se cod >= 48 e cod <= 57 então
+            adicione c como inteiro a resultado
+        fim
+        i é i + 1
+    fim
+    devolva resultado
+fim
+
+função _so_numeros_texto recebendo valor
+    resultado é ""
+    i é 0
+    enquanto i < tamanho(valor)
+        c é valor[i]
+        se c >= "0" e c <= "9" então
+            resultado é resultado + c
+        fim
+        i é i + 1
+    fim
+    devolva resultado
+fim
+
+# ============ CNPJ ============
+
+função cnpj recebendo valor
+    digitos é _so_numeros(valor)
+    se tamanho(digitos) diferente 14 então
+        devolva falso
+    fim
+    
+    # Primeiro dígito verificador
+    pesos1 é [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
+    soma é 0
+    i é 0
+    enquanto i < 12
+        soma é soma + digitos[i] * pesos1[i]
+        i é i + 1
+    fim
+    
+    resto é soma % 11
+    digito1 é 0 se resto < 2 senao 11 - resto
+    
+    se digito1 diferente digitos[12] então
+        devolva falso
+    fim
+    
+    # Segundo dígito verificador
+    pesos2 é [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
+    soma é 0
+    i é 0
+    enquanto i < 13
+        soma é soma + digitos[i] * pesos2[i]
+        i é i + 1
+    fim
+    
+    resto é soma % 11
+    digito2 é 0 se resto < 2 senao 11 - resto
+    
+    devolva digito2 igual digitos[13]
+fim
+
+# ============ EMAIL ============
+
+função email recebendo valor
+    se valor nulo ou valor "" então
+        devolva falso
+    fim
+    
+    pos_arroba é encontrar(valor, "@")
+    se pos_arroba < 1 então
+        devolva falso
+    fim
+    
+    nome_local é valor[0:pos_arroba]
+    dominio é valor[pos_arroba + 1:]
+    
+    se nome_local "" ou dominio "" então
+        devolva falso
+    fim
+    
+    pos_ponto é encontrar(dominio, ".")
+    se pos_ponto < 1 ou pos_ponto igual tamanho(dominio) - 1 então
+        devolva falso
+    fim
+    
+    devolva verdadeiro
+fim
+
+# ============ TELEFONE ============
+
+função telefone recebendo valor
+    digitos é _so_numeros_texto(valor)
+    tam é tamanho(digitos)
+    devolva tam >= 10 e tam <= 11
+fim
+
+função celular recebendo valor
+    digitos é _so_numeros_texto(valor)
+    tam é tamanho(digitos)
+    devolva tam igual 11 e (digitos[2] igual "9" ou digitos[2] igual "8")
+fim
+
+função telefone_fixo recebendo valor
+    digitos é _so_numeros_texto(valor)
+    devolva tamanho(digitos) igual 10
+fim
+
+# ============ CEP ============
+
+função cep recebendo valor
+    digitos é _so_numeros_texto(valor)
+    devolva tamanho(digitos) igual 8
+fim
+
+# ============ URL ============
+
+função url recebendo valor
+    se valor nulo ou valor "" então
+        devolva falso
+    fim
+    
+    valor_min é minusculo(valor)
+    se comeca_com(valor_min, "http://") ou comeca_com(valor_min, "https://") então
+        resto é valor[8:] se comeca_com(valor_min, "https://") senao valor[7:]
+        se resto "" então
+            devolva falso
+        fim
+        devolva contem(resto, ".")
+    fim
+    
+    devolva falso
+fim
+
+# ============ CARTÃO DE CRÉDITO ============
+
+função cartao_credito recebendo valor
+    digitos é _so_numeros(valor)
+    tam é tamanho(digitos)
+    
+    se tam < 13 ou tam > 19 então
+        devolva falso
+    fim
+    
+    # Algoritmo de Luhn
+    soma é 0
+    alternar é falso
+    i é tam - 1
+    enquanto i >= 0
+        digito é digitos[i]
+        se alternar então
+            digito é digito * 2
+            se digito > 9 então
+                digito é digito - 9
+            fim
+        fim
+        soma é soma + digito
+        alternar é não alternar
+        i é i - 1
+    fim
+    
+    devolva soma % 10 igual 0
+fim
+
+função bandeira_cartao recebendo valor
+    digitos é _so_numeros(valor)
+    texto é ""
+    para cada d em digitos
+        texto é texto + d
+    fim
+    
+    # Visa
+    se comeca_com(texto, "4") então
+        devolva "Visa"
+    fim
+    
+    # Mastercard
+    i é 51
+    enquanto i <= 55
+        se comeca_com(texto, "" + i) então
+            devolva "Mastercard"
+        fim
+        i é i + 1
+    fim
+    
+    # Elo
+    se comeca_com(texto, "636368") ou comeca_com(texto, "438935") ou comeca_com(texto, "504175") ou comeca_com(texto, "627780") ou comeca_com(texto, "636297") então
+        devolva "Elo"
+    fim
+    
+    # American Express
+    se comeca_com(texto, "34") ou comeca_com(texto, "37") então
+        devolva "American Express"
+    fim
+    
+    # Discover
+    se comeca_com(texto, "6011") ou comeca_com(texto, "65") então
+        devolva "Discover"
+    fim
+    
+    # Hipercard
+    se comeca_com(texto, "606282") ou comeca_com(texto, "384100") então
+        devolva "Hipercard"
+    fim
+    
+    devolva "Desconhecida"
+fim
+
+# ============ NÚMERO ============
+
+função inteiro recebendo valor
+    tente
+        valor como inteiro
+        devolva verdadeiro
+    capture erro
+        devolva falso
+    fim
+fim
+
+função decimal recebendo valor
+    tente
+        valor como decimal
+        devolva verdadeiro
+    capture erro
+        devolva falso
+    fim
+fim
+
+função entre recebendo valor, minimo e maximo
+    devolva valor >= minimo e valor <= maximo
+fim
+
+função positivo recebendo valor
+    devolva valor > 0
+fim
+
+função negativo recebendo valor
+    devolva valor < 0
+fim
+
+# ============ TEXTO ============
+
+função texto_tamanho recebendo valor, minimo, maximo
+    tam é tamanho(valor)
+    se minimo nulo então minimo é 0 fim
+    se maximo nulo então maximo é tam fim
+    devolva tam >= minimo e tam <= maximo
+fim
+
+função texto_alfanumerico recebendo valor
+    i é 0
+    enquanto i < tamanho(valor)
+        c é valor[i]
+        cod é codigo_caractere(c)
+        se não ((cod >= 48 e cod <= 57) ou (cod >= 65 e cod <= 90) ou (cod >= 97 e cod <= 122)) então
+            devolva falso
+        fim
+        i é i + 1
+    fim
+    devolva verdadeiro
+fim
+
+função texto_maiusculo recebendo valor
+    devolva valor igual maiusculo(valor)
+fim
+
+função texto_minusculo recebendo valor
+    devolva valor igual minusculo(valor)
+fim
+
+# ============ PLACA VEÍCULO ============
+
+função placa_antiga recebendo valor
+    se tamanho(valor) diferente 7 então
+        devolva falso
+    fim
+    
+    i é 0
+    enquanto i < 3
+        se não eh_letra(valor[i]) então
+            devolva falso
+        fim
+        i é i + 1
+    fim
+    
+    i é 3
+    enquanto i < 7
+        se não eh_digito(valor[i]) então
+            devolva falso
+        fim
+        i é i + 1
+    fim
+    
+    devolva verdadeiro
+fim
+
+função placa_mercosul recebendo valor
+    se tamanho(valor) diferente 7 então
+        devolva falso
+    fim
+    
+    # LLLNLNN
+    i é 0
+    enquanto i < 3
+        se não eh_letra(valor[i]) então
+            devolva falso
+        fim
+        i é i + 1
+    fim
+    
+    se não eh_digito(valor[3]) então
+        devolva falso
+    fim
+    
+    se não eh_letra(valor[4]) então
+        devolva falso
+    fim
+    
+    i é 5
+    enquanto i < 7
+        se não eh_digito(valor[i]) então
+            devolva falso
+        fim
+        i é i + 1
+    fim
+    
+    devolva verdadeiro
+fim
+
+função placa recebendo valor
+    devolva placa_antiga(valor) ou placa_mercosul(valor)
+fim
+
+# ============ SENHA ============
+
+função senha_forte recebendo valor
+    se tamanho(valor) < 8 então
+        devolva falso
+    fim
+    
+    tem_maiuscula é falso
+    tem_minuscula é falso
+    tem_numero é falso
+    tem_especial é falso
+    
+    i é 0
+    enquanto i < tamanho(valor)
+        c é valor[i]
+        cod é codigo_caractere(c)
+        
+        se cod >= 65 e cod <= 90 então tem_maiuscula é verdadeiro
+        senao se cod >= 97 e cod <= 122 então tem_minuscula é verdadeiro
+        senao se cod >= 48 e cod <= 57 então tem_numero é verdadeiro
+        senao tem_especial é verdadeiro
+        fim
+        
+        i é i + 1
+    fim
+    
+    devolva tem_maiuscula e tem_minuscula e tem_numero
+fim
+
+função senha_media recebendo valor
+    se tamanho(valor) < 6 então
+        devolva falso
+    fim
+    
+    tipos é 0
+    tem_maiuscula é falso
+    tem_minuscula é falso
+    tem_numero é falso
+    
+    i é 0
+    enquanto i < tamanho(valor)
+        c é valor[i]
+        cod é codigo_caractere(c)
+        
+        se cod >= 65 e cod <= 90 então
+            se não tem_maiuscula então
+                tem_maiuscula é verdadeiro
+                tipos é tipos + 1
+            fim
+        senao se cod >= 97 e cod <= 122 então
+            se não tem_minuscula então
+                tem_minuscula é verdadeiro
+                tipos é tipos + 1
+            fim
+        senao se cod >= 48 e cod <= 57 então
+            se não tem_numero então
+                tem_numero é verdadeiro
+                tipos é tipos + 1
+            fim
+        fim
+        
+        i é i + 1
+    fim
+    
+    devolva tipos >= 2
+fim
+
+# ============ TESTES ============
+
+teste "validar CPF valido"
+    esporte cpf("529.982.247-25") igual a verdadeiro
+fim
+
+teste "validar CPF invalido"
+    esporte cpf("111.111.111-11") igual a falso
+    esporte cpf("123.456.789-00") igual a falso
+fim
+
+teste "validar CNPJ"
+    esporte cnpj("11.444.777/0001-61") igual a verdadeiro
+fim
+
+teste "validar email"
+    esporte email("usuario@exemplo.com") igual a verdadeiro
+    esporte email("invalido") igual a falso
+    esporte email("@exemplo.com") igual a falso
+fim
+
+teste "validar telefone"
+    esporte telefone("(11) 99999-8888") igual a verdadeiro
+    esporte telefone("1133") igual a falso
+fim
+
+teste "validar CEP"
+    esporte cep("01310-100") igual a verdadeiro
+    esporte cep("123") igual a falso
+fim
+
+teste "validar cartao credito"
+    esporte cartao_credito("4532015112830366") igual a verdadeiro
+fim
+
+teste "bandeira cartao"
+    esporte bandeira_cartao("4111111111111111") igual a "Visa"
+fim
+
+teste "senha forte"
+    esporte senha_forte("Senha123!") igual a verdadeiro
+    esporte senha_forte("fraca") igual a falso
+    esporte senha_forte("12345678") igual a falso
+fim
+
+teste "placa veiculo"
+    esporte placa("ABC1234") igual a verdadeiro
+    esporte placa("ABC1D23") igual a verdadeiro
+    esporte placa("123ABCD") igual a falso
+fim

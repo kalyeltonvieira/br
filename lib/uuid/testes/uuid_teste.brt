@@ -1,0 +1,5 @@
+importar "uuid"
+
+teste "nome do modulo uuid"
+    espere uuid.nome() igual a "uuid"
+fim

@@ -1,0 +1,23 @@
+contrato arquivo
+    função nome
+    função descricao
+    função versao
+    função ler recebendo caminho
+    função escrever recebendo caminho e conteudo
+    função anexar recebendo caminho e conteudo
+    função linhas recebendo caminho
+    função existe recebendo caminho
+    função arquivo recebendo caminho
+    função diretorio_existe recebendo caminho
+    função criar_diretorio recebendo caminho
+    função listar recebendo caminho
+    função remover recebendo caminho
+    função apagar recebendo caminho
+    função copiar recebendo origem e destino
+    função mover recebendo origem e destino
+    função tamanho recebendo caminho
+    função nome_arquivo recebendo caminho
+    função absoluto recebendo caminho
+    função extensao recebendo caminho
+    função diretorio recebendo caminho
+fim

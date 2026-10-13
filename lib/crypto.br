@@ -1,0 +1,68 @@
+# Biblioteca de Criptografia - BR
+# Funções criptográficas básicas
+
+# ==================== HASH ====================
+
+função hash_md5 recebendo texto
+    devolva md5(texto)
+fim
+
+função hash_sha1 recebendo texto
+    devolva sha1(texto)
+fim
+
+função hash_sha256 recebendo texto
+    devolva sha256(texto)
+fim
+
+# ==================== CODIFICAÇÃO ====================
+
+função base64_codificar recebendo texto
+    devolva base64_encode(texto)
+fim
+
+função base64_decodificar recebendo texto_codificado
+    devolva base64_decode(texto_codificado)
+fim
+
+função url_codificar recebendo texto
+    devolva url_encode(texto)
+fim
+
+função url_decodificar recebendo texto_codificado
+    devolva url_decode(texto_codificado)
+fim
+
+# ==================== CRIPTOGRAFIA SIMPLES ====================
+
+função cifrar_cesar recebendo texto e deslocamento
+    resultado é ""
+    para cada caractere em texto
+        codigo é caractere.codigo()
+        codigo_novo é codigo + deslocamento
+        resultado é resultado + codigo_novo.caractere()
+    fim
+    devolva resultado
+fim
+
+função decifrar_cesar recebendo texto_cifrado e deslocamento
+    devolva cifrar_cesar(texto_cifrado, -deslocamento)
+fim
+
+# ==================== GERAÇÃO DE SENHAS ====================
+
+função gerar_senha recebendo tamanho
+    caracteres é "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%"
+    senha é ""
+    i é 0
+    enquanto i < tamanho
+        indice é arredondar(aleatorio_entre(0, caracteres.tamanho() - 1))
+        senha é senha + caracteres[indice]
+        i é i + 1
+    fim
+    devolva senha
+fim
+
+função gerar_token recebendo tamanho
+    devolva gerar_senha(tamanho)
+fim

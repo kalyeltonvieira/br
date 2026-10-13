@@ -1,0 +1,5 @@
+importar "performance"
+
+teste "nome do modulo performance"
+    espere performance.nome() igual a "performance"
+fim

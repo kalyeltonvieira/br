@@ -1,0 +1,94 @@
+# Biblioteca de IA - BR
+# Inteligência Artificial e Machine Learning
+
+# ==================== IA BÁSICA ====================
+
+função perguntar recebendo pergunta
+    devolva pergunte_para_ia(pergunta)
+fim
+
+função perguntar_com_contexto recebendo pergunta e contexto
+    devolva pergunte_para_ia(contexto + "\n" + pergunta)
+fim
+
+# ==================== AGENTES ====================
+
+função criar_agente recebendo nome e especialidade
+    agente é registro
+        nome: nome
+        especialidade: especialidade
+        memoria: []
+    fim
+    devolva agente
+fim
+
+função agente_perguntar recebendo agente e pergunta
+    contexto é "Você é um especialista em " + agente.especialidade
+    resposta é perguntar_com_contexto(pergunta, contexto)
+    agente.memoria.adicionar(pergunta)
+    agente.memoria.adicionar(resposta)
+    devolva resposta
+fim
+
+# ==================== ANÁLISE ====================
+
+função analisar_texto recebendo texto
+    devolva ia.analisar(texto)
+fim
+
+função analisar_codigo recebendo codigo
+    devolva ia.analisar_codigo(codigo)
+fim
+
+função resumir recebendo texto
+    devolva ia.resumir(texto)
+fim
+
+função traduzir recebendo texto e idioma
+    devolva ia.traduzir(texto, idioma)
+fim
+
+# ==================== GERAÇÃO ====================
+
+função gerar_texto recebendo prompt
+    devolva ia.gerar_texto(prompt)
+fim
+
+função gerar_codigo recebendo descricao
+    devolva ia.gerar_codigo(descricao)
+fim
+
+função completar_texto recebendo texto
+    devolva ia.completar(texto)
+fim
+
+# ==================== CLASSIFICAÇÃO ====================
+
+função classificar recebendo texto e categorias
+    devolva ia.classificar(texto, categorias)
+fim
+
+função sentimento recebendo texto
+    devolva ia.analisar_sentimento(texto)
+fim
+
+# ==================== DEBUGGING ====================
+
+função sugerir_correcao recebendo erro
+    devolva ia.sugerir_correcao(erro)
+fim
+
+função explicar_erro recebendo erro
+    devolva ia.explicar_erro(erro)
+fim
+
+# ==================== UTILITÁRIOS ====================
+
+função eh_ia_disponivel
+    devolva ia_disponivel()
+fim
+
+função configurar_ia recebendo api_key e modelo
+    ia.configurar(api_key, modelo)
+    devolva verdadeiro
+fim

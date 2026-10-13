@@ -1,0 +1,115 @@
+explicacao
+    Estoque: Gerenciamento de estoque e inventário.
+    Este módulo permite gerenciar estoque de produtos.
+    Esta biblioteca é totalmente funcional e nativa.
+fim
+
+função nome
+    devolva "estoque"
+fim
+
+função descricao
+    devolva "Gerenciamento de estoque e inventário"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# ============ PRODUTOS ============
+
+função adicionar_produto recebendo estoque, produto e quantidade
+    # Adiciona um produto ao estoque
+    se não estoque.produtos contem produto.id então
+        estoque.produtos[produto.id] é registro
+            produto: produto
+            quantidade: quantidade
+            minimo: 10
+        fim
+    senão
+        estoque.produtos[produto.id].quantidade é estoque.produtos[produto.id].quantidade + quantidade
+    fim
+    devolva verdadeiro
+fim
+
+função remover_produto recebendo estoque, produto_id e quantidade
+    # Remove quantidade do estoque
+    se estoque.produtos contem produto_id então
+        estoque.produtos[produto_id].quantidade é estoque.produtos[produto_id].quantidade - quantidade
+        devolva verdadeiro
+    senão
+        devolva falso
+    fim
+fim
+
+função obter_quantidade recebendo estoque e produto_id
+    # Obtém a quantidade de um produto
+    se estoque.produtos contem produto_id então
+        devolva estoque.produtos[produto_id].quantidade
+    senão
+        devolva 0
+    fim
+fim
+
+# ============ ALERTAS ============
+
+função definir_minimo recebendo estoque, produto_id e minimo
+    # Define o estoque mínimo de um produto
+    se estoque.produtos contem produto_id então
+        estoque.produtos[produto_id].minimo é minimo
+        devolva verdadeiro
+    senão
+        devolva falso
+    fim
+fim
+
+função verificar_baixo_estoque recebendo estoque
+    # Verifica produtos com estoque baixo
+    baixos é lista
+    para cada produto_id in chaves(estoque.produtos)
+        item é estoque.produtos[produto_id]
+        se item.quantidade <= item.minimo então
+            adicione item in baixos
+        fim
+    fim
+    devolva baixos
+fim
+
+# ============ MOVIMENTAÇÃO ============
+
+função registrar_entrada recebendo estoque, produto_id, quantidade e motivo
+    # Registra uma entrada no estoque
+    estoque.produtos[produto_id].quantidade é estoque.produtos[produto_id].quantidade + quantidade
+    devolva verdadeiro
+fim
+
+função registrar_saida recebendo estoque, produto_id, quantidade e motivo
+    # Registra uma saída do estoque
+    se estoque.produtos[produto_id].quantidade >= quantidade então
+        estoque.produtos[produto_id].quantidade é estoque.produtos[produto_id].quantidade - quantidade
+        devolva verdadeiro
+    senão
+        devolva falso
+    fim
+fim
+
+# ============ RELATÓRIOS ============
+
+função valor_total recebendo estoque
+    # Calcula o valor total do estoque
+    total é 0
+    para cada produto_id in chaves(estoque.produtos)
+        item é estoque.produtos[produto_id]
+        total é total + (item.produto.preco * item.quantidade)
+    fim
+    devolva total
+fim
+
+função listar_produtos recebendo estoque
+    # Lista todos os produtos do estoque
+    produtos é lista
+    para cada produto_id in chaves(estoque.produtos)
+        adicione estoque.produtos[produto_id] in produtos
+    fim
+    devolva produtos
+fim

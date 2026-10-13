@@ -1,0 +1,5 @@
+importar "mysql"
+
+teste "nome do modulo mysql"
+    espere mysql.nome() igual a "mysql"
+fim

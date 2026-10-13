@@ -1,0 +1,9 @@
+contrato ffi
+    função nome
+    função descricao
+    função versao
+    função dll recebendo caminho
+    função python recebendo codigo
+    função javascript recebendo codigo
+    função shell recebendo comando
+fim

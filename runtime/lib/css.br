@@ -1,0 +1,64 @@
+explicacao
+    Modulo css compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "css"
+fim
+
+funcao descricao
+    devolva "Modulo css compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao criar_regra recebendo seletor e propriedades
+    devolva seletor
+fim
+
+funcao adicionar_propriedade recebendo regra e propriedade e valor
+    devolva regra
+fim
+
+funcao criar_estilo recebendo nome e regras
+    devolva nome
+fim
+
+funcao renderizar recebendo estilo
+    devolva ""
+fim
+
+funcao criar_media_query recebendo condicao e regras
+    devolva condicao
+fim
+
+funcao criar_animacao recebendo nome e quadros
+    devolva nome
+fim
+
+funcao criar_variavel recebendo nome e valor
+    devolva nome
+fim
+
+funcao minificar recebendo css
+    devolva css
+fim
+
+funcao prefixar recebendo css e prefixos
+    devolva css
+fim
+
+funcao validar recebendo css
+    devolva verdadeiro
+fim
+
+funcao exemplo recebendo valor
+    devolva valor
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim

@@ -1,0 +1,19 @@
+# Documentação BRD: json
+
+## Nome
+
+JSON
+
+## Descrição
+
+parser, gerador e validador JSON.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* validar: Valida texto JSON.
+* gerar: Gera texto JSON.
+* parsear: Converte JSON em estrutura BR.
+* bonito: Formata JSON para leitura.

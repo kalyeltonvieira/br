@@ -1,0 +1,9 @@
+contrato config
+    função nome
+    função descricao
+    função versao
+    função ini recebendo dados
+    função env recebendo dados
+    função yaml recebendo dados
+    função toml recebendo dados
+fim

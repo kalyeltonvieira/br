@@ -1,0 +1,19 @@
+# Documentação BRD: colecoes
+
+## Nome
+
+Coleções
+
+## Descrição
+
+listas, dicionários, conjuntos, filas, pilhas e funções funcionais.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* tamanho: Retorna tamanho de coleção.
+* vazia: Verifica se coleção está vazia.
+* primeiro: Retorna primeiro item.
+* ordenar: Ordena uma coleção.

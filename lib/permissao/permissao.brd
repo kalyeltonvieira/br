@@ -1,0 +1,19 @@
+# Documentação BRD: permissao
+
+## Nome
+
+Permissão
+
+## Descrição
+
+controle de permissões e acesso.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* permitir: Permite ação.
+* negar: Nega ação.
+* verificar: Verifica permissão.
+* papel: Define papel de acesso.

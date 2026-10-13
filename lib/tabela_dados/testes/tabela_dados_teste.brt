@@ -1,0 +1,5 @@
+importar "tabela_dados"
+
+teste "nome do modulo tabela_dados"
+    espere tabela_dados.nome() igual a "tabela_dados"
+fim

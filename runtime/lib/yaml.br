@@ -1,0 +1,193 @@
+explicacao
+    YAML: parser e gerador para arquivos de configuração YAML.
+    Suporta mapeamentos, sequências, tipos básicos.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome devolva "yaml" fim
+função descricao devolva "YAML: parser e gerador para configurações" fim
+função versao devolva "1.0.0" fim
+
+função parsear recebendo texto
+    linhas é dividir_linhas(texto)
+    resultado é _parsear_bloco_yaml(linhas, 0)
+    devolva resultado[0]
+fim
+
+função _parsear_bloco_yaml recebendo linhas, indice_inicio
+    resultado é registro
+    chave_atual é ""
+    i é indice_inicio
+    
+    enquanto i < tamanho(linhas)
+        linha_bruta é linhas[i]
+        se linha_bruta "" então
+            i é i + 1
+            continue
+        fim
+        
+        indentacao é _contar_indentacao(linha_bruta)
+        se indentacao igual 0 e comeca_com(aparar(linha_bruta), "-") então
+            resultado é []
+            i é _parsear_lista_yaml(linhas, i, resultado)
+            devolva [resultado, i]
+        fim
+        
+        linha é aparar(linha_bruta)
+        se linha "" ou comeca_com(linha, "#") então
+            i é i + 1
+            continue
+        fim
+        
+        pos_dois_pontos é encontrar(linha, ":")
+        se pos_dois_pontos > 0 então
+            chave é aparar(linha[0:pos_dois_pontos])
+            valor_resto é aparar(linha[pos_dois_pontos+1:])
+            
+            se valor_resto "" ou valor_resto nulo então
+                sub_bloco é _parsear_bloco_yaml(linhas, i + 1)
+                resultado[chave] é sub_bloco[0]
+                i é sub_bloco[1]
+                continue
+            senao
+                resultado[chave] é _parsear_valor_yaml(valor_resto)
+            fim
+        senao se comeca_com(linha, "- ") então
+            itens é []
+            _parsear_lista_yaml(linhas, i, itens)
+            devolva [itens, i]
+        fim
+        
+        i é i + 1
+    fim
+    
+    devolva [resultado, i]
+fim
+
+função _parsear_lista_yaml recebendo linhas, indice_inicio, lista
+    i é indice_inicio
+    enquanto i < tamanho(linhas) e comeca_com(aparar(linhas[i]), "- ")
+        linha é aparar(linhas[i])
+        valor é aparar(linha[2:])
+        
+        se contem(valor, ": ") então
+            sub_registro é _parsear_bloco_yaml([linha[i:]], 0)
+        senao
+            sub_item é _parsear_valor_yaml(valor)
+            adicione sub_item a lista
+        fim
+        
+        i é i + 1
+    fim
+    devolva i
+fim
+
+função _contar_indentacao recebendo linha
+    count é 0
+    enquanto count < tamanho(linha) e linha[count] igual " "
+        count é count + 1
+    fim
+    devolva count
+fim
+
+função _parsear_valor_yaml recebendo texto
+    tente
+        se texto igual "true" ou texto igual "yes" ou texto igual "on" então
+            devolva verdadeiro
+        fim
+        se texto igual "false" ou texto igual "no" ou texto igual "off" então
+            devolva falso
+        fim
+        se texto igual "~" ou texto igual "null" então
+            devolva nulo
+        fim
+        se comeca_com(texto, "\"") e termina_com(texto, "\"") então
+            devolva texto[1:tamanho(texto)-1]
+        fim
+        se comeca_com(texto, "'") e termina_com(texto, "'") então
+            devolva texto[1:tamanho(texto)-1]
+        fim
+        se contem(texto, ".") então
+            devolva texto como decimal
+        senao
+            tente
+                devolva texto como inteiro
+            capture erro
+                devolva texto
+            fim
+        fim
+    capture erro
+        devolva texto
+    fim
+fim
+
+função gerar recebendo dados
+    devolva _gerar_yaml(dados, 0)
+fim
+
+função _gerar_yaml recebendo dados, nivel
+    resultado é ""
+    indentacao é ""
+    repita nivel vezes indentacao é indentacao + "  " fim
+    
+    se tipo(dados) igual "registro" então
+        para cada chave, valor em dados
+            se tipo(valor) igual "registro" ou tipo(valor) igual "lista" então
+                resultado é resultado + indentacao + chave + ":\n"
+                resultado é resultado + _gerar_yaml(valor, nivel + 1)
+            senao
+                resultado é resultado + indentacao + chave + ": " + _valor_yaml(valor) + "\n"
+            fim
+        fim
+    senao se tipo(dados) igual "lista" então
+        para cada item em dados
+            se tipo(item) igual "registro" ou tipo(item) igual "lista" então
+                resultado é resultado + indentacao + "- " + _gerar_yaml(item, nivel + 1)
+            senao
+                resultado é resultado + indentacao + "- " + _valor_yaml(item) + "\n"
+            fim
+        fim
+    fim
+    
+    devolva resultado
+fim
+
+função _valor_yaml recebendo valor
+    se valor igual nulo então devolva "~" fim
+    se tipo(valor) igual "booleano" então devolva "true" se valor senao "false" fim
+    se tipo(valor) igual "texto" então
+        se contem(valor, ":") ou contem(valor, "#") então
+            devolva "\"" + valor + "\""
+        fim
+        devolva valor
+    fim
+    devolva "" + valor
+fim
+
+teste "yaml parse simples"
+    yaml_texto é "nome: BR\nversao: 1.0"
+    resultado é parsear(yaml_texto)
+    esporte resultado.nome igual a "BR"
+    esporte resultado.versao igual a 1.0
+fim
+
+teste "yaml aninhado"
+    yaml_texto é "servidor:\n  porta: 8080\n  host: localhost"
+    resultado é parsear(yaml_texto)
+    esporte resultado.servidor.porta igual a 8080
+    esporte resultado.servidor.host igual a "localhost"
+fim
+
+teste "yaml lista"
+    yaml_texto é "itens:\n  - item1\n  - item2\n  - item3"
+    resultado é parsear(yaml_texto)
+    esporte tamanho(resultado.itens) igual a 3
+fim
+
+teste "yaml gerar e parsear"
+    dados é registro nome: "BR" versao: 1.0 ativo: verdadeiro fim
+    yaml_str é gerar(dados)
+    resultado é parsear(yaml_str)
+    esporte resultado.nome igual a "BR"
+    esporte resultado.ativo igual a verdadeiro
+fim

@@ -1,0 +1,9 @@
+contrato validacao
+    função nome
+    função descricao
+    função versao
+    função cpf recebendo valor
+    função cnpj recebendo valor
+    função email recebendo valor
+    função cep recebendo valor
+fim

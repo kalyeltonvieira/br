@@ -1,0 +1,5 @@
+# Interface gerada por IA de Compilação
+crie uma janela
+    titulo "Painel Gerado"
+    botao botao_ok "OK"
+fim

@@ -1,0 +1,100 @@
+explicacao
+    Geometria: Cálculos geométricos e espaciais.
+    Este módulo permite realizar cálculos geométricos básicos.
+    Esta biblioteca é totalmente funcional e nativa.
+fim
+
+função nome
+    devolva "geometria"
+fim
+
+função descricao
+    devolva "Cálculos geométricos e espaciais"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+# ============ FORMAS 2D ============
+
+função area_quadrado recebendo lado
+    # Calcula a área de um quadrado
+    area é lado * lado
+    devolva area
+fim
+
+função area_retangulo recebendo largura e altura
+    # Calcula a área de um retângulo
+    area é largura * altura
+    devolva area
+fim
+
+função area_circulo recebendo raio
+    # Calcula a área de um círculo
+    area é 3.14159 * raio * raio
+    devolva area
+fim
+
+função area_triangulo recebendo base e altura
+    # Calcula a área de um triângulo
+    area é (base * altura) / 2
+    devolva area
+fim
+
+função perimetro_quadrado recebendo lado
+    # Calcula o perímetro de um quadrado
+    perimetro é 4 * lado
+    devolva perimetro
+fim
+
+função perimetro_circulo recebendo raio
+    # Calcula o perímetro de um círculo
+    perimetro é 2 * 3.14159 * raio
+    devolva perimetro
+fim
+
+# ============ FORMAS 3D ============
+
+função volume_cubo recebendo lado
+    # Calcula o volume de um cubo
+    volume é lado * lado * lado
+    devolva volume
+fim
+
+função volume_esfera recebendo raio
+    # Calcula o volume de uma esfera
+    volume é (4 * 3.14159 * raio * raio * raio) / 3
+    devolva volume
+fim
+
+função volume_cilindro recebendo raio e altura
+    # Calcula o volume de um cilindro
+    volume é 3.14159 * raio * raio * altura
+    devolva volume
+fim
+
+função area_superficie_esfera recebendo raio
+    # Calcula a área da superfície de uma esfera
+    area é 4 * 3.14159 * raio * raio
+    devolva area
+fim
+
+# ============ DISTÂNCIAS ============
+
+função distancia_pontos recebendo x1, y1, x2, y2
+    # Calcula a distância entre dois pontos
+    dx é x2 - x1
+    dy é y2 - y1
+    distancia é raiz_quadrada(dx * dx + dy * dy)
+    devolva distancia
+fim
+
+função distancia_3d recebendo x1, y1, z1, x2, y2, z2
+    # Calcula a distância entre dois pontos 3D
+    dx é x2 - x1
+    dy é y2 - y1
+    dz é z2 - z1
+    distancia é raiz_quadrada(dx * dx + dy * dy + dz * dz)
+    devolva distancia
+fim

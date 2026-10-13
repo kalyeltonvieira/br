@@ -1,0 +1,93 @@
+explicacao
+    Redis: Cache e filas com Redis.
+    Este módulo permite usar Redis como cache e filas de mensagens.
+    Esta biblioteca é totalmente funcional e nativa.
+fim
+
+funcao nome
+    devolva "redis"
+fim
+
+funcao descricao
+    devolva "Cache e filas com Redis"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+# ============ CONEXÃO ============
+
+funcao conectar recebendo host e porta
+    # Conecta ao servidor Redis
+    conexao é servico_redis("conectar", host, porta)
+    devolva conexao
+fim
+
+funcao desconectar recebendo conexao
+    # Desconecta do Redis
+    resultado é servico_redis("desconectar", conexao)
+    devolva resultado
+fim
+
+# ============ STRINGS ============
+
+funcao definir recebendo conexao, chave e valor
+    # Define um valor para uma chave
+    resultado é servico_redis("definir", conexao, chave, valor)
+    devolva resultado
+fim
+
+funcao obter recebendo conexao e chave
+    # Obtém o valor de uma chave
+    valor é servico_redis("obter", conexao, chave)
+    devolva valor
+fim
+
+funcao deletar recebendo conexao e chave
+    # Deleta uma chave
+    resultado é servico_redis("deletar", conexao, chave)
+    devolva resultado
+fim
+
+# ============ LISTS ============
+
+funcao empurrar_direita recebendo conexao, lista e valor
+    # Adiciona um valor ao final da lista
+    resultado é servico_redis("empurrar_direita", conexao, lista, valor)
+    devolva resultado
+fim
+
+funcao pop_esquerda recebendo conexao e lista
+    # Remove e retorna o primeiro elemento
+    valor é servico_redis("pop_esquerda", conexao, lista)
+    devolva valor
+fim
+
+# ============ SETS ============
+
+funcao adicionar_membro recebendo conexao, conjunto e membro
+    # Adiciona um membro a um conjunto
+    resultado é servico_redis("adicionar_membro", conexao, conjunto, membro)
+    devolva resultado
+fim
+
+funcao membros recebendo conexao e conjunto
+    # Obtém todos os membros
+    membros é servico_redis("membros", conexao, conjunto)
+    devolva membros
+fim
+
+# ============ HASHES ============
+
+função definir_campo recebendo conexao, hash, campo e valor
+    # Define um campo em um hash
+    resultado é servico_redis("definir_campo", conexao, hash, campo, valor)
+    devolva resultado
+fim
+
+função obter_campo recebendo conexao, hash e campo
+    # Obtém um campo de um hash
+    valor é servico_redis("obter_campo", conexao, hash, campo)
+    devolva valor
+fim

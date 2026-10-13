@@ -1,0 +1,245 @@
+explicacao
+    HTML: construção programática de HTML5 com elementos,
+    atributos, classes, estilos e componentes reutilizáveis.
+    Geração de páginas completas, formulários, tabelas e menus.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome devolva "html" fim
+função descricao devolva "HTML: construção programática de páginas HTML5" fim
+função versao devolva "1.0.0" fim
+
+função pagina recebendo titulo e conteudo
+    html_inicio é "<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n<meta charset=\"UTF-8\">\n"
+    html_inicio é html_inicio + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
+    html_inicio é html_inicio + "<title>" + _escapar(titulo) + "</title>\n"
+    html_inicio é html_inicio + "<style>\n*{margin:0;padding:0;box-sizing:border-box}"
+    html_inicio é html_inicio + "body{font-family:Arial,sans-serif;line-height:1.6;color:#333;background:#f5f5f5;padding:20px}"
+    html_inicio é html_inicio + ".container{max-width:960px;margin:0 auto;background:#fff;border-radius:8px;padding:30px;box-shadow:0 2px 10px rgba(0,0,0,0.1)}"
+    html_inicio é html_inicio + "</style>\n</head>\n<body>\n<div class=\"container\">\n"
+    html_fim é "\n</div>\n</body>\n</html>"
+    devolva html_inicio + conteudo + html_fim
+fim
+
+função elemento recebendo tag, atributos e conteudo
+    resultado é "<" + tag
+    para cada chave, valor em atributos
+        resultado é resultado + " " + chave + "=\"" + _escapar("" + valor) + "\""
+    fim
+    se conteudo nulo ou conteudo "" então
+        resultado é resultado + ">\n"
+    senao
+        resultado é resultado + ">" + conteudo + "</" + tag + ">\n"
+    fim
+    devolva resultado
+fim
+
+função div recebendo classe, estilo e conteudo
+    attrs é registro
+    se classe não "" então attrs.class é classe fim
+    se estilo não "" então attrs.style é estilo fim
+    devolva elemento("div", attrs, conteudo)
+fim
+
+função span recebendo classe e conteudo
+    attrs é registro
+    se classe não "" então attrs.class é classe fim
+    devolva elemento("span", attrs, conteudo)
+fim
+
+função paragrafo recebendo texto e classe
+    attrs é registro
+    se classe não "" então attrs.class é classe fim
+    devolva elemento("p", attrs, texto)
+fim
+
+função link recebendo url, texto, classe e alvo
+    attrs é registro href: url
+    se classe não "" então attrs.class é classe fim
+    se alvo não "" então attrs.target é alvo fim
+    devolva elemento("a", attrs, texto)
+fim
+
+função imagem recebendo src, alt_texto e classe
+    attrs é registro src: src alt: alt_texto
+    se classe não "" então attrs.class é classe fim
+    devolva elemento("img", attrs, nulo)
+fim
+
+função titulo recebendo nivel e texto
+    tag é "h" + nivel
+    devolva elemento(tag, registro, texto)
+fim
+
+função lista_nao_ordenada recebendo itens e classe
+    conteudo_interno é ""
+    para cada item em itens
+        conteudo_interno é conteudo_interno + "  <li>" + item + "</li>\n"
+    fim
+    attrs é registro
+    se classe não "" então attrs.class é classe fim
+    devolva elemento("ul", attrs, "\n" + conteudo_interno)
+fim
+
+função lista_ordenada recebendo itens e classe
+    conteudo_interno é ""
+    para cada item em itens
+        conteudo_interno é conteudo_interno + "  <li>" + item + "</li>\n"
+    fim
+    attrs é registro
+    se classe não "" então attrs.class é classe fim
+    devolva elemento("ol", attrs, "\n" + conteudo_interno)
+fim
+
+função botao recebendo texto, tipo e classe
+    attrs é registro type: tipo se tipo não "" senao "button"
+    se classe não "" então attrs.class é classe fim
+    devolva elemento("button", attrs, texto)
+fim
+
+função input_texto recebendo nome, valor_placeholder e classe
+    attrs é registro type: "text" name: nome placeholder: valor_placeholder
+    se classe não "" então attrs.class é classe fim
+    devolva elemento("input", attrs, nulo)
+fim
+
+função formulario recebendo acao, metodo e conteudo
+    attrs é registro action: acao method: metodo
+    devolva elemento("form", attrs, conteudo)
+fim
+
+função tabela recebendo cabecalhos, linhas_e_dados e classe
+    conteudo_interno é "<thead>\n<tr>\n"
+    para cada cab em cabecalhos
+        conteudo_interno é conteudo_interno + "    <th>" + cab + "</th>\n"
+    fim
+    conteudo_interno é conteudo_interno + "  </tr>\n</thead>\n<tbody>\n"
+    
+    para cada linha em linhas_e_dados
+        conteudo_interno é conteudo_interno + "  <tr>\n"
+        para cada celula em linha
+            conteudo_interno é conteudo_interno + "    <td>" + celula + "</td>\n"
+        fim
+        conteudo_interno é conteudo_interno + "  </tr>\n"
+    fim
+    conteudo_interno é conteudo_interno + "</tbody>\n"
+    
+    attrs é registro
+    se classe não "" então attrs.class é classe fim
+    devolva elemento("table", attrs, conteudo_interno)
+fim
+
+função section recebendo titulo_secao e conteudo
+    html_secao é "<section>\n"
+    se titulo_secao não "" então
+        html_secao é html_secao + "  <h2>" + titulo_secao + "</h2>\n"
+    fim
+    html_secao é html_secao + "  " + conteudo + "\n</section>\n"
+    devolva html_secao
+fim
+
+função card recebendo titulo_card, texto_card, classe_extra
+    classe_completa é "card"
+    se classe_extra não "" então classe_completa é classe_completa + " " + classe_extra fim
+    conteudo_card é "<div class=\"" + classe_completa + "\">\n"
+    conteudo_card é conteudo_card + "  <h3>" + titulo_card + "</h3>\n"
+    conteudo_card é conteudo_card + "  <p>" + texto_card + "</p>\n"
+    conteudo_card é conteudo_card + "</div>\n"
+    devolva conteudo_card
+fim
+
+função nav_menu recebendo links_atuais
+    html_nav é "<nav>\n<ul style=\"list-style:none;display:flex;gap:15px;padding:10px;background:#333;border-radius:4px;\">\n"
+    para cada link_atual em links_atuais
+        url_atual é link_atual.url
+        texto_atual é link_atual.texto
+        ativo_atual é link_atual.ativo igual verdadeiro
+        se ativo_atual então
+            html_nav é html_nav + "  <li><a href=\"" + url_atual + "\" style=\"color:#fff;text-decoration:none;font-weight:bold;\">" + texto_atual + "</a></li>\n"
+        senao
+            html_nav é html_nav + "  <li><a href=\"" + url_atual + "\" style=\"color:#ccc;text-decoration:none;\">" + texto_atual + "</a></li>\n"
+        fim
+    fim
+    html_nav é html_nav + "</ul>\n</nav>\n"
+    devolva html_nav
+fim
+
+função _escapar recebendo texto
+    resultado é texto
+    resultado é substituir(resultado, "&", "&")
+    resultado é substituir(resultado, "<", "<")
+    resultado é substituir(resultado, ">", ">")
+    resultado é substituir(resultado, "\"", """)
+    devolva resultado
+fim
+
+função meta_tags recebendo descricao, autor, keywords
+    resultado é "<meta name=\"description\" content=\"" + _escapar(descricao) + "\">\n"
+    resultado é resultado + "<meta name=\"author\" content=\"" + _escapar(autor) + "\">\n"
+    resultado é resultado + "<meta name=\"keywords\" content=\"" + _escapar(keywords) + "\">\n"
+    devolva resultado
+fim
+
+função css_link recebendo href
+    devolva "<link rel=\"stylesheet\" href=\"" + href + "\">\n"
+fim
+
+função javascript recebendo src
+    devolva "<script src=\"" + src + "\"></script>\n"
+fim
+
+função javascript_inline recebendo codigo
+    devolva "<script>\n" + codigo + "\n</script>\n"
+fim
+
+função footer recebendo texto
+    html_footer é "<footer style=\"text-align:center;padding:20px;color:#666;font-size:14px;border-top:1px solid #eee;margin-top:30px;\">\n"
+    html_footer é html_footer + "  <p>" + texto + "</p>\n</footer>\n"
+    devolva html_footer
+fim
+
+teste "pagina completa"
+    html_pag é pagina("Teste", paragrafo("Olá mundo"))
+    esporte contem(html_pag, "<!DOCTYPE html>")
+    esporte contem(html_pag, "Olá mundo")
+    esporte contem(html_pag, "</html>")
+fim
+
+teste "tabela html"
+    html_tabela é tabela(["Nome", "Idade"], [["Ana", "30"], ["João", "25"]])
+    esporte contem(html_tabela, "<table>")
+    esporte contem(html_tabela, "<th>")
+    esporte contem(html_tabela, "<td>")
+fim
+
+teste "lista html"
+    html_lista é lista_nao_ordenada(["Item 1", "Item 2", "Item 3"])
+    esporte contem(html_lista, "<ul>")
+    esporte contem(html_lista, "<li>")
+    esporte contem(html_lista, "Item 1")
+fim
+
+teste "card html"
+    html_card é card("Título", "Descrição do card")
+    esporte contem(html_card, "card")
+    esporte contem(html_card, "Título")
+    esporte contem(html_card, "Descrição")
+fim
+
+teste "nav menu"
+    links é [
+        registro url: "/" texto: "Home" ativo: verdadeiro fim
+        registro url: "/sobre" texto: "Sobre" ativo: falso fim
+    ]
+    html_nav é nav_menu(links)
+    esporte contem(html_nav, "<nav>")
+    esporte contem(html_nav, "Home")
+    esporte contem(html_nav, "Sobre")
+fim
+
+teste "formulario"
+    html_form é formulario("/enviar", "POST", input_texto("nome", "Seu nome"))
+    esporte contem(html_form, "<form")
+    esporte contem(html_form, "action=\"/enviar\"")
+    esporte contem(html_form, "<input")
+fim

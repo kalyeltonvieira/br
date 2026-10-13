@@ -1,0 +1,5 @@
+importar "sistema"
+
+teste "nome do modulo sistema"
+    espere sistema.nome() igual a "sistema"
+fim

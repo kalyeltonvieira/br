@@ -1,0 +1,33 @@
+# Documentação BRD: middleware
+
+## Nome
+
+Middleware
+
+## Descrição
+
+Interceptadores de requisição e resposta. Permite criar middlewares para interceptar e modificar requisições e respostas HTTP.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* criar: Cria um novo middleware.
+* executar: Executa o middleware.
+* definir_ordem: Define a ordem de execução do middleware.
+* adicionar_condicao: Adiciona uma condição para executar o middleware.
+* log_requisicao: Middleware que loga requisições.
+* log_resposta: Middleware que loga respostas.
+* autenticar: Middleware de autenticação.
+* cors: Middleware de CORS.
+
+## Exemplo
+
+```br
+usar rede.middleware
+
+middleware é criar "log", funcao(req, res)
+    mostre "Requisição: " + req.metodo
+fim
+```

@@ -1,0 +1,38 @@
+# Documentação BRD: cors
+
+## Nome
+
+CORS
+
+## Descrição
+
+Configuração de CORS para APIs. Permite configurar Cross-Origin Resource Sharing para APIs web.
+
+## Funções
+
+* nome: retorna o nome canônico do módulo.
+* descricao: retorna descrição curta.
+* versao: retorna versão da biblioteca.
+* criar: Cria uma configuração CORS.
+* adicionar_origem: Adiciona uma origem permitida.
+* adicionar_metodo: Adiciona um método permitido.
+* adicionar_cabecalho: Adiciona um cabeçalho permitido.
+* permitir_todas_origens: Permite todas as origens (*).
+* permitir_credenciais: Permite credenciais.
+* definir_max_idade: Define o tempo máximo de cache do preflight.
+* gerar_cabecalhos: Gera os cabeçalhos CORS para uma requisição.
+* verificar_origem: Verifica se a origem está permitida.
+
+## Exemplo
+
+```br
+usar rede.cors
+
+cors é criar registro
+    origens: lista "https://exemplo.com"
+    metodos: lista "GET", "POST", "PUT", "DELETE"
+    cabecalhos: lista "Content-Type", "Authorization"
+fim
+
+permitir_credenciais cors
+```

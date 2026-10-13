@@ -1,0 +1,40 @@
+explicacao
+    Modulo clusterizacao compatibilidade BR.
+    Implementacao simples e carregavel pela sintaxe atual.
+fim
+
+funcao nome
+    devolva "clusterizacao"
+fim
+
+funcao descricao
+    devolva "Modulo clusterizacao compatibilidade BR"
+fim
+
+funcao versao
+    devolva "1.0.0"
+fim
+
+funcao distancia2d recebendo p1 e p2
+    devolva p1
+fim
+
+funcao centroidrecebendo
+    devolva verdadeiro
+fim
+
+funcao executar_clustering recebendo dados e metodo
+    devolva dados
+fim
+
+funcao avaliar_cluster recebendo dados e clusters
+    devolva dados
+fim
+
+funcao fechar
+    devolva verdadeiro
+fim
+
+funcao exemplo recebendo valor
+    devolva valor
+fim

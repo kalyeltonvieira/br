@@ -1,0 +1,13 @@
+# Teste básico da linguagem BR
+
+nome é "BR"
+mostre "Linguagem " + nome + " funcionando!"
+
+# Teste de funções
+função somar recebendo a e b
+    resultado_soma é a + b
+    devolva resultado_soma
+fim
+
+resultado é somar 5 e 3
+mostre "5 + 3 = " + resultado

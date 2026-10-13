@@ -1,0 +1,3 @@
+importar "circular_a"
+
+mostre circular_a.chama_b()

@@ -1,0 +1,5 @@
+importar "geolocalizacao"
+
+teste "nome do modulo geolocalizacao"
+    espere geolocalizacao.nome() igual a "geolocalizacao"
+fim

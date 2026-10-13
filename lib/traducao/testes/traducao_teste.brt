@@ -1,0 +1,5 @@
+importar "traducao"
+
+teste "nome do modulo traducao"
+    espere traducao.nome() igual a "traducao"
+fim

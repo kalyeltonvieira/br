@@ -1,0 +1,9 @@
+contrato senha
+    função nome
+    função descricao
+    função versao
+    função gerar
+    função validar recebendo valor
+    função forca recebendo valor
+    função hash recebendo valor
+fim

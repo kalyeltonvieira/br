@@ -1,0 +1,14 @@
+contrato cors
+    função nome
+    função descricao
+    função versao
+    função criar recebendo opcoes
+    função adicionar_origem recebendo cors e origem
+    função adicionar_metodo recebendo cors e metodo
+    função adicionar_cabecalho recebendo cors e cabecalho
+    função permitir_todas_origens recebendo cors
+    função permitir_credenciais recebendo cors
+    função definir_max_idade recebendo cors e segundos
+    função gerar_cabecalhos recebendo cors e origem
+    função verificar_origem recebendo cors e origem
+fim

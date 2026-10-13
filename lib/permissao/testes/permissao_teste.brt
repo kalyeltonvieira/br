@@ -1,0 +1,5 @@
+importar "permissao"
+
+teste "nome do modulo permissao"
+    espere permissao.nome() igual a "permissao"
+fim

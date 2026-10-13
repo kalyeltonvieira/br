@@ -1,0 +1,377 @@
+# Calculadora BR - Exemplo de programa completo
+
+explicacao
+    Calculadora completa demonstrando uso das bibliotecas nativas.
+    Funcionalidades: operações básicas, estatísticas, histórico, exportação.
+fim
+
+importar "matematica" as mat
+importar "texto" as txt
+importar "arquivo" as arq
+
+# ============ HISTÓRICO ============
+
+historico é lista
+
+função adicionar_ao_historico recebendo operacao, a, b, resultado
+    entrada é registro
+        operacao: operacao
+        a: a
+        b: b  
+        resultado: resultado
+        timestamp: data_hora.agora()
+    fim
+    
+    adicione entrada a historico
+    devolva verdadeiro
+fim
+
+função exibir_historico
+    se historico vazia então
+        mostre "Histórico vazio"
+        devolva
+    fim
+    
+    mostre "=== HISTÓRICO DE CÁLCULOS ==="
+    
+    para cada item em historico
+        texto_operacao é txt.maiusculo(item.operacao)
+        linha é texto_operacao + ": " + item.a + " " + item.operacao + " " + item.b + " = " + item.resultado
+        linha é linha + " (" + item.timestamp + ")"
+        mostre linha
+    fim
+    
+    mostre "Total de cálculos: " + tamanho(historico)
+fim
+
+função limpar_historico
+    historico é lista
+    mostre "Histórico limpo"
+    devolva verdadeiro
+fim
+
+# ============ OPERAÇÕES BÁSICAS ============
+
+função calcular_soma recebendo a e b
+    resultado é mat.somar(a, b)
+    adicionar_ao_historico("+", a, b, resultado)
+    devolva resultado
+fim
+
+função calcular_subtracao recebendo a e b
+    resultado é mat.subtrair(a, b)
+    adicionar_ao_historico("-", a, b, resultado)
+    devolva resultado
+fim
+
+função calcular_multiplicacao recebendo a e b
+    resultado é mat.multiplicar(a, b)
+    adicionar_ao_historico("*", a, b, resultado)
+    devolva resultado
+fim
+
+função calcular_divisao recebendo a e b
+    se b igual 0 então
+        devolva erro "Divisão por zero não permitida"
+    fim
+    
+    resultado é mat.dividir(a, b)
+    adicionar_ao_historico("/", a, b, resultado)
+    devolva resultado
+fim
+
+função calcular_potencia recebendo base e expoente
+    resultado é mat.potencia(base, expoente)
+    adicionar_ao_historico("^", base, expoente, resultado)
+    devolva resultado
+fim
+
+função calcular_raiz recebendo valor
+    se valor < 0 então
+        devolva erro "Não é possível calcular raiz de número negativo"
+    fim
+    
+    resultado é mat.raiz_quadrada(valor)
+    adicionar_ao_historico("√", valor, nulo, resultado)
+    devolva resultado
+fim
+
+# ============ ESTATÍSTICAS ============
+
+função calcular_media_lista recebendo lista_numeros
+    se lista_numeros vazia então
+        devolva erro "Lista vazia"
+    fim
+    
+    resultado é mat.media(lista_numeros)
+    devolva resultado
+fim
+
+função calcular_mediana recebendo lista_numeros
+    se lista_numeros vazia então
+        devolva erro "Lista vazia"
+    fim
+    
+    resultado é mat.mediana(lista_numeros)
+    devolva resultado
+fim
+
+função calcular_desvio_padrao recebendo lista_numeros
+    se tamanho(lista_numeros) < 2 então
+        devolva erro "Necessário pelo menos 2 números"
+    fim
+    
+    resultado é mat.desvio_padrao(lista_numeros)
+    devolva resultado
+fim
+
+# ============ CONVERSÃO ============
+
+função converter_para_fahrenheit recebendo celsius
+    resultado é (celsius * 9/5) + 32
+    adicionar_ao_historico("°C→°F", celsius, nulo, resultado)
+    devolva resultado
+fim
+
+função converter_para_celsius recebendo fahrenheit
+    resultado é (fahrenheit - 32) * 5/9
+    adicionar_ao_historico("°F→°C", fahrenheit, nulo, resultado)
+    devolva resultado
+fim
+
+função converter_para_metros recebendo pes
+    resultado é pes * 0.3048
+    adicionar_ao_historico("pés→m", pes, nulo, resultado)
+    devolva resultado
+fim
+
+função converter_para_pes recebendo metros
+    resultado é metros / 0.3048
+    adicionar_ao_historico("m→pés", metros, nulo, resultado)
+    devolva resultado
+fim
+
+# ============ EXPORTAÇÃO ============
+
+função exportar_historico_csv recebendo caminho
+    se historico vazia então
+        devolva falso
+    fim
+    
+    dados é lista
+    
+    para cada item em historico
+        registro é registro
+            "Operação": item.operacao
+            "Valor A": item.a
+            "Valor B": item.b
+            "Resultado": item.resultado
+            "Data/Hora": item.timestamp
+        fim
+        adicione registro a dados
+    fim
+    
+    sucesso é arq.escrever_csv(caminho, dados)
+    devolva sucesso
+fim
+
+função exportar_historico_json recebendo caminho
+    se historico vazia então
+        devolva falso
+    fim
+    
+    dados é registro
+        "calculadora": "BR Calculadora"
+        "versao": "1.0.0"
+        "total_calculos": tamanho(historico)
+        "calculos": historico
+        "exportado_em": data_hora.agora()
+    fim
+    
+    sucesso é arq.escrever_json(caminho, dados)
+    devolva sucesso
+fim
+
+# ============ INTERFACE ============
+
+função exibir_menu
+    mostre ""
+    mostre "=== CALCULADORA BR ==="
+    mostre "1. Soma (+)          7. Converter °C→°F"
+    mostre "2. Subtração (-)     8. Converter °F→°C"
+    mostre "3. Multiplicação (*) 9. Converter pés→m"
+    mostre "4. Divisão (/)      10. Converter m→pés"
+    mostre "5. Potência (^)     11. Estatísticas"
+    mostre "6. Raiz quadrada (√)12. Histórico"
+    mostre ""
+    mostre "13. Exportar histórico"
+    mostre "14. Limpar histórico"
+    mostre "15. Sair"
+    mostre ""
+fim
+
+função ler_numero recebendo mensagem
+    enquanto verdadeiro
+        mostre mensagem + ": "
+        # Em runtime real, seria: entrada é sistema.ler_entrada()
+        entrada é "10"  # Simulado para exemplo
+        
+        tente
+            numero é entrada como decimal
+            devolva numero
+        capture erro
+            mostre "Por favor, digite um número válido"
+        fim
+    fim
+fim
+
+função ler_lista_numeros
+    lista é lista
+    contador é 1
+    
+    enquanto verdadeiro
+        entrada é "sair"  # Simulado
+        
+        se entrada igual "sair" então
+            pare
+        fim
+        
+        tente
+            numero é entrada como decimal
+            adicione numero a lista
+            contador é contador + 1
+        capture erro
+            mostre "Número inválido. Digite 'sair' para terminar"
+        fim
+    fim
+    
+    devolva lista
+fim
+
+função executar_calculadora
+    opcao é 0
+    
+    enquanto opcao diferente 15
+        exibir_menu()
+        opcao é ler_numero("Escolha uma opção")
+        
+        escolha opcao
+            caso 1  # Soma
+                a é ler_numero("Primeiro número")
+                b é ler_numero("Segundo número")
+                resultado é calcular_soma(a, b)
+                mostre a + " + " + b + " = " + resultado
+            
+            caso 2  # Subtração
+                a é ler_numero("Primeiro número")
+                b é ler_numero("Segundo número")
+                resultado é calcular_subtracao(a, b)
+                mostre a + " - " + b + " = " + resultado
+            
+            caso 3  # Multiplicação
+                a é ler_numero("Primeiro número")
+                b é ler_numero("Segundo número")
+                resultado é calcular_multiplicacao(a, b)
+                mostre a + " × " + b + " = " + resultado
+            
+            caso 4  # Divisão
+                a é ler_numero("Dividendo")
+                b é ler_numero("Divisor")
+                
+                tente
+                    resultado é calcular_divisao(a, b)
+                    mostre a + " ÷ " + b + " = " + resultado
+                capture erro
+                    mostre "Erro: " + erro.mensagem
+                fim
+            
+            caso 5  # Potência
+                base é ler_numero("Base")
+                expoente é ler_numero("Expoente")
+                resultado é calcular_potencia(base, expoente)
+                mostre base + "^" + expoente + " = " + resultado
+            
+            caso 6  # Raiz quadrada
+                valor é ler_numero("Número")
+                
+                tente
+                    resultado é calcular_raiz(valor)
+                    mostre "√" + valor + " = " + resultado
+                capture erro
+                    mostre "Erro: " + erro.mensagem
+                fim
+            
+            caso 7  # Converter Celsius para Fahrenheit
+                celsius é ler_numero("Temperatura em Celsius")
+                fahrenheit é converter_para_fahrenheit(celsius)
+                mostre celsius + "°C = " + fahrenheit + "°F"
+            
+            caso 8  # Converter Fahrenheit para Celsius
+                fahrenheit é ler_numero("Temperatura em Fahrenheit")
+                celsius é converter_para_celsius(fahrenheit)
+                mostre fahrenheit + "°F = " + celsius + "°C"
+            
+            caso 9  # Converter pés para metros
+                pes é ler_numero("Comprimento em pés")
+                metros é converter_para_metros(pes)
+                mostre pes + " pés = " + metros + " metros"
+            
+            caso 10  # Converter metros para pés
+                metros é ler_numero("Comprimento em metros")
+                pes é converter_para_pes(metros)
+                mostre metros + " metros = " + pes + " pés"
+            
+            caso 11  # Estatísticas
+                mostre "Digite números (digite 'sair' para terminar):"
+                lista é ler_lista_numeros()
+                
+                se lista vazia então
+                    mostre "Nenhum número fornecido"
+                senão
+                    media_valor é calcular_media_lista(lista)
+                    mediana_valor é calcular_mediana(lista)
+                    desvio_valor é calcular_desvio_padrao(lista)
+                    
+                    mostre "Lista: " + lista
+                    mostre "Média: " + media_valor
+                    mostre "Mediana: " + mediana_valor
+                    mostre "Desvio padrão: " + desvio_valor
+                    mostre "Mínimo: " + mat.minimo(lista)
+                    mostre "Máximo: " + mat.maximo(lista)
+                fim
+            
+            caso 12  # Histórico
+                exibir_historico()
+            
+            caso 13  # Exportar histórico
+                caminho é "historico_calculadora.csv"
+                sucesso é exportar_historico_csv(caminho)
+                
+                se sucesso então
+                    mostre "Histórico exportado para " + caminho
+                senão
+                    mostre "Erro ao exportar histórico"
+                fim
+            
+            caso 14  # Limpar histórico
+                limpar_historico()
+            
+            caso 15  # Sair
+                mostre "Obrigado por usar a Calculadora BR!"
+            
+            senão
+                mostre "Opção inválida. Tente novamente."
+        fim
+        
+        mostre ""
+    fim
+fim
+
+# ============ PROGRAMA PRINCIPAL ============
+
+mostre "Bem-vindo à Calculadora BR!"
+mostre "Versão 1.0.0 - Runtime Nativo"
+
+executar_calculadora()
+
+mostre "Programa encerrado."

@@ -1,0 +1,240 @@
+explicacao
+    Compressão: compressão e descompressão de dados usando RLE,
+    Huffman simplificado, e codificação run-length.
+    Utilitários para otimizar armazenamento.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome devolva "compressao" fim
+função descricao devolva "Compressão: RLE, Huffman e compactação de dados" fim
+função versao devolva "1.0.0" fim
+
+# ============ RUN-LENGTH ENCODING (RLE) ============
+
+função rle_comprimir recebendo dados
+    se dados nulo ou dados "" então devolva "" fim
+    
+    resultado é ""
+    i é 0
+    enquanto i < tamanho(dados)
+        c_atual é dados[i]
+        contagem é 1
+        
+        enquanto i + contagem < tamanho(dados) e dados[i + contagem] igual c_atual
+            contagem é contagem + 1
+        fim
+        
+        se contagem > 3 então
+            resultado é resultado + "~" + contagem + c_atual
+        senao
+            repita contagem vezes
+                resultado é resultado + c_atual
+            fim
+        fim
+        
+        i é i + contagem
+    fim
+    
+    devolva resultado
+fim
+
+função rle_descomprimir recebendo dados_comprimidos
+    se dados_comprimidos nulo então devolva "" fim
+    
+    resultado é ""
+    i é 0
+    enquanto i < tamanho(dados_comprimidos)
+        c é dados_comprimidos[i]
+        
+        se c igual "~" então
+            i é i + 1
+            numero_str é ""
+            enquanto i < tamanho(dados_comprimidos) e dados_comprimidos[i] >= "0" e dados_comprimidos[i] <= "9"
+                numero_str é numero_str + dados_comprimidos[i]
+                i é i + 1
+            fim
+            
+            se numero_str "" então
+                continue
+            fim
+            
+            contagem é numero_str como inteiro
+            caractere_repetir é dados_comprimidos[i] se i < tamanho(dados_comprimidos) senao ""
+            
+            repita contagem vezes
+                resultado é resultado + caractere_repetir
+            fim
+        senao
+            resultado é resultado + c
+        fim
+        
+        i é i + 1
+    fim
+    
+    devolva resultado
+fim
+
+# ============ COMPRESSÃO DE TEXTO SIMPLES ============
+
+função comprimir_texto recebendo texto
+    se texto nulo ou texto "" então devolva texto fim
+    
+    palavras é dividir(texto, " ")
+    dicionario é registro
+    resultado é ""
+    codigo_atual é 0
+    
+    para cada palavra em palavras
+        palavra_limpa é palavra
+        pontuacao é ""
+        
+        # Extrair pontuação no final
+        enquanto tamanho(palavra_limpa) > 0 e não eh_letra(palavra_limpa[tamanho(palavra_limpa)-1]) e não eh_digito(palavra_limpa[tamanho(palavra_limpa)-1])
+            pontuacao é palavra_limpa[tamanho(palavra_limpa)-1] + pontuacao
+            palavra_limpa é palavra_limpa[0:tamanho(palavra_limpa)-1]
+        fim
+        
+        se palavra_limpa "" então
+            se resultado não "" então resultado é resultado + " " fim
+            resultado é resultado + palavra
+            continue
+        fim
+        
+        se palavra_limpa em dicionario então
+            codigo é dicionario[palavra_limpa]
+            se resultado não "" então resultado é resultado + " " fim
+            resultado é resultado + "§" + codigo + pontuacao
+        senao
+            dicionario[palavra_limpa] é codigo_atual
+            se resultado não "" então resultado é resultado + " " fim
+            resultado é resultado + palavra_limpa + pontuacao
+            codigo_atual é codigo_atual + 1
+        fim
+    fim
+    
+    devolva resultado
+fim
+
+função descomprimir_texto recebendo texto_comprimido
+    se texto_comprimido nulo então devolva "" fim
+    se não contem(texto_comprimido, "§") então devolva texto_comprimido fim
+    
+    dicionario_reverso é registro
+    codigo_atual é 0
+    palavras_processadas é []
+    
+    palavras é dividir(texto_comprimido, " ")
+    resultado_lista é []
+    
+    para cada palavra in palavras
+        se palavra "" então continue fim
+        
+        se comeca_com(palavra, "§") então
+            resto é palavra[1:]
+            codigo_str é ""
+            i é 0
+            enquanto i < tamanho(resto) e resto[i] >= "0" e resto[i] <= "9"
+                codigo_str é codigo_str + resto[i]
+                i é i + 1
+            fim
+            pontuacao é resto[i:]
+            
+            codigo é codigo_str como inteiro
+            palavra_original é dicionario_reverso[codigo]
+            adicione palavra_original + pontuacao a resultado_lista
+        senao
+            palavra_limpa é palavra
+            pontuacao é ""
+            enquanto tamanho(palavra_limpa) > 0 e não eh_letra(palavra_limpa[tamanho(palavra_limpa)-1]) e não eh_digito(palavra_limpa[tamanho(palavra_limpa)-1])
+                pontuacao é palavra_limpa[tamanho(palavra_limpa)-1] + pontuacao
+                palavra_limpa é palavra_limpa[0:tamanho(palavra_limpa)-1]
+            fim
+            
+            dicionario_reverso[codigo_atual] é palavra_limpa
+            codigo_atual é codigo_atual + 1
+            adicione palavra a resultado_lista
+        fim
+    fim
+    
+    resultado é ""
+    primeira é verdadeiro
+    para cada p in resultado_lista
+        se não primeira então resultado é resultado + " " senao primeira é falso fim
+        resultado é resultado + p
+    fim
+    
+    devolva resultado
+fim
+
+# ============ RATIO DE COMPRESSÃO ============
+
+função taxa_compreensao recebendo original e comprimido
+    tam_original é tamanho(original)
+    tam_comprimido é tamanho(comprimido)
+    se tam_original igual 0 então devolva 100 fim
+    devolva (1 - tam_comprimido / tam_original) * 100
+fim
+
+# ============ DETECÇÃO DE REPETIÇÃO ============
+
+função detectar_padroes recebendo dados
+    padroes é registro
+    i é 0
+    
+    enquanto i < tamanho(dados) - 3
+        j é i + 1
+        enquanto j < tamanho(dados) - 3
+            bloco1 é dados[i:i+4]
+            bloco2 é dados[j:j+4]
+            
+            se bloco1 igual bloco2 então
+                chave_padrao é bloco1
+                se chave_padrao em padroes então
+                    padroes[chave_padrao] é padroes[chave_padrao] + 1
+                senao
+                    padroes[chave_padrao] é 2
+                fim
+            fim
+            
+            j é j + 1
+        fim
+        i é i + 1
+    fim
+    
+    resultado é []
+    para cada padrao, freq em padroes
+        se freq >= 3 então
+            adicione registro padrao: padrao frequencia: freq a resultado
+        fim
+    fim
+    
+    devolva resultado
+fim
+
+teste "rle comprimir e descomprimir"
+    original é "AAAABBBCCDAA"
+    comprimido é rle_comprimir(original)
+    descomprimido é rle_descomprimir(comprimido)
+    esporte descomprimido igual a original
+fim
+
+teste "rle sem compressao"
+    original é "abcdef"
+    comprimido é rle_comprimir(original)
+    descomprimido é rle_descomprimir(comprimido)
+    esporte descomprimido igual a original
+fim
+
+teste "comprimir texto repetitivo"
+    texto é "o gato o gato o gato"
+    comprimido é comprimir_texto(texto)
+    descomprimido é descomprimir_texto(comprimido)
+    esporte descomprimido igual a texto
+fim
+
+teste "taxa compressao"
+    original é "AAAAABBBBBCCCCC"
+    comprimido é rle_comprimir(original)
+    taxa é taxa_compreensao(original, comprimido)
+    esporte taxa > 0
+fim

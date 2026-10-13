@@ -1,0 +1,34 @@
+# ERP module for business operations, purchases, sales and finance
+
+explicacao
+    erp: operações empresariais, compras, vendas e financeiro.
+    Este arquivo faz parte da biblioteca padrão BR.
+fim
+
+função nome
+    devolva "erp"
+fim
+
+função descricao
+    devolva "Operações empresariais, compras, vendas e financeiro."
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função registrar_compra recebendo fornecedor, itens, total
+    devolva verdadeiro
+fim
+
+função registrar_venda recebendo cliente, itens, total
+    devolva verdadeiro
+fim
+
+função gerar_relatorio recebendo tipo
+    devolva "relatorio"
+fim
+
+função fechar
+    devolva verdadeiro
+fim

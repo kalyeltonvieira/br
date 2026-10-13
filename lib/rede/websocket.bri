@@ -1,0 +1,18 @@
+contrato websocket
+    função nome
+    função descricao
+    função versao
+    função criar_servidor recebendo porta e callback
+    função iniciar_servidor recebendo servidor
+    função parar_servidor recebendo servidor
+    função criar_cliente recebendo url
+    função conectar recebendo cliente
+    função desconectar recebendo cliente
+    função enviar recebendo cliente e mensagem
+    função broadcast recebendo servidor e mensagem
+    função definir_callback recebendo cliente, evento e callback
+    função adicionar_cliente recebendo servidor e cliente
+    função remover_cliente recebendo servidor e cliente
+    função obter_clientes recebendo servidor
+    função definir_ping_interval recebendo servidor e segundos
+fim

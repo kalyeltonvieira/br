@@ -1,0 +1,32 @@
+explicacao
+    Testes: testes unitários, assertivas, mocks e cobertura.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "testes"
+fim
+
+função descricao
+    devolva "Testes: testes unitários, assertivas, mocks e cobertura"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função igual recebendo a e b
+    devolva a igual b
+fim
+
+função eh_verdadeiro recebendo valor
+    devolva valor igual verdadeiro
+fim
+
+função eh_falso recebendo valor
+    devolva valor igual falso
+fim
+
+função mock recebendo nome_item
+    devolva nome_item
+fim

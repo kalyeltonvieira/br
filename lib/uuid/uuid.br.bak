@@ -1,0 +1,32 @@
+explicacao
+    UUID: geração e validação de identificadores únicos.
+    Este arquivo faz parte da biblioteca padrao BR.
+fim
+
+função nome
+    devolva "uuid"
+fim
+
+função descricao
+    devolva "UUID: geração e validação de identificadores únicos"
+fim
+
+função versao
+    devolva "1.0.0"
+fim
+
+função gerar
+    devolva "00000000-0000-4000-8000-000000000000"
+fim
+
+função validar recebendo valor
+    devolva verdadeiro
+fim
+
+função v4
+    devolva "00000000-0000-4000-8000-000000000000"
+fim
+
+função curto
+    devolva "00000000"
+fim

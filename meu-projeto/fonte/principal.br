@@ -1,0 +1,71 @@
+# Fluxo Principal da Aplicação BR
+explicacao
+Módulo principal de inicialização e orquestração do Meu Projeto BR.
+Demonstra a alma da linguagem com IA de execução, banco de dados nativo e paralelismo.
+fim
+
+# IA de Compilação: gera automaticamente outras pastas e arquivos do sistema
+objetivo
+    criar sistema de estoque
+fim
+
+# Variáveis com e sem tipo opcional
+nome : texto é "Carlos Silva"
+idade é 30
+constante PI é 3.1415
+
+# Coleções nativas
+clientes é lista
+    "Carlos"
+    "Ana"
+    "Bruno"
+fim
+
+novo_cliente é registro
+    nome: nome
+    idade: idade
+fim
+
+teste "validar inicializacao do cliente"
+    nome : texto é "Carlos Silva"
+    idade é 30
+    novo_cliente é registro
+        nome: nome
+        idade: idade
+    fim
+    espere novo_cliente.nome igual a "Carlos Silva"
+fim
+
+# Fluxo de Controle e Serviços Nativos (Banco, Internet e IA)
+tente
+    mostre "Iniciando sistema BR..."
+    
+    # Execução em paralelo nativa
+    execute em paralelo
+        mostre "Tarefa Paralela 1 - Sincronizando dados..."
+        mostre "Tarefa Paralela 2 - Verificando atualizações..."
+    fim
+    mostre "Salvando registro no banco de dados nativo..."
+    salve novo_cliente
+    mostre "Consultando banco nativo..."
+    resultado_busca é busque todos os clientes
+    mostre resultado_busca
+    
+    mostre "Efetuando consulta rápida à IA de Execução..."
+    resposta_ia é pergunte para ia
+        "Explique computação quântica"
+    fim
+    mostre "Resposta da IA: " + resposta_ia
+    
+    mostre "Instanciando Agente de IA persistente (Ator)..."
+    analista é crie agente
+        especialidade "financeiro"
+    fim
+    
+    mostre "Fazendo pergunta ao Agente persistente..."
+    resposta_agente é analista.pergunte "analise as vendas"
+    mostre "Resposta do Agente: " + resposta_agente
+    
+capture erro
+    mostre "Erro detectado durante a execucao: " + erro.mensagem
+fim

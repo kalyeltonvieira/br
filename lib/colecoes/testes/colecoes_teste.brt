@@ -1,0 +1,5 @@
+importar "colecoes"
+
+teste "nome do modulo colecoes"
+    espere colecoes.nome() igual a "colecoes"
+fim

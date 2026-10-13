@@ -1,0 +1,320 @@
+explicacao
+    Markdown: parser e conversão de Markdown para HTML.
+    Suporta títulos, listas, links, imagens, código, tabelas,
+    negrito, itálico, blocos de citação e muito mais.
+    Biblioteca padrão da linguagem BR.
+fim
+
+função nome devolva "markdown" fim
+função descricao devolva "Markdown: conversão de Markdown para HTML" fim
+função versao devolva "1.0.0" fim
+
+função para_html recebendo texto_md
+    linhas é dividir_linhas(texto_md)
+    html é ""
+    i é 0
+    dentro_lista é falso
+    dentro_codigo_bloco é falso
+    codigo_buffer é ""
+    
+    enquanto i < tamanho(linhas)
+        linha é linhas[i]
+        
+        # Bloco de código ```
+        se comeca_com(linha, "```") então
+            se dentro_codigo_bloco então
+                html é html + "</code></pre>\n"
+                dentro_codigo_bloco é falso
+            senao
+                html é html + "<pre><code>"
+                dentro_codigo_bloco é verdadeiro
+            fim
+            i é i + 1
+            continue
+        fim
+        
+        se dentro_codigo_bloco então
+            html é html + _escape_html(linha) + "\n"
+            i é i + 1
+            continue
+        fim
+        
+        # Fechar lista se necessário
+        se dentro_lista e não (comeca_com(linha, "- ") ou comeca_com(linha, "* ") ou comeca_com(linha, "+ ") ou comeca_com(linha, "1. ")) então
+            html é html + "</ul>\n"
+            dentro_lista é falso
+        fim
+        
+        # Cabeçalhos
+        se comeca_com(linha, "# ") então
+            html é html + "<h1>" + _inline_html(linha[2:]) + "</h1>\n"
+        senao se comeca_com(linha, "## ") então
+            html é html + "<h2>" + _inline_html(linha[3:]) + "</h2>\n"
+        senao se comeca_com(linha, "### ") então
+            html é html + "<h3>" + _inline_html(linha[4:]) + "</h3>\n"
+        senao se comeca_com(linha, "#### ") então
+            html é html + "<h4>" + _inline_html(linha[5:]) + "</h4>\n"
+        senao se comeca_com(linha, "##### ") então
+            html é html + "<h5>" + _inline_html(linha[6:]) + "</h5>\n"
+        senao se comeca_com(linha, "###### ") então
+            html é html + "<h6>" + _inline_html(linha[7:]) + "</h6>\n"
+        
+        # Lista não ordenada
+        senao se comeca_com(linha, "- ") ou comeca_com(linha, "* ") ou comeca_com(linha, "+ ") então
+            se não dentro_lista então
+                html é html + "<ul>\n"
+                dentro_lista é verdadeiro
+            fim
+            conteudo_item é linha[2:]
+            html é html + "<li>" + _inline_html(conteudo_item) + "</li>\n"
+        
+        # Lista ordenada
+        senao se _comeca_com_numero_ponto(linha) então
+            pos_ponto é encontrar(linha, ". ")
+            conteudo_item é linha[pos_ponto+2:]
+            se não dentro_lista então
+                html é html + "<ol>\n"
+                dentro_lista é verdadeiro
+            fim
+            html é html + "<li>" + _inline_html(conteudo_item) + "</li>\n"
+        
+        # Bloco de citação
+        senao se comeca_com(linha, "> ") então
+            html é html + "<blockquote>" + _inline_html(linha[2:]) + "</blockquote>\n"
+        
+        # Linha horizontal
+        senao se linha igual "---" ou linha igual "***" ou linha igual "___" então
+            html é html + "<hr>\n"
+        
+        # Parágrafo vazio
+        senao se linha "" então
+            html é html + "</p>\n<p>" se html não "" e não html termina_com "<p>" senao ""
+        
+        # Tabela
+        senao se contem(linha, "|") então
+            se i + 1 < tamanho(linhas) e contem(linhas[i+1], "---") então
+                # Cabeçalho de tabela
+                html é html + _processar_tabela(linhas, i)
+                enquanto i < tamanho(linhas) e contem(linhas[i], "|")
+                    i é i + 1
+                fim
+                continue
+            senao
+                html é html + "<p>" + _inline_html(linha) + "</p>\n"
+            fim
+        
+        # Parágrafo normal
+        senao
+            html é html + "<p>" + _inline_html(linha) + "</p>\n"
+        fim
+        
+        i é i + 1
+    fim
+    
+    se dentro_lista então html é html + "</ul>\n" fim
+    se dentro_codigo_bloco então html é html + "</code></pre>\n" fim
+    
+    devolva html
+fim
+
+função _comeca_com_numero_ponto recebendo texto
+    if tamanho(texto) < 3 então devolva falso fim
+    se texto[0] >= "1" e texto[0] <= "9" então
+        pos_ponto é encontrar(texto, ". ")
+        se pos_ponto > 0 então devolva verdadeiro fim
+    fim
+    devolva falso
+fim
+
+função _inline_html recebendo texto
+    resultado é texto
+    
+    # Código inline `código`
+    resultado é _substituir_padrao(resultado, "`", "<code>", "`", "</code>")
+    
+    # Imagens ![alt](url)
+    resultado é _substituir_imagens(resultado)
+    
+    # Links [texto](url)
+    resultado é _substituir_links(resultado)
+    
+    # Negrito **texto**
+    resultado é _substituir_padrao(resultado, "**", "<strong>", "**", "</strong>")
+    resultado é _substituir_padrao(resultado, "__", "<strong>", "__", "</strong>")
+    
+    # Itálico *texto*
+    resultado é _substituir_padrao(resultado, "*", "<em>", "*", "</em>")
+    resultado é _substituir_padrao(resultado, "_", "<em>", "_", "</em>")
+    
+    # Riscado ~~texto~~
+    resultado é _substituir_padrao(resultado, "~~", "<del>", "~~", "</del>")
+    
+    devolva resultado
+fim
+
+função _substituir_padrao recebendo texto, abrir_tag, html_abrir, fechar_tag, html_fechar
+    resultado é ""
+    i é 0
+    dentro é falso
+    
+    enquanto i < tamanho(texto)
+        se não dentro e texto[i:i+tamanho(abrir_tag)] igual abrir_tag então
+            resultado é resultado + html_abrir
+            i é i + tamanho(abrir_tag)
+            dentro é verdadeiro
+        senao se dentro e texto[i:i+tamanho(fechar_tag)] igual fechar_tag então
+            resultado é resultado + html_fechar
+            i é i + tamanho(fechar_tag)
+            dentro é falso
+        senao
+            resultado é resultado + texto[i]
+            i é i + 1
+        fim
+    fim
+    
+    devolva resultado
+fim
+
+função _substituir_links recebendo texto
+    resultado é ""
+    i é 0
+    
+    enquanto i < tamanho(texto)
+        se texto[i] igual "[" então
+            pos_fecha_colchete é encontrar(texto, "]", i)
+            se pos_fecha_colchete >= 0 e pos_fecha_colchete + 1 < tamanho(texto) e texto[pos_fecha_colchete + 1] igual "(" então
+                texto_link é texto[i+1:pos_fecha_colchete]
+                pos_fecha_parentese é encontrar(texto, ")", pos_fecha_colchete)
+                se pos_fecha_parentese >= 0 então
+                    url é texto[pos_fecha_colchete+2:pos_fecha_parentese]
+                    resultado é resultado + "<a href=\"" + _escape_html(url) + "\">" + _escape_html(texto_link) + "</a>"
+                    i é pos_fecha_parentese + 1
+                    continue
+                fim
+            fim
+        fim
+        resultado é resultado + texto[i]
+        i é i + 1
+    fim
+    
+    devolva resultado
+fim
+
+função _substituir_imagens recebendo texto
+    resultado é ""
+    i é 0
+    
+    enquanto i < tamanho(texto)
+        se texto[i:i+2] igual "![" então
+            pos_fecha_colchete é encontrar(texto, "]", i+2)
+            se pos_fecha_colchete >= 0 e pos_fecha_colchete + 1 < tamanho(texto) e texto[pos_fecha_colchete + 1] igual "(" então
+                alt_texto é texto[i+2:pos_fecha_colchete]
+                pos_fecha_parentese é encontrar(texto, ")", pos_fecha_colchete)
+                se pos_fecha_parentese >= 0 então
+                    url é texto[pos_fecha_colchete+2:pos_fecha_parentese]
+                    resultado é resultado + "<img src=\"" + _escape_html(url) + "\" alt=\"" + _escape_html(alt_texto) + "\">"
+                    i é pos_fecha_parentese + 1
+                    continue
+                fim
+            fim
+        fim
+        resultado é resultado + texto[i]
+        i é i + 1
+    fim
+    
+    devolva resultado
+fim
+
+função _processar_tabela recebendo linhas, i
+    html é "<table>\n<tr>"
+    cabecalhos é dividir(linhas[i], "|")
+    para cada cab em cabecalhos
+        cab_limpo é aparar(cab)
+        se cab_limpo "" então continue fim
+        html é html + "<th>" + _inline_html(cab_limpo) + "</th>"
+    fim
+    html é html + "</tr>\n"
+    
+    i_linha é i + 2
+    enquanto i_linha < tamanho(linhas) e contem(linhas[i_linha], "|")
+        html é html + "<tr>"
+        celulas é dividir(linhas[i_linha], "|")
+        para cada cel em celulas
+            cel_limpo é aparar(cel)
+            se cel_limpo "" então continue fim
+            html é html + "<td>" + _inline_html(cel_limpo) + "</td>"
+        fim
+        html é html + "</tr>\n"
+        i_linha é i_linha + 1
+    fim
+    
+    html é html + "</table>\n"
+    devolva html
+fim
+
+função _escape_html recebendo texto
+    resultado é texto
+    resultado é substituir(resultado, "&", "&")
+    resultado é substituir(resultado, "<", "<")
+    resultado é substituir(resultado, ">", ">")
+    resultado é substituir(resultado, "\"", """)
+    devolva resultado
+fim
+
+função resumo_html recebendo texto_md
+    html é para_html(texto_md)
+    html_limpo é substituir(html, "<[^>]+>", "")
+    se tamanho(html_limpo) > 200 então
+        html_limpo é html_limpo[0:200] + "..."
+    fim
+    devolva html_limpo
+fim
+
+teste "markdown titulo"
+    md é "# Meu Título"
+    html é para_html(md)
+    esporte contem(html, "<h1>")
+    esporte contem(html, "Meu Título")
+fim
+
+teste "markdown negrito"
+    md é "**negrito** e *itálico*"
+    html é _inline_html(md)
+    esporte contem(html, "<strong>")
+    esporte contem(html, "<em>")
+fim
+
+teste "markdown link"
+    md é "[Google](https://google.com)"
+    html é para_html(md)
+    esporte contem(html, "<a href")
+    esporte contem(html, "Google")
+fim
+
+teste "markdown lista"
+    md é "- Item 1\n- Item 2\n- Item 3"
+    html é para_html(md)
+    esporte contem(html, "<ul>")
+    esporte contem(html, "<li>")
+fim
+
+teste "markdown tabela"
+    md é "| Nome | Idade |\n|------|-------|\n| Ana | 30 |"
+    html é para_html(md)
+    esporte contem(html, "<table>")
+    esporte contem(html, "<th>")
+    esporte contem(html, "<td>")
+fim
+
+teste "markdown imagem"
+    md é "![Logo](logo.png)"
+    html é para_html(md)
+    esporte contem(html, "<img")
+fim
+
+teste "markdown bloco codigo"
+    md é "```\nprint('hello')\n```"
+    html é para_html(md)
+    esporte contem(html, "<pre>")
+    esporte contem(html, "<code>")
+fim
